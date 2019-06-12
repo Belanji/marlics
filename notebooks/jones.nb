@@ -1,0 +1,161 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      5733,        152]
+NotebookOptionsPosition[      5498,        139]
+NotebookOutlinePosition[      5834,        154]
+CellTagsIndexPosition[      5791,        151]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Programa", " ", "para", " ", "plotar", " ", "cristais", " ", "liquidos", 
+    " ", "como", " ", "cilindros"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"directory", "=", "  ", 
+     RowBox[{"SetDirectory", "[", 
+      RowBox[{"NotebookDirectory", "[", "]"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"directory", "=", "\"\</home/napa/Downloads\>\""}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"figNamePattern", "=", "\"\<cholesteric_droplet_jones_\>\""}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"SetDirectory", "[", "directory", "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"files", "=", 
+     RowBox[{"FileNames", "[", "\"\<optical_*\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"transforn", "[", "x_String", "]"}], ":=", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"ToExpression", "[", 
+        RowBox[{"StringDrop", "[", 
+         RowBox[{
+          RowBox[{"StringDrop", "[", 
+           RowBox[{"x", ",", "8"}], "]"}], ",", 
+          RowBox[{"-", "4"}]}], "]"}], "]"}]}], "}"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ff", "=", 
+     RowBox[{"Map", "[", 
+      RowBox[{"transforn", ",", "files"}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"files", "=", 
+     RowBox[{"Sort", "[", 
+      RowBox[{"ff", ",", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"#1", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], "<", 
+         RowBox[{"#2", "[", 
+          RowBox[{"[", "2", "]"}], "]"}]}], "&"}]}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"number", "=", 
+     RowBox[{"Length", "[", "files", "]"}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Do", "[", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"dados", "=", 
+       RowBox[{
+        RowBox[{"Import", "[", 
+         RowBox[{
+          RowBox[{"files", "[", 
+           RowBox[{"[", 
+            RowBox[{"jjj", ",", "1"}], "]"}], "]"}], ",", "\"\<Data\>\""}], 
+         "]"}], "[", 
+        RowBox[{"[", 
+         RowBox[{";;", ",", 
+          RowBox[{"1", ";;", "3"}]}], "]"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"fig", "=", 
+       RowBox[{"ListDensityPlot", "[", 
+        RowBox[{"dados", ",", 
+         RowBox[{"PlotLegends", "\[Rule]", "Automatic"}], ",", 
+         RowBox[{"ColorFunctionScaling", "\[Rule]", "True"}], ",", 
+         RowBox[{"PlotRange", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"Automatic", ",", "Automatic", ",", 
+            RowBox[{"{", 
+             RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}], ",", 
+         RowBox[{"ColorFunction", "\[Rule]", "\"\<SunsetColors\>\""}], ",", 
+         RowBox[{"BoundaryStyle", "\[Rule]", "Black"}], ",", 
+         RowBox[{"Frame", "->", "False"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "800"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"figureName", "=", 
+       RowBox[{"StringJoin", "[", 
+        RowBox[{"figNamePattern", ",", 
+         RowBox[{"ToString", "[", 
+          RowBox[{"files", "[", 
+           RowBox[{"[", 
+            RowBox[{"jjj", ",", "2"}], "]"}], "]"}], "]"}], ",", 
+         "\"\<.png\>\""}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Export", "[", 
+       RowBox[{"figureName", ",", "fig"}], "]"}], ";"}], 
+     "\[IndentingNewLine]", 
+     RowBox[{"(*", 
+      RowBox[{
+       RowBox[{"Print", "[", "fig", "]"}], ";"}], "*)"}], 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", ",", 
+     RowBox[{"{", 
+      RowBox[{"jjj", ",", "1", ",", "number"}], "}"}]}], "]"}], 
+   "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{{3.713135194580914*^9, 3.713135274665989*^9}, {
+   3.71313586940341*^9, 3.713135870719858*^9}, {3.713135989025763*^9, 
+   3.713135996249598*^9}, {3.713187556972953*^9, 3.71318757373481*^9}, {
+   3.7131878862650146`*^9, 3.713187901011709*^9}, {3.7131879915337963`*^9, 
+   3.713188001819742*^9}, {3.7131881716085787`*^9, 3.713188184672923*^9}, {
+   3.713189062749654*^9, 3.7131890673748913`*^9}, {3.713189382661487*^9, 
+   3.713189387438446*^9}, {3.713189800854165*^9, 3.713189836690537*^9}, {
+   3.7131905692754107`*^9, 3.7131905693059483`*^9}, {3.713190602954865*^9, 
+   3.713190615791329*^9}, {3.713256571679434*^9, 3.713256572449904*^9}, {
+   3.713256701399599*^9, 3.713256704117947*^9}, {3.713257263098092*^9, 
+   3.713257268128663*^9}, {3.713258792128792*^9, 3.713258807557393*^9}, {
+   3.7132590048819942`*^9, 3.713259023105837*^9}, {3.7132592747239237`*^9, 
+   3.7132592812385473`*^9}, {3.71327911257766*^9, 3.71327911776093*^9}, {
+   3.713515067532968*^9, 3.713515069260427*^9}, {3.713605618525819*^9, 
+   3.71360564624242*^9}, {3.7136530824637537`*^9, 3.713653095987733*^9}, 
+   3.7136550982759733`*^9, 3.715608565359549*^9, {3.715691746776044*^9, 
+   3.715691757085577*^9}}]
+},
+WindowSize->{1920, 1016},
+WindowMargins->{{-1, Automatic}, {Automatic, -1}},
+FrontEndVersion->"10.0 for Linux x86 (64-bit) (June 27, 2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 4936, 117, 495, "Input"]
+}
+]
+*)
+
+(* End of internal cache information *)

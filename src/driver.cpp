@@ -1,0 +1,726 @@
+#include "driver.h"
+#include <cstdio>           
+#include <cstdlib>          
+#include <cstring>
+#include <cmath>            
+#define MIN(a,b) ((a) < (b) ? a : b)
+
+
+
+driver::driver(void)
+{
+
+     
+}
+
+
+void driver::setup_LC(void)
+{
+
+
+  double k11=sim_param.k11;
+  double k22=sim_param.k22;
+  double k33=sim_param.k33;
+  double k24=sim_param.k24;
+
+  if((sim_param.Q_00= (double *)calloc(5*sim_param.Nx*sim_param.Ny*sim_param.Nz, sizeof(double)))==NULL){ERROr};  
+  if((Qij= (double *)calloc(5*sim_param.Nx*sim_param.Ny*sim_param.Nz, sizeof(double)))==NULL){ERROr};
+
+
+  
+  //Correct condition here    
+      sim_param.q0=2.0*M_PI/sim_param.p0;
+      
+      
+
+      
+  sim_param.S_eq=((-sim_param.B+sqrt(sim_param.B*sim_param.B-24.0*sim_param.a*sim_param.T*sim_param.C)))/(6.0*sim_param.C);  
+
+  //Correct another flag here
+  double S_eq=sim_param.S_eq;
+
+      sim_param.L1=2.0*(k33-k11+3.0*k22)/(27.0*S_eq*S_eq);
+      sim_param.L2=4.0*(k11-k22-k24)/(9.0*S_eq*S_eq);
+      sim_param.L3=4.0*(k33-k11)/(27.0*S_eq*S_eq*S_eq);
+      sim_param.Lq=2.0*(k22)/(9.0*S_eq*S_eq);
+      sim_param.Ls=4*(k24)/(9.0*S_eq*S_eq);
+      
+
+
+
+  //sim_param.R_out=(sim_param.Nx-sim_param.Nx/2)+1.0;
+  //sim_param.R_in=(sim_param.Nx-sim_param.Nx/2)-0.1;
+  
+  
+//  if ( strcasecmp(sim_param.geometry,"sphere") == 0 )
+//    {
+//
+//      LcS_Geometry= new sphere( & sim_param);
+//
+//    }
+//
+//  else 
+//    {
+//
+//      printf("No geometry named %s is defined.\nAborting the program.\n\n",sim_param.geometry);
+//      exit(0);
+//
+//    };
+
+//  LcS_Geometry->ic( & sim_param, Qij );
+//  LcS_Geometry->boundary_init( & sim_param );  
+
+
+//  if ( strcasecmp(sim_param.integrator_type,"DP5") == 0 || strcasecmp(sim_param.integrator_type,"Dormand-Prince") == 0
+//       || strcasecmp(sim_param.integrator_type,"Rk54") == 0 || strcasecmp(sim_param.integrator_type,"Rk5") == 0 )
+//    {
+//
+//      LcS_Integrator= new DP5(LcS_Geometry, & sim_param );
+//
+//    }
+//
+//  else
+//    {
+//      
+//      printf("No integrator named %s is defined.\nAborting the program.\n\n",sim_param.integrator_type);
+//      exit(0);
+//
+//      
+//    };
+  
+
+  if ( strcasecmp(sim_param.print_time_type,"linear") == 0 )
+    {
+      next_time_print=linear_next_time_print;
+
+    }
+  else if ( strcasecmp(sim_param.print_time_type,"logarithmic") == 0 )
+    {
+
+
+      next_time_print=log_next_time_print;
+      
+    }
+
+  else
+    {
+
+      printf("No time_print_type named %s is defined.\nAborting the program.\n\n",sim_param.print_time_type);
+      exit(0);
+      
+      
+    }
+  
+
+}
+
+
+
+void driver::error_check(int error_handler,
+		  char parser[])
+
+{
+
+  	  if (error_handler <= 0 )
+	    {
+	    printf("You placed a comment or a non numeric value after %s in your input file.\n",parser);
+	  printf("Please review your input file.\n Aborting the program\n");
+	  exit(0);
+	    }
+	  
+}
+
+
+int driver::parse_input_file(void)
+{
+
+  char parser[80];
+  char garbage[400];
+  int error_handler;
+
+ 
+  while (   scanf("%200s",parser) != EOF )
+    {
+
+      if ( strcasecmp(parser,"Geometry") == 0 )
+	{
+
+	  error_handler=scanf("%200s",&sim_param.geometry);
+	  
+	  error_check(error_handler,parser);
+		
+
+	  fgets(garbage,400,stdin);
+
+	}
+      else if ( strcasecmp(parser,"integrator") == 0 || strcasecmp(parser,"integrator_type") == 0 )
+	{
+
+	  error_handler=scanf("%200s",&sim_param.integrator_type);
+	  
+	  error_check(error_handler,parser);
+		
+
+	  fgets(garbage,400,stdin);
+
+	  printf("Geometry Used:  %s\n\n", sim_param.geometry);
+	  
+	}
+      else if ( strcasecmp(parser,"time_print_type") == 0 || strcasecmp(parser,"snapshot_print_frequency_type") == 0 || strcasecmp(parser,"print_time_type") == 0 || strcasecmp(parser,"snap_print_freq_type") == 0)
+	{
+
+	  error_handler=scanf("%200s", &sim_param.print_time_type);
+	  
+	  error_check(error_handler,parser);
+		
+
+	  fgets(garbage,400,stdin);
+
+
+	  
+	}
+      else if ( strcasecmp(parser,"L1") == 0 )
+	{
+
+	  error_handler=scanf("%lf",&sim_param.L1);
+
+	  error_check(error_handler,parser);
+		
+
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"L2")== 0 )
+	{       
+	  error_handler=scanf("%lf",&sim_param.L2);
+
+
+	  error_check(error_handler,parser);
+
+
+	  fgets(garbage,400,stdin);
+	  
+	  
+      
+	}
+      else if ( strcasecmp(parser,"L3") == 0)
+	{
+
+	  error_handler=scanf("%lf",&sim_param.L3);
+
+	  error_check(error_handler,parser);
+
+
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"Lq")== 0 || strcasecmp(parser,"L_q")== 0 )
+	{       
+	  error_handler=scanf("%lf",&sim_param.Lq);
+
+
+	  error_check(error_handler,parser);
+
+
+	  fgets(garbage,400,stdin);
+	   
+      
+	}
+      else if ( strcasecmp(parser,"Ls")== 0 || strcasecmp(parser,"L_s")== 0 )
+	{       
+	  error_handler=scanf("%lf",&sim_param.Ls);
+	  error_check(error_handler,parser);
+
+	  fgets(garbage,400,stdin);
+	}
+      else if ( strcasecmp(parser,"k11") == 0  )
+	{
+
+	  error_handler=scanf("%lf",&sim_param.k11);
+
+	  error_check(error_handler,parser);
+		
+
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"k22")== 0 )
+	{       
+	  error_handler=scanf("%lf",&sim_param.k22);
+
+
+	  error_check(error_handler,parser);
+
+
+	  fgets(garbage,400,stdin);
+	  
+	  
+      
+	}
+      else if ( strcasecmp(parser,"k33") == 0 )
+	{
+
+	  error_handler=scanf("%lf",&sim_param.k33);
+	  error_check(error_handler,parser);
+
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"k24") == 0 )
+	{
+
+	  error_handler=scanf("%lf",&sim_param.k24);
+	  error_check(error_handler,parser);
+
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"a") == 0 )
+	{
+
+	  error_handler=scanf("%lf",&sim_param.a);
+
+	  error_check(error_handler,parser);
+		
+	  
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"B")== 0 )
+	{       
+	  error_handler=scanf("%lf",&sim_param.B);
+
+
+	  error_check(error_handler,parser);		  	  
+	  fgets(garbage,400,stdin);
+	  
+	  
+      
+	}
+      else if ( strcasecmp(parser,"C") == 0 )
+	{
+
+	  error_handler=scanf("%lf",&sim_param.C);
+
+	  error_check(error_handler,parser);
+	  
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"T")== 0 || strcasecmp(parser,"temperature")== 0 )
+	{       
+	  error_handler=scanf("%lf",&sim_param.T);
+
+
+	  error_check(error_handler,parser);		  	  
+	  fgets(garbage,400,stdin);
+	  
+	  
+      
+	}
+      else if ( strcasecmp(parser,"dx") == 0  )
+	{
+
+	  error_handler=scanf("%lf",&sim_param.dx);
+
+	  error_check(error_handler,parser);
+	  
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"dy") == 0  )
+	{
+
+	  error_handler=scanf("%lf",&sim_param.dy);
+
+	  error_check(error_handler,parser);
+	  
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"dz") == 0  )
+	{
+
+	  error_handler=scanf("%lf",&sim_param.dz);
+
+	  error_check(error_handler,parser);
+	  
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"p0") == 0 )
+	{
+
+	  error_handler=scanf("%lf",&sim_param.p0);
+	  error_check(error_handler,parser);
+
+	  
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"q0") == 0 )
+	{
+
+	  error_handler=scanf("%lf",&sim_param.q0);
+	  error_check(error_handler,parser);
+
+	  
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if (strcasecmp(parser,"tf") == 0 || strcasecmp(parser,"run_time") ==0 )
+	{
+
+
+	  error_handler=scanf("%lf",&sim_param.tf);
+	  error_check(error_handler,parser);
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if (strcasecmp(parser,"ti") == 0 || strcasecmp(parser,"start_time") ==0 )
+	{
+
+
+	  error_handler=scanf("%lf",&sim_param.ti);
+	  error_check(error_handler,parser);
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if (strcasecmp(parser,"dt") == 0 || strcasecmp(parser,"timestep") ==0 )
+	{
+
+
+	  error_handler=scanf("%lf",&sim_param.dt);
+	  error_check(error_handler,parser);
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"timeprint") == 0 || strcasecmp(parser,"first_snapshot") ==0 )
+	{
+
+
+	  error_handler=scanf("%lf", &sim_param.timeprint);	  
+	  error_check(error_handler,parser);
+	  fgets(garbage,400,stdin);
+
+
+	}
+            else if ( strcasecmp(parser,"timeprint_increase_factor") == 0 )
+	{
+
+
+	  error_handler=scanf("%lf", &sim_param.timeprint_increase_factor);
+	  error_check(error_handler,parser);
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"bulk_viscosity") == 0  || strcasecmp(parser,"bviscosity") == 0 || strcasecmp(parser,"bulk_visc") == 0 || strcasecmp(parser,"gamma1") == 0 || strcasecmp(parser,"gamma_1") == 0 )
+	{
+
+
+	  error_handler=scanf( "%lf",&sim_param.gamma_1 );
+	  error_check(error_handler,parser);	  
+	  fgets(garbage,400,stdin);
+	  
+	}
+      else if ( strcasecmp(parser,"surface_viscosity") == 0  || strcasecmp(parser,"sviscosity") == 0 || strcasecmp(parser,"surface_visc") == 0 || strcasecmp(parser,"gammas") == 0 || strcasecmp(parser,"gamma_s") == 0 )
+	{
+
+
+	  error_handler=scanf( "%lf",&sim_param.gamma_1_s );
+	  error_check(error_handler,parser);	  
+	  fgets(garbage,400,stdin);
+	  
+	}
+      else if (strcasecmp(parser,"mu_1") == 0  || strcasecmp(parser,"mu1") == 0 )
+	{
+
+
+	  error_handler=scanf( "%lf",&sim_param.mu_1 );
+	  error_check(error_handler,parser);	  
+	  fgets(garbage,400,stdin);
+	  
+	}
+      else if (strcasecmp(parser,"mu_1_s") == 0  || strcasecmp(parser,"mu1_s") == 0 )
+	{
+
+
+	  error_handler=scanf( "%lf",&sim_param.mu_1_s );
+	  error_check(error_handler,parser);	  
+	  fgets(garbage,400,stdin);
+	  
+	}
+      else if ( strcasecmp(parser,"Nx") == 0)
+	{
+
+	  error_handler=scanf("%i",&sim_param.Nx);
+
+	  error_check(error_handler,parser);
+		
+	  
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"Ny")== 0 )
+	{       
+	  error_handler=scanf("%i",&sim_param.Ny);
+
+
+	  error_check(error_handler,parser);		  	  
+	  fgets(garbage,400,stdin);
+	  
+	  
+      
+	}
+      else if ( strcasecmp(parser,"Nz") == 0 )
+	{
+
+	  error_handler=scanf("%i",&sim_param.Nz);
+
+	  error_check(error_handler,parser);
+	  
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"Wo1_u") == 0 || strcasecmp(parser,"Upper_wo1")== 0 )
+	{
+	  error_handler=scanf("%lf",&sim_param.Wo1_u);
+	  error_check(error_handler,parser);
+	  fgets(garbage,400,stdin);
+	}
+            else if ( strcasecmp(parser,"Wo1_b") == 0 ||strcasecmp(parser,"lower_wo1")== 0 )
+	{
+
+	  error_handler=scanf("%lf",&sim_param.Wo1_b);
+	  error_check(error_handler,parser);
+	  fgets(garbage,400,stdin);
+
+
+	}      
+      else if ( strcasecmp(parser,"phi_u") == 0 )
+	{
+
+	  error_handler=scanf("%lf",&sim_param.phi_u);
+	  error_check(error_handler,parser);
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"theta_i") == 0 )
+	{
+
+	  error_handler=scanf("%lf",&sim_param.theta_i);
+	  error_check(error_handler,parser);
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"phi_i") == 0 )
+	{
+
+	  error_handler=scanf("%lf",&sim_param.phi_i);
+	  error_check(error_handler,parser);
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"theta_u") == 0 )
+	{
+
+	  error_handler=scanf("%lf",&sim_param.theta_u);
+	  error_check(error_handler,parser);
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"upper_anchoring_type") == 0 || strcasecmp(parser,"top_anchoring_type") == 0 || strcasecmp(parser,"upper_anchoring") == 0 || strcasecmp(parser,"top_anchoring") == 0)
+	{
+
+	  error_handler=scanf("%200s",&sim_param.upper_anc_type);
+	  error_check(error_handler,parser);
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"bottom_anchoring_type") == 0 || strcasecmp(parser,"lower_anchoring_type") == 0 || strcasecmp(parser,"bottom_anchoring") == 0 || strcasecmp(parser,"lower_anchoring") == 0)
+	{
+
+	  error_handler=scanf("%200s",&sim_param.bottom_anc_type);
+	  error_check(error_handler,parser);
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"ic_file") == 0 || strcasecmp(parser,"initial_conditions_file") == 0 || strcasecmp(parser,"input_initial_conditions") == 0 || strcasecmp(parser,"input_initial_conditions_file") == 0)
+	{
+
+	  error_handler=scanf("%200s",&sim_param.ic_file_name);
+
+	  error_check(error_handler,parser);
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"initial_conditions") == 0 )
+	{
+
+	  error_handler=scanf("%200s",&sim_param.initial_conditions);
+	  error_check(error_handler,parser);
+	  fgets(garbage,400,stdin);
+	  
+
+	}
+      else if ( strcasecmp(parser,"m") == 0 || strcasecmp(parser,"disclination_number") == 0 )
+	{
+
+	  error_handler=scanf("%lf",&sim_param.disclination_number);
+
+	  error_check(error_handler,parser);
+		
+	  
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"initial_output_file_number") == 0 ||
+		strcasecmp(parser,"first_output_file_number") == 0 )
+	{
+
+	  error_handler=scanf("%d",&(sim_param.firt_output_file_number));
+	  error_check(error_handler,parser);
+		
+	  
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"atol") == 0  || strcasecmp(parser,"Absolute_Tolerance") == 0 )
+	{
+
+	  error_handler=scanf("%lf",&sim_param.Atol);
+
+	  error_check(error_handler,parser);
+		
+	  
+	  fgets(garbage,400,stdin);
+
+
+	}
+            else if ( strcasecmp(parser,"rtol") == 0  || strcasecmp(parser,"Relative_Tolerance") == 0 )
+	{
+
+	  error_handler=scanf("%lf",&sim_param.Rtol);
+
+	  error_check(error_handler,parser);
+		
+	  
+	  fgets(garbage,400,stdin);
+
+
+	}
+            else if ( strcasecmp(parser,"facmax") == 0 || strcasecmp(parser,"maximum_timestep_increase") == 0  )
+	{
+
+	  error_handler=scanf("%lf",&sim_param.facmax);
+
+	  error_check(error_handler,parser);
+		
+	  
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"facmin") == 0 || strcasecmp(parser,"maximum_timestep_decrease") == 0  )
+	{
+
+	  error_handler=scanf("%lf",&sim_param.facmin);
+
+	  error_check(error_handler,parser);
+		
+	  
+	  fgets(garbage,400,stdin);
+
+
+	}
+       else if ( strcasecmp(parser,"prefac") == 0 || strcasecmp(parser,"timestep_control_pre_factor") == 0  )
+	{
+
+	  error_handler=scanf("%lf",&sim_param.prefac);
+
+	  error_check(error_handler,parser);
+		
+	  
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if (strcasecmp(parser,"run") == 0)
+	{
+
+	  return 1;
+
+	}	  
+      else if (parser[0]=='#')
+	{
+
+	  fgets(garbage,400,stdin);
+
+	}	  
+      else
+	{
+
+	  printf("The parser did not recognize the option '%s'. Please review your input file\n", parser);
+	  printf("Aborting the program\n");
+	  exit(0);
+	};
+
+    }
+  return 1;
+}
+
+
+void driver::update_timeprint(void)
+{
+
+
+next_time_print(& sim_param.timeprint, sim_param.timeprint_increase_factor);
+sim_param.timeprint=MIN(sim_param.timeprint,sim_param.tf);
+
+
+
+};
+
+
+void log_next_time_print(double *time_print  , double factor )
+{
+
+  *time_print*=factor;
+
+};
+
+void linear_next_time_print(double *time_print , double factor )
+{
+
+  *time_print+=factor;
+  
+};
+
+
