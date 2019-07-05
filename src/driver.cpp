@@ -17,36 +17,143 @@ driver::driver(void)
 void driver::setup_LC(void)
 {
 
+  //Setting the chirality parameter:
+  switch(sim_param.chirality_flag)
+    {
+    case chirality_status::unset:
 
-  double k11=sim_param.k11;
-  double k22=sim_param.k22;
-  double k33=sim_param.k33;
-  double k24=sim_param.k24;
+      printf("\nNo chirality set using q0=0 (nematic liquid crystal.\n\n");
+      break;
 
-  if((sim_param.Q_00= (double *)calloc(5*sim_param.Nx*sim_param.Ny*sim_param.Nz, sizeof(double)))==NULL){ERROr};  
-  if((Qij= (double *)calloc(5*sim_param.Nx*sim_param.Ny*sim_param.Nz, sizeof(double)))==NULL){ERROr};
+    case chirality_status::p0:
 
+      sim_param.q0=2.0*M_PI/sim_param.p0;
+      break;
+
+    }
+
+
+  //Setting up the thermal LDG parameters:
+  if(sim_param.thermal_flag[0]==parameter_status::set &&
+     sim_param.thermal_flag[1]==parameter_status::set &&
+     sim_param.thermal_flag[2]==parameter_status::set &&
+     sim_param.thermal_flag[3]==parameter_status::set)
+    {
+      
+      sim_param.S_eq=((-sim_param.B+sqrt(sim_param.B*sim_param.B-24.0*sim_param.a*sim_param.T*sim_param.C)))/(6.0*sim_param.C);
+      
+    }
+  else
+    {
+
+      printf("You must define all the four thermal energy LDG parameters: temperaure, a,B and C (also C can not be 0).\n");
+      printf("Please, review your input file");
+      printf("Aborting the program.\n");
+      exit(0);
+           
+    };
+      
+  
+    //Setting up the elastic LDG parameters:  
+    switch(sim_param.elastic_flag)
+      {
+      case elastic_const_status::Ls:
+
+	break;
+	
+      case elastic_const_status::Ks:
+
+	printf("Converting elastic constants Kii to Li.\n");
+
+	double S_eq=sim_param.S_eq;
+	double k11=sim_param.k11;
+	double k22=sim_param.k22;
+	double k33=sim_param.k33;
+	double k24=sim_param.k24;
 
   
-  //Correct condition here    
-      sim_param.q0=2.0*M_PI/sim_param.p0;
-      
-      
+	sim_param.L1=2.0*(k33-k11+3.0*k22)/(27.0*S_eq*S_eq);
+	sim_param.L2=4.0*(k11-k22-k24)/(9.0*S_eq*S_eq);
+	sim_param.L3=4.0*(k33-k11)/(27.0*S_eq*S_eq*S_eq);
+	sim_param.Lq=2.0*(k22)/(9.0*S_eq*S_eq);
+	sim_param.Ls=4*(k24)/(9.0*S_eq*S_eq);
+	break;
 
-      
-  sim_param.S_eq=((-sim_param.B+sqrt(sim_param.B*sim_param.B-24.0*sim_param.a*sim_param.T*sim_param.C)))/(6.0*sim_param.C);  
+      case elastic_const_status::unset:
 
-  //Correct another flag here
-  double S_eq=sim_param.S_eq;
-
-      sim_param.L1=2.0*(k33-k11+3.0*k22)/(27.0*S_eq*S_eq);
-      sim_param.L2=4.0*(k11-k22-k24)/(9.0*S_eq*S_eq);
-      sim_param.L3=4.0*(k33-k11)/(27.0*S_eq*S_eq*S_eq);
-      sim_param.Lq=2.0*(k22)/(9.0*S_eq*S_eq);
-      sim_param.Ls=4*(k24)/(9.0*S_eq*S_eq);
-      
+	printf("You must define at least one elastic constant K/L in your input file.\n");
+	printf("Please, define one or check your input file to see if they are mispelled.\n");
+	printf("Aborting the program");
+	exit(0);
+	break;
+	
+	 }
 
 
+    switch(sim_param.viscosity_flag[0])
+      {
+      case viscosity_status::unset:
+	printf("You must define the liquid cristal viscosity (gamma_1 or mu_1) in your input file.\n");
+	printf("Please, define one or check your input file to see if they are mispelled.\n");
+	printf("Aborting the program");
+	exit(0);
+	break;
+	
+      case viscosity_status::gamma:
+
+	sim_param.mu_1=sim_param.gamma_1/sim_param.S_eq;
+	break;
+
+      }
+
+    switch(sim_param.viscosity_flag[1])
+      {
+      case viscosity_status::unset:
+	printf("You must define the liquid cristal surface viscosity (gamma_1_s or mu_1_s) in your input file.\n");
+	printf("Please, define one or check your input file to see if they are mispelled.\n");
+	printf("Aborting the program");
+	exit(0);
+	break;
+	
+      case viscosity_status::gamma:
+
+	
+	sim_param.mu_1_s=sim_param.gamma_1_s/sim_param.S_eq;
+
+	break;
+
+      }
+
+    
+    //Checking and Setting up the grid:
+    if(sim_param.grid_spacing_flag[0]==parameter_status::unset ||
+       sim_param.grid_spacing_flag[1]==parameter_status::unset ||
+       sim_param.grid_spacing_flag[2]==parameter_status::unset )
+
+      {
+	
+	printf("You must define the grid spacing parameters {dx,dy,dz} in your input file.\n");
+	printf("Please, define them or check your input file to see if they are mispelled.\n");
+	printf("Aborting the program");
+	exit(0);
+
+      }
+    
+    if(sim_param.grid_flag[0]==parameter_status::set &&
+       sim_param.grid_flag[1]==parameter_status::set &&
+       sim_param.grid_flag[2]==parameter_status::set )
+    {
+      if((sim_param.Q_00= (double *)calloc(5*sim_param.Nx*sim_param.Ny*sim_param.Nz, sizeof(double)))==NULL){ERROr};  
+      if((Qij= (double *)calloc(5*sim_param.Nx*sim_param.Ny*sim_param.Nz, sizeof(double)))==NULL){ERROr};
+    }
+    else
+      {
+
+	printf("You must define all three grid sizes {Nx,Ny,Nz} in your input file.\n");
+	printf("Please, define them or check your input file to see if you mispelled one of them.\n");
+	printf("Aborting the program");
+	
+      }
 
   //sim_param.R_out=(sim_param.Nx-sim_param.Nx/2)+1.0;
   //sim_param.R_in=(sim_param.Nx-sim_param.Nx/2)-0.1;
@@ -130,6 +237,34 @@ void driver::error_check(int error_handler,
 	  
 }
 
+void driver::update_timeprint(void)
+{
+
+
+next_time_print(& sim_param.timeprint, sim_param.timeprint_increase_factor);
+sim_param.timeprint=MIN(sim_param.timeprint,sim_param.tf);
+
+
+
+};
+
+
+void log_next_time_print(double *time_print  , double factor )
+{
+
+  *time_print*=factor;
+
+};
+
+void linear_next_time_print(double *time_print , double factor )
+{
+
+  *time_print+=factor;
+  
+};
+
+
+
 
 int driver::parse_input_file(void)
 {
@@ -146,7 +281,6 @@ int driver::parse_input_file(void)
 	{
 
 	  error_handler=scanf("%200s",&sim_param.geometry);
-	  
 	  error_check(error_handler,parser);
 		
 
@@ -181,7 +315,7 @@ int driver::parse_input_file(void)
 	}
       else if ( strcasecmp(parser,"L1") == 0 )
 	{
-
+	  sim_param.elastic_flag=elastic_const_status::Ls;
 	  error_handler=scanf("%lf",&sim_param.L1);
 
 	  error_check(error_handler,parser);
@@ -192,12 +326,11 @@ int driver::parse_input_file(void)
 
 	}
       else if ( strcasecmp(parser,"L2")== 0 )
-	{       
+	{
+	  
+	  sim_param.elastic_flag=elastic_const_status::Ls;
 	  error_handler=scanf("%lf",&sim_param.L2);
-
-
 	  error_check(error_handler,parser);
-
 
 	  fgets(garbage,400,stdin);
 	  
@@ -207,8 +340,8 @@ int driver::parse_input_file(void)
       else if ( strcasecmp(parser,"L3") == 0)
 	{
 
+	  sim_param.elastic_flag=elastic_const_status::Ls;
 	  error_handler=scanf("%lf",&sim_param.L3);
-
 	  error_check(error_handler,parser);
 
 
@@ -217,19 +350,18 @@ int driver::parse_input_file(void)
 
 	}
       else if ( strcasecmp(parser,"Lq")== 0 || strcasecmp(parser,"L_q")== 0 )
-	{       
+	{
+	  sim_param.elastic_flag=elastic_const_status::Ls;
 	  error_handler=scanf("%lf",&sim_param.Lq);
 
-
 	  error_check(error_handler,parser);
-
-
 	  fgets(garbage,400,stdin);
 	   
       
 	}
       else if ( strcasecmp(parser,"Ls")== 0 || strcasecmp(parser,"L_s")== 0 )
-	{       
+	{
+	  sim_param.elastic_flag=elastic_const_status::Ls;
 	  error_handler=scanf("%lf",&sim_param.Ls);
 	  error_check(error_handler,parser);
 
@@ -238,6 +370,7 @@ int driver::parse_input_file(void)
       else if ( strcasecmp(parser,"k11") == 0  )
 	{
 
+	  sim_param.elastic_flag=elastic_const_status::Ks;
 	  error_handler=scanf("%lf",&sim_param.k11);
 
 	  error_check(error_handler,parser);
@@ -248,7 +381,8 @@ int driver::parse_input_file(void)
 
 	}
       else if ( strcasecmp(parser,"k22")== 0 )
-	{       
+	{
+	  sim_param.elastic_flag=elastic_const_status::Ks;	  
 	  error_handler=scanf("%lf",&sim_param.k22);
 
 
@@ -263,6 +397,7 @@ int driver::parse_input_file(void)
       else if ( strcasecmp(parser,"k33") == 0 )
 	{
 
+	  sim_param.elastic_flag=elastic_const_status::Ks;
 	  error_handler=scanf("%lf",&sim_param.k33);
 	  error_check(error_handler,parser);
 
@@ -273,6 +408,7 @@ int driver::parse_input_file(void)
       else if ( strcasecmp(parser,"k24") == 0 )
 	{
 
+	  sim_param.elastic_flag=elastic_const_status::Ks;
 	  error_handler=scanf("%lf",&sim_param.k24);
 	  error_check(error_handler,parser);
 
@@ -283,6 +419,7 @@ int driver::parse_input_file(void)
       else if ( strcasecmp(parser,"a") == 0 )
 	{
 
+	  sim_param.thermal_flag[0]=parameter_status::set;
 	  error_handler=scanf("%lf",&sim_param.a);
 
 	  error_check(error_handler,parser);
@@ -293,7 +430,8 @@ int driver::parse_input_file(void)
 
 	}
       else if ( strcasecmp(parser,"B")== 0 )
-	{       
+	{
+	  sim_param.thermal_flag[1]=parameter_status::set;
 	  error_handler=scanf("%lf",&sim_param.B);
 
 
@@ -306,6 +444,7 @@ int driver::parse_input_file(void)
       else if ( strcasecmp(parser,"C") == 0 )
 	{
 
+	  sim_param.thermal_flag[2]=parameter_status::set;
 	  error_handler=scanf("%lf",&sim_param.C);
 
 	  error_check(error_handler,parser);
@@ -315,10 +454,10 @@ int driver::parse_input_file(void)
 
 	}
       else if ( strcasecmp(parser,"T")== 0 || strcasecmp(parser,"temperature")== 0 )
-	{       
+	{
+
+	  sim_param.thermal_flag[3]=parameter_status::set;;
 	  error_handler=scanf("%lf",&sim_param.T);
-
-
 	  error_check(error_handler,parser);		  	  
 	  fgets(garbage,400,stdin);
 	  
@@ -328,6 +467,7 @@ int driver::parse_input_file(void)
       else if ( strcasecmp(parser,"dx") == 0  )
 	{
 
+	  sim_param.grid_spacing_flag[0]=parameter_status::set;
 	  error_handler=scanf("%lf",&sim_param.dx);
 
 	  error_check(error_handler,parser);
@@ -338,7 +478,7 @@ int driver::parse_input_file(void)
 	}
       else if ( strcasecmp(parser,"dy") == 0  )
 	{
-
+	  sim_param.grid_spacing_flag[1]=parameter_status::set;
 	  error_handler=scanf("%lf",&sim_param.dy);
 
 	  error_check(error_handler,parser);
@@ -350,6 +490,7 @@ int driver::parse_input_file(void)
       else if ( strcasecmp(parser,"dz") == 0  )
 	{
 
+	  sim_param.grid_spacing_flag[2]=parameter_status::set;
 	  error_handler=scanf("%lf",&sim_param.dz);
 
 	  error_check(error_handler,parser);
@@ -360,7 +501,7 @@ int driver::parse_input_file(void)
 	}
       else if ( strcasecmp(parser,"p0") == 0 )
 	{
-
+	  sim_param.chirality_flag=chirality_status::p0;
 	  error_handler=scanf("%lf",&sim_param.p0);
 	  error_check(error_handler,parser);
 
@@ -371,6 +512,7 @@ int driver::parse_input_file(void)
 	}
       else if ( strcasecmp(parser,"q0") == 0 )
 	{
+	  sim_param.chirality_flag=chirality_status::q0;
 
 	  error_handler=scanf("%lf",&sim_param.q0);
 	  error_check(error_handler,parser);
@@ -433,16 +575,16 @@ int driver::parse_input_file(void)
       else if ( strcasecmp(parser,"bulk_viscosity") == 0  || strcasecmp(parser,"bviscosity") == 0 || strcasecmp(parser,"bulk_visc") == 0 || strcasecmp(parser,"gamma1") == 0 || strcasecmp(parser,"gamma_1") == 0 )
 	{
 
-
+	  sim_param.viscosity_flag[0]=viscosity_status::gamma;
 	  error_handler=scanf( "%lf",&sim_param.gamma_1 );
 	  error_check(error_handler,parser);	  
 	  fgets(garbage,400,stdin);
-	  
+
 	}
-      else if ( strcasecmp(parser,"surface_viscosity") == 0  || strcasecmp(parser,"sviscosity") == 0 || strcasecmp(parser,"surface_visc") == 0 || strcasecmp(parser,"gammas") == 0 || strcasecmp(parser,"gamma_s") == 0 )
+      else if ( strcasecmp(parser,"surface_viscosity") == 0  || strcasecmp(parser,"sviscosity") == 0 || strcasecmp(parser,"surface_visc") == 0 || strcasecmp(parser,"gamma_1_s") == 0 || strcasecmp(parser,"gamma_s") == 0 )
 	{
 
-
+	  sim_param.viscosity_flag[1]=viscosity_status::gamma;
 	  error_handler=scanf( "%lf",&sim_param.gamma_1_s );
 	  error_check(error_handler,parser);	  
 	  fgets(garbage,400,stdin);
@@ -451,16 +593,15 @@ int driver::parse_input_file(void)
       else if (strcasecmp(parser,"mu_1") == 0  || strcasecmp(parser,"mu1") == 0 )
 	{
 
-
+	  sim_param.viscosity_flag[0]=viscosity_status::mu;
 	  error_handler=scanf( "%lf",&sim_param.mu_1 );
 	  error_check(error_handler,parser);	  
-	  fgets(garbage,400,stdin);
-	  
+	  fgets(garbage,400,stdin);	  
 	}
       else if (strcasecmp(parser,"mu_1_s") == 0  || strcasecmp(parser,"mu1_s") == 0 )
 	{
 
-
+	  sim_param.viscosity_flag[1]=viscosity_status::mu;
 	  error_handler=scanf( "%lf",&sim_param.mu_1_s );
 	  error_check(error_handler,parser);	  
 	  fgets(garbage,400,stdin);
@@ -468,9 +609,8 @@ int driver::parse_input_file(void)
 	}
       else if ( strcasecmp(parser,"Nx") == 0)
 	{
-
+	  sim_param.grid_flag[0]=parameter_status::set;
 	  error_handler=scanf("%i",&sim_param.Nx);
-
 	  error_check(error_handler,parser);
 		
 	  
@@ -479,9 +619,9 @@ int driver::parse_input_file(void)
 
 	}
       else if ( strcasecmp(parser,"Ny")== 0 )
-	{       
+	{
+	  sim_param.grid_flag[1]=parameter_status::set;
 	  error_handler=scanf("%i",&sim_param.Ny);
-
 
 	  error_check(error_handler,parser);		  	  
 	  fgets(garbage,400,stdin);
@@ -491,9 +631,8 @@ int driver::parse_input_file(void)
 	}
       else if ( strcasecmp(parser,"Nz") == 0 )
 	{
-
+	  sim_param.grid_flag[2]=parameter_status::set;
 	  error_handler=scanf("%i",&sim_param.Nz);
-
 	  error_check(error_handler,parser);
 	  
 	  fgets(garbage,400,stdin);
@@ -695,32 +834,5 @@ int driver::parse_input_file(void)
     }
   return 1;
 }
-
-
-void driver::update_timeprint(void)
-{
-
-
-next_time_print(& sim_param.timeprint, sim_param.timeprint_increase_factor);
-sim_param.timeprint=MIN(sim_param.timeprint,sim_param.tf);
-
-
-
-};
-
-
-void log_next_time_print(double *time_print  , double factor )
-{
-
-  *time_print*=factor;
-
-};
-
-void linear_next_time_print(double *time_print , double factor )
-{
-
-  *time_print+=factor;
-  
-};
 
 
