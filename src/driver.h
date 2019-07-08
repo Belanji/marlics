@@ -111,16 +111,19 @@ struct Simulation_Parameters
   
   //Execution Parameters:
   
-
+  double timeprint;    /*10^-6 s */
+  double timeprint_increase_factor; /*linear=10^-6 s, logarithmic=admensional */
   char print_time_type[200];
   int firt_output_file_number;  
-  int calls_for_director_output;
+  parameter_status timeprint_status[4]={parameter_status::unset,
+					parameter_status::unset,
+					parameter_status::unset,
+					parameter_status::unset};
 
+  
   double dt;           /*10^-6 s */
   double ti;           /*10^-6 s */
   double tf;           /*10^-6 s */
-  double timeprint;    /*10^-6 s */
-  double timeprint_increase_factor; /*linear=10^-6 s, logarithmic=admensional */
 
   double S_eq;
   double * Q_00;
@@ -146,6 +149,7 @@ struct Simulation_Parameters
     void update_timeprint (void);
     void (*next_time_print)  (double *, double);
     void setup_LC ( void);
+    void setup_Simulation ( void);
     int parse_input_file(void);
     void error_check(int error_handler, char parser[]);
 

@@ -54,175 +54,188 @@ void driver::setup_LC(void)
     };
       
   
-    //Setting up the elastic LDG parameters:  
-    switch(sim_param.elastic_flag)
-      {
-      case elastic_const_status::Ls:
+  //Setting up the elastic LDG parameters:  
+  switch(sim_param.elastic_flag)
+    {
+    case elastic_const_status::Ls:
 
-	break;
+      break;
 	
-      case elastic_const_status::Ks:
+    case elastic_const_status::Ks:
 
-	printf("Converting elastic constants Kii to Li.\n");
+      printf("Converting elastic constants Kii to Li.\n");
 
-	double S_eq=sim_param.S_eq;
-	double k11=sim_param.k11;
-	double k22=sim_param.k22;
-	double k33=sim_param.k33;
-	double k24=sim_param.k24;
+      double S_eq=sim_param.S_eq;
+      double k11=sim_param.k11;
+      double k22=sim_param.k22;
+      double k33=sim_param.k33;
+      double k24=sim_param.k24;
 
   
-	sim_param.L1=2.0*(k33-k11+3.0*k22)/(27.0*S_eq*S_eq);
-	sim_param.L2=4.0*(k11-k22-k24)/(9.0*S_eq*S_eq);
-	sim_param.L3=4.0*(k33-k11)/(27.0*S_eq*S_eq*S_eq);
-	sim_param.Lq=2.0*(k22)/(9.0*S_eq*S_eq);
-	sim_param.Ls=4*(k24)/(9.0*S_eq*S_eq);
-	break;
+      sim_param.L1=2.0*(k33-k11+3.0*k22)/(27.0*S_eq*S_eq);
+      sim_param.L2=4.0*(k11-k22-k24)/(9.0*S_eq*S_eq);
+      sim_param.L3=4.0*(k33-k11)/(27.0*S_eq*S_eq*S_eq);
+      sim_param.Lq=2.0*(k22)/(9.0*S_eq*S_eq);
+      sim_param.Ls=4*(k24)/(9.0*S_eq*S_eq);
+      break;
 
-      case elastic_const_status::unset:
+    case elastic_const_status::unset:
 
-	printf("You must define at least one elastic constant K/L in your input file.\n");
-	printf("Please, define one or check your input file to see if they are mispelled.\n");
-	printf("Aborting the program");
-	exit(0);
-	break;
+      printf("You must define at least one elastic constant K/L in your input file.\n");
+      printf("Please, define one or check your input file to see if they are mispelled.\n");
+      printf("Aborting the program");
+      exit(0);
+      break;
 	
-	 }
+    }
 
 
-    switch(sim_param.viscosity_flag[0])
-      {
-      case viscosity_status::unset:
-	printf("You must define the liquid cristal viscosity (gamma_1 or mu_1) in your input file.\n");
-	printf("Please, define one or check your input file to see if they are mispelled.\n");
-	printf("Aborting the program");
-	exit(0);
-	break;
+  switch(sim_param.viscosity_flag[0])
+    {
+    case viscosity_status::unset:
+      printf("You must define the liquid cristal viscosity (gamma_1 or mu_1) in your input file.\n");
+      printf("Please, define one or check your input file to see if they are mispelled.\n");
+      printf("Aborting the program");
+      exit(0);
+      break;
 	
-      case viscosity_status::gamma:
+    case viscosity_status::gamma:
 
-	sim_param.mu_1=sim_param.gamma_1/sim_param.S_eq;
-	break;
+      sim_param.mu_1=sim_param.gamma_1/sim_param.S_eq;
+      break;
 
-      }
+    }
 
-    switch(sim_param.viscosity_flag[1])
-      {
-      case viscosity_status::unset:
-	printf("You must define the liquid cristal surface viscosity (gamma_1_s or mu_1_s) in your input file.\n");
-	printf("Please, define one or check your input file to see if they are mispelled.\n");
-	printf("Aborting the program");
-	exit(0);
-	break;
+  switch(sim_param.viscosity_flag[1])
+    {
+    case viscosity_status::unset:
+      printf("You must define the liquid cristal surface viscosity (gamma_1_s or mu_1_s) in your input file.\n");
+      printf("Please, define one or check your input file to see if they are mispelled.\n");
+      printf("Aborting the program");
+      exit(0);
+      break;
 	
-      case viscosity_status::gamma:
+    case viscosity_status::gamma:
 
 	
-	sim_param.mu_1_s=sim_param.gamma_1_s/sim_param.S_eq;
+      sim_param.mu_1_s=sim_param.gamma_1_s/sim_param.S_eq;
 
-	break;
+      break;
 
-      }
+    }
 
     
-    //Checking and Setting up the grid:
-    if(sim_param.grid_spacing_flag[0]==parameter_status::unset ||
-       sim_param.grid_spacing_flag[1]==parameter_status::unset ||
-       sim_param.grid_spacing_flag[2]==parameter_status::unset )
+  //Checking and Setting up the grid:
+  if(sim_param.grid_spacing_flag[0]==parameter_status::unset ||
+     sim_param.grid_spacing_flag[1]==parameter_status::unset ||
+     sim_param.grid_spacing_flag[2]==parameter_status::unset )
 
-      {
+    {
 	
-	printf("You must define the grid spacing parameters {dx,dy,dz} in your input file.\n");
-	printf("Please, define them or check your input file to see if they are mispelled.\n");
-	printf("Aborting the program");
-	exit(0);
+      printf("You must define the grid spacing parameters {dx,dy,dz} in your input file.\n");
+      printf("Please, define them or check your input file to see if they are mispelled.\n");
+      printf("Aborting the program");
+      exit(0);
 
-      }
+    }
     
-    if(sim_param.grid_flag[0]==parameter_status::set &&
-       sim_param.grid_flag[1]==parameter_status::set &&
-       sim_param.grid_flag[2]==parameter_status::set )
+  if(sim_param.grid_flag[0]==parameter_status::set &&
+     sim_param.grid_flag[1]==parameter_status::set &&
+     sim_param.grid_flag[2]==parameter_status::set )
     {
       if((sim_param.Q_00= (double *)calloc(5*sim_param.Nx*sim_param.Ny*sim_param.Nz, sizeof(double)))==NULL){ERROr};  
       if((Qij= (double *)calloc(5*sim_param.Nx*sim_param.Ny*sim_param.Nz, sizeof(double)))==NULL){ERROr};
     }
-    else
-      {
+  else
+    {
 
-	printf("You must define all three grid sizes {Nx,Ny,Nz} in your input file.\n");
-	printf("Please, define them or check your input file to see if you mispelled one of them.\n");
-	printf("Aborting the program");
+      printf("You must define all three grid sizes {Nx,Ny,Nz} in your input file.\n");
+      printf("Please, define them or check your input file to see if you mispelled one of them.\n");
+      printf("Aborting the program");
 	
-      }
+    }
+
+  
+
+      
+}
+  
+
+void driver::setup_Simulation(void)
+{
+  switch (sim_param.timeprint_status[0])
+    {
+	
+    case parameter_status::unset:
+
+      next_time_print=linear_next_time_print;
+      printf("No time printing time chosen.\n");
+      printf("Using the standard type:linear.\n");
+      break;
+
+    case parameter_status::set:
+
+      if ( strcasecmp(sim_param.print_time_type,"linear") == 0 )
+	{
+	  next_time_print=linear_next_time_print;
+
+	}
+      else if ( strcasecmp(sim_param.print_time_type,"logarithmic") == 0 )
+	{
+
+
+	  next_time_print=log_next_time_print;
+      
+	}
+
+    }
+
 
   //sim_param.R_out=(sim_param.Nx-sim_param.Nx/2)+1.0;
   //sim_param.R_in=(sim_param.Nx-sim_param.Nx/2)-0.1;
   
   
-//  if ( strcasecmp(sim_param.geometry,"sphere") == 0 )
-//    {
-//
-//      LcS_Geometry= new sphere( & sim_param);
-//
-//    }
-//
-//  else 
-//    {
-//
-//      printf("No geometry named %s is defined.\nAborting the program.\n\n",sim_param.geometry);
-//      exit(0);
-//
-//    };
+  //  if ( strcasecmp(sim_param.geometry,"sphere") == 0 )
+  //    {
+  //
+  //      LcS_Geometry= new sphere( & sim_param);
+  //
+  //    }
+  //
+  //  else 
+  //    {
+  //
+  //      printf("No geometry named %s is defined.\nAborting the program.\n\n",sim_param.geometry);
+  //      exit(0);
+  //
+  //    };
 
-//  LcS_Geometry->ic( & sim_param, Qij );
-//  LcS_Geometry->boundary_init( & sim_param );  
+  //  LcS_Geometry->ic( & sim_param, Qij );
+  //  LcS_Geometry->boundary_init( & sim_param );  
 
 
-//  if ( strcasecmp(sim_param.integrator_type,"DP5") == 0 || strcasecmp(sim_param.integrator_type,"Dormand-Prince") == 0
-//       || strcasecmp(sim_param.integrator_type,"Rk54") == 0 || strcasecmp(sim_param.integrator_type,"Rk5") == 0 )
-//    {
-//
-//      LcS_Integrator= new DP5(LcS_Geometry, & sim_param );
-//
-//    }
-//
-//  else
-//    {
-//      
-//      printf("No integrator named %s is defined.\nAborting the program.\n\n",sim_param.integrator_type);
-//      exit(0);
-//
-//      
-//    };
+  //  if ( strcasecmp(sim_param.integrator_type,"DP5") == 0 || strcasecmp(sim_param.integrator_type,"Dormand-Prince") == 0
+  //       || strcasecmp(sim_param.integrator_type,"Rk54") == 0 || strcasecmp(sim_param.integrator_type,"Rk5") == 0 )
+  //    {
+  //
+  //      LcS_Integrator= new DP5(LcS_Geometry, & sim_param );
+  //
+  //    }
+  //
+  //  else
+  //    {
+  //      
+  //      printf("No integrator named %s is defined.\nAborting the program.\n\n",sim_param.integrator_type);
+  //      exit(0);
+  //
+  //      
+  //    };
   
 
-  if ( strcasecmp(sim_param.print_time_type,"linear") == 0 )
-    {
-      next_time_print=linear_next_time_print;
-
-    }
-  else if ( strcasecmp(sim_param.print_time_type,"logarithmic") == 0 )
-    {
 
 
-      next_time_print=log_next_time_print;
-      
-    }
-
-  else
-    {
-
-      printf("No time_print_type named %s is defined.\nAborting the program.\n\n",sim_param.print_time_type);
-      exit(0);
-      
-      
-    }
   
-
 }
-
-
-
 void driver::error_check(int error_handler,
 		  char parser[])
 
@@ -302,7 +315,7 @@ int driver::parse_input_file(void)
 	}
       else if ( strcasecmp(parser,"time_print_type") == 0 || strcasecmp(parser,"snapshot_print_frequency_type") == 0 || strcasecmp(parser,"print_time_type") == 0 || strcasecmp(parser,"snap_print_freq_type") == 0)
 	{
-
+	  sim_param.timeprint_status[0]=parameter_status::set;
 	  error_handler=scanf("%200s", &sim_param.print_time_type);
 	  
 	  error_check(error_handler,parser);
