@@ -163,6 +163,66 @@ void driver::setup_LC(void)
 
 void driver::setup_Simulation(void)
 {
+
+
+  switch(sim_param.time_status[0])
+    {
+    case parameter_status::set:
+
+      printf("ti=%lf\n", sim_param.ti);
+      break;
+
+    case parameter_status::unset:
+
+
+      sim_param.ti=0;
+
+      printf("Simulation parameter \"ti\" not set.");
+      printf("Using standard value ti=0.\n");
+      printf("ti=%lf\n",sim_param.ti);
+      break;
+    }
+
+      
+    switch(sim_param.time_status[1])
+    {
+    case parameter_status::set:
+
+      printf("tf=%lf\n", sim_param.tf);
+      break;
+
+    case parameter_status::unset:
+
+      printf("Simulation parameter \"tf\" not set.");
+      printf("You mut define a value for \"tf\".\n");
+      printf("Aborting the program.\n");
+      exit(0);
+      break;
+    }
+
+
+
+    switch(sim_param.time_status[2])
+    {
+    case parameter_status::set:
+
+      printf("dt=%lf\n\n", sim_param.dt);
+      break;
+
+    case parameter_status::unset:
+
+
+      sim_param.ti=0;
+
+      printf("Simulation parameter \"dt\" not set.");
+      printf("Using standard value dt=tf/1e6.\n");
+      printf("dt=%lf\n\n",sim_param.tf/1e6);
+      break;
+    }
+
+
+
+    
   switch (sim_param.timeprint_status[0])
     {
 	
@@ -178,19 +238,80 @@ void driver::setup_Simulation(void)
       if ( strcasecmp(sim_param.print_time_type,"linear") == 0 )
 	{
 	  next_time_print=linear_next_time_print;
-
+	  printf("Snapshots frequency type: %s\n",sim_param.print_time_type);
+	  
 	}
       else if ( strcasecmp(sim_param.print_time_type,"logarithmic") == 0 )
 	{
 
-
+	  printf("Snapshots frequency type: %s\n",sim_param.print_time_type);
 	  next_time_print=log_next_time_print;
       
 	}
+      else
+	{
 
+	  printf("No time printiing type named %s.\n",sim_param.print_time_type);
+	  printf("Aborting the program.\n");
+	  exit(0);
+	};      
+      break;
+	  
     }
 
 
+
+    
+
+  
+  switch (sim_param.timeprint_status[1])
+    {
+	
+    case parameter_status::unset:
+
+      
+      printf("No time printing time chosen.\n");
+      printf("Using the standard timeprint parameter:tf/20.\n");
+      sim_param.timeprint=sim_param.tf/20;
+      printf("First snapshot taken at:  %lf\n", sim_param.timeprint);
+      break;
+      
+      case parameter_status::set:
+	
+
+
+	printf("First snapshot taken at:  %lf\n", sim_param.timeprint);
+	break;
+    }
+
+
+
+  switch (sim_param.timeprint_status[2])
+    {
+	
+    case parameter_status::unset:
+
+      
+      printf("No time printing frequency chosen.\n");
+      printf("Using the standard time_print_frequency parameter:tf/20.\n");
+      sim_param.timeprint_increase_factor=sim_param.tf/20;
+      printf("Snapshot print frequency: %lf\n\n",sim_param.timeprint_increase_factor);
+
+      break;
+      
+      case parameter_status::set:
+
+
+	printf("Snapshot print frequency: %lf\n\n",sim_param.timeprint_increase_factor);
+
+	break;
+    }
+
+
+
+
+
+  //init_container(&Lc_driver.lc_prop );
   //sim_param.R_out=(sim_param.Nx-sim_param.Nx/2)+1.0;
   //sim_param.R_in=(sim_param.Nx-sim_param.Nx/2)-0.1;
   
@@ -326,7 +447,40 @@ int driver::parse_input_file(void)
 
 	  
 	}
-      else if ( strcasecmp(parser,"L1") == 0 )
+      else if ( strcasecmp(parser,"timeprint") == 0 || strcasecmp(parser,"first_snapshot") ==0 )
+	{
+
+	  sim_param.timeprint_status[1]=parameter_status::set;
+	  error_handler=scanf("%lf", &sim_param.timeprint);	  
+	  error_check(error_handler,parser);
+	  fgets(garbage,400,stdin);
+
+
+	}
+         else if ( strcasecmp(parser,"timeprint_increase_factor") == 0 )
+	{
+
+	  sim_param.timeprint_status[2]=parameter_status::set;
+	  error_handler=scanf("%lf", &sim_param.timeprint_increase_factor);
+	  error_check(error_handler,parser);
+	  fgets(garbage,400,stdin);
+
+
+	}
+	 else if ( strcasecmp(parser,"initial_output_file_number") == 0 ||
+		strcasecmp(parser,"first_output_file_number") == 0 )
+	{
+
+	  sim_param.timeprint_status[3]=parameter_status::set;
+	  error_handler=scanf("%d",&(sim_param.firt_output_file_number));
+	  error_check(error_handler,parser);
+		
+	  
+	  fgets(garbage,400,stdin);
+
+
+	}
+	 else if ( strcasecmp(parser,"L1") == 0 )
 	{
 	  sim_param.elastic_flag=elastic_const_status::Ls;
 	  error_handler=scanf("%lf",&sim_param.L1);
@@ -538,7 +692,7 @@ int driver::parse_input_file(void)
       else if (strcasecmp(parser,"tf") == 0 || strcasecmp(parser,"run_time") ==0 )
 	{
 
-
+	  sim_param.time_status[1]=parameter_status::set;
 	  error_handler=scanf("%lf",&sim_param.tf);
 	  error_check(error_handler,parser);
 	  fgets(garbage,400,stdin);
@@ -548,7 +702,7 @@ int driver::parse_input_file(void)
       else if (strcasecmp(parser,"ti") == 0 || strcasecmp(parser,"start_time") ==0 )
 	{
 
-
+	  sim_param.time_status[0]=parameter_status::set;
 	  error_handler=scanf("%lf",&sim_param.ti);
 	  error_check(error_handler,parser);
 	  fgets(garbage,400,stdin);
@@ -558,33 +712,13 @@ int driver::parse_input_file(void)
       else if (strcasecmp(parser,"dt") == 0 || strcasecmp(parser,"timestep") ==0 )
 	{
 
-
+	  sim_param.time_status[2]=parameter_status::set;
 	  error_handler=scanf("%lf",&sim_param.dt);
 	  error_check(error_handler,parser);
 	  fgets(garbage,400,stdin);
 
 
-	}
-      else if ( strcasecmp(parser,"timeprint") == 0 || strcasecmp(parser,"first_snapshot") ==0 )
-	{
-
-
-	  error_handler=scanf("%lf", &sim_param.timeprint);	  
-	  error_check(error_handler,parser);
-	  fgets(garbage,400,stdin);
-
-
-	}
-            else if ( strcasecmp(parser,"timeprint_increase_factor") == 0 )
-	{
-
-
-	  error_handler=scanf("%lf", &sim_param.timeprint_increase_factor);
-	  error_check(error_handler,parser);
-	  fgets(garbage,400,stdin);
-
-
-	}
+	}      
       else if ( strcasecmp(parser,"bulk_viscosity") == 0  || strcasecmp(parser,"bviscosity") == 0 || strcasecmp(parser,"bulk_visc") == 0 || strcasecmp(parser,"gamma1") == 0 || strcasecmp(parser,"gamma_1") == 0 )
 	{
 
@@ -745,18 +879,6 @@ int driver::parse_input_file(void)
 
 	  error_handler=scanf("%lf",&sim_param.disclination_number);
 
-	  error_check(error_handler,parser);
-		
-	  
-	  fgets(garbage,400,stdin);
-
-
-	}
-      else if ( strcasecmp(parser,"initial_output_file_number") == 0 ||
-		strcasecmp(parser,"first_output_file_number") == 0 )
-	{
-
-	  error_handler=scanf("%d",&(sim_param.firt_output_file_number));
 	  error_check(error_handler,parser);
 		
 	  

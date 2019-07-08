@@ -121,10 +121,13 @@ struct Simulation_Parameters
 					parameter_status::unset};
 
   
-  double dt;           /*10^-6 s */
   double ti;           /*10^-6 s */
   double tf;           /*10^-6 s */
-
+  double dt;           /*10^-6 s */
+  parameter_status time_status[3]={parameter_status::unset,
+				   parameter_status::unset,
+				   parameter_status::unset};
+  
   double S_eq;
   double * Q_00;
 
