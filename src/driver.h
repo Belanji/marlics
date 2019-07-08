@@ -146,7 +146,7 @@ struct Simulation_Parameters
     struct Simulation_Parameters sim_param;
     class GEOMETRY * LcS_Geometry;
     class Integrator * LcS_Integrator;
-
+    class container * Data_Container;
     double * Qij;
  
     void update_timeprint (void);

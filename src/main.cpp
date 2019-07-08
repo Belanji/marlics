@@ -1,5 +1,5 @@
 #include "driver.h"
-//#include "geometry.h"
+#include "geometry.h"
 //#include "integrator.h"
 #include <cstdio>           
 #include <cstdlib>          
@@ -19,7 +19,7 @@ int main(int argc, char **argv)
   double t,tf;
   driver Lc_driver=driver();
   
-  printf("Welcome to MarLiCS software v0.03 \n");
+  printf("Welcome to MarLiCS software v0.04 \n");
   
   
   

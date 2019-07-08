@@ -1,4 +1,5 @@
 #include "driver.h"
+#include "container.h"
 #include <cstdio>           
 #include <cstdlib>          
 #include <cstring>
@@ -259,8 +260,6 @@ void driver::setup_Simulation(void)
 	  
     }
 
-
-
     
 
   
@@ -309,9 +308,8 @@ void driver::setup_Simulation(void)
 
 
 
+  Data_Container= new container(& sim_param);
 
-
-  //init_container(&Lc_driver.lc_prop );
   //sim_param.R_out=(sim_param.Nx-sim_param.Nx/2)+1.0;
   //sim_param.R_in=(sim_param.Nx-sim_param.Nx/2)-0.1;
   
