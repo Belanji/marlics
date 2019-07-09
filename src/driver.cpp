@@ -1,5 +1,7 @@
 #include "driver.h"
 #include "container.h"
+#include "geometry.h"
+#include "geometry_slab.h"
 #include <cstdio>           
 #include <cstdlib>          
 #include <cstring>
@@ -252,7 +254,7 @@ void driver::setup_Simulation(void)
       else
 	{
 
-	  printf("No time printiing type named %s.\n",sim_param.print_time_type);
+	  printf("No time printing type named %s.\n",sim_param.print_time_type);
 	  printf("Aborting the program.\n");
 	  exit(0);
 	};      
@@ -310,26 +312,41 @@ void driver::setup_Simulation(void)
 
   Data_Container= new container(& sim_param);
 
-  //sim_param.R_out=(sim_param.Nx-sim_param.Nx/2)+1.0;
-  //sim_param.R_in=(sim_param.Nx-sim_param.Nx/2)-0.1;
   
-  
-  //  if ( strcasecmp(sim_param.geometry,"sphere") == 0 )
-  //    {
-  //
-  //      LcS_Geometry= new sphere( & sim_param);
-  //
-  //    }
-  //
-  //  else 
-  //    {
-  //
-  //      printf("No geometry named %s is defined.\nAborting the program.\n\n",sim_param.geometry);
-  //      exit(0);
-  //
-  //    };
+  switch(sim_param.geometry_flag)
+    {
+    case parameter_status::set:
+      
+      if ( strcasecmp(sim_param.geometry,"slab") == 0 )
+	{
 
-  //  LcS_Geometry->ic( & sim_param, Qij );
+	  
+	  LcS_Geometry= new slab( & sim_param);
+  
+	}
+  
+      else 
+	{
+	
+	  printf("No geometry named %s is defined.\nAborting the program.\n\n",sim_param.geometry);
+	  exit(0);
+  
+	};
+
+      break;
+
+    case parameter_status::unset:
+
+      printf("Simulation geometry not set.");
+      printf("You mut define a geometry for your simulation.\n");
+      printf("Aborting the program.\n");
+      exit(0);
+      break;
+
+    }
+
+      
+    LcS_Geometry->ic( & sim_param, Qij );
   //  LcS_Geometry->boundary_init( & sim_param );  
 
 
@@ -411,12 +428,31 @@ int driver::parse_input_file(void)
 
       if ( strcasecmp(parser,"Geometry") == 0 )
 	{
-
+	  sim_param.geometry_flag=parameter_status::set;
 	  error_handler=scanf("%200s",&sim_param.geometry);
 	  error_check(error_handler,parser);
 		
-
+	  printf("Geometry Used:  %s\n\n", sim_param.geometry);		  
 	  fgets(garbage,400,stdin);
+
+	}            
+      else if ( strcasecmp(parser,"initial_conditions") == 0 )
+	{
+	  sim_param.ic_flag[0]=parameter_status::set;
+	  error_handler=scanf("%200s",&sim_param.initial_conditions);
+	  error_check(error_handler,parser);
+	  fgets(garbage,400,stdin);
+	  
+
+	}
+      else if ( strcasecmp(parser,"ic_file") == 0 || strcasecmp(parser,"initial_conditions_file") == 0 || strcasecmp(parser,"input_initial_conditions") == 0 || strcasecmp(parser,"input_initial_conditions_file") == 0)
+	{
+	  sim_param.ic_flag[1]=parameter_status::set;
+	  error_handler=scanf("%200s",&sim_param.ic_file_name);
+
+	  error_check(error_handler,parser);
+	  fgets(garbage,400,stdin);
+
 
 	}
       else if ( strcasecmp(parser,"integrator") == 0 || strcasecmp(parser,"integrator_type") == 0 )
@@ -429,7 +465,6 @@ int driver::parse_input_file(void)
 
 	  fgets(garbage,400,stdin);
 
-	  printf("Geometry Used:  %s\n\n", sim_param.geometry);
 	  
 	}
       else if ( strcasecmp(parser,"time_print_type") == 0 || strcasecmp(parser,"snapshot_print_frequency_type") == 0 || strcasecmp(parser,"print_time_type") == 0 || strcasecmp(parser,"snap_print_freq_type") == 0)
@@ -853,37 +888,6 @@ int driver::parse_input_file(void)
 
 
 	}
-      else if ( strcasecmp(parser,"ic_file") == 0 || strcasecmp(parser,"initial_conditions_file") == 0 || strcasecmp(parser,"input_initial_conditions") == 0 || strcasecmp(parser,"input_initial_conditions_file") == 0)
-	{
-
-	  error_handler=scanf("%200s",&sim_param.ic_file_name);
-
-	  error_check(error_handler,parser);
-	  fgets(garbage,400,stdin);
-
-
-	}
-      else if ( strcasecmp(parser,"initial_conditions") == 0 )
-	{
-
-	  error_handler=scanf("%200s",&sim_param.initial_conditions);
-	  error_check(error_handler,parser);
-	  fgets(garbage,400,stdin);
-	  
-
-	}
-      else if ( strcasecmp(parser,"m") == 0 || strcasecmp(parser,"disclination_number") == 0 )
-	{
-
-	  error_handler=scanf("%lf",&sim_param.disclination_number);
-
-	  error_check(error_handler,parser);
-		
-	  
-	  fgets(garbage,400,stdin);
-
-
-	}
       else if ( strcasecmp(parser,"atol") == 0  || strcasecmp(parser,"Absolute_Tolerance") == 0 )
 	{
 
@@ -969,3 +973,6 @@ int driver::parse_input_file(void)
 }
 
 
+//sim_param.R_out=(sim_param.Nx-sim_param.Nx/2)+1.0;
+  //sim_param.R_in=(sim_param.Nx-sim_param.Nx/2)-0.1;
+  

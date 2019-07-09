@@ -94,8 +94,8 @@ struct Simulation_Parameters
 
   char ic_file_name[200];
   char initial_conditions[200];
-  double disclination_number;
-  int ic_file_flag=0;  
+  parameter_status ic_flag[2]={parameter_status::unset,
+				    parameter_status::unset};
 
 
   //Integrator Paramters:

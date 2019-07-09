@@ -1,5 +1,6 @@
 #include "driver.h"
 #include "geometry.h"
+#include  "container.h"
 //#include "integrator.h"
 #include <cstdio>           
 #include <cstdlib>          
@@ -19,7 +20,7 @@ int main(int argc, char **argv)
   double t,tf;
   driver Lc_driver=driver();
   
-  printf("Welcome to MarLiCS software v0.04 \n");
+  printf("Welcome to MarLiCS software v0.05 \n");
   
   
   
@@ -39,7 +40,7 @@ int main(int argc, char **argv)
 
   //if(Lc_driver.lc_prop.ic_file_flag==0)
   //  {
-  //    write_state(t, Lc_driver.Qij, Lc_driver.LcS_Geometry->point_type);
+  Lc_driver.Data_Container->write_state(t, Lc_driver.Qij, Lc_driver.LcS_Geometry->point_type);
   //  }
   //else 
   //  {

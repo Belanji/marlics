@@ -21,8 +21,8 @@ CPPS := $(wildcard src/*.cpp)
 HEADER := $(wildcard src/*.h)
 OBJS  := $(patsubst src/%.cpp,build/%.o,${CPPS})
 
-tensorQ: ${OBJS}
-	@${COMPILER}  ${FLAGS}  ${OBJS} ${LIB} -o tensorQ
+marlics: ${OBJS}
+	@${COMPILER}  ${FLAGS}  ${OBJS} ${LIB} -o marlics
 ${OBJS}: build/%.o: src/%.cpp | build
 	@${COMPILER}  ${FLAGS} -c $< -o $@
 ${OBJS}: ${HEADER}
@@ -30,7 +30,7 @@ build:
 	@mkdir build
 
 clean:
-	@rm -f tensorQ
+	@rm -f marlics
 	@rm -fr build
 	@rm -f *.csv
 	@rm -f *.oo
