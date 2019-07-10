@@ -2,10 +2,15 @@
 #include "container.h"
 #include "geometry.h"
 #include "geometry_slab.h"
+#include "boundary.h"
 #include <cstdio>           
 #include <cstdlib>          
 #include <cstring>
 #include <cmath>            
+#include <vector>
+#include <string>
+#include <iostream>
+
 #define MIN(a,b) ((a) < (b) ? a : b)
 
 
@@ -455,6 +460,24 @@ int driver::parse_input_file(void)
 
 
 	}
+            else if ( strcasecmp(parser,"theta_i") == 0 )
+	{
+	  sim_param.ic_flag[2]=parameter_status::set;
+	  error_handler=scanf("%lf",&sim_param.theta_i);
+	  error_check(error_handler,parser);
+	  fgets(garbage,400,stdin);
+
+
+	}
+      else if ( strcasecmp(parser,"phi_i") == 0 )
+	{
+	  sim_param.ic_flag[3]=parameter_status::set;
+	  error_handler=scanf("%lf",&sim_param.phi_i);
+	  error_check(error_handler,parser);
+	  fgets(garbage,400,stdin);
+
+
+	}
       else if ( strcasecmp(parser,"integrator") == 0 || strcasecmp(parser,"integrator_type") == 0 )
 	{
 
@@ -819,75 +842,96 @@ int driver::parse_input_file(void)
 
 
 	}
-      else if ( strcasecmp(parser,"Wo1_u") == 0 || strcasecmp(parser,"Upper_wo1")== 0 )
+      else if ( strcasecmp(parser,"anchoring_type") == 0 )
 	{
-	  error_handler=scanf("%lf",&sim_param.Wo1_u);
+
+	  char anc_type[200];
+	  
+	  error_handler=scanf("%200s",& anc_type);
 	  error_check(error_handler,parser);
+
+	  sim_param.anchoring_type.push_back(std::string(anc_type));
+	  sim_param.theta_0.push_back(0.);
+	  sim_param.phi_0.push_back(0.);
+	  sim_param.Wo1.push_back(0.);
+	  
+	    
 	  fgets(garbage,400,stdin);
+
+	  
+
 	}
-            else if ( strcasecmp(parser,"Wo1_b") == 0 ||strcasecmp(parser,"lower_wo1")== 0 )
+      else if ( strcasecmp(parser,"Wo1") == 0  )
 	{
+	  int nn;
+	  double Wo1;
 
-	  error_handler=scanf("%lf",&sim_param.Wo1_b);
-	  error_check(error_handler,parser);
+	  error_handler=scanf("%i",& nn);
+	  error_handler=scanf("%lf",& Wo1);
+	  error_check(error_handler,parser);	  	  
+
+	  try
+	    {
+	      sim_param.Wo1.at(nn)=Wo1;
+	    }
+	  catch (std::out_of_range dummy_var ){
+
+	    printf("You trying to assign an anchoring strength to a anchoring that you not defined yet.\nPlease review your input file.\nAborting the program.\n\n");
+		   
+	    exit(0);
+	  };
+	  
 	  fgets(garbage,400,stdin);
+	  
+	}
+      else if ( strcasecmp(parser,"phi_0") == 0  )
+	{
+	  int nn;
+	  double phi_0;
 
+	  error_handler=scanf("%i",& nn);
+	  error_handler=scanf("%lf",& phi_0);
+	  error_check(error_handler,parser);	  	  
 
+	  try
+	    {
+	      sim_param.phi_0.at(nn)=phi_0;
+	    }
+	  catch (std::out_of_range dummy_var ){
+
+	    printf("You trying to assign an easy angle phi_0 to an anchoring that you not defined yet.\nPlease review your input file.\nAborting the program.\n\n");
+		   
+	    exit(0);
+	  };
+	  
+
+	  fgets(garbage,400,stdin);
+	  
+	}
+      else if ( strcasecmp(parser,"theta_0") == 0  )
+	{
+	  int nn;
+	  double theta_0;
+
+	  error_handler=scanf("%i",& nn);
+	  error_handler=scanf("%lf",& theta_0);
+	  error_check(error_handler,parser);	  	  
+
+	  try
+	    {
+	      sim_param.theta_0.at(nn)=theta_0;
+	    }
+	  catch (std::out_of_range dummy_var ){
+
+	    printf("You trying to assign an easy angle theta_0 to an anchoring that you not defined yet.\nPlease review your input file.\nAborting the program.\n\n");
+		   
+	    exit(0);
+	  };
+
+	  
+	  fgets(garbage,400,stdin);
+	  
 	}      
-      else if ( strcasecmp(parser,"phi_u") == 0 )
-	{
-
-	  error_handler=scanf("%lf",&sim_param.phi_u);
-	  error_check(error_handler,parser);
-	  fgets(garbage,400,stdin);
-
-
-	}
-      else if ( strcasecmp(parser,"theta_i") == 0 )
-	{
-
-	  error_handler=scanf("%lf",&sim_param.theta_i);
-	  error_check(error_handler,parser);
-	  fgets(garbage,400,stdin);
-
-
-	}
-      else if ( strcasecmp(parser,"phi_i") == 0 )
-	{
-
-	  error_handler=scanf("%lf",&sim_param.phi_i);
-	  error_check(error_handler,parser);
-	  fgets(garbage,400,stdin);
-
-
-	}
-      else if ( strcasecmp(parser,"theta_u") == 0 )
-	{
-
-	  error_handler=scanf("%lf",&sim_param.theta_u);
-	  error_check(error_handler,parser);
-	  fgets(garbage,400,stdin);
-
-
-	}
-      else if ( strcasecmp(parser,"upper_anchoring_type") == 0 || strcasecmp(parser,"top_anchoring_type") == 0 || strcasecmp(parser,"upper_anchoring") == 0 || strcasecmp(parser,"top_anchoring") == 0)
-	{
-
-	  error_handler=scanf("%200s",&sim_param.upper_anc_type);
-	  error_check(error_handler,parser);
-	  fgets(garbage,400,stdin);
-
-
-	}
-      else if ( strcasecmp(parser,"bottom_anchoring_type") == 0 || strcasecmp(parser,"lower_anchoring_type") == 0 || strcasecmp(parser,"bottom_anchoring") == 0 || strcasecmp(parser,"lower_anchoring") == 0)
-	{
-
-	  error_handler=scanf("%200s",&sim_param.bottom_anc_type);
-	  error_check(error_handler,parser);
-	  fgets(garbage,400,stdin);
-
-
-	}
       else if ( strcasecmp(parser,"atol") == 0  || strcasecmp(parser,"Absolute_Tolerance") == 0 )
 	{
 

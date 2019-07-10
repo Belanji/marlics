@@ -20,7 +20,7 @@ int main(int argc, char **argv)
   double t,tf;
   driver Lc_driver=driver();
   
-  printf("Welcome to MarLiCS software v0.05 \n");
+  printf("Welcome to MarLiCS software v0.06 \n");
   
   
   

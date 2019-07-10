@@ -2,7 +2,8 @@
 #define LC_DRIVER_
 
 #define ERROr printf("cannot allocate memory\n"); exit(0);
-
+#include <vector>
+#include <string>
 
 enum class parameter_status {unset=0, set=1};
 enum class elastic_const_status {unset=0, Ls=1, Ks=2};
@@ -70,23 +71,13 @@ struct Simulation_Parameters
   
   //Anchoring paramters:
   
-  double theta_u;      /* degrees */
-  double phi_u;        /* degrees */
+  std::vector<double> theta_0;      /* degrees */
+  std::vector<double> phi_0;        /* degrees */  
+  std::vector<double> Wo1;         /* 10^-3 m */
+  std::vector<double> Wo2;         /* 10^-3 m */
+
+  std::vector<std::string> anchoring_type;
   
-  double Wo1_u;         /* 10^-3 m */
-  double Wo1_b;
-
-  double theta_d;       /* degrees */
-  double phi_d;         /* degrees */
-
-  double theta_i;       /* degrees */
-  double phi_i;         /* degrees */
- 
-  double Wo1_d;        /* 10^-3 m */     
-
-  char upper_anc_type[200];
-  char bottom_anc_type[200];  
-  int anchoring_flag=0;
   
 
   //Initial Conditions:
@@ -94,20 +85,24 @@ struct Simulation_Parameters
 
   char ic_file_name[200];
   char initial_conditions[200];
-  parameter_status ic_flag[2]={parameter_status::unset,
-				    parameter_status::unset};
+  double theta_i;       /* degrees */
+  double phi_i;         /* degrees */ 
+  parameter_status ic_flag[4]={parameter_status::unset,
+			       parameter_status::unset,
+			       parameter_status::unset,
+			       parameter_status::unset};
+  
 
 
   //Integrator Paramters:
 
-  char integrator_type[200];
-  parameter_status integrator_flag=parameter_status::unset;
+  char integrator_type[200];  
   double Atol;
   double Rtol;
   double prefac;
   double facmin;
   double facmax;
-
+  parameter_status integrator_flag=parameter_status::unset;
   
   //Execution Parameters:
   
