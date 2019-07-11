@@ -11,11 +11,6 @@ class slab : public GEOMETRY
 
   virtual void fill_ki(double *, const double * ,const int ,const int ,const int) const ;
     
-
-  virtual void ic(struct Simulation_Parameters *, double *);
-  virtual void boundary_init( struct Simulation_Parameters *);
-  
-
   slab(const struct Simulation_Parameters *);
   ~slab(void) {};
 

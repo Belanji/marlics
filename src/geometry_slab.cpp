@@ -21,33 +21,11 @@ slab::slab(const struct Simulation_Parameters * sim_param) : GEOMETRY (sim_param
   point_type=fill_point_type( );
   geometry_pointer=&(*this);
 
+  geometry_name="slab";
+  number_of_boundaries=2;
   bc_conditions=std::vector<class BOUNDARY *>(number_of_boundaries);
+
   
-};
-
-void slab::boundary_init( struct Simulation_Parameters * sim_param)
-{
-  
-
-//  printf("Boundary type:  %s\n", sim_param->upper_anc_type);
-//
-// 
-//  //Upper boundary:
-//
-//
-//  if( strcmp(sim_param->upper_anc_type,"strong") == 0 || strcmp(sim_param->upper_anc_type,"fixed") == 0 || strcmp(sim_param->upper_anc_type,"rapini_papoular") == 0 )
-//    {
-//
-//      bc_conditions=new Strong_Boundary(geometry_pointer);
-//      printf("\n");
-//    }
-//  else
-//    {
-//      printf("There is no anchoring type named %s.\nPlease check your input file 'upper anchoring field'.\n\n Aborting the program.'\n",sim_param->upper_anc_type);
-//      exit(0);
-//    }
-
- 
   
 };
 
@@ -239,59 +217,6 @@ int * slab::fill_point_type( void )  const
 
 
 
-void slab::ic(struct Simulation_Parameters * sim_param,double * Qij)
-{
 
-
-  switch(sim_param->ic_flag[0])
-    {
-    case parameter_status::set:
-
-      printf("\nInitial Conditions: %s.\n",sim_param->initial_conditions);
-      
-      if(strcasecmp(sim_param->initial_conditions,"random") == 0 || strcmp(sim_param->initial_conditions,"Random") == 0 )
-	{
-
-	  random_ic( sim_param, Qij );
-	  
-
-	}
-      if(strcasecmp(sim_param->initial_conditions,"homogeneous") == 0 )
-	{
-
-	  homogeneous_ic( sim_param, Qij );
-	  
-
-	}
-      else if(strcasecmp(sim_param->initial_conditions,"read_from_file") == 0 )	     
-	{
-
-	  if( sim_param->ic_flag[1] == parameter_status::unset )
-	    {
-	      printf("Missing the \"initial_conditions_file\" in your in put file.\n Aborting the program.\n\n");
-	      exit(0);
-	    }
-	  
-	  read_from_file_ic( sim_param, Qij );
-
-	}
-      else
-	{
-      
-	  printf("\n The program did not recognize the initial condition option \"%s\".\nPlease review your input file.\n\nAborting the program.\n",sim_param->initial_conditions);
-
-	  exit(0);
-	}
-      break;
-      
-    case parameter_status::unset:
-
-      printf("Parameter \"initial_conditions\" not set in your in put file.\nPlease, set the parameter for one of the available initial consitions in this geometry:\n");
-      printf("random,read_from_file\n\n");
-      printf("Aborting the program.\n\n");
-      exit(0);
-    }
-
-}
 
 

@@ -1,6 +1,7 @@
 #ifndef geometry_
 #define geometry_
 #include <vector>
+#include <string>
 
 class GEOMETRY
 {
@@ -9,6 +10,8 @@ class GEOMETRY
   
   friend class BOUNDARY;
 
+  std::string geometry_name;
+  
   std::vector<class BOUNDARY *> bc_conditions;
 
   const int Nx;
@@ -16,19 +19,20 @@ class GEOMETRY
   const int Nz;
 
   //Initial conditions routines:
-  virtual void ic(struct Simulation_Parameters *, double *) = 0;
+  virtual void ic(struct Simulation_Parameters *, double *);
   void read_from_file_ic(  struct Simulation_Parameters * lc_droplet,double * Qij );
   void random_ic( struct Simulation_Parameters * lc_droplet,double * Qij);
   void homogeneous_ic( struct Simulation_Parameters * lc_droplet,double * Qij);
   void homogeneous_easy_axis_ic( struct Simulation_Parameters * sim_param,double * Qij );
   void read_check(int , int );
   
-  virtual void boundary_init( struct Simulation_Parameters * ) = 0;
-  virtual ~GEOMETRY() {};
-
   virtual void fill_ki(double * k_i, const  double * Qij, const int i,const int j,const int k) const = 0;
 
   const int *point_type;
+
+  virtual void boundary_init( struct Simulation_Parameters * );
+  virtual ~GEOMETRY() {};
+
   
  protected:
 

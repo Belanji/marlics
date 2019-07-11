@@ -13,7 +13,7 @@ class BOUNDARY
    const double a;
    const double bb;
    const double cc;
-   const double dx_1;
+   const double dx_1, dy_1, dz_1;
    const double L1;
    const double L2;
    const double L3;
@@ -28,7 +28,7 @@ class BOUNDARY
    
    public:
 
-   BOUNDARY(const GEOMETRY * calling_object);
+    BOUNDARY(const class Simulation_Parameters *, int);
    virtual ~BOUNDARY() {};
 
 

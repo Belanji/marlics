@@ -352,7 +352,7 @@ void driver::setup_Simulation(void)
 
       
     LcS_Geometry->ic( & sim_param, Qij );
-  //  LcS_Geometry->boundary_init( & sim_param );  
+    LcS_Geometry->boundary_init( & sim_param );  
 
 
   //  if ( strcasecmp(sim_param.integrator_type,"DP5") == 0 || strcasecmp(sim_param.integrator_type,"Dormand-Prince") == 0

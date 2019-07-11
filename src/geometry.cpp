@@ -1,11 +1,15 @@
 #include "geometry.h"
 #include "driver.h"
 #include "boundary.h"
+#include "boundary_strong.h"
 #include <stdio.h> 
 #include <gsl/gsl_randist.h>
 #include <ctime>
 #include <math.h>
 #include <vector>
+#include <string>
+#include <cstring>
+#include <iostream>
 
 double Pi=3.14159265359;
 
@@ -397,3 +401,109 @@ void GEOMETRY::read_check(int read_status, int line)
 
 }
 
+void GEOMETRY::boundary_init( struct Simulation_Parameters * sim_param)
+{
+
+  std::cout <<"\nInitiating boundary conditions:\n\n";
+  int ii=0;
+  std::string anc_type;
+  for (ii=0; ii< number_of_boundaries; ii++)
+    {
+
+      try
+	{
+	  anc_type=  sim_param->anchoring_type.at(ii);
+	  std::cout << "Boundary " << ii << ":" << anc_type <<".\n";
+      
+	}
+      catch(std::out_of_range dummy_var )
+	{
+
+	  std::cout<< "You must define "<< number_of_boundaries <<" anchorings in the " << geometry_name <<" geometry.\nPlease review your input file.\nAborting the program.\n\n";
+		   
+	  exit(0);      
+	}
+
+      
+
+      if( strcasecmp(anc_type.c_str(),"strong") == 0 || strcasecmp(anc_type.c_str(),"fixed") == 0  )
+
+	{
+    
+    
+	  bc_conditions[ii]=new Strong_Boundary(sim_param, ii);
+
+
+	}
+      else
+	{
+	  std::cout<<"There is no anchoring type named " << anc_type <<".\nPlease check your input file 'anchoring type' fields.\n\n Aborting the program.'\n";
+	  exit(0);
+	}
+
+
+      
+
+      
+    }
+
+
+ 
+  
+};
+
+
+void GEOMETRY::ic(struct Simulation_Parameters * sim_param,double * Qij)
+{
+
+
+  switch(sim_param->ic_flag[0])
+    {
+    case parameter_status::set:
+
+      printf("\nInitial Conditions: %s.\n",sim_param->initial_conditions);
+      
+      if(strcasecmp(sim_param->initial_conditions,"random") == 0 || strcmp(sim_param->initial_conditions,"Random") == 0 )
+	{
+
+	  random_ic( sim_param, Qij );
+	  
+
+	}
+      if(strcasecmp(sim_param->initial_conditions,"homogeneous") == 0 )
+	{
+
+	  homogeneous_ic( sim_param, Qij );
+	  
+
+	}
+      else if(strcasecmp(sim_param->initial_conditions,"read_from_file") == 0 )	     
+	{
+
+	  if( sim_param->ic_flag[1] == parameter_status::unset )
+	    {
+	      printf("Missing the \"initial_conditions_file\" in your in put file.\n Aborting the program.\n\n");
+	      exit(0);
+	    }
+	  
+	  read_from_file_ic( sim_param, Qij );
+
+	}
+      else
+	{
+      
+	  printf("\n The program did not recognize the initial condition option \"%s\".\nPlease review your input file.\n\nAborting the program.\n",sim_param->initial_conditions);
+
+	  exit(0);
+	}
+      break;
+      
+    case parameter_status::unset:
+
+      printf("Parameter \"initial_conditions\" not set in your in put file.\nPlease, set the parameter for one of the available initial consitions in this geometry:\n");
+      printf("random,read_from_file\n\n");
+      printf("Aborting the program.\n\n");
+      exit(0);
+    }
+
+}

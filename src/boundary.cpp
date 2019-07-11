@@ -1,22 +1,23 @@
-#include "geometry.h"	
 #include "boundary.h"
+#include "driver.h"
 
 
-
-BOUNDARY::BOUNDARY(const GEOMETRY * calling_object) :
-  sigma(calling_object->sigma), 
-    a(calling_object->a),
-    bb(calling_object->bb),
-    cc(calling_object->cc),
-    dx_1(calling_object->dx_1),
-    L1(calling_object->L1),
-    L2(calling_object->L2),
-    L3(calling_object->L3),
-    Lq(calling_object->Lq),
-    Ls(calling_object->Ls),
-    Lq_tilde(calling_object->Lq_tilde),
-    Lambda(calling_object->Lambda)    ,
-    Lambda_s(calling_object->Lambda_s),
-    S_eq(calling_object->S_eq),
-    q0(calling_object->q0)  
-    { };
+BOUNDARY::BOUNDARY(const  Simulation_Parameters *  sim_par, int boundary_id):
+  sigma(sim_par->T*sim_par->a), 
+  a(sim_par->a),
+  bb(sim_par->B),
+  cc(sim_par->C),
+  dx_1(1/sim_par->dx),
+  dy_1(1/sim_par->dy),
+  dz_1(1/sim_par->dz),
+  L1(sim_par->L1),
+  L2(sim_par->L2),
+  L3(sim_par->L3),
+  Lq(sim_par->Lq),
+  Ls(sim_par->Ls),
+  Lq_tilde(2.0*sim_par->Lq*sim_par->q0),
+  Lambda(1/sim_par->mu_1)    ,
+  Lambda_s(1/sim_par->mu_1_s),
+  S_eq(sim_par->S_eq),
+  q0(sim_par->q0)  
+  { };
