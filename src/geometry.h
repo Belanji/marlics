@@ -24,6 +24,9 @@ class GEOMETRY
   void random_ic( struct Simulation_Parameters * lc_droplet,double * Qij);
   void homogeneous_ic( struct Simulation_Parameters * lc_droplet,double * Qij);
   void homogeneous_easy_axis_ic( struct Simulation_Parameters * sim_param,double * Qij );
+  void random_bulk_homogeneous_easy_axis_ic( struct Simulation_Parameters * sim_param,double * Qij );
+
+
   void read_check(int , int );
   
   virtual void fill_ki(double * k_i, const  double * Qij, const int i,const int j,const int k) const = 0;

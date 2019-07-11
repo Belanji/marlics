@@ -317,10 +317,89 @@ void GEOMETRY::homogeneous_ic( struct Simulation_Parameters * sim_param,double *
 void GEOMETRY::homogeneous_easy_axis_ic( struct Simulation_Parameters * sim_param,double * Qij )
 {
 
+  std::cout<< "Starting homogeneous easy axis at the boundaries.\n";
+
+  int i,j,k;
+  double n[3];	
+  std::vector<double> theta_0(number_of_boundaries);      
+  std::vector<double> phi_0(number_of_boundaries);    
+
+  for(int ii=0; ii<number_of_boundaries; ii++)
+    {
   
+      try
+	{
+      
+	  theta_0[ii]=sim_param->theta_0.at(ii);
+	  phi_0[ii]=sim_param->phi_0.at(ii);
+     
+	}
+      catch(std::out_of_range dummy_var)
+	{
+
+	  printf("\n Anchoring number %i not defined.\n",ii);
+	  printf("This initial needs %i anchoring_types defined for use.\n",ii);
+	  printf("Please define them in your in your input file.");
+	  printf("Aborting the program.\n");
+      
+	}
+    }
+
   
 
+  for(int ii=0; ii<number_of_boundaries; ii++)
+    {
+      theta_0[ii]=theta_0[ii]*Pi/180;
+      phi_0[ii]=phi_0[ii]*Pi/180;
+    }
+
+
+  for(i= 0; i< Nx; i++)
+	{
+      
+
+      
+	  for(j= 0; j< Ny; j++)
+	    {
+	  
+
+	  
+	      for(k= 0; k< Nz; k++)
+		{
+	    
+		  
+		  if(point_type[(k*Ny+j)*Nx+i] >1 )
+		    {
+		      int ptype=point_type[(k*Ny+j)*Nx+i]-2;
+		      
+		      n[0]=cos(phi_0[ptype])*sin(theta_0[ptype]);
+		      n[1]=sin(phi_0[ptype])*sin(theta_0[ptype]);
+		      n[2]=cos(theta_0[ptype]);
+
+
+		      Qij[5*(Nx*(Ny*k+j)+i)+0]=(0.5*S_eq*(3.0*n[0]*n[0]-1.0));
+		      Qij[5*(Nx*(Ny*k+j)+i)+1]=(0.5*S_eq*(3.0*n[0]*n[1]));
+		      Qij[5*(Nx*(Ny*k+j)+i)+2]=(0.5*S_eq*(3.0*n[0]*n[2]));
+		      Qij[5*(Nx*(Ny*k+j)+i)+3]=(0.5*S_eq*(3.0*n[1]*n[1]-1.0));
+		      Qij[5*(Nx*(Ny*k+j)+i)+4]=(0.5*S_eq*(3.0*n[1]*n[2]));     		  
+			  
+		    }		
+		  
+		}		       
+	    }
+	}
+
 }
+
+  
+  void GEOMETRY::random_bulk_homogeneous_easy_axis_ic( struct Simulation_Parameters * sim_param,double * Qij )
+  {
+
+    std::cout <<"Starting composite initial conditions: Random bulk, homogeneous on boundary.\n\n";
+    random_ic( sim_param, Qij );
+    homogeneous_easy_axis_ic( sim_param, Qij );
+    
+  }
 
 void GEOMETRY::read_from_file_ic( struct Simulation_Parameters * sim_param, double * Qij )
 {
@@ -470,10 +549,17 @@ void GEOMETRY::ic(struct Simulation_Parameters * sim_param,double * Qij)
 	  
 
 	}
-      if(strcasecmp(sim_param->initial_conditions,"homogeneous") == 0 )
+      else if(strcasecmp(sim_param->initial_conditions,"homogeneous") == 0 )
 	{
 
 	  homogeneous_ic( sim_param, Qij );
+	  
+
+	}
+      else if(strcasecmp(sim_param->initial_conditions,"random_bulk_homogeneous_easy_axis") == 0 )
+	{
+
+	  random_bulk_homogeneous_easy_axis_ic( sim_param, Qij );
 	  
 
 	}
