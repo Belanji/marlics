@@ -3,6 +3,8 @@
 #include "geometry.h"
 #include "geometry_slab.h"
 #include "boundary.h"
+#include "integrator.h"
+#include "integrator_dp5.h"
 #include <cstdio>           
 #include <cstdlib>          
 #include <cstring>
@@ -192,7 +194,7 @@ void driver::setup_Simulation(void)
     }
 
       
-    switch(sim_param.time_status[1])
+  switch(sim_param.time_status[1])
     {
     case parameter_status::set:
 
@@ -210,7 +212,7 @@ void driver::setup_Simulation(void)
 
 
 
-    switch(sim_param.time_status[2])
+  switch(sim_param.time_status[2])
     {
     case parameter_status::set:
 
@@ -282,12 +284,12 @@ void driver::setup_Simulation(void)
       printf("First snapshot taken at:  %lf\n", sim_param.timeprint);
       break;
       
-      case parameter_status::set:
+    case parameter_status::set:
 	
 
 
-	printf("First snapshot taken at:  %lf\n", sim_param.timeprint);
-	break;
+      printf("First snapshot taken at:  %lf\n", sim_param.timeprint);
+      break;
     }
 
 
@@ -305,12 +307,12 @@ void driver::setup_Simulation(void)
 
       break;
       
-      case parameter_status::set:
+    case parameter_status::set:
 
 
-	printf("Snapshot print frequency: %lf\n\n",sim_param.timeprint_increase_factor);
+      printf("Snapshot print frequency: %lf\n\n",sim_param.timeprint_increase_factor);
 
-	break;
+      break;
     }
 
 
@@ -351,32 +353,42 @@ void driver::setup_Simulation(void)
     }
 
       
-    LcS_Geometry->ic( & sim_param, Qij );
-    LcS_Geometry->boundary_init( & sim_param );  
+  LcS_Geometry->ic( & sim_param, Qij );
+  LcS_Geometry->boundary_init( & sim_param );  
 
 
-  //  if ( strcasecmp(sim_param.integrator_type,"DP5") == 0 || strcasecmp(sim_param.integrator_type,"Dormand-Prince") == 0
-  //       || strcasecmp(sim_param.integrator_type,"Rk54") == 0 || strcasecmp(sim_param.integrator_type,"Rk5") == 0 )
-  //    {
-  //
-  //      LcS_Integrator= new DP5(LcS_Geometry, & sim_param );
-  //
-  //    }
-  //
-  //  else
-  //    {
-  //      
-  //      printf("No integrator named %s is defined.\nAborting the program.\n\n",sim_param.integrator_type);
-  //      exit(0);
-  //
-  //      
-  //    };
+  switch(sim_param.integrator_flag)
+    {
+    case parameter_status::set:
+
+      if ( strcasecmp(sim_param.integrator_type,"DP5") == 0 || strcasecmp(sim_param.integrator_type,"Dormand-Prince") == 0
+	   || strcasecmp(sim_param.integrator_type,"Rk54") == 0 || strcasecmp(sim_param.integrator_type,"Rk5") == 0 )
+	{
   
-
-
-
+	  LcS_Integrator= new DP5(LcS_Geometry, & sim_param );
   
+	}
+  
+      else
+	{
+        
+	  printf("No integrator named %s is defined.\nAborting the program.\n\n",sim_param.integrator_type);
+	  exit(0);
+  
+        
+	};
+      break;
+
+    case parameter_status::unset:
+
+      printf("You didn't define the \"integrator\" parameter.\nPlease define one in your input file.\nAborting the program.\n\n");
+      exit(0);
+      break;
+    }
 }
+     
+  
+
 void driver::error_check(int error_handler,
 		  char parser[])
 
@@ -480,7 +492,7 @@ int driver::parse_input_file(void)
 	}
       else if ( strcasecmp(parser,"integrator") == 0 || strcasecmp(parser,"integrator_type") == 0 )
 	{
-
+	  sim_param.integrator_flag=parameter_status::set;
 	  error_handler=scanf("%200s",&sim_param.integrator_type);
 	  
 	  error_check(error_handler,parser);
@@ -935,6 +947,7 @@ int driver::parse_input_file(void)
       else if ( strcasecmp(parser,"atol") == 0  || strcasecmp(parser,"Absolute_Tolerance") == 0 )
 	{
 
+	  sim_param.integrator_parameters_flag++;
 	  error_handler=scanf("%lf",&sim_param.Atol);
 
 	  error_check(error_handler,parser);
@@ -946,7 +959,7 @@ int driver::parse_input_file(void)
 	}
             else if ( strcasecmp(parser,"rtol") == 0  || strcasecmp(parser,"Relative_Tolerance") == 0 )
 	{
-
+	  sim_param.integrator_parameters_flag++;
 	  error_handler=scanf("%lf",&sim_param.Rtol);
 
 	  error_check(error_handler,parser);
@@ -958,7 +971,7 @@ int driver::parse_input_file(void)
 	}
             else if ( strcasecmp(parser,"facmax") == 0 || strcasecmp(parser,"maximum_timestep_increase") == 0  )
 	{
-
+	  sim_param.integrator_parameters_flag++;
 	  error_handler=scanf("%lf",&sim_param.facmax);
 
 	  error_check(error_handler,parser);
@@ -971,6 +984,7 @@ int driver::parse_input_file(void)
       else if ( strcasecmp(parser,"facmin") == 0 || strcasecmp(parser,"maximum_timestep_decrease") == 0  )
 	{
 
+	  sim_param.integrator_parameters_flag++;
 	  error_handler=scanf("%lf",&sim_param.facmin);
 
 	  error_check(error_handler,parser);
@@ -982,7 +996,7 @@ int driver::parse_input_file(void)
 	}
        else if ( strcasecmp(parser,"prefac") == 0 || strcasecmp(parser,"timestep_control_pre_factor") == 0  )
 	{
-
+	  sim_param.integrator_parameters_flag++;
 	  error_handler=scanf("%lf",&sim_param.prefac);
 
 	  error_check(error_handler,parser);

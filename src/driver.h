@@ -82,9 +82,9 @@ struct Simulation_Parameters
 
   //Initial Conditions:
 
-
-  char ic_file_name[200];
+  
   char initial_conditions[200];
+  char ic_file_name[200];
   double theta_i;       /* degrees */
   double phi_i;         /* degrees */ 
   parameter_status ic_flag[4]={parameter_status::unset,
@@ -97,12 +97,13 @@ struct Simulation_Parameters
   //Integrator Paramters:
 
   char integrator_type[200];  
-  double Atol;
-  double Rtol;
-  double prefac;
-  double facmin;
-  double facmax;
+  double Atol=0.001;
+  double Rtol=0.001;
+  double prefac=0.8;
+  double facmin=0.4;
+  double facmax=3.0;
   parameter_status integrator_flag=parameter_status::unset;
+  int integrator_parameters_flag=0;
   
   //Execution Parameters:
   

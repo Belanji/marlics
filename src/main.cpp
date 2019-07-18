@@ -1,7 +1,7 @@
 #include "driver.h"
 #include "geometry.h"
 #include  "container.h"
-//#include "integrator.h"
+#include "integrator.h"
 #include <cstdio>           
 #include <cstdlib>          
 #include <cstring>
@@ -20,7 +20,7 @@ int main(int argc, char **argv)
   double t,tf;
   driver Lc_driver=driver();
   
-  printf("Welcome to MarLiCS software v0.07 \n");
+  printf("Welcome to MarLiCS software v0.09 \n");
   
   
   
@@ -37,30 +37,28 @@ int main(int argc, char **argv)
   
 
 
+  //Check if the initial conditions were gotten from a file.
+  if(Lc_driver.sim_param.ic_flag[1]==parameter_status::unset)
+    {
+      //Print a snaphot if the ic was not gotten from a file.
+      Lc_driver.Data_Container->write_state(t, Lc_driver.Qij, Lc_driver.LcS_Geometry->point_type);
+   }
+  
 
-  //if(Lc_driver.lc_prop.ic_file_flag==0)
-  //  {
-  Lc_driver.Data_Container->write_state(t, Lc_driver.Qij, Lc_driver.LcS_Geometry->point_type);
-  //  }
-  //else 
-  //  {
-  //    printf("%lf\n", t);
-  //  }
-  //
-  //while(t<tf)
-  //  {
-  //
-  //    Lc_driver.LcS_Integrator->evolve(Lc_driver.Qij, & t , Lc_driver.lc_prop.timeprint );//! timestep evolution
-  //    write_state(t, Lc_driver.Qij, Lc_driver.LcS_Geometry->point_type);
-  //
-  //    Lc_driver.update_timeprint( ) ;
-  //    
-  //  }
-  //
-  //
-  //
-  //finish_container();
-  //  //ncio_finish_container();
+  while(t<tf)
+    {
+
+      Lc_driver.LcS_Integrator->evolve(Lc_driver.Qij, & t , Lc_driver.sim_param.timeprint );//! timestep evolution
+      Lc_driver.Data_Container->write_state(t, Lc_driver.Qij, Lc_driver.LcS_Geometry->point_type);
+  
+      Lc_driver.update_timeprint( ) ;
+      
+    }
+  
+  
+  
+  
+    
 
   return 0;
   

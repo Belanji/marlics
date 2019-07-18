@@ -31,10 +31,10 @@ slab::slab(const struct Simulation_Parameters * sim_param) : GEOMETRY (sim_param
 
 
 void  slab::fill_ki(double * k_i,
-		      const double * Qij, 
-		      const int i,
-		      const int j,
-		      const int k)  const 
+		    const double * Qij, 
+		    const int i,
+		    const int j,
+		    const int k)  const 
 {
 
     
@@ -49,15 +49,15 @@ void  slab::fill_ki(double * k_i,
     {
 
       //check_bulk_limits( i,  j,  k);	
-                 
-      ip1= i+1;
-      jp1= j+1;
-      kp1= k+1;
-      im1= i-1;
-      jm1= j-1;
-      km1= k-1;
 
+      ip1= (i+1)%Nx;
+      jp1= (j+1)%Ny;
+      kp1= (k+1);
+      im1= i-1+((Nx-1-i)/(Nx-1))*Nx;
+      jm1= j-1+((Ny-1-i)/(Ny-1))*Ny;
+      km1= (k-1);
 
+      
       for(ll=0; ll<=4;ll++) QN[ll]=Qij[5*(Nx*(Ny*k+j)+i)+ll];
 	
 
@@ -99,12 +99,12 @@ void  slab::fill_ki(double * k_i,
     {
 
       //check_surface_limits( i,  j,  k);
-      ip1= (i+1)%(Nx);
-      jp1= (j+1)%(Ny);
+      ip1= (i+1)%Nx;
+      jp1= (j+1)%Ny;
       kp1= (k+1);
       im1= i-1+((Nx-1-i)/(Nx-1))*Nx;
       jm1= j-1+((Ny-1-i)/(Ny-1))*Ny;
-      km1= (k-1);
+      km1= k;
       v[0]=0.0;
       v[1]=0.0;
       v[2]=-1.0;
@@ -113,20 +113,20 @@ void  slab::fill_ki(double * k_i,
 	
 
       //Calcule first derivatives of Qij:
-      for(ll=0; ll<=4;ll++) dQ[ll]=   (Qij[5*((k*Ny+j)*Nx+ip1)+ll]-Qij[5*((k*Ny+j)*Nx+im1)+ll])*dx_1;
+      for(ll=0; ll<=4;ll++) dQ[ll]=0.5*(Qij[5*((k*Ny+j)*Nx+ip1)+ll]-Qij[5*((k*Ny+j)*Nx+im1)+ll])*dx_1;
 
       
-      for(ll=0; ll<=4;ll++) dQ[5+ll]= (Qij[5*((k*Ny+jp1)*Nx+i)+ll]-Qij[5*((k*Ny+jm1)*Nx+i)+ll])*dx_1;
+      for(ll=0; ll<=4;ll++) dQ[5+ll]=0.5*(Qij[5*((k*Ny+jp1)*Nx+i)+ll]-Qij[5*((k*Ny+jm1)*Nx+i)+ll])*dx_1;
 
       
-      for(ll=0; ll<=4;ll++) dQ[10+ll]=(Qij[5*((kp1*Ny+j)*Nx+i)+ll]-Qij[5*((km1*Ny+j)*Nx+i)+ll])*dx_1;
+      for(ll=0; ll<=4;ll++) dQ[10+ll]=(Qij[5*((kp1*Ny+j)*Nx+i)+ll]-Qij[5*((k*Ny+j)*Nx+i)+ll])*dx_1;
       
   
-      //k_i[5*(Nx*(Ny*k+j)+i)+0]= bc_conditions->surface_00(QN,dQ,ddQ,v);
-      //k_i[5*(Nx*(Ny*k+j)+i)+1]= bc_conditions->surface_01(QN,dQ,ddQ,v);
-      //k_i[5*(Nx*(Ny*k+j)+i)+2]= bc_conditions->surface_02(QN,dQ,ddQ,v);
-      //k_i[5*(Nx*(Ny*k+j)+i)+3]= bc_conditions->surface_11(QN,dQ,ddQ,v);
-      //k_i[5*(Nx*(Ny*k+j)+i)+4]= bc_conditions->surface_12(QN,dQ,ddQ,v); 
+      k_i[5*(Nx*(Ny*k+j)+i)+0]= bc_conditions[0]->surface_00(QN,dQ,ddQ,v);
+      k_i[5*(Nx*(Ny*k+j)+i)+1]= bc_conditions[0]->surface_01(QN,dQ,ddQ,v);
+      k_i[5*(Nx*(Ny*k+j)+i)+2]= bc_conditions[0]->surface_02(QN,dQ,ddQ,v);
+      k_i[5*(Nx*(Ny*k+j)+i)+3]= bc_conditions[0]->surface_11(QN,dQ,ddQ,v);
+      k_i[5*(Nx*(Ny*k+j)+i)+4]= bc_conditions[0]->surface_12(QN,dQ,ddQ,v); 
 
 
       
@@ -135,9 +135,9 @@ void  slab::fill_ki(double * k_i,
     {
 
       
-      ip1= (i+1)%(Nx);
-      jp1= (j+1)%(Ny);
-      kp1= (k+1);
+      ip1= (i+1)%Nx;
+      jp1= (j+1)%Ny;
+      kp1= k;
       im1= i-1+((Nx-1-i)/(Nx-1))*Nx;
       jm1= j-1+((Ny-1-i)/(Ny-1))*Ny;
       km1= (k-1);
@@ -150,34 +150,24 @@ void  slab::fill_ki(double * k_i,
 	
 
       //Calcule first derivatives of Qij:
-      for(ll=0; ll<=4;ll++) dQ[ll]=(Qij[5*((k*Ny+j)*Nx+ip1)+ll]-Qij[5*((k*Ny+j)*Nx+im1)+ll])*dx_1;
+      for(ll=0; ll<=4;ll++) dQ[ll]=0.5*(Qij[5*((k*Ny+j)*Nx+ip1)+ll]-Qij[5*((k*Ny+j)*Nx+im1)+ll])*dx_1;
 
       
-      for(ll=0; ll<=4;ll++) dQ[5+ll]= (Qij[5*((k*Ny+jp1)*Nx+i)+ll]-Qij[5*((k*Ny+jm1)*Nx+i)+ll])*dx_1;
+      for(ll=0; ll<=4;ll++) dQ[5+ll]=0.5*(Qij[5*((k*Ny+jp1)*Nx+i)+ll]-Qij[5*((k*Ny+jm1)*Nx+i)+ll])*dx_1;
 
       
-      for(ll=0; ll<=4;ll++) dQ[10+ll]=(Qij[5*((kp1*Ny+j)*Nx+i)+ll]-Qij[5*((km1*Ny+j)*Nx+i)+ll])*dx_1;
+      for(ll=0; ll<=4;ll++) dQ[10+ll]=(Qij[5*((k*Ny+j)*Nx+i)+ll]-Qij[5*((km1*Ny+j)*Nx+i)+ll])*dx_1;
       
   
-      //k_i[5*(Nx*(Ny*k+j)+i)+0]= bc_conditions->surface_00(QN,dQ,ddQ,v);
-      //k_i[5*(Nx*(Ny*k+j)+i)+1]= bc_conditions->surface_01(QN,dQ,ddQ,v);
-      //k_i[5*(Nx*(Ny*k+j)+i)+2]= bc_conditions->surface_02(QN,dQ,ddQ,v);
-      //k_i[5*(Nx*(Ny*k+j)+i)+3]= bc_conditions->surface_11(QN,dQ,ddQ,v);
-      //k_i[5*(Nx*(Ny*k+j)+i)+4]= bc_conditions->surface_12(QN,dQ,ddQ,v); 
+      k_i[5*(Nx*(Ny*k+j)+i)+0]= bc_conditions[1]->surface_00(QN,dQ,ddQ,v);
+      k_i[5*(Nx*(Ny*k+j)+i)+1]= bc_conditions[1]->surface_01(QN,dQ,ddQ,v);
+      k_i[5*(Nx*(Ny*k+j)+i)+2]= bc_conditions[1]->surface_02(QN,dQ,ddQ,v);
+      k_i[5*(Nx*(Ny*k+j)+i)+3]= bc_conditions[1]->surface_11(QN,dQ,ddQ,v);
+      k_i[5*(Nx*(Ny*k+j)+i)+4]= bc_conditions[1]->surface_12(QN,dQ,ddQ,v); 
 
 
       //check_surface_limits(i,j,k);
     }
-  else
-    {
-
-      k_i[5*(Nx*(Ny*k+j)+i)+0]=0.; 
-      k_i[5*(Nx*(Ny*k+j)+i)+1]=0.; 
-      k_i[5*(Nx*(Ny*k+j)+i)+2]=0.; 
-      k_i[5*(Nx*(Ny*k+j)+i)+3]=0.; 
-      k_i[5*(Nx*(Ny*k+j)+i)+4]=0.;
-    }
-  
 }
       
       

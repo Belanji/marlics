@@ -2,6 +2,7 @@
 #include "driver.h"
 #include "boundary.h"
 #include "boundary_strong.h"
+#include "boundary_rp.h"
 #include <stdio.h> 
 #include <gsl/gsl_randist.h>
 #include <ctime>
@@ -337,8 +338,8 @@ void GEOMETRY::homogeneous_easy_axis_ic( struct Simulation_Parameters * sim_para
       catch(std::out_of_range dummy_var)
 	{
 
-	  printf("\n Anchoring number %i not defined.\n",ii);
-	  printf("This initial needs %i anchoring_types defined for use.\n",ii);
+	  printf("\n Easy axis angle (theta_0 or phi_0) number %i not defined.\n",ii);
+	  printf("This initial condition needs both of them defined for use.\n");
 	  printf("Please define them in your in your input file.");
 	  printf("Aborting the program.\n");
       
@@ -346,13 +347,6 @@ void GEOMETRY::homogeneous_easy_axis_ic( struct Simulation_Parameters * sim_para
     }
 
   
-
-  for(int ii=0; ii<number_of_boundaries; ii++)
-    {
-      theta_0[ii]=theta_0[ii]*Pi/180;
-      phi_0[ii]=phi_0[ii]*Pi/180;
-    }
-
 
   for(i= 0; i< Nx; i++)
 	{
@@ -372,9 +366,9 @@ void GEOMETRY::homogeneous_easy_axis_ic( struct Simulation_Parameters * sim_para
 		    {
 		      int ptype=point_type[(k*Ny+j)*Nx+i]-2;
 		      
-		      n[0]=cos(phi_0[ptype])*sin(theta_0[ptype]);
-		      n[1]=sin(phi_0[ptype])*sin(theta_0[ptype]);
-		      n[2]=cos(theta_0[ptype]);
+		      n[0]=cos(phi_0[ptype]*Pi/180)*sin(theta_0[ptype]*Pi/180);
+		      n[1]=sin(phi_0[ptype]*Pi/180)*sin(theta_0[ptype]*Pi/180);
+		      n[2]=cos(theta_0[ptype]*Pi/180);
 
 
 		      Qij[5*(Nx*(Ny*k+j)+i)+0]=(0.5*S_eq*(3.0*n[0]*n[0]-1.0));
@@ -511,6 +505,15 @@ void GEOMETRY::boundary_init( struct Simulation_Parameters * sim_param)
     
     
 	  bc_conditions[ii]=new Strong_Boundary(sim_param, ii);
+
+
+	}
+      else if( strcasecmp(anc_type.c_str(),"rp") == 0 || strcasecmp(anc_type.c_str(),"Rapini-Papoular") == 0  )
+
+	{
+    
+    
+	  bc_conditions[ii]=new Boundary_Rp(sim_param, ii);
 
 
 	}
