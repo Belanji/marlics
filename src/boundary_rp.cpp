@@ -16,7 +16,7 @@ Boundary_Rp::Boundary_Rp(const Simulation_Parameters * sim_param, int boundary_n
   
   condition_name="Rapini-Papoular(rp)";
 
-  //Asserting anchoring energy is set and getting its value:
+  //Asserting anchoring energy is set and get its value:
   try
     {
       Wo1= sim_param->Wo1.at(boundary_id);
@@ -30,7 +30,7 @@ Boundary_Rp::Boundary_Rp(const Simulation_Parameters * sim_param, int boundary_n
 
     }
 
-  //Asserting easy axis angle phi_0 is set and getting its value:
+  //Asserting easy axis angle phi_0 is set and get its value:
   try
     {
       phi_0= sim_param->phi_0.at(boundary_id);
@@ -44,7 +44,7 @@ Boundary_Rp::Boundary_Rp(const Simulation_Parameters * sim_param, int boundary_n
 
     }
 
-    //Asserting easy axis angle theta_0 is set and getting its value:
+    //Asserting easy axis angle theta_0 is set and get its value:
   try
     {
       theta_0= sim_param->theta_0.at(boundary_id);

@@ -3,6 +3,7 @@
 #include "boundary.h"
 #include "boundary_strong.h"
 #include "boundary_rp.h"
+#include "boundary_fournier_galatola.h"
 #include <stdio.h> 
 #include <gsl/gsl_randist.h>
 #include <ctime>
@@ -509,11 +510,18 @@ void GEOMETRY::boundary_init( struct Simulation_Parameters * sim_param)
 
 	}
       else if( strcasecmp(anc_type.c_str(),"rp") == 0 || strcasecmp(anc_type.c_str(),"Rapini-Papoular") == 0  )
-
 	{
     
     
 	  bc_conditions[ii]=new Boundary_Rp(sim_param, ii);
+
+
+	}
+      else if( strcasecmp(anc_type.c_str(),"fg") == 0 || strcasecmp(anc_type.c_str(),"fournier-galatola") == 0  )
+	{
+    
+    
+	  bc_conditions[ii]=new Boundary_Fg(sim_param, ii);
 
 
 	}
