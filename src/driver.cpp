@@ -2,6 +2,7 @@
 #include "container.h"
 #include "geometry.h"
 #include "geometry_slab.h"
+#include "geometry_bulk.h"
 #include "boundary.h"
 #include "integrator.h"
 #include "integrator_dp5.h"
@@ -331,7 +332,13 @@ void driver::setup_Simulation(void)
 	  LcS_Geometry= new slab( & sim_param);
   
 	}
+      else if ( strcasecmp(sim_param.geometry,"bulk") == 0 )
+	{
+
+	  
+	  LcS_Geometry= new Geometry_Bulk( & sim_param);
   
+	}
       else 
 	{
 	
