@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}% bold math
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage[caption=false]{subfig}
+\usepackage[left= 2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
+
+\newcommand{\consoleline}[2][0.5cm]
+{\vspace{#1}
+\textit{{#2}}
+\vspace{#1}
+}
+
+
+\title{Marlics User Guide}
+\author{Renato Ferreira de Souza}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+  
+Welcome to Marlics (\textbf{Mar}ingá \textbf{li}quid \textbf{c}rystal
+\textbf{s}imulator). Marlics is a software developed in C++ to
+simulate the dynamics of the liquid crystal tensorial order parameter
+by means finite differences. Finite differences works very well in
+non-curvilinear geometries, and in a less extent, in curvilinear
+geometries as well. We already provided three of such geometries
+(slab, bulk and sphere), but since we are providing the source code
+under a GPL license, the user can implement their own geometries if
+needed (please see developer guide). 
+
+The software usage is simple: the user fills an input file chosing the
+values of simulation parameters and the stage variables. This script
+is passed to the software as the main input (``$<$'' in Unix systems)
+which in turns set up and run the simulation. For ease of use we have
+provided an example input file with the code.
+
+In the following sections we will shown describe which are all the possible 
+parameters and options.
+
+
+\section{Download and Compilation}
+
+The marlics source code can be downloaded in Renato Ferreira de Souza(Belanji) git-hub page (\textbf{Fill here the gitub page later}). If you use an Unix system, the source code provides a makefile (thanks to Eric Khoudi Omori) to easy up the process of compilation. Marlics needs the following libraries installed on your system and reachable by the compiler: gsl (Gnu scientific library) and BLAS. We provide two examples in the make file, one we use the GSL BLAS, and other we use the mkl library to provide the necessary functions.
+After setting up you just have to type:
+
+\consoleline{make}
+
+Now, Marlics is already functional. If you prefer you can add an shortcut (or a copy of the program) in a folder where your system can reach automatically. In Unix system the folder searched by the system when can be found in the variable \$PATH.
+\section{Execution}
+
+Executing marlics is very straightforward, you call the program and pass a input file as the standard input. For example, if you are using an Unix system and your marlics has an shortcut/copy in a directory shown in the \$PATH. If your input file is named ``input\_file.txt'' you will launch Marlics typing (we provide an example input file if you would like to try it in your console):
+
+
+\consoleline{marlics $<$ input\_file.txt}
+
+
+
+You will notice that the software display several lines of information on your display, if you would like to save these lines to keep an log of the simulation execution (which we strongly advise you to do so), you can redirect the output direct to a file. In Unix systems this can be done with the redirection operator $>$, which will create a new file if it does not exist, or it will overwrite an existing file. If you would like to keep the previous content in the file you can use append operator $>>$, however, we strongly advise against the use of $>>$, since it can leave the output files very difficult to understand.
+
+Again as an example, if your settings is in a file named ``input\_file.txt'' and you would like to place the log information in a new$/$overwritten  output file named ``simulation.log'', you can do this by typing:
+
+\consoleline{marlics $<$ input\_file.txt $>$simulation.log}
+
+\section{Setting up your input file}
+
+
+
+
+\end{document}
