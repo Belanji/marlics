@@ -3,6 +3,7 @@
 #include "geometry.h"
 #include "geometry_slab.h"
 #include "geometry_bulk.h"
+#include "geometry_sphere.h"
 #include "boundary.h"
 #include "integrator.h"
 #include "integrator_dp5.h"
@@ -337,6 +338,13 @@ void driver::setup_Simulation(void)
 
 	  
 	  LcS_Geometry= new Geometry_Bulk( & sim_param);
+  
+	}
+      else if ( strcasecmp(sim_param.geometry,"sphere") == 0 )
+	{
+
+	  
+	  LcS_Geometry= new Geometry_Sphere( & sim_param);
   
 	}
       else 

@@ -15,8 +15,7 @@ COMPILER = icpc
 FLAGS= -ipo -O3  -no-prec-div -xAVX -simd -qopenmp -fp-model fast=2 -static
 LIB = -mkl -lgsl 
 
-############# Pgi:
-#FLAGS =  -fast -Mipa=fast,inline -O3
+
 CPPS := $(wildcard src/*.cpp)
 HEADER := $(wildcard src/*.h)
 OBJS  := $(patsubst src/%.cpp,build/%.o,${CPPS})
