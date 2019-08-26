@@ -51,17 +51,23 @@ void driver::setup_LC(void)
      sim_param.thermal_flag[2]==parameter_status::set &&
      sim_param.thermal_flag[3]==parameter_status::set)
     {
-      
-      sim_param.S_eq=((-sim_param.B+sqrt(sim_param.B*sim_param.B-24.0*sim_param.a*sim_param.T*sim_param.C)))/(6.0*sim_param.C);
+      if (sim_param.C==0)
+      {
+        printf("The LDG thermal parameter \"C\" must be bigger than 0.\n"); exit(2); 
+      }
+      else
+      {
+        sim_param.S_eq=((-sim_param.B+sqrt(sim_param.B*sim_param.B-24.0*sim_param.a*sim_param.T*sim_param.C)))/(6.0*sim_param.C);
+      }
       
     }
   else
     {
 
-      printf("You must define all the four thermal energy LDG parameters: temperaure, a,B and C (also C can not be 0).\n");
-      printf("Please, review your input file");
+      printf("You must define all the four thermal energy LDG parameters: temperaure, a, B and C (also C can not be 0).\n");
+      printf("Please, review your input file.\n");
       printf("Aborting the program.\n");
-      exit(0);
+      exit(1);
            
     };
       
@@ -71,6 +77,8 @@ void driver::setup_LC(void)
     {
     case elastic_const_status::Ls:
 
+      printf("Using defined Li elastic constants.\n");
+      
       break;
 	
     case elastic_const_status::Ks:
@@ -96,7 +104,7 @@ void driver::setup_LC(void)
       printf("You must define at least one elastic constant K/L in your input file.\n");
       printf("Please, define one or check your input file to see if they are mispelled.\n");
       printf("Aborting the program");
-      exit(0);
+      exit(1);
       break;
 	
     }
@@ -108,7 +116,7 @@ void driver::setup_LC(void)
       printf("You must define the liquid cristal viscosity (gamma_1 or mu_1) in your input file.\n");
       printf("Please, define one or check your input file to see if they are mispelled.\n");
       printf("Aborting the program");
-      exit(0);
+      exit(1);
       break;
 	
     case viscosity_status::gamma:
@@ -124,7 +132,7 @@ void driver::setup_LC(void)
       printf("You must define the liquid cristal surface viscosity (gamma_1_s or mu_1_s) in your input file.\n");
       printf("Please, define one or check your input file to see if they are mispelled.\n");
       printf("Aborting the program");
-      exit(0);
+      exit(1);
       break;
 	
     case viscosity_status::gamma:
@@ -147,7 +155,7 @@ void driver::setup_LC(void)
       printf("You must define the grid spacing parameters {dx,dy,dz} in your input file.\n");
       printf("Please, define them or check your input file to see if they are mispelled.\n");
       printf("Aborting the program");
-      exit(0);
+      exit(1);
 
     }
     
@@ -189,7 +197,7 @@ void driver::setup_Simulation(void)
 
       sim_param.ti=0;
 
-      printf("Simulation parameter \"ti\" not set.");
+      printf("Simulation parameter \"ti\" not set. ");
       printf("Using standard value ti=0.\n");
       printf("ti=%lf\n",sim_param.ti);
       break;
@@ -208,7 +216,7 @@ void driver::setup_Simulation(void)
       printf("Simulation parameter \"tf\" not set.");
       printf("You mut define a value for \"tf\".\n");
       printf("Aborting the program.\n");
-      exit(0);
+      exit(1);
       break;
     }
 
@@ -265,7 +273,7 @@ void driver::setup_Simulation(void)
 
 	  printf("No time printing type named %s.\n",sim_param.print_time_type);
 	  printf("Aborting the program.\n");
-	  exit(0);
+	  exit(2);
 	};      
       break;
 	  
@@ -351,7 +359,7 @@ void driver::setup_Simulation(void)
 	{
 	
 	  printf("No geometry named %s is defined.\nAborting the program.\n\n",sim_param.geometry);
-	  exit(0);
+	  exit(2);
   
 	};
 
@@ -362,7 +370,7 @@ void driver::setup_Simulation(void)
       printf("Simulation geometry not set.");
       printf("You mut define a geometry for your simulation.\n");
       printf("Aborting the program.\n");
-      exit(0);
+      exit(1);
       break;
 
     }
@@ -388,7 +396,7 @@ void driver::setup_Simulation(void)
 	{
         
 	  printf("No integrator named %s is defined.\nAborting the program.\n\n",sim_param.integrator_type);
-	  exit(0);
+	  exit(2);
   
         
 	};
@@ -397,7 +405,7 @@ void driver::setup_Simulation(void)
     case parameter_status::unset:
 
       printf("You didn't define the \"integrator\" parameter.\nPlease define one in your input file.\nAborting the program.\n\n");
-      exit(0);
+      exit(1);
       break;
     }
 }
@@ -1038,7 +1046,7 @@ int driver::parse_input_file(void)
 
 	  printf("The parser did not recognize the option '%s'. Please review your input file\n", parser);
 	  printf("Aborting the program\n");
-	  exit(0);
+	  exit(3);
 	};
 
     }

@@ -31,6 +31,7 @@ int main(int argc, char **argv)
   Lc_driver.setup_LC();
   Lc_driver.setup_Simulation();
 
+  fflush(stdout);
 
   t=Lc_driver.sim_param.ti;  
   tf=Lc_driver.sim_param.tf;
@@ -39,7 +40,7 @@ int main(int argc, char **argv)
 
   //Check if the initial conditions were gotten from a file.
   if(Lc_driver.sim_param.ic_flag[1]==parameter_status::unset)
-    {
+   {
       //Print a snaphot if the ic was not gotten from a file.
       Lc_driver.Data_Container->write_state(t, Lc_driver.Qij, Lc_driver.LcS_Geometry->point_type);
    }
@@ -54,14 +55,7 @@ int main(int argc, char **argv)
       Lc_driver.update_timeprint( ) ;
       
     }
-  
-  
-  
-  
-    
-
+ 
   return 0;
   
 }
-
-
