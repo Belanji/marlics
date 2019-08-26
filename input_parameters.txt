@@ -1,0 +1,78 @@
+geometry sphere
+integrator DP5
+
+
+Nx 101                /*      grid size      */
+Ny 101                /*      grid size      */
+Nz 101                /*      grid size      */
+
+
+a  0.086             /*     10^6 J/Km^3     */
+B -2.12              /*     10^6 J/m^3      */
+C  1.73              /*     10^6 J/m^3      */
+
+
+L1  15.0
+L2  15.0
+L3  15.0
+Ls  0.0 
+Lq  0.0
+
+#k11 16.7
+#k22 7.8
+#k33 18.1
+
+T   -1.0
+
+atol 0.005
+rtol 0.005
+facmax 3.0
+facmin 0.4
+prefac 0.8
+
+p0        500.0        /*     10^-9 m         */
+dx        10.0          /*     10^-9 m         */
+dy        10.0          /*     10^-9 m         */
+dz        10.0          /*     10^-9 m         */
+mu_1      0.3          /*     Pa s            */
+mu_1_s    3.0          /*     10 ^-9 Pa s     */
+
+
+dt        0.001     /*     10^-6  s        */	
+ti        0.0
+tf        5000.0     /*    10^-6 s          */
+
+
+time_print_type	          logarithmic
+timeprint                 50.        /*  10^-6 s   */
+timeprint_increase_factor 1.16        /*  10^-6 s   */     
+
+
+#Initial Conditions
+
+#Random ic:
+initial_conditions          random
+#initial_conditions random_bulk_homogeneous_easy_axis
+
+theta_i 45.0
+phi_i 0.0
+
+#Use other simulation output as initial condition:
+#initial_conditions           read_from_file 
+#ic_file                      director_field_5.csv
+initial_output_file_number   0
+
+
+#Top boundary conditions:
+anchoring_type     fournier-galatola
+Wo1       0    10.0                         /*     10^-3 J/m^2     */
+phi_0     0    0.
+theta_0   0    0.
+
+anchoring_type     fournier-galatola
+Wo1       1    10.0                         /*     10^-3 J/m^2     */
+phi_0     1    0
+theta_0   1    0
+
+
+run
