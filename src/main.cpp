@@ -7,6 +7,7 @@
 #include <cstring>
 #include <cmath>            
 
+#include <unistd.h>
 
 int main(int argc, char **argv)
 {
@@ -18,16 +19,15 @@ int main(int argc, char **argv)
   //		 FE_UNDERFLOW);
 
   double t,tf;
+  
   driver Lc_driver=driver();
-  
+  FILE *input_file;
   printf("Welcome to MarLiCS software v0.1 \n");
-  
-  
+   
   
   
   //Parsing line command options:
-  
-  Lc_driver.parse_input_file();
+  Lc_driver.parse_input_file(argv[1]);
   Lc_driver.setup_LC();
   Lc_driver.setup_Simulation();
 

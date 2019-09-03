@@ -193,20 +193,20 @@ int * Geometry_Sphere::fill_point_type( void )  const
 	      if(rr < R_in)
 		{		  		  
 
-		  point_kind[(k*Ny+j)*Nx+i]=1;
+		  point_kind[(k*Ny+j)*Nx+i]=1;//Setting bulk points
 			  
 		}
 	      else if(rr >=R_in && rr <=R_out)    
 		{
 
-		  point_kind[(k*Ny+j)*Nx+i]=2;
-		  
+		  point_kind[(k*Ny+j)*Nx+i]=2;//Setting surface points
+			  
 		}
 	      else
 		{
 
-		  point_kind[(k*Ny+j)*Nx+i]=0;
-		      
+		  point_kind[(k*Ny+j)*Nx+i]=0;//Setting outside points
+          
 		}
 	
 	    }

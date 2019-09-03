@@ -1,7 +1,7 @@
 #ifndef LC_DRIVER_
 #define LC_DRIVER_
 
-#define ERROr printf("cannot allocate memory\n"); exit(0);
+#define ERROr printf("cannot allocate memory\n"); exit(4);
 #include <vector>
 #include <string>
 
@@ -149,7 +149,7 @@ struct Simulation_Parameters
     void (*next_time_print)  (double *, double);
     void setup_LC ( void);
     void setup_Simulation ( void);
-    int parse_input_file(void);
+    int parse_input_file(char[]);
     void error_check(int error_handler, char parser[]);
 
     driver(void);
