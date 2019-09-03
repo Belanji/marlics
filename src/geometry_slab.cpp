@@ -22,7 +22,7 @@ slab::slab(const struct Simulation_Parameters * sim_param) : GEOMETRY (sim_param
   geometry_name="Slab";
   number_of_boundaries=2;
   bc_conditions=std::vector<class BOUNDARY *>(number_of_boundaries);
-
+  boundary_needed_to_be_defined="0 and 1";
   
   
 };

@@ -908,18 +908,18 @@ int driver::parse_input_file(char input_name[])
 	}
       else if ( strcasecmp(parser,"anchoring_type") == 0 )
 	{
+	  int nn;
+	  error_handler=fscanf(input_file,"%i",& nn);
+	  error_check(error_handler,parser);
 
 	  char anc_type[200];
-	  
 	  error_handler=fscanf(input_file,"%200s",& anc_type);
 	  error_check(error_handler,parser);
 
-	  sim_param.anchoring_type.push_back(std::string(anc_type));
-	  sim_param.theta_0.push_back(0.);
-	  sim_param.phi_0.push_back(0.);
-	  sim_param.Wo1.push_back(0.);
 	  
-	    
+	  sim_param.anchoring_type[nn]=std::string(anc_type);
+	  
+	  
 	  fgets(garbage,400,input_file);
 
 	  
@@ -928,22 +928,31 @@ int driver::parse_input_file(char input_name[])
       else if ( strcasecmp(parser,"Wo1") == 0  )
 	{
 	  int nn;
-	  double Wo1;
-
 	  error_handler=fscanf(input_file,"%i",& nn);
+	  error_check(error_handler,parser);
+	  
+	  double Wo1;	  
 	  error_handler=fscanf(input_file,"%lf",& Wo1);
 	  error_check(error_handler,parser);	  	  
 
-	  try
-	    {
-	      sim_param.Wo1.at(nn)=Wo1;
-	    }
-	  catch (std::out_of_range dummy_var ){
 
-	    printf("You trying to assign an anchoring strength to a anchoring that you not defined yet.\nPlease review your input file.\nAborting the program.\n\n");
-		   
-	    exit(0);
-	  };
+	  sim_param.Wo1[nn]=Wo1;
+	  
+	  fgets(garbage,400,input_file);
+	  
+	}
+    else if ( strcasecmp(parser,"Wo2") == 0  )
+	{
+	  int nn;
+	  error_handler=fscanf(input_file,"%i",& nn);
+	  error_check(error_handler,parser);
+	  
+	  double Wo2;	  
+	  error_handler=fscanf(input_file,"%lf",& Wo2);
+	  error_check(error_handler,parser);	  	  
+
+
+	  sim_param.Wo1[nn]=Wo2;
 	  
 	  fgets(garbage,400,input_file);
 	  
@@ -951,22 +960,15 @@ int driver::parse_input_file(char input_name[])
       else if ( strcasecmp(parser,"phi_0") == 0  )
 	{
 	  int nn;
-	  double phi_0;
-
 	  error_handler=fscanf(input_file,"%i",& nn);
+	  error_check(error_handler,parser);	  	  
+
+	  double phi_0;
 	  error_handler=fscanf(input_file,"%lf",& phi_0);
 	  error_check(error_handler,parser);	  	  
 
-	  try
-	    {
-	      sim_param.phi_0.at(nn)=phi_0;
-	    }
-	  catch (std::out_of_range dummy_var ){
 
-	    printf("You trying to assign an easy angle phi_0 to an anchoring that you not defined yet.\nPlease review your input file.\nAborting the program.\n\n");
-		   
-	    exit(0);
-	  };
+	  sim_param.phi_0[nn]=phi_0;
 	  
 
 	  fgets(garbage,400,input_file);
@@ -975,24 +977,16 @@ int driver::parse_input_file(char input_name[])
       else if ( strcasecmp(parser,"theta_0") == 0  )
 	{
 	  int nn;
-	  double theta_0;
-
 	  error_handler=fscanf(input_file,"%i",& nn);
+	  error_check(error_handler,parser);
+	  
+	  double theta_0;
 	  error_handler=fscanf(input_file,"%lf",& theta_0);
 	  error_check(error_handler,parser);	  	  
 
-	  try
-	    {
-	      sim_param.theta_0.at(nn)=theta_0;
-	    }
-	  catch (std::out_of_range dummy_var ){
 
-	    printf("You trying to assign an easy angle theta_0 to an anchoring that you not defined yet.\nPlease review your input file.\nAborting the program.\n\n");
-		   
-	    exit(0);
-	  };
+	  sim_param.theta_0[nn]=theta_0;
 
-	  
 	  fgets(garbage,400,input_file);
 	  
 	}      
