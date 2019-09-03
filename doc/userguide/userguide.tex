@@ -195,8 +195,8 @@ Finally, there is the parameter \textit{initial_output_file_number} which sets t
 One example of the setup would be:
 
 time_print_type	          logarithmic
-timeprint                 50.        /*  10^-6 s   */
-timeprint_increase_factor 1.16        /*  10^-6 s   */     
+timeprint                 50.        %/*  10^-6 s   */
+timeprint_increase_factor 1.16       % /*  10^-6 s   */     
 initial_output_file_number   0
 
 
@@ -220,18 +220,22 @@ phi_i 0.0
 
 \subsection{Boundary Conditions:}
 
-For each geometry you must setup a defined number of boundaries. Each boundary can be accessed by a number, which is given  by the simulation geometry.
+For each geometry you must setup a defined number of boundaries. For example, in the slab geometry you must define two boundaries, the top and the bottom wall containing the liquid crystal. Each boundary region has a number that can be used to identify which boundary are you working with. For example, in the slab the bottom wall is referred by 0 while the top wall is referred by 1.
+
+Actually there is 3 kinds of boundaries conditions implemented in marlics: Rapini-Papoular(Nobili-Durant), Fournier-Galatola and strong boundary conditions. Each boundary conditions needs its sets of parameters defined.
+
+Boundary conditions that rely on a penalty function needs to defines an anchoring intensity Wo1. Boundary condtions that rely on an easy axis for the energy calculation also need to define the easy axis by means of the polar angle theta_0 and azimutal angle phi_0.
+
+If you want to define a boundary condition, for example, of Rapini-Papoular at the 0 wall, you type:
+
+anchoring_type 0 Rapini-Papoular.
+W01     0  1000.0
+theta_0 0  45.0
+phi_0   0  45.0
 
 
 
-In the slab for example, the lower boundary is referred by the number 0 and the upper boundary by the number 1.
-
-
-Each kind of boundary conditions has its own sets of parameters.
-
-
-
-
+\subsection{Complete input file:}
 
 
 \end{document}
