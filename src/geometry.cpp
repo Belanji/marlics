@@ -493,7 +493,7 @@ void GEOMETRY::boundary_init( struct Simulation_Parameters * sim_param)
       catch(std::out_of_range dummy_var )
 	{
 
-	  std::cout<< "You must define "<< number_of_boundaries <<" anchorings in the " << geometry_name <<" geometry.\nPlease review your input file.\nAborting the program.\n\n";
+	  std::cout<< "You must define boundaries "<< boundary_needed_to_be_defined <<" in the " << geometry_name <<" geometry.\nPlease review your input file.\nAborting the program.\n\n";
 		   
 	  exit(0);      
 	}
@@ -552,29 +552,7 @@ void GEOMETRY::ic(struct Simulation_Parameters * sim_param,double * Qij)
     case parameter_status::set:
 
       printf("\nInitial Conditions: %s.\n",sim_param->initial_conditions);
-      
-      if(strcasecmp(sim_param->initial_conditions,"random") == 0 || strcmp(sim_param->initial_conditions,"Random") == 0 )
-	{
-
-	  random_ic( sim_param, Qij );
-	  
-
-	}
-      else if(strcasecmp(sim_param->initial_conditions,"homogeneous") == 0 )
-	{
-
-	  homogeneous_ic( sim_param, Qij );
-	  
-
-	}
-      else if(strcasecmp(sim_param->initial_conditions,"random_bulk_homogeneous_easy_axis") == 0 )
-	{
-
-	  random_bulk_homogeneous_easy_axis_ic( sim_param, Qij );
-	  
-
-	}
-      else if(strcasecmp(sim_param->initial_conditions,"read_from_file") == 0 )	     
+       if(strcasecmp(sim_param->initial_conditions,"read_from_file") == 0 )	     
 	{
 
 	  if( sim_param->ic_flag[1] == parameter_status::unset )
@@ -585,6 +563,25 @@ void GEOMETRY::ic(struct Simulation_Parameters * sim_param,double * Qij)
 	  
 	  read_from_file_ic( sim_param, Qij );
 
+	}
+      else if(strcasecmp(sim_param->initial_conditions,"homogeneous") == 0 )
+	{
+
+	  homogeneous_ic( sim_param, Qij );
+	  
+	}
+      else if(strcasecmp(sim_param->initial_conditions,"random_bulk_homogeneous_easy_axis") == 0 )
+	{
+
+	  random_bulk_homogeneous_easy_axis_ic( sim_param, Qij );
+	  
+	}
+      else
+      if(strcasecmp(sim_param->initial_conditions,"random") == 0 || strcmp(sim_param->initial_conditions,"Random") == 0 )
+	{
+
+	  random_ic( sim_param, Qij );
+	  
 	}
       else
 	{

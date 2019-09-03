@@ -1,9 +1,10 @@
 #ifndef LC_DRIVER_
 #define LC_DRIVER_
 
-#define ERROr printf("cannot allocate memory\n"); exit(0);
+#define ERROr printf("cannot allocate memory\n"); exit(4);
 #include <vector>
 #include <string>
+#include <map>
 
 enum class parameter_status {unset=0, set=1};
 enum class elastic_const_status {unset=0, Ls=1, Ks=2};
@@ -71,12 +72,12 @@ struct Simulation_Parameters
   
   //Anchoring paramters:
   
-  std::vector<double> theta_0;      /* degrees */
-  std::vector<double> phi_0;        /* degrees */  
-  std::vector<double> Wo1;         /* 10^-3 m */
-  std::vector<double> Wo2;         /* 10^-3 m */
+  std::map<int,double> theta_0;      /* degrees */
+  std::map<int,double> phi_0;        /* degrees */  
+  std::map<int,double> Wo1;         /* 10^-3 m */
+  std::map<int,double> Wo2;         /* 10^-3 m */
 
-  std::vector<std::string> anchoring_type;
+  std::map<int,std::string> anchoring_type;
   
   
 
@@ -149,7 +150,7 @@ struct Simulation_Parameters
     void (*next_time_print)  (double *, double);
     void setup_LC ( void);
     void setup_Simulation ( void);
-    int parse_input_file(void);
+    int parse_input_file(char[]);
     void error_check(int error_handler, char parser[]);
 
     driver(void);

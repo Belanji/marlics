@@ -97,16 +97,15 @@ int * Geometry_Bulk::fill_point_type( void )  const
   for( i= 0; i< Nx; i++)
     {
       for( j= 0; j< Ny; j++)
-	{
-	  for( k= 0; k< Nz; k++)
-	    {	    
-	      
-	      point_kind[(k*Ny+j)*Nx+i]=1;
-			  				      
-	    }
-	  
-	}
-	      
+	  {
+	    for( k= 0; k< Nz; k++)
+	      {	    
+	        
+	        point_kind[(k*Ny+j)*Nx+i]=1;
+	  		  				      
+	      }
+	    
+	  }    
     }	  
     
   return point_kind;

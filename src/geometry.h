@@ -8,12 +8,6 @@ class GEOMETRY
 
  public:
   
-  friend class BOUNDARY;
-
-  std::string geometry_name;
-  
-  std::vector<class BOUNDARY *> bc_conditions;
-
   const int Nx;
   const int Ny;
   const int Nz;
@@ -40,6 +34,10 @@ class GEOMETRY
  protected:
 
 
+  std::string geometry_name;
+  std::vector<class BOUNDARY *> bc_conditions;
+  std::string boundary_needed_to_be_defined;
+  
   virtual int * fill_point_type( void ) const = 0 ;  
   
   const double sigma;
