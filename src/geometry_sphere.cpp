@@ -25,7 +25,7 @@ Geometry_Sphere::Geometry_Sphere(const struct Simulation_Parameters * sim_param)
   geometry_name="Sphere";
   number_of_boundaries=1;
   bc_conditions=std::vector<class BOUNDARY *>(number_of_boundaries);
-  
+  boundary_needed_to_be_defined="0";
 };
 
 

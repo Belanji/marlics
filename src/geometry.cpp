@@ -493,7 +493,7 @@ void GEOMETRY::boundary_init( struct Simulation_Parameters * sim_param)
       catch(std::out_of_range dummy_var )
 	{
 
-	  std::cout<< "You must define "<< number_of_boundaries <<" anchorings in the " << geometry_name <<" geometry.\nPlease review your input file.\nAborting the program.\n\n";
+	  std::cout<< "You must define boundaries "<< boundary_needed_to_be_defined <<" in the " << geometry_name <<" geometry.\nPlease review your input file.\nAborting the program.\n\n";
 		   
 	  exit(0);      
 	}
