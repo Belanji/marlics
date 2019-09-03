@@ -61,7 +61,7 @@ phi_i 0.0
 #initial_conditions           read_from_file 
 #ic_file                      director_field_5.csv
 initial_output_file_number   0
-
+output_folder   csv
 
 #Top boundary conditions:
 anchoring_type     fournier-galatola

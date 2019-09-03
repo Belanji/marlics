@@ -107,10 +107,11 @@ struct Simulation_Parameters
   
   //Execution Parameters:
   
+  char output_folder[200]=".";
   double timeprint;    /*10^-6 s */
   double timeprint_increase_factor; /*linear=10^-6 s, logarithmic=admensional */
   char print_time_type[200];
-  int firt_output_file_number;  
+  int first_output_file_number;  
   parameter_status timeprint_status[4]={parameter_status::unset,
 					parameter_status::unset,
 					parameter_status::unset,

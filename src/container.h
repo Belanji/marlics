@@ -13,6 +13,7 @@ class container
  protected:
   
   int  file_number;
+  char output_folder[200];
   int  director_field_counter;
   int  Nx, Ny, Nz;
 

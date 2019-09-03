@@ -409,7 +409,7 @@ void driver::setup_Simulation(void)
 }
      
   
-
+//Check if the (f)scanf were well succeed, kill the program if not
 void driver::error_check(int error_handler,
 		  char parser[])
 
@@ -423,26 +423,23 @@ void driver::error_check(int error_handler,
 	  }
 	  
 }
-
+//Evaluate the next printing time
 void driver::update_timeprint(void)
 {
-
 
 next_time_print(& sim_param.timeprint, sim_param.timeprint_increase_factor);
 sim_param.timeprint=MIN(sim_param.timeprint,sim_param.tf);
 
-
-
 };
 
-
+//logarithmic time step
 void log_next_time_print(double *time_print  , double factor )
 {
 
   *time_print*=factor;
 
 };
-
+//linear time step
 void linear_next_time_print(double *time_print , double factor )
 {
 
@@ -450,9 +447,7 @@ void linear_next_time_print(double *time_print , double factor )
   
 };
 
-
-
-
+//read input file
 int driver::parse_input_file(char input_name[])
 {
   FILE *input_file;
@@ -569,7 +564,7 @@ int driver::parse_input_file(char input_name[])
 	{
 
 	  sim_param.timeprint_status[3]=parameter_status::set;
-	  error_handler=fscanf(input_file,"%d",&(sim_param.firt_output_file_number));
+	  error_handler=fscanf(input_file,"%d",&(sim_param.first_output_file_number));
 	  error_check(error_handler,parser);
 		
 	  
@@ -809,6 +804,16 @@ int driver::parse_input_file(char input_name[])
 
 
 	}
+      else if (strcasecmp(parser,"output_folder") == 0 || strcasecmp(parser,"out_folder") == 0)
+	{
+
+	  sim_param.time_status[1]=parameter_status::set;
+	  error_handler=fscanf(input_file,"%200s",&sim_param.output_folder);
+	  error_check(error_handler,parser);
+	  fgets(garbage,400,input_file);
+
+
+	}
       else if (strcasecmp(parser,"tf") == 0 || strcasecmp(parser,"run_time") ==0 )
 	{
 
@@ -1009,7 +1014,7 @@ int driver::parse_input_file(char input_name[])
 
 
 	}
-            else if ( strcasecmp(parser,"rtol") == 0  || strcasecmp(parser,"Relative_Tolerance") == 0 )
+  else if ( strcasecmp(parser,"rtol") == 0  || strcasecmp(parser,"Relative_Tolerance") == 0 )
 	{
 	  sim_param.integrator_parameters_flag++;
 	  error_handler=fscanf(input_file,"%lf",&sim_param.Rtol);
@@ -1021,7 +1026,7 @@ int driver::parse_input_file(char input_name[])
 
 
 	}
-            else if ( strcasecmp(parser,"facmax") == 0 || strcasecmp(parser,"maximum_timestep_increase") == 0  )
+  else if ( strcasecmp(parser,"facmax") == 0 || strcasecmp(parser,"maximum_timestep_increase") == 0  )
 	{
 	  sim_param.integrator_parameters_flag++;
 	  error_handler=fscanf(input_file,"%lf",&sim_param.facmax);

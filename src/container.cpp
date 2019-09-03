@@ -4,6 +4,7 @@
 #include <cmath>
 #include <cstdlib> 
 #include <ccomplex>
+#include <sys/stat.h>
 #include <gsl/gsl_eigen.h>
 //#include "geometry.h"
 
@@ -12,15 +13,22 @@ using namespace std;
 
 container::container(struct Simulation_Parameters * sim_param)
 {
-
+  struct stat buffer;  
+  sprintf(output_folder,"%s", sim_param->output_folder);
+  if (stat(output_folder,&buffer)!=0)
+  {
+      perror(output_folder);
+      exit(4);
+  }
+  
+  printf("Using \"%s\\\" as output folder.\n",output_folder);
   switch(sim_param->timeprint_status[3])
     {
     case parameter_status::set:
 
-      file_number=sim_param->firt_output_file_number;
-      printf("First snapshot will written at \"director_field_%i.csv\".\n", file_number);
-
-
+      file_number=sim_param->first_output_file_number;
+      printf("First snapshot will written at \"%s\\director_field_%i.csv\".\n", output_folder, file_number);
+      
       Nx=sim_param->Nx;
       Ny=sim_param->Ny;
       Nz=sim_param->Nz;
@@ -44,7 +52,7 @@ void container::write_state(double t , const double   * Qij,const int * pt)
   double d0, d1, n[3], l[3], data[9];
 
  
-  sprintf(time_stamp,"./director_field_%i.csv", file_number);
+  sprintf(time_stamp,"%s/director_field_%i.csv", output_folder, file_number);
 
 
 
