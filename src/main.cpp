@@ -14,15 +14,15 @@ int main(int argc, char **argv)
 
   //debuging options:
   //feenableexcept(FE_INVALID   | 
-  //		 FE_DIVBYZERO |
-  //		 FE_OVERFLOW  | 
-  //		 FE_UNDERFLOW);
+  //             FE_DIVBYZERO |
+  //             FE_OVERFLOW  | 
+  //             FE_UNDERFLOW);
 
   double t,tf;
   
   driver Lc_driver=driver();
   FILE *input_file;
-  printf("Welcome to MarLiCS software v0.1 \n");
+  std::cout;
    
   
   

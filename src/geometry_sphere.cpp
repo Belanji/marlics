@@ -14,11 +14,11 @@
 
 
 Geometry_Sphere::Geometry_Sphere(const struct Simulation_Parameters * sim_param) : GEOMETRY (sim_param),
-									  R_out ((Nx-Nx/2)+1.0),
-									  R_in ((Nx-Nx/2)-0.1),
-									  HNx ((Nx-1)/2),
-									  HNy ((Ny-1)/2),
-									  HNz ((Nz-1)/2)
+                                                                          R_out ((Nx-Nx/2)+1.0),
+                                                                          R_in ((Nx-Nx/2)-0.1),
+                                                                          HNx ((Nx-1)/2),
+                                                                          HNy ((Ny-1)/2),
+                                                                          HNz ((Nz-1)/2)
 {
   point_type=fill_point_type( );
   geometry_pointer=&(*this);
@@ -40,10 +40,10 @@ Geometry_Sphere::~Geometry_Sphere()
  
 
 void  Geometry_Sphere::fill_ki(double * k_i,
-		      const double * Qij, 
-		      const int i,
-		      const int j,
-		      const int k)  const 
+                      const double * Qij, 
+                      const int i,
+                      const int j,
+                      const int k)  const 
 {
 
     
@@ -56,7 +56,7 @@ void  Geometry_Sphere::fill_ki(double * k_i,
   if(point_type[(k*Ny+j)*Nx+i] == 1)
     {
 
-      //check_bulk_limits( i,  j,  k);	
+      //check_bulk_limits( i,  j,  k);  
       
       
       
@@ -69,7 +69,7 @@ void  Geometry_Sphere::fill_ki(double * k_i,
 
 
       for(ll=0; ll<=4;ll++) QN[ll]=Qij[5*(Nx*(Ny*k+j)+i)+ll];
-	
+        
 
       //Calcule first derivatives of Qij:
       for(ll=0; ll<=4;ll++) dQ[ll]= 0.5*(Qij[5*((k*Ny+j)*Nx+ip1)+ll]-Qij[5*((k*Ny+j)*Nx+im1)+ll])*dx_1;
@@ -118,7 +118,7 @@ void  Geometry_Sphere::fill_ki(double * k_i,
       delta_y=j-HNy;
       delta_z=k-HNz;
       rr=sqrt( delta_x*delta_x+delta_y*delta_y+delta_z*delta_z);
-			
+                        
       v[0]=delta_x/rr;
       v[1]=delta_y/rr;
       v[2]=delta_z/rr;
@@ -134,7 +134,7 @@ void  Geometry_Sphere::fill_ki(double * k_i,
   
 
       for(ll=0; ll<=4;ll++) QN[ll]=Qij[5*(Nx*(Ny*k+j)+i)+ll];
-	
+        
 
       //Calcule first derivatives of Qij:
       for(ll=0; ll<=4;ll++) dQ[ll]=   (Qij[5*((k*Ny+j)*Nx+ip1)+ll]-Qij[5*((k*Ny+j)*Nx+im1)+ll])*dx_1;
@@ -181,37 +181,35 @@ int * Geometry_Sphere::fill_point_type( void )  const
   for( i= 0; i< Nx; i++)
     {
       for( j= 0; j< Ny; j++)
-	{
-	  for( k= 0; k< Nz; k++)
-	    {	    
-	      delta_x=i-HNx;
-	      delta_y=j-HNy;
-	      delta_z=k-HNz;
-	      rr=sqrt( delta_x*delta_x+delta_y*delta_y+delta_z*delta_z);
-	      
+        {
+          for( k= 0; k< Nz; k++)
+            {       
+              delta_x=i-HNx;
+              delta_y=j-HNy;
+              delta_z=k-HNz;
+              rr=sqrt( delta_x*delta_x+delta_y*delta_y+delta_z*delta_z);
+              
 
-	      if(rr < R_in)
-		{		  		  
+              if(rr < R_in)
+                {                                 
 
-		  point_kind[(k*Ny+j)*Nx+i]=1;//Setting bulk points
-			  
-		}
-	      else if(rr >=R_in && rr <=R_out)    
-		{
+                  point_kind[(k*Ny+j)*Nx+i]=1;//Setting bulk points
+                          
+                }
+              else if(rr >=R_in && rr <=R_out)    
+                {
 
-		  point_kind[(k*Ny+j)*Nx+i]=2;//Setting surface points
-			  
-		}
-	      else
-		{
+                  point_kind[(k*Ny+j)*Nx+i]=2;//Setting surface points
+                          
+                }
+              else
+                {
 
-		  point_kind[(k*Ny+j)*Nx+i]=0;//Setting outside points
+                  point_kind[(k*Ny+j)*Nx+i]=0;//Setting outside points
           
-		}
-	
-	    }
-	      
-	}	  
+                }
+            }  
+        }         
     }
 
   return point_kind;

@@ -1,7 +1,8 @@
 #ifndef LC_DRIVER_
 #define LC_DRIVER_
 
-#define ERROr printf("cannot allocate memory\n"); exit(4);
+#include <iostream>
+#define ERROr std::cout; exit(4);
 #include <vector>
 #include <string>
 #include <map>
@@ -106,9 +107,13 @@ struct Simulation_Parameters
   parameter_status integrator_flag=parameter_status::unset;
   int integrator_parameters_flag=0;
   
-  //Execution Parameters:
+  //Output name parameters:
   
   char output_folder[200]=".";
+  char output_fname[200]="director_field";
+  parameter_status output_name_status[2]={parameter_status::unset, parameter_status::unset};
+  
+  //Execution Parameters:
   double timeprint;    /*10^-6 s */
   double timeprint_increase_factor; /*linear=10^-6 s, logarithmic=admensional */
   char print_time_type[200];

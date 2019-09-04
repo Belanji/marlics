@@ -62,14 +62,15 @@ phi_i 0.0
 #ic_file                      director_field_5.csv
 initial_output_file_number   0
 output_folder   csv
+output_fname   n
 
 #Top boundary conditions:
-anchoring_type  1   fournier-galatola
+anchoring_type  0   fournier-galatola
 Wo1       0    10.0                         /*     10^-3 J/m^2     */
 phi_0     0    0.
 theta_0   0    0.
 
-anchoring_type  2   fournier-galatola
+anchoring_type  1   fournier-galatola
 Wo1       1    10.0                         /*     10^-3 J/m^2     */
 phi_0     1    0
 theta_0   1    0

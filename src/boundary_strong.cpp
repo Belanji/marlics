@@ -1,11 +1,12 @@
 #include "boundary_strong.h"
 #include "geometry.h"
+#include <iostream>
 
 Strong_Boundary::Strong_Boundary(const Simulation_Parameters * sim_param, int boundary_id) : BOUNDARY ( sim_param, boundary_id )
 {
 
   condition_name="strong";
-  printf("\n");
+  std::cout << std::endl;
   
   
 } ;

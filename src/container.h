@@ -14,6 +14,7 @@ class container
   
   int  file_number;
   char output_folder[200];
+  char output_fname[200];
   int  director_field_counter;
   int  Nx, Ny, Nz;
 

@@ -7,7 +7,7 @@
 class Strong_Boundary : public BOUNDARY
 {
 
-     public:
+  public:
 
   virtual double surface_00(const double  QN[5],const double  dQ[15],const double  ddQ[30], const double v[3]) const ;
   virtual double surface_01(const double  QN[5],const double  dQ[15],const double  ddQ[30], const double v[3]) const ;

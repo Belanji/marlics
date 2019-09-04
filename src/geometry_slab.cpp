@@ -29,10 +29,10 @@ slab::slab(const struct Simulation_Parameters * sim_param) : GEOMETRY (sim_param
 
 
 void  slab::fill_ki(double * k_i,
-		    const double * Qij, 
-		    const int i,
-		    const int j,
-		    const int k)  const 
+                    const double * Qij, 
+                    const int i,
+                    const int j,
+                    const int k)  const 
 {
 
     
@@ -46,7 +46,7 @@ void  slab::fill_ki(double * k_i,
   if(point_type[(k*Ny+j)*Nx+i] == 1)
     {
 
-      //check_bulk_limits( i,  j,  k);	
+      //check_bulk_limits( i,  j,  k);  
 
       ip1= (i+1)%Nx;
       jp1= (j+1)%Ny;
@@ -57,7 +57,7 @@ void  slab::fill_ki(double * k_i,
 
       
       for(ll=0; ll<=4;ll++) QN[ll]=Qij[5*(Nx*(Ny*k+j)+i)+ll];
-	
+        
 
       //Calcule first derivatives of Qij:
       for(ll=0; ll<=4;ll++) dQ[ll]= 0.5*(Qij[5*((k*Ny+j)*Nx+ip1)+ll]-Qij[5*((k*Ny+j)*Nx+im1)+ll])*dx_1;
@@ -108,7 +108,7 @@ void  slab::fill_ki(double * k_i,
       v[2]=-1.0;
       
       for(ll=0; ll<=4;ll++) QN[ll]=Qij[5*(Nx*(Ny*k+j)+i)+ll];
-	
+        
 
       //Calcule first derivatives of Qij:
       for(ll=0; ll<=4;ll++) dQ[ll]=0.5*(Qij[5*((k*Ny+j)*Nx+ip1)+ll]-Qij[5*((k*Ny+j)*Nx+im1)+ll])*dx_1;
@@ -145,7 +145,7 @@ void  slab::fill_ki(double * k_i,
 
       
       for(ll=0; ll<=4;ll++) QN[ll]=Qij[5*(Nx*(Ny*k+j)+i)+ll];
-	
+        
 
       //Calcule first derivatives of Qij:
       for(ll=0; ll<=4;ll++) dQ[ll]=0.5*(Qij[5*((k*Ny+j)*Nx+ip1)+ll]-Qij[5*((k*Ny+j)*Nx+im1)+ll])*dx_1;
@@ -180,25 +180,22 @@ int * slab::fill_point_type( void )  const
   for( i= 0; i< Nx; i++)
     {
       for( j= 0; j< Ny; j++)
-	{
+        {
 
-	  k=0;
-	  point_kind[(k*Ny+j)*Nx+i]=2;
+          k=0;
+          point_kind[(k*Ny+j)*Nx+i]=2;
 
-	  for( k= 1; k< Nz-1; k++)
-	    {	    
-	      
-	      point_kind[(k*Ny+j)*Nx+i]=1;
-			  				      
-	    }
-	  
-	  k=Nz-1;
-	  point_kind[(k*Ny+j)*Nx+i]=3;
-
-	  
-	}
-	      
-    }	  
+          for( k= 1; k< Nz-1; k++)
+            {       
+              
+              point_kind[(k*Ny+j)*Nx+i]=1;
+                                                              
+            }
+          
+          k=Nz-1;
+          point_kind[(k*Ny+j)*Nx+i]=3;
+        }
+    }     
     
   return point_kind;
 }

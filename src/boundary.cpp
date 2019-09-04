@@ -2,7 +2,7 @@
 #include "boundary.h"
 #include <string>
 #include <iostream>
-
+//base class to posterior boudary definition
 BOUNDARY::BOUNDARY(const  Simulation_Parameters *  sim_par, int boundary_number):
   sigma(sim_par->T*sim_par->a), 
   a(sim_par->a),
@@ -24,7 +24,8 @@ BOUNDARY::BOUNDARY(const  Simulation_Parameters *  sim_par, int boundary_number)
   boundary_id(boundary_number)
   { };
 
-
+/*Warn about the use of a standart value in the absence of a parameter value.
+ Print a error menssage if the standart value doesn't exist.*/
 void BOUNDARY::assert_parameter_is_set(bool parameter, std::string parameter_name, bool has_standard_value )
 {
 
@@ -32,21 +33,21 @@ void BOUNDARY::assert_parameter_is_set(bool parameter, std::string parameter_nam
     {
 
       if(has_standard_value)
-	{
+        {
 
-	  std::cout <<"Parameter " << parameter_name << " is not set. Using standard value.\n";
+          std::cout <<"Parameter " << parameter_name << " is not set. Using standard value.\n";
 
-	}
+        }
       else
-	{
+        {
 
-	  std::cout << "Paramter " << parameter_name << "not defined for the boundary condition number " << " number " << boundary_id << ".\n";
-	  std::cout << "The boundary condition " << condition_name << " needs the aforementioned parameter defined.\n";
-	  std::cout << "Please, set it in your input file, or check if it is mispelled.\n";
-	  std::cout <<"Aborting the program.\n";
-	  exit(0);
-	    
-	}
+          std::cout << "Parameter " << parameter_name << " not defined for the boundary condition " << "#" << boundary_id << ".\n";
+          std::cout << "The boundary condition " << condition_name << " needs the aforementioned parameter defined.\n";
+          std::cout << "Please, set it in your input file, or check if it is mispelled.\n";
+          std::cout <<"Aborting the program.\n";
+          exit(1);
+            
+        }
     }
   
 }
