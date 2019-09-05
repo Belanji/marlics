@@ -2,7 +2,7 @@
 #define LC_DRIVER_
 
 #include <iostream>
-#define ERROr std::cout; exit(4);
+#define ERROr std::cout<<"cannot allocate memory\n"; exit(4);
 #include <vector>
 #include <string>
 #include <map>

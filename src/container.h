@@ -1,5 +1,6 @@
 #ifndef  LC_CONTAINER_
 #define  LC_CONTAINER__
+#include <string>
 
 class container
 {
@@ -14,7 +15,7 @@ class container
   
   int  file_number;
   char output_folder[200];
-  char output_fname[200];
+  std::string output_fname;
   int  director_field_counter;
   int  Nx, Ny, Nz;
 

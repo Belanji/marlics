@@ -51,8 +51,8 @@ timeprint_increase_factor 1.16        /*  10^-6 s   */
 #Initial Conditions
 
 #Random ic:
-initial_conditions          random
-#initial_conditions random_bulk_homogeneous_easy_axis
+#initial_conditions          random
+initial_conditions homogeneous_easy_axis
 
 theta_i 45.0
 phi_i 0.0
@@ -62,7 +62,7 @@ phi_i 0.0
 #ic_file                      director_field_5.csv
 initial_output_file_number   0
 output_folder   csv
-output_fname   n
+output_fname   n_$$.csv
 
 #Top boundary conditions:
 anchoring_type  0   fournier-galatola

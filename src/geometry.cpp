@@ -215,7 +215,7 @@ void GEOMETRY::homogeneous_ic( struct Simulation_Parameters * sim_param,double *
   int i,j,k;
   double n[3];  
 
-  std::cout;
+  std::cout<<"Initiating homogeneous initial conditions:\n\n";
   switch(sim_param->ic_flag[2])
     {
     case parameter_status::set:
@@ -225,12 +225,10 @@ void GEOMETRY::homogeneous_ic( struct Simulation_Parameters * sim_param,double *
       break;
 
     case parameter_status::unset:
-
-      std::cout;
-      std::cout;
-      std::cout;
-      std::cout;
-      exit(0);
+      std::cout<<"Parameter \"theta_i\" not set.\nThe initial condition named \"homogeneous\" needs the paramters \"theta_i\" and \"phi_i\" set for use.\n"<<
+      "Please set them in your in your input file.\n \nAborting the program.\n";
+     
+      exit(1);
       break;
     }
 
@@ -245,10 +243,8 @@ void GEOMETRY::homogeneous_ic( struct Simulation_Parameters * sim_param,double *
 
     case parameter_status::unset:
 
-      std::cout;
-      std::cout;
-      std::cout;
-      std::cout;
+      std::cout<<"Parameter \"phi_i\" not set.\nThe initial condition named \"homogeneous\" needs the paramters \"theta_i\" and \"phi_i\" set for use.\n"<<
+      "Please set them in your in your input file.\n \nAborting the program.\n";
       exit(0);
       break;
     }
@@ -321,10 +317,9 @@ void GEOMETRY::homogeneous_easy_axis_ic( struct Simulation_Parameters * sim_para
       catch(std::out_of_range dummy_var)
         {
 
-          std::cout << "\n Easy axis angle (theta_0 or phi_0) number " << ii << " not defined.\n";
-          std::cout;
-          std::cout;
-          std::cout;
+          std::cout << "\n Easy axis angle (theta_0 or phi_0) number " << ii <<
+          " not defined.\n This initial condition needs both of them defined for use.\n" <<
+	  "Please define them in your in your input file.\n \n Aborting the program.\n";
       
         }
     }
@@ -520,7 +515,7 @@ void GEOMETRY::ic(struct Simulation_Parameters * sim_param,double * Qij)
       
             if( sim_param->ic_flag[1] == parameter_status::unset )
               {
-                std::cout;
+                std::cout<<"Missing the \"initial_conditions_file\" in your in put file.\n Aborting the program.\n\n";
                 exit(0);
               }
             
@@ -556,9 +551,9 @@ void GEOMETRY::ic(struct Simulation_Parameters * sim_param,double * Qij)
         break;
         
       case parameter_status::unset:
-        std::cout;
-        std::cout;
-        std::cout;
+       std::cout<< "Parameter \"initial_conditions\" not set in your in put file.\n"<<
+                   "Please, set the parameter for one of the available initial consitions in this geometry:\n"<<
+                   "random,read_from_file\n\nAborting the program.\n\n";
         exit(0);
     }
 

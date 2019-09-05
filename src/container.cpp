@@ -4,9 +4,11 @@
 #include <cmath>
 #include <cstdlib> 
 #include <ccomplex>
+#include <string>
 #include <sys/stat.h>
 #include <gsl/gsl_eigen.h>
 //#include "geometry.h"
+#define FILE_NUMBER_DIGITS 5
 
 using namespace std;
 
@@ -15,9 +17,13 @@ container::container(struct Simulation_Parameters * sim_param)
 {
   struct stat buffer;  
   sprintf(output_folder,"%s", sim_param->output_folder);
-  sprintf(output_fname,"%s", sim_param->output_fname);
+  output_fname.assign(sim_param->output_fname);
 
-    
+  if (stat(output_folder,&buffer)!=0)
+  {
+      perror(output_folder);
+      exit(4);
+  }  
     switch(sim_param->output_name_status[0])
       {
       case   parameter_status::unset:
@@ -32,7 +38,7 @@ container::container(struct Simulation_Parameters * sim_param)
         std::cout << "You didn't define the \"output_name\". Using the standart output name -> director_field."<< std::endl;
         break; 
       }
-  std::cout << "Using \""<< output_folder<<"\\"<<output_fname<<"_ii.csv\" as output file pattern.\n";
+  std::cout << "Using \""<< output_folder<<"\\"<<output_fname<<" as output file pattern.\n";
   switch(sim_param->timeprint_status[3])
     {
       case parameter_status::set:
@@ -60,11 +66,17 @@ void container::write_state(double t , const double   * Qij,const int * pt)
 
   FILE * snapshot;
   char time_stamp[100];
+  char fn[FILE_NUMBER_DIGITS];
   int i,j,k;
   double d0, d1, n[3], l[3], data[9];
-
- 
-  sprintf(time_stamp,"%s/%s_%i.csv", output_folder, output_fname, file_number);
+  
+  sprintf(fn, "%d", file_number);
+  std::string output_name=output_fname;
+  std::size_t found = output_name.rfind("$$");
+  if (found!=std::string::npos)
+    output_name.replace (found,2,fn);
+    
+  sprintf(time_stamp,"%s/%s", output_folder, output_name.c_str());
 
 
 
