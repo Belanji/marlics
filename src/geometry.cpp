@@ -245,7 +245,7 @@ void GEOMETRY::homogeneous_ic( struct Simulation_Parameters * sim_param,double *
 
       std::cout<<"Parameter \"phi_i\" not set.\nThe initial condition named \"homogeneous\" needs the paramters \"theta_i\" and \"phi_i\" set for use.\n"<<
       "Please set them in your in your input file.\n \nAborting the program.\n";
-      exit(0);
+      exit(1);
       break;
     }
 
@@ -375,8 +375,8 @@ void GEOMETRY::read_from_file_ic( struct Simulation_Parameters * sim_param, doub
   ic_file=fopen(sim_param->ic_file_name,"r");
   if (ic_file== NULL)
     {
-      std::cout << "Unable to find the file \"" << sim_param->ic_file_name << "\".\nPlease check your initial condition file name.\n\nAborting the program.\n\n";
-      exit(0);
+      perror(sim_param->ic_file_name);
+      exit(EXIT_FAILURE);
     }
 
   //get the file header:
@@ -546,7 +546,7 @@ void GEOMETRY::ic(struct Simulation_Parameters * sim_param,double * Qij)
         
             std::cout << "\n The program did not recognize the initial condition option \"" << sim_param->initial_conditions << "\".\nPlease review your input file.\n\nAborting the program.\n";
       
-            exit(0);
+            exit(2);
           }
         break;
         
@@ -554,7 +554,7 @@ void GEOMETRY::ic(struct Simulation_Parameters * sim_param,double * Qij)
        std::cout<< "Parameter \"initial_conditions\" not set in your in put file.\n"<<
                    "Please, set the parameter for one of the available initial consitions in this geometry:\n"<<
                    "random,read_from_file\n\nAborting the program.\n\n";
-        exit(0);
+        exit(1);
     }
 
 }
