@@ -110,7 +110,7 @@ struct Simulation_Parameters
   //Output name parameters:
   
   char output_folder[200]=".";
-  char output_fname[200]="director_field";
+  char output_fname[200]="director_field_$$.csv";
   parameter_status output_name_status[2]={parameter_status::unset, parameter_status::unset};
   
   //Execution Parameters:
