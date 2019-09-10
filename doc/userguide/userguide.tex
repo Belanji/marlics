@@ -5,7 +5,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{textcomp}
 \usepackage{underscore}
-
+\usepackage{changes}
 \usepackage{dcolumn}% Align table columns on decimal point
 \usepackage{bm}% bold math
 \usepackage{graphicx}
@@ -13,7 +13,7 @@
 \usepackage{color}
 \usepackage[caption=false]{subfig}
 \usepackage[left= 2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
-
+\definechangesauthor[name={Eric}, color=red]{e}
 \newcommand{\consoleline}[2][0.5cm]
 {\vspace{#1}
 \textit{{#2}}
@@ -23,7 +23,7 @@
 
 \title{Marlics User Guide}
 \author{Renato Ferreira de Souza and
-Eric Khoudi Omori}
+Eric Koudhi Omori}
 
 \begin{document}
 
@@ -34,8 +34,8 @@ Eric Khoudi Omori}
 Welcome to Marlics (\textbf{Mar}ingá \textbf{li}quid \textbf{c}rystal
 \textbf{s}imulator). Marlics is a software developed in C++ to
 simulate the dynamics of the liquid crystal tensorial order parameter
-by means finite differences. Finite differences works very well in
-non-curvilinear geometries, and in a less extent, in curvilinear
+by means\added[id=e]{ of} finite differences. Finite differences works very well in
+non-curvilinear geometries, and in a\replaced[id=e]{ lesser}{ less} extent, in curvilinear
 geometries as well. We already provided three of such geometries
 (slab, bulk and sphere), but since we are providing the source code
 under a GPL license, the user can implement their own geometries if
@@ -45,27 +45,29 @@ The software usage is simple: the user fills an input file chosing the
 values of simulation parameters and the stage variables. This script
 is passed to the software as the main input (``$<$'' in Unix systems)
 which in turns set up and run the simulation. For ease of use we have
-provided an example input file with the code.
+provided an example input file with the code. \added[id=e]{In the section \ref{sec:inputfile} we are going to describe all the available parameters and options.} 
 
-In the following sections we will shown describe which are all the possible 
+\replaced[id=e]
+{In the following sections we will shown how to obtain and execute the MarLiCS, along with the source code.}
+{In the following sections we will shown describe which are all the possible 
 parameters and options.
-
+}
 
 \section{Download and Compilation}
 
-The marlics source code can be downloaded in Renato Ferreira de Souza(Belanji) git-hub page (\textbf{Fill here the gitub page later}). If you use an Unix system, the source code provides a makefile (thanks to Eric Khoudi Omori) to easy up the process of compilation. Marlics needs the following libraries installed on your system and reachable by the compiler: gsl (Gnu scientific library) and BLAS. We provide two examples in the make file, one we use the GSL BLAS, and other we use the mkl library to provide the necessary functions.
+The marlics source code can be downloaded in Renato Ferreira de Souza(Belanji) git-hub page (\textbf{Fill here the gitub page later}). If you use an Unix system, the source code provides a makefile (thanks to Eric Koudhi Omori)\footnote{stop misspelling koudhi, please, just please. and don't forget to erase this =D} to easy up the process of compilation.
+Marlics needs the following libraries installed on your system and reachable by the compiler: gsl (Gnu scientific library) and BLAS. We provide two examples in the make file, one we use the GSL BLAS, and other we use the mkl library to provide the necessary functions.
 After setting up you just have to type:
 
 \consoleline{make}
 
-Now, Marlics is already functional. If you prefer you can add an shortcut (or a copy of the program) in a folder where your system can reach automatically. In Unix system the folder searched by the system when can be found in the variable \$PATH.
+Now, Marlics is already functional. If you prefer you can add an shortcut (or a copy of the program) in a folder where your system can reach automatically\replaced[id=e]{, known as binary directories in Unix system. A list of these directories can, and must, be found under the variable \$PATH.}{In Unix system the folder searched by the system when can be found in the variable \$PATH.}
 \section{Execution}
 
-Executing marlics is very straightforward, you call the program and pass a input file as the standard input. For example, if you are using an Unix system and your marlics has an shortcut/copy in a directory shown in the \$PATH. If your input file is named ``input\_file.txt'' you will launch Marlics typing (we provide an example input file if you would like to try it in your console):
+Executing Marlics is very straightforward, you call the program and pass a input file as the standard input. For example, if you are using an Unix system and your marlics has an shortcut/copy in a directory shown in the \$PATH. If your input file is named ``input\_file.txt'' you will launch Marlics typing (we provide an example input file if you would like to try it in your console):
 
 
 \consoleline{marlics $<$ input\_file.txt}
-
 
 
 You will notice that the software display several lines of information on your display, if you would like to save these lines to keep an log of the simulation execution (which we strongly advise you to do so), you can redirect the output direct to a file. In Unix systems this can be done with the redirection operator $>$, which will create a new file if it does not exist, or it will overwrite an existing file. If you would like to keep the previous content in the file you can use append operator $>>$, however, we strongly advise against the use of $>>$, since it can leave the output files very difficult to understand.
@@ -74,9 +76,9 @@ Again as an example, if your settings is in a file named ``input\_file.txt'' and
 
 \consoleline{marlics $<$ input\_file.txt $>$simulation.log}
 
-\section{Setting up your input file}
+\section{Setting up your input file}\label{sec:inputfile}
 
-All parameters and simulation setup are passed  to marlics via the input file. In this section we will describe how to set up your simulation and how chose the parameters necessary.
+All parameters and simulation setup \replaced[id=e]{ can be}{ are} passed to marlics via the input file. In this section we will describe how to set up your simulation and how chose the parameters necessary.
 
 To help the user we provided an example input file with the program.
 
@@ -84,7 +86,7 @@ To help the user we provided an example input file with the program.
 
 To fill in an parameter value in the input file you type de parameter name followed by any number of spaces and the parameter value afterwards:
 
-\consoleline{parameter   value}
+\consoleline{parameter\_name value}
 
 If you want to write a text to help you remember something our to help others understand you input file, you can place a comment on the file. Comments are lines placed in the input file that are ignored by marlics. In marlics comments start with the character \# and goes until the end of the line.
 
@@ -97,11 +99,11 @@ In bulk simulations, the liquid crystal is placed in an square box with periodic
 
 In slab the liquid crystal is placed inside a box with periodic boundary conditions in the x and y direction, and with boundary conditions chosen by the user in both ends of the z axis.
 
-Finally in the sphere geometry the liquid crystal is places inside an sphere with one boundary condition setup-ed by the user and no periodic boundary conditions at all. Since here we use regular grids and the sphere has an curvilinear geometry, the fit of the liquid crystal inside the sphere is ....
+Finally in the sphere geometry the liquid crystal is places inside an sphere with one boundary condition \replaced[id=e]{defined}{setup-ed} by the user and no periodic boundary conditions at all. Since here we use regular grids and the sphere has an curvilinear geometry, the fit of the liquid crystal inside the sphere is ....
 
 \consoleline{geometry  slab}
 
-The grid size and spacing is controlled with 6 parameters: $Nx$, $Ny$, $Nz$ ,$dx$ ,$dy$ and $dz$. The number of points in each axis directions is defined ny the paramters $Ni$, while de distance between them is set by the parameters $di$. For example:
+The grid size and spacing is controlled with 6 parameters: $Nx$, $Ny$, $Nz$ ,$dx$ ,$dy$ and $dz$. The number of points in each axis directions is defined ny the parameters $Ni$, while de distance between them is set by the parameters $di$. For example:
 
 Nx 200             %   /*      grid size      */
 Ny 200             %   /*      grid size      */
@@ -122,17 +124,18 @@ Sets a grid with 200 points in the $x$ and $y$ axis and 100 in the $z$ one, and 
 
  \consoleline{integrator DP5}
 
-\subsection{Liquid crystal Parameters:}
+\subsection{Liquid crystal Parameters}
 
- In Marlics, we simulate the elastic behavior of chiral, or non-chiral, nematics by solving the dynamic equations given by Landau-de Gennes 
+In Marlics, we simulate the elastic behavior of chiral, or non-chiral, nematics by solving the dynamic equations given by Landau-de Gennes 
 model (please, see reference xx). This model needs a set of parameters: $a$, $b$, $c$, $T-T*$, $L_1$, $L_2$, $L_3$, $L_q$, $L_s$, $p_0$, $mu$, $mu_s$.
 
 The parameters $a$, $b$ and $c$ are the thermodynamic parameters and defines the equilibrium liquid crystal order parameter, together with energy necessary to shift its value. It is obligatory to define all 3 of them, and $c$ can not be 0.
 Example:
 
+\consoleline{
 A  0.182\\
 b -2.12\\
-c 1.73\\
+c 1.73}
 
 
 The parameters $L_i$ can be filled in two different ways. You can pass the values of $L_i$ directly , for example:
@@ -149,13 +152,14 @@ k11 16.7
 k22 7.8
 k33 18.1
 
-If you miss the use of $K_i$ and $L_i$, the software will use only the last mentioned and ignore the others (We strong advise against it, since it can make your input file very confusing).
+If you \replaced[id=e]{, for some reason, define both}{ miss the use of} $K_i$ and $L_i$\added[id=e]{, or insert multiple instances}, the software will use only the last mentioned and ignore the others (We strong advise against it, since it can make your input file very confusing).
 
-If you want to simulate a chiral nematic you define the helix passe $p_0$ as the space necessary to the helix execute a $2 \pi$  turn (distance being set in nanometers). For example:
+\replaced[id=e]{To simulate a chiral nematic you need to define the helix passe, $p_0$,}
+{If you want to simulate a chiral nematic you define the helix passe $p_0$} as the space necessary to the helix execute a $2 \pi$  turn (distance being set in nanometers)\added[id=e]{, under the parameter name p0 or p\_0}. For example:
 
 p0 500.
 
-Sets the passe to be 500 nanometers.
+Sets the passe to be 500 nanometers.\added[id=e]{ In a alternative way, you can (but you shouldn't) define the quiral constant, $q_0$, given by $q_0=2 \pi /p_0$.}
 
 
 The temperature $T$  is taken relative to virtual phase transition temperature $T^*$, for example:
