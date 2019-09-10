@@ -11,6 +11,7 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{color}
+\usepackage{listings}
 \usepackage[caption=false]{subfig}
 \usepackage[left= 2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
 \definechangesauthor[name={Eric}, color=red]{e}
@@ -19,8 +20,8 @@
 \textit{{#2}}
 \vspace{#1}
 }
-
-
+\lstset{morecomment=[l]{\%}}
+	
 \title{Marlics User Guide}
 \author{Renato Ferreira de Souza and
 Eric Koudhi Omori}
@@ -59,7 +60,7 @@ The marlics source code can be downloaded in Renato Ferreira de Souza(Belanji) g
 Marlics needs the following libraries installed on your system and reachable by the compiler: gsl (Gnu scientific library) and BLAS. We provide two examples in the make file, one we use the GSL BLAS, and other we use the mkl library to provide the necessary functions.
 After setting up you just have to type:
 
-\consoleline{make}
+\consoleline{\$ make}
 
 Now, Marlics is already functional. If you prefer you can add an shortcut (or a copy of the program) in a folder where your system can reach automatically\replaced[id=e]{, known as binary directories in Unix system. A list of these directories can, and must, be found under the variable \$PATH.}{In Unix system the folder searched by the system when can be found in the variable \$PATH.}
 \section{Execution}
@@ -67,14 +68,14 @@ Now, Marlics is already functional. If you prefer you can add an shortcut (or a 
 Executing Marlics is very straightforward, you call the program and pass a input file as the standard input. For example, if you are using an Unix system and your marlics has an shortcut/copy in a directory shown in the \$PATH. If your input file is named ``input\_file.txt'' you will launch Marlics typing (we provide an example input file if you would like to try it in your console):
 
 
-\consoleline{marlics $<$ input\_file.txt}
+\consoleline{\$ marlics $<$ input\_file.txt}
 
 
 You will notice that the software display several lines of information on your display, if you would like to save these lines to keep an log of the simulation execution (which we strongly advise you to do so), you can redirect the output direct to a file. In Unix systems this can be done with the redirection operator $>$, which will create a new file if it does not exist, or it will overwrite an existing file. If you would like to keep the previous content in the file you can use append operator $>>$, however, we strongly advise against the use of $>>$, since it can leave the output files very difficult to understand.
 
 Again as an example, if your settings is in a file named ``input\_file.txt'' and you would like to place the log information in a new$/$overwritten  output file named ``simulation.log'', you can do this by typing:
 
-\consoleline{marlics $<$ input\_file.txt $>$simulation.log}
+\consoleline{\$ marlics $<$ input\_file.txt $>$simulation.log}
 
 \section{Setting up your input file}\label{sec:inputfile}
 
@@ -86,13 +87,14 @@ To help the user we provided an example input file with the program.
 
 To fill in an parameter value in the input file you type de parameter name followed by any number of spaces and the parameter value afterwards:
 
-\consoleline{parameter\_name value}
+\begin{lstlisting}
+   parameter_name  value
+\end{lstlisting}
+
 
 If you want to write a text to help you remember something our to help others understand you input file, you can place a comment on the file. Comments are lines placed in the input file that are ignored by marlics. In marlics comments start with the character \# and goes until the end of the line.
 
 \subsection{geometry}
-
-
 The geometry parameter sets up the confinement of your liquid crystal. Actually there are 3 different types of geometries available in marlics: bulk, slab and sphere(experimental).
 
 In bulk simulations, the liquid crystal is placed in an square box with periodic boundary conditions in all directions.
@@ -100,19 +102,19 @@ In bulk simulations, the liquid crystal is placed in an square box with periodic
 In slab the liquid crystal is placed inside a box with periodic boundary conditions in the x and y direction, and with boundary conditions chosen by the user in both ends of the z axis.
 
 Finally in the sphere geometry the liquid crystal is places inside an sphere with one boundary condition \replaced[id=e]{defined}{setup-ed} by the user and no periodic boundary conditions at all. Since here we use regular grids and the sphere has an curvilinear geometry, the fit of the liquid crystal inside the sphere is ....
-
-\consoleline{geometry  slab}
+\begin{lstlisting}
+   geometry  slab
+\end{lstlisting}
 
 The grid size and spacing is controlled with 6 parameters: $Nx$, $Ny$, $Nz$ ,$dx$ ,$dy$ and $dz$. The number of points in each axis directions is defined ny the parameters $Ni$, while de distance between them is set by the parameters $di$. For example:
-
-Nx 200             %   /*      grid size      */
-Ny 200             %   /*      grid size      */
-Nz 100             %   /*      grid size      */
-
-
-dx        10.0    %      /*     10^-9 m         */
-dy        10.0    %      /*     10^-9 m         */
-dz        10.0    %      /*     10^-9 m         */
+\begin{lstlisting}	
+   Nx  200             %   /*      grid size      */
+   Ny  200             %   /*      grid size      */
+   Nz  100             %   /*      grid size      */
+   dx  10.0            %   /*      10^-9 m         */
+   dy  10.0            %   /*      10^-9 m         */
+   dz  10.0            %   /*      10^-9 m         */
+\end{lstlisting}
 
 Sets a grid with 200 points in the $x$ and $y$ axis and 100 in the $z$ one, and every point is separated by a distance of $10$ nanometers in each direction.
 
@@ -121,8 +123,9 @@ Sets a grid with 200 points in the $x$ and $y$ axis and 100 in the $z$ one, and 
  We have now just one integrator implemented in marlics, a Dormand-Prince 5(4). It is a time adaptive 5th order Runge-Kutta method. Our implementation accepts 5 parameters to control how the time-adaption is performed, but all of them have standard values (we refer the interested reader to read the reference guide for more details).
 
  An example line would be:
-
- \consoleline{integrator DP5}
+\begin{lstlisting}
+   integrator  DP5
+\end{lstlisting}
 
 \subsection{Liquid crystal Parameters}
 
@@ -131,77 +134,101 @@ model (please, see reference xx). This model needs a set of parameters: $a$, $b$
 
 The parameters $a$, $b$ and $c$ are the thermodynamic parameters and defines the equilibrium liquid crystal order parameter, together with energy necessary to shift its value. It is obligatory to define all 3 of them, and $c$ can not be 0.
 Example:
-
-\consoleline{
-A  0.182\\
-b -2.12\\
-c 1.73}
+\begin{lstlisting}	
+   A   0.182
+   b  -2.12
+   c  1.73
+\end{lstlisting}
 
 
 The parameters $L_i$ can be filled in two different ways. You can pass the values of $L_i$ directly , for example:
+\begin{lstlisting}
+   L1  15.0
+   L2  15.0
+   L3  15.0
+   Ls  1.0 
+   Lq  12.0
+\end{lstlisting}
 
-L1  15.0\\
-L2  15.0\\
-L3  15.0\\
-Ls  1.0 \\
-Lq  12.0\\
 
 Or you can provide the values of the Frank elastic constant and let marlics calculates the values of $L_i$ for you. Example:
-
-k11 16.7
-k22 7.8
-k33 18.1
-
+\begin{lstlisting}
+   k11  16.7
+   k22  7.8
+   k33  18.1
+\end{lstlisting}
 If you \replaced[id=e]{, for some reason, define both}{ miss the use of} $K_i$ and $L_i$\added[id=e]{, or insert multiple instances}, the software will use only the last mentioned and ignore the others (We strong advise against it, since it can make your input file very confusing).
 
 \replaced[id=e]{To simulate a chiral nematic you need to define the helix passe, $p_0$,}
 {If you want to simulate a chiral nematic you define the helix passe $p_0$} as the space necessary to the helix execute a $2 \pi$  turn (distance being set in nanometers)\added[id=e]{, under the parameter name p0 or p\_0}. For example:
 
-p0 500.
-
+\begin{lstlisting}
+   p0  500
+\end{lstlisting}
 Sets the passe to be 500 nanometers.\added[id=e]{ In a alternative way, you can (but you shouldn't) define the quiral constant, $q_0$, given by $q_0=2 \pi /p_0$.}
 
 
 The temperature $T$  is taken relative to virtual phase transition temperature $T^*$, for example:
 
-T -1
-
+\begin{lstlisting}
+   T -1
+\end{lstlisting}
 means that $(T-T^*)=-1$ Kelvin.
 
+%It seems that you mixed the viscosity and surface viscosity
+Finally, the liquid crystal viscosities can be passed in two different ways. You can pass the $\mu$ (set in \replaced[id=e]{$Pa\ s$}{$Pa s$}) value directly, or pass the parameter $\gamma$ (set in \replaced[id=e]{$Pa\ s$}{$Pa nm s$}) as used in the Frank-Osen theory and let marlics calculate the value of \replaced[id=e]{$\mu$}{$mu_s$} for you. The same can be done with the surface viscosity. For example:
+\begin{lstlisting}
+   mu_1     0.3          %/*     Pa s            */
+   mu_1_s   3.0          %/*     10 ^-9 Pa s     */
+\end{lstlisting}
 
-Finally, the liquid crystal viscosities can be passed in two different ways. You can pass the $\mu$ (set in $Pa s$) value directly, or pass the parameter $\gamma$ (set in $Pa nm s$) as used in the Frank-Osen theory and let marlics calculate the value of $mu_s$ for you. The same can be done with the surface viscosity. For example:
 
-mu_1      0.3          %/*     Pa s            */
-mu_1_s    3.0          %/*     10 ^-9 Pa s     */
+\subsection{Time parameters}
 
+There is 3 time parameters to be set in the input file.\replaced[id=e]{The parameter $t_i$ and $t_f$ (in microseconds) defines respectively the start and the end time of the simulation. The parameter $dt$ (in microseconds) defines the time step, for a fixed time-step integrator, and the initial one for an adaptive time integrator.}  {The parameter $t_i$ (in microseconds) defines the start time of the simulation. The parameter $t_f$ (in microseconds) defines the time the simulation finished and $dt$ (in microseconds) defines the initial time step for a fixed time-step integrator and the initial for an adaptive time integrator}. For example:
+\begin{lstlisting}
+   dt  0.001            %/*     10^-6 s         */	
+   ti  0.0              %/*     10^-6 s         */	
+   tf  5000.0           %/*     10^-6 s         */
+\end{lstlisting}
 
-\subsection{Time parameters:}
-
-There is 3 time parameters to be set in the input file.  The parameter $t_i$ (in microseconds) defines the start time of the simulation. The parameter $t_f$ (in microseconds) defines the time the simulation finished and $dt$ (in microseconds) defines the initial time step for a fixed time-step integrator and the initial for an adaptive time integrator. For example:
-
-dt        0.001     %/*     10^-6  s        */	
-ti        0.0       %/*     10^-6  s        */	
-tf        5000.0    % /*    10^-6 s          */
 
 \subsection{Taking snapshots:}
 
 
-There are 3 parameters to control how snapshots are taken and 1 controlling the file names in Marlics. The parameters controling the snapshot frequency are: \textit{timeprint}, \textit{timeprint_type}, \textit{timeprint_increase_factor}. The \textit{timeprint} sets when the first snapshot is taken (in microseconds). 
+There are 3 parameters to control how snapshots are taken and 3 controlling the file names in Marlics. The parameters controling the snapshot frequency are: \textit{timeprint}, \textit{timeprint_type}, \textit{timeprint_increase_factor}. The \textit{timeprint} sets when the first snapshot is taken (in microseconds). 
 
-The \textit{timeprint_type} sets the if the interval between snapshots will be linear or logarithmic. The parameter \textit{timeprint_increase_factor} sets the time interval between snapshots. If \textit{timeprint_type} is set to ``linear'', the value of \textit{timeprint_increase_factor} is the time interval between snapshots. If \textit{timeprint_type} is set to ``logarithmic'', the value of \textit{timeprint_increase_factor} is factor which we multiply the snapshots times. Mathematicaly, it can be expressed as:
+The \textit{timeprint_type} \replaced[id=e]{defines the interval function between snapshots, as linear or logarithmic.
+In the ``linear'' \textit{timeprint_type}, the value of \textit{timeprint_increase_factor} is the time interval between snapshots.
+In the ``logarithmic'' \textit{timeprint_type}, the value of \textit{timeprint_increase_factor} is factor which we multiply the snapshots times. Mathematicaly, it can be expressed as:\\}
+{set if the interval between snapshots will be linear or logarithmic.
+The parameter \textit{timeprint_increase_factor} sets the time interval between snapshots.
+If \textit{timeprint_type} is set to ``linear'', the value of \textit{timeprint_increase_factor} is the time interval between snapshots. If \textit{timeprint_type} is set to ``logarithmic'', the value of \textit{timeprint_increase_factor} is factor which we multiply the snapshots times. Mathematicaly, it can be expressed as:}
 \begin{equation}
   t_{s+1}=t_s *\textrm{timeprint_increase_factor}
 \end{equation}
 where $t_s$ is the $S$th snapshot time and $t_{s+1}$ is the $(S+1)$th snapshot time.
 
-Finally, there is the parameter \textit{initial_output_file_number} which sets the number of the first snapshot taken. For example if \textit{initial_output_file_number} is set to 3, them, the first snapshot will be \textit{director_field_3.csv}.
+The \textit{output\_folder} can be used to define a output directory (the standard value is``.\textbackslash'', also known as ``current folder'').
+For naming your output files, you can use the parameter \textit{output\_fname} to define a pattern (the standard value is ``director\_field\_\$\$.csv'').
+The given name must have a ``\$\$'' to define the file number position.
+for example:
+\begin{lstlisting}
+   output_folder  csv
+   output_fname   output_$$.csv
+\end{lstlisting}
+will produce the sequence ``output\_0.csv, output\_1.csv, output\_2.csv,...'' and so on, inside the folder ``csv''.  
+
+Finally, there is the parameter \textit{initial_output_file_number} which sets the number of the first snapshot taken \added[id=e]{ (the standard value is 0)}. For example if \textit{initial_output_file_number} is set to 3, them, the first snapshot will be \textit{director_field_3.csv}.
 
 One example of the setup would be:
+\begin{lstlisting}
+   time_print_type             logarithmic
+   timeprint                   50.        % /*  10^-6 s   */
+   timeprint_increase_factor   1.16       % /*  10^-6 s   */     
+   initial_output_file_number  0	
+\end{lstlisting}
 
-time_print_type	          logarithmic
-timeprint                 50.        %/*  10^-6 s   */
-timeprint_increase_factor 1.16       % /*  10^-6 s   */     
-initial_output_file_number   0
 
 
 \subsection{Initial Condtions:}
@@ -210,32 +237,36 @@ Marlics provides 4 types of initial conditions: Random, homogeneous, random_bulk
 
 The \textit{Random} initial conditions gets random directors, however, the nematic order parameter is set to $S=0.15 S_{eq}$ (there would be no meaning leaving the order parameter fluctuating with high variance).
 
-The \textit{homogeneous} initial conditions set the liquid crystal order parameter at $S$ and $P=0$ and all the directors are set in the same direction. The direction is given by two parameters \textit{theta_i} and \textit{phi_i}, the polar and azimutal angles, both in degrees units.
+The \textit{homogeneous} initial conditions set the liquid crystal order parameter at $S=S_{eq}$ and $P=0$ and all the directors are set in the same direction. The direction is given by two parameters \textit{theta_i} and \textit{phi_i}, the polar and azimutal angles, both in degrees units.
 
-The \textit{random_bulk_homogeneous_easy_axis} sets the liquid crystal as \textit{random} in the bulk and as \textit{homogeneous} in the boundaries, in this case, the liquid crystal will be oriented along the easy axis in the boundary.
+The \textit{random_bulk_homogeneous_easy_axis} sets the liquid crystal as \textit{random} in the bulk and as \textit{homogeneous} in the boundaries, in this case, the liquid crystal will be oriented along the easy axis in the boundary, see section \label{ssec:boundary} for more information
 
 Finally, the \textit{read_from_file} take an marlics snapshot and use it as initial conditions. The file name is passed by the variable \textit{ic_file}. 
 
 One example of the initial condition setup would be:
+\begin{lstlisting}
+   initial_conditions  homogeneous
+   theta_i             45.0
+   phi_i               0.0	
+\end{lstlisting}
 
-initial_conditions homogeneous
-theta_i 45.0
-phi_i 0.0
 
-\subsection{Boundary Conditions:}
+\subsection{Boundary Conditions:}\label{ssex:boundary}
 
 For each geometry you must setup a defined number of boundaries. For example, in the slab geometry you must define two boundaries, the top and the bottom wall containing the liquid crystal. Each boundary region has a number that can be used to identify which boundary are you working with. For example, in the slab the bottom wall is referred by 0 while the top wall is referred by 1.
 
-Actually there is 3 kinds of boundaries conditions implemented in marlics: Rapini-Papoular(Nobili-Durant), Fournier-Galatola and strong boundary conditions. Each boundary conditions needs its sets of parameters defined.
+Actually there is 3 kinds of boundaries conditions implemented in marlics: Rapini-Papoular(Nobili-Durant), Fournier-Galatola and strong boundary conditions. Each boundary conditions needs its sets \added[id=e]{a set(?)} of parameters defined.
 
-Boundary conditions that rely on a penalty function needs to defines an anchoring intensity Wo1. Boundary condtions that rely on an easy axis for the energy calculation also need to define the easy axis by means of the polar angle theta_0 and azimutal angle phi_0.
+Boundary conditions that rely on a penalty function\added[id=e]{, like Rapini-Papoular and Founier-Galatola,} needs to defines an anchoring intensity Wo1. Boundary condtions that rely on an easy axis for the energy calculation\added[id=e]{, \textit{i.e.} Rapnini-Papoular and strong boundary,} also need to define the easy axis by means of the polar angle theta_0 and azimutal angle phi_0.
 
-If you want to define a boundary condition, for example, of Rapini-Papoular at the 0 wall, you type:
+If you want to define a boundary condition, for example, of Rapini-Papoular at the 0 wall, you \replaced[id=e]{need to iclude:}{type:}
+\begin{lstlisting}
+   anchoring_type 0  Rapini-Papoular.
+   W01            0  1000.0
+   theta_0        0  45.0
+   phi_0          0  45.0	
+\end{lstlisting}
 
-anchoring_type 0 Rapini-Papoular.
-W01     0  1000.0
-theta_0 0  45.0
-phi_0   0  45.0
 
 
 
