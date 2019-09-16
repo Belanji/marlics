@@ -175,6 +175,7 @@ void driver::setup_LC(void)
       printf("You must define all three grid sizes {Nx,Ny,Nz} in your input file.\n");
       printf("Please, define them or check your input file to see if you mispelled one of them.\n");
       printf("Aborting the program");
+      exit(1)
 	
     }
 
