@@ -7,6 +7,7 @@
 #include "boundary.h"
 #include "integrator.h"
 #include "integrator_dp5.h"
+#include "integrator_CN.h"
 #include <cstdio>           
 #include <cstdlib>          
 #include <cstring>
@@ -383,13 +384,20 @@ void driver::setup_Simulation(void)
     case parameter_status::set:
 
       if ( strcasecmp(sim_param.integrator_type,"DP5") == 0 || strcasecmp(sim_param.integrator_type,"Dormand-Prince") == 0
-	   || strcasecmp(sim_param.integrator_type,"Rk54") == 0 || strcasecmp(sim_param.integrator_type,"Rk5") == 0 )
+	   || strcasecmp(sim_param.integrator_type,"Rk54") == 0)
 	{
   
 	  LcS_Integrator= new DP5(LcS_Geometry, & sim_param );
   
 	}
+        else  if ( strcasecmp(sim_param.integrator_type,"CN") == 0 || strcasecmp(sim_param.integrator_type,"Crank-Nicolson") == 0
+ )
+	{
   
+	  LcS_Integrator= new CN(LcS_Geometry, & sim_param );
+  
+	}
+
       else
 	{
         
