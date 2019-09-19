@@ -1,3 +1,4 @@
+
 #include "driver.h"
 #include "omp.h"
 #include <iostream>           
@@ -26,14 +27,15 @@ CN::CN( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_param ) 
                                                                    facmax(sim_param->facmax)
 {
 
-  int argc=sim_param->argc;
-  char** argv=sim_param->argv;
   PetscErrorCode ierr;
-  
-  ierr = PetscInitialize(&argc,&argv,(char*)0,help);
+
+
+  int argc = sim_param->argc;
+  char ** argv=sim_param->argv;
+  ierr = PetscInitialize(&argc,& argv,(char*)0,help);
   
   dt=sim_param->dt;
-
+  
 
   // Creation of the solution vextors
   VecCreate( PETSC_COMM_SELF , &Qsolution  );
@@ -44,17 +46,28 @@ CN::CN( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_param ) 
   VecDuplicate( Qsolution , &Rhs  );
 
 
+  //Creating Matrixes:
+
+  //MatCreateSeqAIJ(PETSC_COMM_SELF, 5*Nx*Ny*Nz, 5*Nx*Ny*Nz, NUMBEROFCLOSEPOINTS , NULL, &Jac );
+
+  TSAdapt * adaptor_ref;
   
+  //Creating the Integrator:
+  TSCreate(PETSC_COMM_SELF, &cranck_int);
+  TSSetProblemType(cranck_int , TS_NONLINEAR);
+  TSSetType( cranck_int , TSRK );
+  TSRKSetType(cranck_int , TSRK5BS); 
 
-    //Creating Matrixes:
+    
+  TSGetAdapt(cranck_int, adaptor_ref);
+  TSAdaptSetType( *adaptor_ref, TSADAPTBASIC);
+  TSAdaptSetClip( *adaptor_ref, 0.2, 5);
+    
+  TSSetTolerances(cranck_int , Atol,NULL,Rtol,NULL);
 
-    //MatCreateSeqAIJ(PETSC_COMM_SELF, 5*Nx*Ny*Nz, 5*Nx*Ny*Nz, NUMBEROFCLOSEPOINTS , NULL, &Jac );
+    
 
-
-    //Creating the Integrator:
-    TSCreate(PETSC_COMM_SELF, &cranck_int);
-    TSSetProblemType(cranck_int , TS_NONLINEAR);
-    TSSetType( cranck_int , TSRK );
+    
 
 
     
