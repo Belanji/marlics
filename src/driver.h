@@ -14,6 +14,11 @@ enum class viscosity_status {unset=0, mu=1,gamma=2};
 struct Simulation_Parameters
 {
 
+
+  
+  int argc;
+  char **argv;
+  
   //Domain Paramaters:
   
   int Nx;              /* grid size*/

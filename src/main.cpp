@@ -24,6 +24,9 @@ int main(int argc, char **argv)
   FILE *input_file;
   printf("Welcome to MarLiCS software v0.1 \n");
    
+
+  Lc_driver.sim_param.argc=argc;
+  Lc_driver.sim_param.argv=argv;
   
   
   //Parsing line command options:

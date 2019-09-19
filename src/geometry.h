@@ -12,6 +12,11 @@ class GEOMETRY
   const int Ny;
   const int Nz;
 
+  const double dx_1;
+  const double dy_1;
+  const double dz_1;
+
+  
   //Initial conditions routines:
   virtual void ic(struct Simulation_Parameters *, double *);
   void read_from_file_ic(  struct Simulation_Parameters * lc_droplet,double * Qij );
@@ -25,10 +30,18 @@ class GEOMETRY
   
   virtual void fill_ki(double * k_i, const  double * Qij, const int i,const int j,const int k) const = 0;
 
+
   const int *point_type;
 
   virtual void boundary_init( struct Simulation_Parameters * );
   virtual ~GEOMETRY() {};
+
+
+  virtual  double bulk_00(const double  QN[5],const double  dQ[15],const double  ddQ[30]) const;
+  virtual  double bulk_01(const double  QN[5],const double  dQ[15],const double  ddQ[30]) const;
+  virtual  double bulk_02(const double  QN[5],const double  dQ[15],const double  ddQ[30]) const;
+  virtual  double bulk_11(const double  QN[5],const double  dQ[15],const double  ddQ[30]) const;
+  virtual  double bulk_12(const double  QN[5],const double  dQ[15],const double  ddQ[30]) const;
 
   
  protected:
@@ -44,9 +57,6 @@ class GEOMETRY
   const double a;
   const double bb;
   const double cc;
-  const double dx_1;
-  const double dy_1;
-  const double dz_1;
   const double L1;
   const double L2;
   const double L3;
@@ -68,12 +78,7 @@ class GEOMETRY
   GEOMETRY * geometry_pointer;
   GEOMETRY(const struct Simulation_Parameters * );
 
-  virtual  double bulk_00(const double  QN[5],const double  dQ[15],const double  ddQ[30]) const;
-  virtual  double bulk_01(const double  QN[5],const double  dQ[15],const double  ddQ[30]) const;
-  virtual  double bulk_02(const double  QN[5],const double  dQ[15],const double  ddQ[30]) const;
-  virtual  double bulk_11(const double  QN[5],const double  dQ[15],const double  ddQ[30]) const;
-  virtual  double bulk_12(const double  QN[5],const double  dQ[15],const double  ddQ[30]) const;
-
+  
   
 };
 

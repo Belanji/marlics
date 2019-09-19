@@ -16,7 +16,7 @@
 #include <string>
 #include <iostream>
 
-#define MIN(a,b) ((a) < (b) ? a : b)
+#define MINN(a,b) ((a) < (b) ? a : b)
 
 
 
@@ -437,7 +437,7 @@ void driver::update_timeprint(void)
 
 
 next_time_print(& sim_param.timeprint, sim_param.timeprint_increase_factor);
-sim_param.timeprint=MIN(sim_param.timeprint,sim_param.tf);
+sim_param.timeprint=MINN(sim_param.timeprint,sim_param.tf);
 
 
 

@@ -1,4 +1,4 @@
-geometry   slab
+geometry   bulk
 integrator CN
 
 
@@ -12,9 +12,9 @@ B -2.12              /*     10^6 J/m^3      */
 C  1.74              /*     10^6 J/m^3      */
 
 
-L1  15.0
-L2  15.0
-L3  15.0
+L1  40.0
+L2  0.0
+L3  0.0
 Ls  0.0 
 Lq  0.0
 
@@ -35,17 +35,17 @@ dx        10.0          /*     10^-9 m         */
 dy        10.0          /*     10^-9 m         */
 dz        10.0          /*     10^-9 m         */
 mu_1      0.3          /*     Pa s            */
-mu_1_s    3.0          /*     Pa nm s     */
+mu_1_s    3000.0          /*     Pa nm s     */
 
 
-dt        0.001     /*     10^-6  s        */	
+dt        0.0001     /*     10^-6  s        */	
 ti        0.0
 tf        50.0     /*    10^-6 s          */
 
 
 time_print_type	          linear
-timeprint                 50.        /*  10^-6 s   */
-timeprint_increase_factor 50.        /*  10^-6 s   */     
+timeprint                 10.        /*  10^-6 s   */
+timeprint_increase_factor 10.        /*  10^-6 s   */     
 initial_output_file_number   0
 
 #Initial Conditions

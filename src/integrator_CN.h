@@ -4,6 +4,8 @@
 #include "integrator.h"
 #include <stdio.h>           
 #include <stdlib.h>
+#include <petscts.h>
+#include <petscsnes.h>
 
 
 class CN : public Integrator
@@ -12,20 +14,24 @@ class CN : public Integrator
  private:
 
 
+  Vec  Qsolution, Qtij, Rhs;
+  Mat  Jac, Jac_Approx;
+  TS   cranck_int;
+  
+  
+
+
+  void getIcArray(double * Qij_input);
+  void writeSolutionToArray(double * Qij_out);
+  
   const double Atol;
   const double Rtol;
   const double prefac;
   const double facmin;
   const double facmax;    
-
-
-  
+ 
  public:
 
-  
-
-  double *k_1, *k_2, *k_3, *k_4, *k_5, *k_6, *k_7;
-  
   
   virtual void evolve( double *, double *, double);    
   virtual ~CN(void);

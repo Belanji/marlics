@@ -13,8 +13,8 @@
 #define chunk_size 1
 #define new_chunk_size 4*Nx*Ny
 
-#define MAX(a,b) ((a) > (b) ? a : b)
-#define min(a,b) ((a) < (b) ? a : b)
+#define MAXX(a,b) ((a) > (b) ? a : b)
+#define minn(a,b) ((a) < (b) ? a : b)
 
 
 DP5::DP5( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_param ) : Integrator( lc_pointer),
@@ -231,7 +231,7 @@ void DP5::evolve( double * Qij, double *time, double tf )
 	      -0.05086379716981132*k_5[ll]
 	      +0.04190476190476189*k_6[ll]
 	      - 0.025*k_7[ll];						
-	    global_error=MAX( fabs(local_error)/sc_i,global_error );
+	    global_error=MAXX( fabs(local_error)/sc_i,global_error );
 		       	
 	  }
 
@@ -252,7 +252,7 @@ void DP5::evolve( double * Qij, double *time, double tf )
 
 	    };
 	 
-	  hfactor=min(facmax,MAX(facmin,prefac*pow(global_error,-0.2000000000)));
+	  hfactor=minn(facmax,MAXX(facmin,prefac*pow(global_error,-0.2000000000)));
 	  dt=dt*hfactor;
 
 	  if( (tf-*time) < dt) dt=tf-*time;
