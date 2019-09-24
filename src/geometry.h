@@ -2,11 +2,25 @@
 #define geometry_
 #include <vector>
 #include <string>
+#include <petscts.h>
+
+#ifndef petscFunctionPtrs_
+#define petscFunctionPtrs_
+
+  typedef PetscErrorCode (*RhsPtrFunction)(TS ,PetscReal ,Vec ,Vec,void *);
+typedef PetscErrorCode (*RhsPtrJacobian)(TS ,PetscReal ,Vec ,Mat ,Mat , void*);
+
+
+#endif
 
 class GEOMETRY
 {
 
  public:
+
+  
+  RhsPtrFunction RhsPtr;
+  RhsPtrJacobian JacobianPtr;
   
   const int Nx;
   const int Ny;

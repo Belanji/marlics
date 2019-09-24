@@ -5,7 +5,7 @@
 #include <stdio.h>           
 #include <stdlib.h>
 #include <petscts.h>
-#include <petscsnes.h>
+
 
 
 class CN : public Integrator

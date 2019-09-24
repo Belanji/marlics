@@ -67,6 +67,10 @@ GEOMETRY::GEOMETRY(const struct Simulation_Parameters * lc) :
   printf("Lambda_s=%lf \n\n",1/Lambda_s);
   
 
+  RhsPtr=NULL;
+  JacobianPtr=NULL;
+
+  
 };
 
 
