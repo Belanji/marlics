@@ -21,6 +21,7 @@ Lq  0.0
 #k11 16.7
 #k22 7.8
 #k33 18.1
+#k24 6.0
 
 T   -1.0
 
@@ -38,14 +39,14 @@ mu_1      0.3          /*     Pa s            */
 mu_1_s    3000.0          /*     Pa nm s     */
 
 
-dt        0.0001     /*     10^-6  s        */	
+dt        0.00001     /*     10^-6  s        */	
 ti        0.0
-tf        50.0     /*    10^-6 s          */
+tf        15.0     /*    10^-6 s          */
 
 
 time_print_type	          linear
-timeprint                 10.        /*  10^-6 s   */
-timeprint_increase_factor 10.        /*  10^-6 s   */     
+timeprint                 5.        /*  10^-6 s   */
+timeprint_increase_factor 5.        /*  10^-6 s   */     
 initial_output_file_number   0
 
 #Initial Conditions

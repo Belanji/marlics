@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    109495,       2686]
-NotebookOptionsPosition[    105645,       2550]
-NotebookOutlinePosition[    105981,       2565]
-CellTagsIndexPosition[    105938,       2562]
+NotebookDataLength[    141397,       3226]
+NotebookOptionsPosition[    137318,       3081]
+NotebookOutlinePosition[    137653,       3096]
+CellTagsIndexPosition[    137610,       3093]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -1247,11 +1247,19 @@ Cell[BoxData[
     RowBox[{"preRules", "=", 
      RowBox[{"{", 
       RowBox[{
+       RowBox[{"l2", "\[Rule]", "l2"}], ",", 
+       RowBox[{"l3", "\[Rule]", "l3"}], ",", 
+       RowBox[{"ls", "\[Rule]", "ls"}], ",", 
+       RowBox[{"W1", "\[Rule]", "W1"}]}], "}"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"preRules", "=", 
+     RowBox[{"{", 
+      RowBox[{
        RowBox[{"l2", "\[Rule]", "0"}], ",", 
        RowBox[{"l3", "\[Rule]", "0"}], ",", 
        RowBox[{"ls", "\[Rule]", "0"}], ",", 
-       RowBox[{"W1", "\[Rule]", "W1"}]}], "}"}]}], ";"}], 
-   "\[IndentingNewLine]"}]}]], "Input",
+       RowBox[{"W1", "\[Rule]", "W1"}]}], "}"}]}], ";"}]}]}]], "Input",
  CellChangeTimes->{{3.710585289628612*^9, 3.7105853300583687`*^9}, {
    3.7120656093904123`*^9, 3.7120656303762693`*^9}, {3.712066292463833*^9, 
    3.712066304821444*^9}, 3.7120664913302402`*^9, {3.7120665825324574`*^9, 
@@ -1268,7 +1276,10 @@ Cell[BoxData[
    3.71371052802007*^9}, {3.713711441496028*^9, 3.71371144227896*^9}, 
    3.713715903578965*^9, {3.7137161449511833`*^9, 3.7137161455478373`*^9}, {
    3.7144029065984087`*^9, 3.714402912549437*^9}, {3.7189539118762407`*^9, 
-   3.718953966009183*^9}, {3.719934208820417*^9, 3.719934262055048*^9}}]
+   3.718953966009183*^9}, {3.719934208820417*^9, 3.719934262055048*^9}, {
+   3.778246828345142*^9, 3.778246835351447*^9}, {3.778249515594998*^9, 
+   3.778249522712727*^9}, {3.7782538117142773`*^9, 3.778253813465972*^9}, {
+   3.778254541120358*^9, 3.7782545418057747`*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1672,7 +1683,16 @@ Q_12_2*v[2]))/2.);\\n}\\n\\n\"\>"], "Output",
  CellChangeTimes->{
   3.7199351039619493`*^9, 3.72017125528931*^9, 3.720177531757593*^9, {
    3.720181891391593*^9, 3.720181907473222*^9}, 3.720181989945044*^9, 
-   3.720182073478458*^9, 3.720182107321294*^9}]
+   3.720182073478458*^9, 3.720182107321294*^9, 3.777973870027568*^9, 
+   3.7779756655821753`*^9, 3.777989570951*^9, 3.7779896374168987`*^9, 
+   3.7779896894744368`*^9, 3.777990840308629*^9, 3.7779955919029503`*^9, 
+   3.7779957855182467`*^9, 3.777996238808406*^9, 3.778000632457212*^9, 
+   3.778230867965467*^9, 3.778231774295281*^9, 3.778246042678627*^9, 
+   3.778246301647876*^9, 3.778246572318061*^9, 3.778246884974526*^9, 
+   3.778247877867601*^9, 3.7782480826147833`*^9, 3.778248322343046*^9, 
+   3.7782495278571053`*^9, 3.778249716294368*^9, 3.77824987798186*^9, 
+   3.778250096650618*^9, 3.778250434859989*^9, 3.778250751246272*^9, 
+   3.778253819061952*^9, 3.778253979123863*^9, 3.778254546322166*^9}]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -1774,7 +1794,17 @@ Wo1_tilde*(-4*(S_eq_tilde + 2*QN11)*v[1] + (-S_eq_tilde + 8*QN00 + \
 QN11*(-1 + v[0]*v[0] + 2*v[1]*v[1])))))*v[2] + 2*Wo1_tilde*v[1]*(QN02*v[0] + \
 QN12*v[1])*v[2]*v[2])/2.);\\n}\\n\\n\"\>"], "Output",
  CellChangeTimes->{{3.72018189269666*^9, 3.720181907607712*^9}, 
-   3.720181997199821*^9, 3.720182086593916*^9, 3.72018212586598*^9}]
+   3.720181997199821*^9, 3.720182086593916*^9, 3.72018212586598*^9, 
+   3.7779738790791397`*^9, 3.7779756758758297`*^9, 3.7779895812087173`*^9, 
+   3.777989648443787*^9, 3.777989701006674*^9, 3.777990852676056*^9, 
+   3.777995603793275*^9, 3.777995798439581*^9, 3.777996248588187*^9, 
+   3.778000661266292*^9, 3.778230876959236*^9, 3.778231783480528*^9, 
+   3.778246051218487*^9, 3.778246311331658*^9, 3.7782465810030937`*^9, 
+   3.778246896978669*^9, 3.77824788679757*^9, 3.778248091564056*^9, 
+   3.77824833126824*^9, 3.778249536679883*^9, 3.778249726091363*^9, 
+   3.778249888344761*^9, 3.7782501072990303`*^9, 3.778250443532338*^9, 
+   3.778250760676152*^9, 3.778253827700594*^9, 3.778253987691074*^9, 
+   3.77825455710544*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1874,7 +1904,16 @@ Lq_tilde*(Q_00_0 - Q_01_1 + Q_02_2 + 2*Q_11_0) + L1_tilde*(Q_12_00 + Q_12_11 \
    3.719934531285878*^9, 3.719934574255516*^9, 3.719935108430484*^9, 
    3.720171258814996*^9, 3.720177538770823*^9, {3.720181900133684*^9, 
    3.720181910849029*^9}, 3.720182000833559*^9, 3.720182090282174*^9, 
-   3.72018212960457*^9}]
+   3.72018212960457*^9, 3.777973881066547*^9, 3.7779756778469543`*^9, 
+   3.777989583400931*^9, 3.777989650514883*^9, 3.777989703177248*^9, 
+   3.777990854896171*^9, 3.777995606119507*^9, 3.777995800627408*^9, 
+   3.77799625076497*^9, 3.778000663830517*^9, 3.7782308789578257`*^9, 
+   3.778231785511277*^9, 3.778246053074129*^9, 3.778246313189301*^9, 
+   3.7782465829140463`*^9, 3.778247915390173*^9, 3.778248119979361*^9, 
+   3.778248359694007*^9, 3.778249538566787*^9, 3.778249727985865*^9, 
+   3.778249890249638*^9, 3.778250109214089*^9, 3.7782504454024897`*^9, 
+   3.778250762544297*^9, 3.7782538291233187`*^9, 3.778253989061339*^9, 
+   3.778254559094419*^9}]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
@@ -1891,23 +1930,48 @@ Cell[CellGroupData[{
 Cell["Auxiliary function:", "Section",
  CellChangeTimes->{{3.712351058478099*^9, 3.7123510673978033`*^9}}],
 
-Cell[BoxData[
+Cell[BoxData[{
  RowBox[{
-  RowBox[{"pointerChoser", "[", 
-   RowBox[{"k_", ",", "l_"}], "]"}], ":=", 
-  RowBox[{"Module", "[", 
+  RowBox[{
    RowBox[{
-    RowBox[{"{", 
+    RowBox[{"pointerChoser", "[", 
+     RowBox[{"k_", ",", "l_"}], "]"}], ":=", 
+    RowBox[{"Module", "[", 
      RowBox[{
-      RowBox[{"first", "=", "k"}], ",", 
-      RowBox[{"second", "=", "l"}], ",", "i", ",", "j"}], "}"}], ",", 
-    "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"first", "=", "k"}], ",", 
+        RowBox[{"second", "=", "l"}], ",", "i", ",", "j"}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"i", "=", 
+        RowBox[{"ToString", "[", "first", "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"j", "=", 
+        RowBox[{"ToString", "[", "second", "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Which", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"i", "<>", "j"}], "\[Equal]", "\"\<00\>\""}], ",", 
+         "\"\<0\>\"", ",", 
+         RowBox[{
+          RowBox[{"i", "<>", "j"}], "\[Equal]", "\"\<01\>\""}], ",", 
+         "\"\<1\>\"", ",", 
+         RowBox[{
+          RowBox[{"i", "<>", "j"}], "\[Equal]", "\"\<02\>\""}], ",", 
+         "\"\<2\>\"", ",", 
+         RowBox[{
+          RowBox[{"i", "<>", "j"}], "\[Equal]", "\"\<11\>\""}], ",", 
+         "\"\<3\>\"", ",", 
+         RowBox[{
+          RowBox[{"i", "<>", "j"}], "\[Equal]", "\"\<12\>\""}], ",", 
+         "\"\<4\>\"", ",", "True", ",", "\"\<None\>\""}], "]"}]}]}], 
+     "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
     RowBox[{
-     RowBox[{"i", "=", 
-      RowBox[{"ToString", "[", "first", "]"}]}], ";", "\[IndentingNewLine]", 
-     RowBox[{"j", "=", 
-      RowBox[{"ToString", "[", "second", "]"}]}], ";", "\[IndentingNewLine]", 
-     
+     RowBox[{"StrPointerChoser", "[", 
+      RowBox[{"i_", ",", "j_"}], "]"}], ":=", 
      RowBox[{"Which", "[", 
       RowBox[{
        RowBox[{
@@ -1924,19 +1988,57 @@ Cell[BoxData[
        "\"\<3\>\"", ",", 
        RowBox[{
         RowBox[{"i", "<>", "j"}], "\[Equal]", "\"\<12\>\""}], ",", 
-       "\"\<4\>\"", ",", "True", ",", "\"\<None\>\""}], "]"}]}]}], 
-   "\[IndentingNewLine]", "]"}]}]], "Input",
+       "\"\<4\>\"", ",", "True", ",", "\"\<None\>\""}], "]"}]}], ";"}], 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"StrPointerChoser", "[", 
+   RowBox[{"i_", ",", "j_"}], "]"}], ":=", 
+  RowBox[{"Print", "[", 
+   RowBox[{"\"\<\\n\>\"", "<>", "i", "<>", "j", "<>", "\"\<\\n\>\""}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"postionCreator", "[", 
+     RowBox[{"m_", ",", "n_", ",", "i_", ",", "j_", ",", "k_"}], "]"}], ":=", 
+    
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"sm", ",", "sn", ",", "si", ",", "sj", ",", "sk"}], "}"}], ",",
+       "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"sm", "=", 
+        RowBox[{"ToString", "[", "m", "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"sn", "=", 
+        RowBox[{"ToString", "[", "n", "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"si", "=", 
+        RowBox[{"ToString", "[", "i", "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"sj", "=", 
+        RowBox[{"ToString", "[", "j", "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"sk", "=", 
+        RowBox[{"ToString", "[", "k", "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{
+       "\"\<5*(Nx*(Ny*\>\"", "<>", "sk", "<>", "\"\<+\>\"", "<>", "sj", "<>", 
+        "\"\<)+\>\"", "<>", "si", "<>", "\"\<)+\>\"", "<>", 
+        RowBox[{"pointerChoser", "[", 
+         RowBox[{"m", ",", "n"}], "]"}]}]}]}], "\[IndentingNewLine]", "]"}]}],
+    ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"StrPositionCreator", "[", 
+   RowBox[{"m_", ",", "n_", ",", "i_", ",", "j_", ",", "k_"}], "]"}], ":=", 
+  RowBox[{
+  "\"\<5*(Nx*(Ny*\>\"", "<>", "k", "<>", "\"\<+\>\"", "<>", "j", "<>", 
+   "\"\<)+\>\"", "<>", "i", "<>", "\"\<)+\>\"", "<>", 
+   RowBox[{"pointerChoser", "[", 
+    RowBox[{"m", ",", "n"}], "]"}]}]}]}], "Input",
  CellChangeTimes->{{3.7123511660483932`*^9, 3.712351166775279*^9}, {
   3.712351199788241*^9, 3.712351306867296*^9}, {3.7123514206596413`*^9, 
-  3.712351424759802*^9}, {3.712355178686057*^9, 3.712355191931387*^9}}],
-
-Cell[TextData[Cell[BoxData[
- FormBox[
-  RowBox[{
-   FractionBox["dQ", "dt"], ":"}], TraditionalForm]]]], "Subsubsection",
- CellChangeTimes->{{3.7123266241435547`*^9, 3.712326625637184*^9}, {
-  3.7123502452819767`*^9, 3.712350251780596*^9}, {3.712350534051749*^9, 
-  3.712350552515513*^9}}]
+  3.712351424759802*^9}, {3.712355178686057*^9, 3.712355191931387*^9}, {
+  3.777973517942081*^9, 3.777973546756522*^9}, {3.777974411365307*^9, 
+  3.777974568703033*^9}, {3.777974831522361*^9, 3.7779748316560497`*^9}, {
+  3.777989207096044*^9, 3.777989237605023*^9}, {3.777989983121722*^9, 
+  3.777990036739217*^9}, {3.7779901520258703`*^9, 3.777990206539117*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1998,46 +2100,12 @@ Cell[CellGroupData[{
 Cell["Bulk", "Section",
  CellChangeTimes->{{3.712351538221492*^9, 3.7123515401340437`*^9}}],
 
-Cell[BoxData[
- RowBox[{"(*", 
-  RowBox[{
-   RowBox[{
-    RowBox[{"Clear", "[", "bulk", "]"}], "\[IndentingNewLine]", 
-    RowBox[{"bulk", "[", 
-     RowBox[{"i_", ",", "j_"}], "]"}]}], ":=", 
-   RowBox[{
-    RowBox[{"StringJoin", "[", 
-     RowBox[{"\"\<f[\>\"", ",", 
-      RowBox[{"pointerChoser", "[", 
-       RowBox[{"i", ",", "j"}], "]"}], ",", 
-      "\"\<*NN+(k*Ny+j)*Nx+i]=Lambda*(\>\"", ",", 
-      RowBox[{"StringReplace", "[", 
-       RowBox[{
-        RowBox[{"ToString", "[", 
-         RowBox[{"CForm", "[", 
-          RowBox[{"FullSimplify", "[", 
-           RowBox[{
-            RowBox[{"symmetrizeQ", "[", 
-             RowBox[{"bulkBeris", "[", 
-              RowBox[{"i", ",", "j"}], "]"}], "]"}], "/.", "preRules"}], 
-           "]"}], "]"}], "]"}], ",", "convertionRules"}], "]"}], ",", 
-      "\"\<);\\n\\n\>\""}], "]"}], "\[IndentingNewLine]", 
-    RowBox[{"StringJoin", "[", 
-     RowBox[{
-      RowBox[{"bulk", "[", 
-       RowBox[{"0", ",", "0"}], "]"}], ",", 
-      RowBox[{"bulk", "[", 
-       RowBox[{"0", ",", "1"}], "]"}], ",", 
-      RowBox[{"bulk", "[", 
-       RowBox[{"0", ",", "2"}], "]"}], ",", 
-      RowBox[{"bulk", "[", 
-       RowBox[{"1", ",", "1"}], "]"}], ",", 
-      RowBox[{"bulk", "[", 
-       RowBox[{"1", ",", "2"}], "]"}]}], "]"}]}]}], "*)"}]], "Input",
+Cell[BoxData[""], "Input",
  CellChangeTimes->{{3.7123266329402122`*^9, 3.712326720841094*^9}, {
    3.712348760416688*^9, 3.71234876465357*^9}, {3.7123513505921288`*^9, 
    3.712351356507416*^9}, {3.712351461918298*^9, 3.712351464992556*^9}, 
-   3.713710207795989*^9}]
+   3.713710207795989*^9, {3.777973759373519*^9, 3.777973759525605*^9}, 
+   3.777973796815507*^9}]
 }, Open  ]]
 }, Open  ]],
 
@@ -2051,42 +2119,32 @@ Cell[CellGroupData[{
 Cell["Auxiliary Routines:", "Section",
  CellChangeTimes->{{3.712399832124959*^9, 3.712399838397648*^9}}],
 
-Cell[BoxData[{
+Cell[BoxData[
  RowBox[{
-  RowBox[{"jacRules", "=", 
-   RowBox[{"{", 
-    RowBox[{
-     RowBox[{"\"\<Power\>\"", "\[Rule]", "\"\<pow\>\""}], ",", 
-     RowBox[{"\"\<v(2)\>\"", "\[Rule]", "\"\<v[2]\>\""}]}], "}"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"postionCreator", "[", 
-   RowBox[{"m_", ",", "n_", ",", "i_", ",", "j_", ",", "k_"}], "]"}], ":=", 
-  RowBox[{"Module", "[", 
-   RowBox[{
+  RowBox[{
+   RowBox[{"jacRules", "=", 
     RowBox[{"{", 
-     RowBox[{"sm", ",", "sn", ",", "si", ",", "sj", ",", "sk"}], "}"}], ",", 
-    "\[IndentingNewLine]", "\[IndentingNewLine]", 
-    RowBox[{
-     RowBox[{"sm", "=", 
-      RowBox[{"ToString", "[", "m", "]"}]}], ";", "\[IndentingNewLine]", 
-     RowBox[{"sn", "=", 
-      RowBox[{"ToString", "[", "n", "]"}]}], ";", "\[IndentingNewLine]", 
-     RowBox[{"si", "=", 
-      RowBox[{"ToString", "[", "i", "]"}]}], ";", "\[IndentingNewLine]", 
-     RowBox[{"sj", "=", 
-      RowBox[{"ToString", "[", "j", "]"}]}], ";", "\[IndentingNewLine]", 
-     RowBox[{"sk", "=", 
-      RowBox[{"ToString", "[", "k", "]"}]}], ";", "\[IndentingNewLine]", 
      RowBox[{
-      RowBox[{"pointerChoser", "[", 
-       RowBox[{"m", ",", "n"}], "]"}], "<>", "\"\<*NN+(\>\"", "<>", "sk", 
-      "<>", "\"\<*Ny+\>\"", "<>", "sj", "<>", "\"\<)*Nx+\>\"", "<>", 
-      "si"}]}]}], "\[IndentingNewLine]", 
-   "]"}]}], "\[IndentingNewLine]"}], "Input",
+      RowBox[{
+       RowBox[{
+       "RegularExpression", "[", "\"\<Power\\\\(([dxyz1]*),2\\\\)\>\"", "]"}],
+        "\[Rule]", "\"\<($1*$1)\>\""}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+       "RegularExpression", "[", 
+        "\"\<Power\\\\((Q\\\\([012],[012],[ipm1]*,[jpm1]*,[kmp1]*\\\\)),2\\\\)\
+\>\"", "]"}], "\[Rule]", "\"\<($1*$1)\>\""}], ",", "\[IndentingNewLine]", 
+      RowBox[{"\"\<v(2)\>\"", "\[Rule]", "\"\<v[2]\>\""}]}], "}"}]}], ";"}], 
+  "\[IndentingNewLine]"}]], "Input",
  CellChangeTimes->{{3.712353548437791*^9, 3.712353571527253*^9}, {
-  3.712399852151273*^9, 3.71239985232441*^9}, {3.712401271239066*^9, 
-  3.712401286640148*^9}}]
+   3.712399852151273*^9, 3.71239985232441*^9}, {3.712401271239066*^9, 
+   3.712401286640148*^9}, 3.77797351366678*^9, {3.77798943022925*^9, 
+   3.777989437612952*^9}, {3.777989495613927*^9, 3.777989516772451*^9}, {
+   3.777995977406468*^9, 3.777995979886526*^9}, {3.777997506302985*^9, 
+   3.777997568355287*^9}, {3.7779976376877728`*^9, 3.777997688176643*^9}, {
+   3.778000136454502*^9, 3.778000226284009*^9}, {3.778000400626471*^9, 
+   3.778000412095297*^9}, {3.778000715538512*^9, 3.7780007201701107`*^9}, {
+   3.778249871202713*^9, 3.778249873825758*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2095,174 +2153,355 @@ Cell["Bulk", "Section",
  CellChangeTimes->{{3.7123998650684023`*^9, 3.712399865862987*^9}}],
 
 Cell[BoxData[
- RowBox[{"(*", "\[IndentingNewLine]", 
+ RowBox[{"\[IndentingNewLine]", 
   RowBox[{
    RowBox[{
-    RowBox[{"jacExpand", "[", "f_", "]"}], ":=", 
     RowBox[{
-     RowBox[{
-      RowBox[{"Module", "[", 
+     RowBox[{"jacExpand", "[", "f_", "]"}], ":=", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"expresion", "=", "f"}], "}"}], ",", "\[IndentingNewLine]", 
        RowBox[{
-        RowBox[{"{", 
-         RowBox[{"expresion", "=", "f"}], "}"}], ",", "\[IndentingNewLine]", 
-        RowBox[{
-         RowBox[{"r1", "=", 
-          RowBox[{"expresion", "/.", 
+        RowBox[{"r1", "=", 
+         RowBox[{"expresion", "/.", 
+          RowBox[{
+           RowBox[{"Q", "[", 
+            RowBox[{"m_", ",", "n_"}], "]"}], "\[Rule]", 
+           RowBox[{"Q", "[", 
+            RowBox[{"m", ",", "n", ",", "i", ",", "j", ",", "k"}], 
+            "]"}]}]}]}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+        RowBox[{"r3", "=", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"r1", " ", "/.", " ", 
+            RowBox[{
+             RowBox[{"Q", "[", 
+              RowBox[{"m_", ",", "n_", ",", 
+               RowBox[{"x", "[", "0", "]"}]}], "]"}], "\[Rule]", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"Q", "[", 
+                 RowBox[{"m", ",", "n", ",", "ip1", ",", "j", ",", "k"}], 
+                 "]"}], "-", 
+                RowBox[{"Q", "[", 
+                 RowBox[{"m", ",", "n", ",", "im1", ",", "j", ",", "k"}], 
+                 "]"}]}], ")"}], "*", 
+              RowBox[{"dx1", "/", "2"}]}]}]}], "\[IndentingNewLine]", "/.", 
            RowBox[{
             RowBox[{"Q", "[", 
-             RowBox[{"m_", ",", "n_"}], "]"}], "\[Rule]", 
-            RowBox[{"Q", "[", 
-             RowBox[{"m", ",", "n", ",", "i", ",", "j", ",", "k"}], 
-             "]"}]}]}]}], ";", "\[IndentingNewLine]", 
-         RowBox[{"r2", "=", 
+             RowBox[{"m_", ",", "n_", ",", 
+              RowBox[{"x", "[", "1", "]"}]}], "]"}], "\[Rule]", 
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"Q", "[", 
+                RowBox[{"m", ",", "n", ",", "i", ",", "jp1", ",", "k"}], 
+                "]"}], "-", 
+               RowBox[{"Q", "[", 
+                RowBox[{"m", ",", "n", ",", "i", ",", "jm1", ",", "k"}], 
+                "]"}]}], ")"}], "*", 
+             RowBox[{"dy1", "/", "2"}]}]}]}], "\[IndentingNewLine]", "/.", 
+          RowBox[{
+           RowBox[{"Q", "[", 
+            RowBox[{"m_", ",", "n_", ",", 
+             RowBox[{"x", "[", "2", "]"}]}], "]"}], "\[Rule]", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"Q", "[", 
+               RowBox[{"m", ",", "n", ",", "i", ",", "j", ",", "kp1"}], "]"}],
+               "-", 
+              RowBox[{"Q", "[", 
+               RowBox[{"m", ",", "n", ",", "i", ",", "j", ",", "km1"}], 
+               "]"}]}], ")"}], "*", 
+            RowBox[{"dz1", "/", "2"}]}]}]}]}], ";", "\[IndentingNewLine]", 
+        "\[IndentingNewLine]", 
+        RowBox[{"r2", "=", 
+         RowBox[{
           RowBox[{
            RowBox[{
-            RowBox[{"r1", "/.", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"r3", "/.", 
+               RowBox[{
+                RowBox[{"Q", "[", 
+                 RowBox[{"m_", ",", "n_", ",", 
+                  RowBox[{"x", "[", "0", "]"}], ",", 
+                  RowBox[{"x", "[", "0", "]"}]}], "]"}], "\[Rule]", 
+                RowBox[{
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"Q", "[", 
+                    RowBox[{"m", ",", "n", ",", "ip1", ",", "j", ",", "k"}], 
+                    "]"}], "-", 
+                   RowBox[{"2", "*", 
+                    RowBox[{"Q", "[", 
+                    RowBox[{"m", ",", "n", ",", "i", ",", "j", ",", "k"}], 
+                    "]"}]}], "+", 
+                   RowBox[{"Q", "[", 
+                    RowBox[{"m", ",", "n", ",", "im1", ",", "j", ",", "k"}], 
+                    "]"}]}], ")"}], "*", "dx1", "*", "dx1"}]}]}], 
+              "\[IndentingNewLine]", "/.", 
+              RowBox[{
+               RowBox[{"Q", "[", 
+                RowBox[{"m_", ",", "n_", ",", 
+                 RowBox[{"x", "[", "0", "]"}], ",", 
+                 RowBox[{"x", "[", "1", "]"}]}], "]"}], "\[Rule]", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{"Q", "[", 
+                   RowBox[{"m", ",", "n", ",", "ip1", ",", "jp1", ",", "k"}], 
+                   "]"}], "-", 
+                  RowBox[{"Q", "[", 
+                   RowBox[{"m", ",", "n", ",", "ip1", ",", "jm1", ",", "k"}], 
+                   "]"}], "-", 
+                  RowBox[{"Q", "[", 
+                   RowBox[{"m", ",", "n", ",", "im1", ",", "jp1", ",", "k"}], 
+                   "]"}], "+", 
+                  RowBox[{"Q", "[", 
+                   RowBox[{"m", ",", "n", ",", "im1", ",", "jm1", ",", "k"}], 
+                   "]"}]}], ")"}], "*", "dx1", "*", 
+                RowBox[{"dy1", "/", "4"}]}]}]}], "\[IndentingNewLine]", "/.", 
+             
              RowBox[{
               RowBox[{"Q", "[", 
                RowBox[{"m_", ",", "n_", ",", 
                 RowBox[{"x", "[", "0", "]"}], ",", 
-                RowBox[{"x", "[", "0", "]"}]}], "]"}], "\[Rule]", 
+                RowBox[{"x", "[", "2", "]"}]}], "]"}], "\[Rule]", 
               RowBox[{
-               RowBox[{"Q", "[", 
-                RowBox[{"m", ",", "n", ",", "ip1", ",", "j", ",", "k"}], 
-                "]"}], "-", 
-               RowBox[{"2", "*", 
-                RowBox[{"Q", "[", 
-                 RowBox[{"m", ",", "n", ",", "i", ",", "j", ",", "k"}], 
-                 "]"}]}], "+", 
-               RowBox[{"Q", "[", 
-                RowBox[{"m", ",", "n", ",", "im1", ",", "j", ",", "k"}], 
-                "]"}]}]}]}], "\[IndentingNewLine]", "/.", 
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{"Q", "[", 
+                  RowBox[{"m", ",", "n", ",", "ip1", ",", "j", ",", "kp1"}], 
+                  "]"}], "-", 
+                 RowBox[{"Q", "[", 
+                  RowBox[{"m", ",", "n", ",", "ip1", ",", "j", ",", "km1"}], 
+                  "]"}], "-", 
+                 RowBox[{"Q", "[", 
+                  RowBox[{"m", ",", "n", ",", "im1", ",", "j", ",", "kp1"}], 
+                  "]"}], "+", 
+                 RowBox[{"Q", "[", 
+                  RowBox[{"m", ",", "n", ",", "im1", ",", "j", ",", "km1"}], 
+                  "]"}]}], ")"}], "*", "dx1", "*", 
+               RowBox[{"dz1", "/", "4"}]}]}]}], "\[IndentingNewLine]", "/.", 
             RowBox[{
              RowBox[{"Q", "[", 
               RowBox[{"m_", ",", "n_", ",", 
                RowBox[{"x", "[", "1", "]"}], ",", 
                RowBox[{"x", "[", "1", "]"}]}], "]"}], "\[Rule]", 
              RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"Q", "[", 
+                 RowBox[{"m", ",", "n", ",", "i", ",", "jp1", ",", "k"}], 
+                 "]"}], "-", 
+                RowBox[{"2", "*", 
+                 RowBox[{"Q", "[", 
+                  RowBox[{"m", ",", "n", ",", "i", ",", "j", ",", "k"}], 
+                  "]"}]}], "+", 
+                RowBox[{"Q", "[", 
+                 RowBox[{"m", ",", "n", ",", "i", ",", "jm1", ",", "k"}], 
+                 "]"}]}], ")"}], "*", "dy1", "*", "dy1"}]}]}], 
+           "\[IndentingNewLine]", "/.", 
+           RowBox[{
+            RowBox[{"Q", "[", 
+             RowBox[{"m_", ",", "n_", ",", 
+              RowBox[{"x", "[", "1", "]"}], ",", 
+              RowBox[{"x", "[", "2", "]"}]}], "]"}], "\[Rule]", 
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"Q", "[", 
+                RowBox[{"m", ",", "n", ",", "i", ",", "jp1", ",", "kp1"}], 
+                "]"}], "-", 
+               RowBox[{"Q", "[", 
+                RowBox[{"m", ",", "n", ",", "i", ",", "jp1", ",", "km1"}], 
+                "]"}], "-", 
+               RowBox[{"Q", "[", 
+                RowBox[{"m", ",", "n", ",", "i", ",", "jm1", ",", "kp1"}], 
+                "]"}], "+", 
+               RowBox[{"Q", "[", 
+                RowBox[{"m", ",", "n", ",", "i", ",", "jm1", ",", "km1"}], 
+                "]"}]}], ")"}], "*", "dy1", "*", 
+             RowBox[{"dz1", "/", "4"}]}]}]}], "\[IndentingNewLine]", "/.", 
+          RowBox[{
+           RowBox[{"Q", "[", 
+            RowBox[{"m_", ",", "n_", ",", 
+             RowBox[{"x", "[", "2", "]"}], ",", 
+             RowBox[{"x", "[", "2", "]"}]}], "]"}], "\[Rule]", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
               RowBox[{"Q", "[", 
-               RowBox[{"m", ",", "n", ",", "i", ",", "jp1", ",", "k"}], "]"}],
+               RowBox[{"m", ",", "n", ",", "i", ",", "j", ",", "kp1"}], "]"}],
                "-", 
               RowBox[{"2", "*", 
                RowBox[{"Q", "[", 
                 RowBox[{"m", ",", "n", ",", "i", ",", "j", ",", "k"}], 
                 "]"}]}], "+", 
               RowBox[{"Q", "[", 
-               RowBox[{"m", ",", "n", ",", "i", ",", "jm1", ",", "k"}], 
-               "]"}]}]}]}], "\[IndentingNewLine]", "/.", 
-           RowBox[{
-            RowBox[{"Q", "[", 
-             RowBox[{"m_", ",", "n_", ",", 
-              RowBox[{"x", "[", "2", "]"}], ",", 
-              RowBox[{"x", "[", "2", "]"}]}], "]"}], "\[Rule]", 
-            RowBox[{
-             RowBox[{"Q", "[", 
-              RowBox[{"m", ",", "n", ",", "i", ",", "j", ",", "kp1"}], "]"}], 
-             "-", 
-             RowBox[{"2", "*", 
-              RowBox[{"Q", "[", 
-               RowBox[{"m", ",", "n", ",", "i", ",", "j", ",", "k"}], "]"}]}],
-              "+", 
-             RowBox[{"Q", "[", 
-              RowBox[{"m", ",", "n", ",", "i", ",", "j", ",", "km1"}], 
-              "]"}]}]}]}]}]}]}], "\[IndentingNewLine]", "]"}], 
-      "\[IndentingNewLine]", "\[IndentingNewLine]", 
-      RowBox[{"jacobian", "[", 
-       RowBox[{
-       "m_", ",", "n_", ",", "mm_", ",", "nn_", ",", "i_", ",", "j_", ",", 
-        "k_"}], "]"}]}], ":=", 
-     RowBox[{
-      RowBox[{
-       RowBox[{"FullSimplify", "[", 
-        RowBox[{"D", "[", 
-         RowBox[{
-          RowBox[{"jacExpand", "[", 
-           RowBox[{"FullSimplify", "[", 
-            RowBox[{
-             RowBox[{"symmetrizeQ", "[", 
-              RowBox[{"bulkBeris", "[", 
-               RowBox[{"m", ",", "n"}], "]"}], "]"}], "/.", "preRules"}], 
-            "]"}], "]"}], ",", 
-          RowBox[{"Q", "[", 
-           RowBox[{"mm", ",", "nn", ",", "i", ",", "j", ",", "k"}], "]"}]}], 
-         "]"}], "]"}], "\[IndentingNewLine]", 
-       RowBox[{"jactocode", "[", 
-        RowBox[{
-        "m_", ",", "n_", ",", "mm_", ",", "nn_", ",", "ii_", ",", "jj_", ",", 
-         "kk_"}], "]"}]}], ":=", 
-      RowBox[{
-       RowBox[{"StringJoin", "[", 
-        RowBox[{"\"\<gsl_matrix_set(mm,\>\"", ",", 
-         RowBox[{"postionCreator", "[", 
-          RowBox[{"m", ",", "n", ",", "i", ",", "j", ",", "k"}], "]"}], ",", 
-         "\"\<,\>\"", ",", 
-         RowBox[{"postionCreator", "[", 
-          RowBox[{"mm", ",", "nn", ",", "ii", ",", "jj", ",", "kk"}], "]"}], 
-         ",", "\"\<,\>\"", ",", "\"\<Lambda*(\>\"", ",", 
-         RowBox[{"StringReplace", "[", 
-          RowBox[{
-           RowBox[{"ToString", "[", 
-            RowBox[{"CForm", "[", 
-             RowBox[{"jacobian", "[", 
-              RowBox[{
-              "m", ",", "n", ",", "mm", ",", "nn", ",", "ii", ",", "jj", ",", 
-               "kk"}], "]"}], "]"}], "]"}], ",", "jacRules"}], "]"}], ",", 
-         "\"\<));\\n\\n\>\""}], "]"}], "\[IndentingNewLine]", 
-       "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
-       RowBox[{"Clear", "[", 
-        RowBox[{
-        "i", ",", "j", ",", "k", ",", "ip1", ",", "im1", ",", "jp1", ",", 
-         "jm1", ",", "kp1", ",", "km1"}], "]"}]}]}]}]}], ";", 
+               RowBox[{"m", ",", "n", ",", "i", ",", "j", ",", "km1"}], 
+               "]"}]}], ")"}], "*", "dz1", "*", "dz1"}]}]}]}]}]}], 
+      "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
    "\[IndentingNewLine]", 
-   RowBox[{"is", "=", 
-    RowBox[{"{", 
-     RowBox[{"ip1", ",", "i", ",", "im1"}], "}"}]}], ";", 
-   "\[IndentingNewLine]", 
-   RowBox[{"js", "=", 
-    RowBox[{"{", 
-     RowBox[{"jp1", ",", "j", ",", "jm1"}], "}"}]}], ";", 
-   "\[IndentingNewLine]", 
-   RowBox[{"ks", "=", 
-    RowBox[{"{", 
-     RowBox[{"kp1", ",", "k", ",", "km1"}], "}"}]}], ";", 
-   "\[IndentingNewLine]", "\[IndentingNewLine]", 
-   RowBox[{"For", "[", 
+   RowBox[{
     RowBox[{
-     RowBox[{"ii", "=", "0"}], ",", 
-     RowBox[{"ii", "\[LessEqual]", "2"}], ",", 
-     RowBox[{"ii", "++"}], ",", "\[IndentingNewLine]", 
-     RowBox[{"For", "[", 
+     RowBox[{"jacobian", "[", 
       RowBox[{
-       RowBox[{"jj", "=", "0"}], ",", 
-       RowBox[{"jj", "\[LessEqual]", "2"}], ",", 
-       RowBox[{"jj", "++"}], ",", "\[IndentingNewLine]", 
-       RowBox[{"For", "[", 
-        RowBox[{
-         RowBox[{"kk", "=", "0"}], ",", 
-         RowBox[{"kk", "\[LessEqual]", "2"}], ",", 
-         RowBox[{"kk", "++"}], ",", "\[IndentingNewLine]", 
-         RowBox[{"For", "[", 
+      "m_", ",", "n_", ",", "mm_", ",", "nn_", ",", "i_", ",", "j_", ",", 
+       "k_"}], "]"}], ":=", 
+     RowBox[{"FullSimplify", "[", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"jacExpand", "[", 
+         RowBox[{"FullSimplify", "[", 
           RowBox[{
-           RowBox[{"ll", "=", "0"}], ",", 
-           RowBox[{"ll", "\[LessEqual]", "2"}], ",", 
-           RowBox[{"ll", "++"}], ",", "\[IndentingNewLine]", 
-           RowBox[{"For", "[", 
+           RowBox[{"symmetrizeQ", "[", 
+            RowBox[{"bulkBeris", "[", 
+             RowBox[{"m", ",", "n"}], "]"}], "]"}], "/.", "preRules"}], "]"}],
+          "]"}], ",", 
+        RowBox[{"Q", "[", 
+         RowBox[{"mm", ",", "nn", ",", "i", ",", "j", ",", "k"}], "]"}]}], 
+       "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"jactocode", "[", 
+      RowBox[{
+      "m_", ",", "n_", ",", "mm_", ",", "nn_", ",", "ii_", ",", "jj_", ",", 
+       "kk_"}], "]"}], ":=", "\[IndentingNewLine]", 
+     RowBox[{"StringJoin", "[", 
+      RowBox[{"\"\<idxm[0]=\>\"", ",", 
+       RowBox[{"postionCreator", "[", 
+        RowBox[{"m", ",", "n", ",", "i", ",", "j", ",", "k"}], "]"}], ",", 
+       "\"\<;\\n\>\"", ",", "\[IndentingNewLine]", "\"\<idxn[0]=\>\"", ",", 
+       RowBox[{"postionCreator", "[", 
+        RowBox[{"mm", ",", "nn", ",", "ii", ",", "jj", ",", "kk"}], "]"}], 
+       ",", "\"\<;\\n\>\"", ",", "\[IndentingNewLine]", 
+       "\"\<Jac_values[0]=\>\"", ",", "\"\<Lambda*(\>\"", ",", 
+       RowBox[{"StringReplace", "[", 
+        RowBox[{
+         RowBox[{"ToString", "[", 
+          RowBox[{"CForm", "[", 
+           RowBox[{"jacobian", "[", 
             RowBox[{
-             RowBox[{"il", "=", "0"}], ",", 
-             RowBox[{"il", "\[LessEqual]", "2"}], ",", 
+            "m", ",", "n", ",", "mm", ",", "nn", ",", "ii", ",", "jj", ",", 
+             "kk"}], "]"}], "]"}], "]"}], ",", "jacRules"}], "]"}], ",", 
+       "\"\<);\\n\>\"", ",", "\[IndentingNewLine]", 
+       "\"\<MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\n\>\""}\
+], "]"}]}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"FormatCode", "[", "code_String", "]"}], ":=", 
+     RowBox[{"StringReplace", "[", 
+      RowBox[{"code", ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+          "RegularExpression", "[", 
+           "\"\<Q\\\\(0,0,([ijpm1]*),([jpm1]*),([kmp1]*)\\\\)\>\"", "]"}], 
+          "\[Rule]", "\"\<Qij[5*(Nx*(Ny*$3+$2)+$1)+0]\>\""}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+          "RegularExpression", "[", 
+           "\"\<Q\\\\(0,1,([ijpm1]*),([jpm1]*),([kmp1]*)\\\\)\>\"", "]"}], 
+          "\[Rule]", "\"\<Qij[5*(Nx*(Ny*$3+$2)+$1)+1]\>\""}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+          "RegularExpression", "[", 
+           "\"\<Q\\\\(0,2,([ijpm1]*),([jpm1]*),([kmp1]*)\\\\)\>\"", "]"}], 
+          "\[Rule]", "\"\<Qij[5*(Nx*(Ny*$3+$2)+$1)+2]\>\""}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+          "RegularExpression", "[", 
+           "\"\<Q\\\\(1,1,([ijpm1]*),([jpm1]*),([kmp1]*)\\\\)\>\"", "]"}], 
+          "\[Rule]", "\"\<Qij[5*(Nx*(Ny*$3+$2)+$1)+3]\>\""}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+          "RegularExpression", "[", 
+           "\"\<Q\\\\(1,2,([ijpm1]*),([jpm1]*),([kmp1]*)\\\\)\>\"", "]"}], 
+          "\[Rule]", "\"\<Qij[5*(Nx*(Ny*$3+$2)+$1)+4]\>\""}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"\"\<dx1\>\"", "\[Rule]", "\"\<dx_1\>\""}], ",", 
+         RowBox[{"\"\<dy1\>\"", "\[Rule]", "\"\<dy_1\>\""}], ",", 
+         RowBox[{"\"\<dz1\>\"", "\[Rule]", "\"\<dz_1\>\""}], ",", 
+         RowBox[{"\"\<l1\>\"", "\[Rule]", "\"\<L1\>\""}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"\"\<l2\>\"", "\[Rule]", "\"\<L2\>\""}], ",", 
+         RowBox[{"\"\<l3\>\"", "\[Rule]", "\"\<L3\>\""}], ",", 
+         RowBox[{"\"\<lq\>\"", "\[Rule]", "\"\<Lq_tilde\>\""}], ",", 
+         RowBox[{"\"\<ls\>\"", "\[Rule]", "\"\<Ls\>\""}]}], "}"}]}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Clear", "[", 
+     RowBox[{
+     "i", ",", "j", ",", "k", ",", "ip1", ",", "im1", ",", "jp1", ",", "jm1", 
+      ",", "kp1", ",", "km1"}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"is", "=", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "ip1", ",", "im1"}], "}"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"js", "=", 
+     RowBox[{"{", 
+      RowBox[{"j", ",", "jp1", ",", "jm1"}], "}"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ks", "=", 
+     RowBox[{"{", 
+      RowBox[{"k", ",", "kp1", ",", "km1"}], "}"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"JacobianString", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"For", "[", 
+     RowBox[{
+      RowBox[{"ii", "=", "0"}], ",", 
+      RowBox[{"ii", "\[LessEqual]", "2"}], ",", 
+      RowBox[{"ii", "++"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"For", "[", 
+       RowBox[{
+        RowBox[{"jj", "=", "0"}], ",", 
+        RowBox[{"jj", "\[LessEqual]", "2"}], ",", 
+        RowBox[{"jj", "++"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"For", "[", 
+         RowBox[{
+          RowBox[{"kk", "=", "0"}], ",", 
+          RowBox[{"kk", "\[LessEqual]", "2"}], ",", 
+          RowBox[{"kk", "++"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"For", "[", 
+           RowBox[{
+            RowBox[{"ll", "=", "0"}], ",", 
+            RowBox[{"ll", "\[LessEqual]", "2"}], ",", 
+            RowBox[{"ll", "++"}], ",", "\[IndentingNewLine]", 
+            RowBox[{"For", "[", 
              RowBox[{
-              RowBox[{"il", "++"}], ";", "\[IndentingNewLine]", 
-              RowBox[{"For", "[", 
-               RowBox[{
-                RowBox[{"jl", "=", "0"}], ",", 
-                RowBox[{"jl", "\[LessEqual]", "2"}], ",", 
+              RowBox[{"il", "=", "0"}], ",", 
+              RowBox[{"il", "\[LessEqual]", "2"}], ",", 
+              RowBox[{
+               RowBox[{"il", "++"}], ";", "\[IndentingNewLine]", 
+               RowBox[{"For", "[", 
                 RowBox[{
-                 RowBox[{"jl", "++"}], ";", "\[IndentingNewLine]", 
-                 RowBox[{"For", "[", 
-                  RowBox[{
-                   RowBox[{"kl", "=", "0"}], ",", 
-                   RowBox[{"kl", "\[LessEqual]", "2"}], ",", 
+                 RowBox[{"jl", "=", "0"}], ",", 
+                 RowBox[{"jl", "\[LessEqual]", "2"}], ",", 
+                 RowBox[{
+                  RowBox[{"jl", "++"}], ";", "\[IndentingNewLine]", 
+                  RowBox[{"For", "[", 
                    RowBox[{
+                    RowBox[{"kl", "=", "0"}], ",", 
+                    RowBox[{"kl", "\[LessEqual]", "2"}], ",", 
+                    RowBox[{
                     RowBox[{"kl", "++"}], ";", "\[IndentingNewLine]", 
                     "\[IndentingNewLine]", "\[IndentingNewLine]", 
                     RowBox[{"code", "=", 
@@ -2282,27 +2521,21 @@ Cell[BoxData[
                     RowBox[{"StringMatchQ", "[", 
                     RowBox[{"code", ",", "\"\<*None*\>\""}], "]"}]}], " ", "&&",
                      " ", 
-                    RowBox[{"!", " ", 
+                    RowBox[{"!", 
                     RowBox[{"StringMatchQ", "[", 
-                    RowBox[{"code", ",", "\"\<*0));\\n\\n\>\""}], "]"}]}]}], 
-                    ",", "\[IndentingNewLine]", 
-                    RowBox[{"Print", "[", 
-                    RowBox[{"StringReplace", "[", 
-                    RowBox[{"code", ",", 
-                    RowBox[{"{", 
                     RowBox[{
+                    "code", ",", "\"\<*Jac_values[0]=Lambda*(0);*\>\""}], 
+                    "]"}]}]}], " ", ",", "\[IndentingNewLine]", 
                     RowBox[{
-                    RowBox[{
-                    "RegularExpression", "[", 
-                    "\"\<Q\\\\((.),(.),(.),(.),(.)\\\\)\>\"", "]"}], 
-                    "\[Rule]", "\"\<QQ_$1$2($3,$4,$5)\>\""}], ",", 
-                    RowBox[{"\"\<l1\>\"", "\[Rule]", "\"\<L1_tilde\>\""}]}], 
-                    "}"}]}], "]"}], "]"}]}], "\[IndentingNewLine]", 
-                    "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", 
-                  "]"}]}]}], "\[IndentingNewLine]", "]"}]}]}], 
-            "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]}], 
-        "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]}], 
-    "\[IndentingNewLine]", "]"}]}], "*)"}]], "Input",
+                    RowBox[{"AppendTo", "[", 
+                    RowBox[{"JacobianString", ",", 
+                    RowBox[{"FormatCode", "[", "code", "]"}]}], "]"}], 
+                    ";"}]}], "\[IndentingNewLine]", "]"}]}]}], 
+                   "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", 
+                "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+           "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]}], 
+       "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}], 
+    ";"}]}]}]], "Input",
  CellChangeTimes->{{3.712351735519821*^9, 3.7123518031342287`*^9}, {
    3.712351840675023*^9, 3.7123518824253063`*^9}, {3.712351917329198*^9, 
    3.712351981512738*^9}, {3.71235212290189*^9, 3.7123521957447023`*^9}, {
@@ -2314,33 +2547,304 @@ Cell[BoxData[
    3.712353742002483*^9}, {3.712354101699255*^9, 3.712354102102159*^9}, 
    3.712399850007556*^9, {3.7123998977810373`*^9, 3.7123998990724154`*^9}, {
    3.71239998464242*^9, 3.712399985128079*^9}, {3.7124216399137707`*^9, 
-   3.712421640100296*^9}, {3.714210022550364*^9, 3.714210033876194*^9}}],
+   3.712421640100296*^9}, {3.714210022550364*^9, 3.714210033876194*^9}, {
+   3.777973400502001*^9, 3.777973416425743*^9}, {3.777974335141182*^9, 
+   3.777974392095272*^9}, {3.777978009361458*^9, 3.777978145880453*^9}, {
+   3.777978208977231*^9, 3.7779782190766373`*^9}, {3.777989612249035*^9, 
+   3.777989631187931*^9}, {3.777989668050536*^9, 3.777989682958748*^9}, {
+   3.7779898961548147`*^9, 3.7779899195839357`*^9}, {3.7779900251781673`*^9, 
+   3.777990047258813*^9}, {3.777990634259972*^9, 3.777990830581463*^9}, {
+   3.777990874006482*^9, 3.777990957726962*^9}, {3.7779909893103247`*^9, 
+   3.777991100164693*^9}, {3.7779911308245068`*^9, 3.7779912402055483`*^9}, {
+   3.77799511251624*^9, 3.777995115661577*^9}, {3.777995160751238*^9, 
+   3.777995176852516*^9}, {3.777995214128257*^9, 3.777995231475806*^9}, {
+   3.777995321358921*^9, 3.777995358957563*^9}, {3.777995395302219*^9, 
+   3.77799541390812*^9}, {3.777995530524941*^9, 3.777995562274479*^9}, {
+   3.777995709290536*^9, 3.777995727726698*^9}, {3.777995773236932*^9, 
+   3.7779957809700937`*^9}, {3.777996477334248*^9, 3.7779964965625973`*^9}, {
+   3.777996529456726*^9, 3.77799655481758*^9}, {3.777996594918902*^9, 
+   3.77799659844976*^9}, {3.777996675011284*^9, 3.777996680535243*^9}, {
+   3.777996755591378*^9, 3.777996759871866*^9}, {3.777996901723236*^9, 
+   3.7779969595388117`*^9}, {3.777997027264185*^9, 3.777997091970533*^9}, {
+   3.777997454019331*^9, 3.777997455948635*^9}, {3.778000456384664*^9, 
+   3.778000474071685*^9}, {3.7780005318230963`*^9, 3.778000628103608*^9}, {
+   3.7782306973946943`*^9, 3.778230786150381*^9}, {3.7782308275411654`*^9, 
+   3.778230861318914*^9}, 3.778231586288237*^9, 3.778231668741682*^9, {
+   3.778246006318022*^9, 3.778246025187179*^9}, {3.7782467686661663`*^9, 
+   3.778246800572111*^9}, {3.778246869096373*^9, 3.778246873079636*^9}, {
+   3.7782469684422207`*^9, 3.778247042924409*^9}, {3.778247152436146*^9, 
+   3.778247153704688*^9}, {3.778247483636526*^9, 3.778247588274004*^9}, {
+   3.778247622159644*^9, 3.7782476222809*^9}, 3.778247687433399*^9, {
+   3.7782477324664383`*^9, 3.778247771103362*^9}, {3.778248056656219*^9, 
+   3.778248070551538*^9}, 3.778248309795795*^9, {3.778249432656989*^9, 
+   3.7782494798514833`*^9}, {3.778249651034206*^9, 3.778249710222506*^9}, 
+   3.778250092489756*^9, {3.778250177531087*^9, 3.778250313149768*^9}, 
+   3.7782507474286957`*^9, 3.7782538532324753`*^9}],
 
-Cell[BoxData["\[IndentingNewLine]"], "Input",
- CellChangeTimes->{{3.7123530699555283`*^9, 3.712353111684887*^9}, {
-   3.71235320733459*^9, 3.712353219382663*^9}, {3.712353326557775*^9, 
-   3.712353361468214*^9}, {3.7123534486102448`*^9, 3.712353500562009*^9}, {
-   3.712353590366166*^9, 3.712353628941009*^9}, {3.712353662055626*^9, 
-   3.71235367570758*^9}, {3.7123541263401527`*^9, 3.712354149681036*^9}, {
-   3.71235419732448*^9, 3.7123542772235518`*^9}, 3.712354330348524*^9, {
-   3.712354360613214*^9, 3.7123544159549637`*^9}, {3.7123552182527447`*^9, 
-   3.712355225093623*^9}, 3.712393975187114*^9, {3.712396789144755*^9, 
-   3.712396806188188*^9}, 3.712421638376328*^9}],
+Cell[CellGroupData[{
 
-Cell[BoxData[""], "Input",
- CellChangeTimes->{{3.71235351519331*^9, 3.712353521365489*^9}, {
-   3.712354518225853*^9, 3.7123546399170637`*^9}, {3.7123552632594852`*^9, 
-   3.7123553593389473`*^9}, {3.712355423570423*^9, 3.712355485803994*^9}, {
-   3.7123555317388144`*^9, 3.712355612051128*^9}, {3.7123557398300858`*^9, 
-   3.712355768728623*^9}, {3.712392699202078*^9, 3.712392721882374*^9}, {
-   3.712392792433723*^9, 3.712392792759522*^9}, {3.71239328818465*^9, 
-   3.71239328837283*^9}, {3.712393437473874*^9, 3.71239358964012*^9}, {
-   3.712393751547435*^9, 3.7123937957596817`*^9}, {3.712393968900161*^9, 
-   3.7123939703891783`*^9}, {3.7123940973271427`*^9, 
-   3.7123941167942753`*^9}, {3.712394173985223*^9, 3.712394248605836*^9}, {
-   3.712395455712467*^9, 3.712395456179977*^9}, 3.712396814381216*^9, {
-   3.712400379902471*^9, 3.7124003799500647`*^9}, 3.712400456197955*^9, 
-   3.712421648408492*^9, 3.714210019264491*^9}]
+Cell[BoxData[
+ RowBox[{"StringJoin", "[", "JacobianString", "]"}]], "Input",
+ CellChangeTimes->{{3.7782309172281*^9, 3.7782309651818933`*^9}, {
+  3.778232759223735*^9, 3.7782327647433367`*^9}}],
+
+Cell[BoxData["\<\"idxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+0;\
+\\nJac_values[0]=Lambda*(-2*((dx_1*dx_1) + (dy_1*dy_1) + (dz_1*dz_1))*L1 - \
+sigma - (2*(9*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*k+j)+i)+0]) - \
+bb*Qij[5*(Nx*(Ny*k+j)+i)+3] + Qij[5*(Nx*(Ny*k+j)+i)+0]*(bb + \
+6*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]) + \
+3*cc*((Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+1]) + \
+(Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+2]) + \
+(Qij[5*(Nx*(Ny*k+j)+i)+3]*Qij[5*(Nx*(Ny*k+j)+i)+3]) + \
+(Qij[5*(Nx*(Ny*k+j)+i)+4]*Qij[5*(Nx*(Ny*k+j)+i)+4]))))/3.);\\nMatSetValues(\
+Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\\
+nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+0;\\nJac_values[0]=Lambda*((dz_1*dz_1)*L1);\\\
+nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
+Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*km1+j)+i)+0;\\nJac_values[0]=Lambda*((dz_1*\
+dz_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+jp1)+i)+0;\\nJac_values[0]=\
+Lambda*((dy_1*dy_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_\
+VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+i)+0;\\\
+nJac_values[0]=Lambda*((dy_1*dy_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++ip1)+0;\\nJac_values[0]=Lambda*((dx_1*dx_1)*L1);\\nMatSetValues(Jac,1,idxm,1,\
+idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(\
+Nx*(Ny*k+j)+im1)+0;\\nJac_values[0]=Lambda*((dx_1*dx_1)*L1);\\nMatSetValues(\
+Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\\
+nidxn[0]=5*(Nx*(Ny*k+j)+i)+1;\\nJac_values[0]=Lambda*((-2*(bb + \
+6*cc*Qij[5*(Nx*(Ny*k+j)+i)+0])*Qij[5*(Nx*(Ny*k+j)+i)+1])/3.);\\nMatSetValues(\
+Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\\
+nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+1;\\nJac_values[0]=Lambda*(dz_1*Lq_tilde);\\\
+nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
+Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*km1+j)+i)+1;\\nJac_values[0]=Lambda*(-(dz_1*\
+Lq_tilde));\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\\
+nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+2;\\nJac_values[0]=\
+Lambda*((-2*(bb + \
+6*cc*Qij[5*(Nx*(Ny*k+j)+i)+0])*Qij[5*(Nx*(Ny*k+j)+i)+2])/3.);\\nMatSetValues(\
+Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\\
+nidxn[0]=5*(Nx*(Ny*k+jp1)+i)+2;\\nJac_values[0]=Lambda*(-(dy_1*Lq_tilde));\\\
+nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
+Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+i)+2;\\nJac_values[0]=Lambda*(dy_1*\
+Lq_tilde);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+3;\\nJac_values[0]=Lambda*\
+((2*(bb - 3*cc*Qij[5*(Nx*(Ny*k+j)+i)+0])*(Qij[5*(Nx*(Ny*k+j)+i)+0] + \
+2*Qij[5*(Nx*(Ny*k+j)+i)+3]))/3.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+4;\
+\\nJac_values[0]=Lambda*((4*(bb - \
+3*cc*Qij[5*(Nx*(Ny*k+j)+i)+0])*Qij[5*(Nx*(Ny*k+j)+i)+4])/3.);\\nMatSetValues(\
+Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\\
+nidxn[0]=5*(Nx*(Ny*k+j)+i)+0;\\nJac_values[0]=Lambda*(-(Qij[5*(Nx*(Ny*k+j)+i)+\
+1]*(bb + 4*cc*Qij[5*(Nx*(Ny*k+j)+i)+0] + \
+2*cc*Qij[5*(Nx*(Ny*k+j)+i)+3])));\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+\
+0;\\nJac_values[0]=Lambda*(-(dz_1*Lq_tilde)/2.);\\nMatSetValues(Jac,1,idxm,1,\
+idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(\
+Nx*(Ny*km1+j)+i)+0;\\nJac_values[0]=Lambda*((dz_1*Lq_tilde)/2.);\\\
+nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
+Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+1;\\nJac_values[0]=Lambda*(-2*((dx_\
+1*dx_1) + (dy_1*dy_1) + (dz_1*dz_1))*L1 - sigma - \
+2*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*k+j)+i)+0]) - \
+bb*Qij[5*(Nx*(Ny*k+j)+i)+3] - Qij[5*(Nx*(Ny*k+j)+i)+0]*(bb + \
+2*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]) - \
+2*cc*(3*(Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+1]) + \
+(Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+2]) + \
+(Qij[5*(Nx*(Ny*k+j)+i)+3]*Qij[5*(Nx*(Ny*k+j)+i)+3]) + \
+(Qij[5*(Nx*(Ny*k+j)+i)+4]*Qij[5*(Nx*(Ny*k+j)+i)+4])));\\nMatSetValues(Jac,1,\
+idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[\
+0]=5*(Nx*(Ny*kp1+j)+i)+1;\\nJac_values[0]=Lambda*((dz_1*dz_1)*L1);\\\
+nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
+Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*km1+j)+i)+1;\\nJac_values[0]=Lambda*((dz_1*\
+dz_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+jp1)+i)+1;\\nJac_values[0]=\
+Lambda*((dy_1*dy_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_\
+VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+i)+1;\\\
+nJac_values[0]=Lambda*((dy_1*dy_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++ip1)+1;\\nJac_values[0]=Lambda*((dx_1*dx_1)*L1);\\nMatSetValues(Jac,1,idxm,1,\
+idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(\
+Nx*(Ny*k+j)+im1)+1;\\nJac_values[0]=Lambda*((dx_1*dx_1)*L1);\\nMatSetValues(\
+Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\\
+nidxn[0]=5*(Nx*(Ny*k+j)+i)+2;\\nJac_values[0]=Lambda*(-4*cc*Qij[5*(Nx*(Ny*k+j)\
++i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+2] - \
+bb*Qij[5*(Nx*(Ny*k+j)+i)+4]);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_\
+VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+j)+ip1)+2;\\\
+nJac_values[0]=Lambda*((dx_1*Lq_tilde)/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
+Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*\
+k+j)+im1)+2;\\nJac_values[0]=Lambda*(-(dx_1*Lq_tilde)/2.);\\nMatSetValues(Jac,\
+1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\\
+nidxn[0]=5*(Nx*(Ny*k+j)+i)+3;\\nJac_values[0]=Lambda*(-(Qij[5*(Nx*(Ny*k+j)+i)+\
+1]*(bb + 2*cc*Qij[5*(Nx*(Ny*k+j)+i)+0] + \
+4*cc*Qij[5*(Nx*(Ny*k+j)+i)+3])));\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+\
+3;\\nJac_values[0]=Lambda*((dz_1*Lq_tilde)/2.);\\nMatSetValues(Jac,1,idxm,1,\
+idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(\
+Nx*(Ny*km1+j)+i)+3;\\nJac_values[0]=Lambda*(-(dz_1*Lq_tilde)/2.);\\\
+nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
+Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+4;\\nJac_values[0]=Lambda*(-(bb*Qij[\
+5*(Nx*(Ny*k+j)+i)+2]) - \
+4*cc*Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+4]);\\nMatSetValues(Jac,1,\
+idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[\
+0]=5*(Nx*(Ny*k+jp1)+i)+4;\\nJac_values[0]=Lambda*(-(dy_1*Lq_tilde)/2.);\\\
+nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
+Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+i)+4;\\nJac_values[0]=Lambda*((dy_1*\
+Lq_tilde)/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\\
+nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+0;\\nJac_values[0]=\
+Lambda*(-2*cc*Qij[5*(Nx*(Ny*k+j)+i)+2]*(2*Qij[5*(Nx*(Ny*k+j)+i)+0] + \
+Qij[5*(Nx*(Ny*k+j)+i)+3]));\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_\
+VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+jp1)+i)+0;\\\
+nJac_values[0]=Lambda*(dy_1*Lq_tilde);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+\
+jm1)+i)+0;\\nJac_values[0]=Lambda*(-(dy_1*Lq_tilde));\\nMatSetValues(Jac,1,\
+idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[\
+0]=5*(Nx*(Ny*k+j)+i)+1;\\nJac_values[0]=Lambda*(-4*cc*Qij[5*(Nx*(Ny*k+j)+i)+1]\
+*Qij[5*(Nx*(Ny*k+j)+i)+2] - \
+bb*Qij[5*(Nx*(Ny*k+j)+i)+4]);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_\
+VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+j)+ip1)+1;\\\
+nJac_values[0]=Lambda*(-(dx_1*Lq_tilde)/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
+Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*\
+k+j)+im1)+1;\\nJac_values[0]=Lambda*((dx_1*Lq_tilde)/2.);\\nMatSetValues(Jac,\
+1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\\
+nidxn[0]=5*(Nx*(Ny*k+j)+i)+2;\\nJac_values[0]=Lambda*(-2*((dx_1*dx_1) + \
+(dy_1*dy_1) + (dz_1*dz_1))*L1 - sigma + bb*Qij[5*(Nx*(Ny*k+j)+i)+3] - \
+2*cc*((Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*k+j)+i)+0]) + \
+(Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+1]) + \
+3*(Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+2]) + \
+Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*k+j)+i)+3] + \
+(Qij[5*(Nx*(Ny*k+j)+i)+3]*Qij[5*(Nx*(Ny*k+j)+i)+3]) + \
+(Qij[5*(Nx*(Ny*k+j)+i)+4]*Qij[5*(Nx*(Ny*k+j)+i)+4])));\\nMatSetValues(Jac,1,\
+idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[\
+0]=5*(Nx*(Ny*kp1+j)+i)+2;\\nJac_values[0]=Lambda*((dz_1*dz_1)*L1);\\\
+nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
+Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*km1+j)+i)+2;\\nJac_values[0]=Lambda*((dz_1*\
+dz_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+jp1)+i)+2;\\nJac_values[0]=\
+Lambda*((dy_1*dy_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_\
+VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+i)+2;\\\
+nJac_values[0]=Lambda*((dy_1*dy_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++ip1)+2;\\nJac_values[0]=Lambda*((dx_1*dx_1)*L1);\\nMatSetValues(Jac,1,idxm,1,\
+idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(\
+Nx*(Ny*k+j)+im1)+2;\\nJac_values[0]=Lambda*((dx_1*dx_1)*L1);\\nMatSetValues(\
+Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\\
+nidxn[0]=5*(Nx*(Ny*k+j)+i)+3;\\nJac_values[0]=Lambda*(Qij[5*(Nx*(Ny*k+j)+i)+2]\
+*(bb - 2*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0] + \
+2*Qij[5*(Nx*(Ny*k+j)+i)+3])));\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+jp1)+i)+\
+3;\\nJac_values[0]=Lambda*((dy_1*Lq_tilde)/2.);\\nMatSetValues(Jac,1,idxm,1,\
+idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(\
+Nx*(Ny*k+jm1)+i)+3;\\nJac_values[0]=Lambda*(-(dy_1*Lq_tilde)/2.);\\\
+nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
+Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+4;\\nJac_values[0]=Lambda*(-(bb*Qij[\
+5*(Nx*(Ny*k+j)+i)+1]) - \
+4*cc*Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+4]);\\nMatSetValues(Jac,1,\
+idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[\
+0]=5*(Nx*(Ny*kp1+j)+i)+4;\\nJac_values[0]=Lambda*((dz_1*Lq_tilde)/2.);\\\
+nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
+Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*km1+j)+i)+4;\\nJac_values[0]=Lambda*(-(dz_1*\
+Lq_tilde)/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\\
+nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+0;\\nJac_values[0]=\
+Lambda*((2*(2*Qij[5*(Nx*(Ny*k+j)+i)+0] + Qij[5*(Nx*(Ny*k+j)+i)+3])*(bb - \
+3*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]))/3.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++i)+1;\\nJac_values[0]=Lambda*((-2*Qij[5*(Nx*(Ny*k+j)+i)+1]*(bb + \
+6*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]))/3.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+j)+i)+1;\\nJac_values[0]=Lambda*(-(dz_1*Lq_tilde));\\nMatSetValues(Jac,1,idxm,\
+1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(\
+Nx*(Ny*km1+j)+i)+1;\\nJac_values[0]=Lambda*(dz_1*Lq_tilde);\\nMatSetValues(\
+Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\\
+nidxn[0]=5*(Nx*(Ny*k+j)+i)+2;\\nJac_values[0]=Lambda*((4*Qij[5*(Nx*(Ny*k+j)+i)\
++2]*(bb - \
+3*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]))/3.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++i)+3;\\nJac_values[0]=Lambda*(-2*((dx_1*dx_1) + (dy_1*dy_1) + \
+(dz_1*dz_1))*L1 - sigma - \
+(2*(3*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*k+j)+i)+0]) + \
+bb*Qij[5*(Nx*(Ny*k+j)+i)+3] - Qij[5*(Nx*(Ny*k+j)+i)+0]*(bb - \
+6*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]) + \
+3*cc*((Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+1]) + \
+(Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+2]) + \
+3*(Qij[5*(Nx*(Ny*k+j)+i)+3]*Qij[5*(Nx*(Ny*k+j)+i)+3]) + \
+(Qij[5*(Nx*(Ny*k+j)+i)+4]*Qij[5*(Nx*(Ny*k+j)+i)+4]))))/3.);\\nMatSetValues(\
+Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\\
+nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+3;\\nJac_values[0]=Lambda*((dz_1*dz_1)*L1);\\\
+nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
+Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*km1+j)+i)+3;\\nJac_values[0]=Lambda*((dz_1*\
+dz_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+jp1)+i)+3;\\nJac_values[0]=\
+Lambda*((dy_1*dy_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_\
+VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+i)+3;\\\
+nJac_values[0]=Lambda*((dy_1*dy_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++ip1)+3;\\nJac_values[0]=Lambda*((dx_1*dx_1)*L1);\\nMatSetValues(Jac,1,idxm,1,\
+idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(\
+Nx*(Ny*k+j)+im1)+3;\\nJac_values[0]=Lambda*((dx_1*dx_1)*L1);\\nMatSetValues(\
+Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\\
+nidxn[0]=5*(Nx*(Ny*k+j)+i)+4;\\nJac_values[0]=Lambda*((-2*(bb + \
+6*cc*Qij[5*(Nx*(Ny*k+j)+i)+3])*Qij[5*(Nx*(Ny*k+j)+i)+4])/3.);\\nMatSetValues(\
+Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\\
+nidxn[0]=5*(Nx*(Ny*k+j)+ip1)+4;\\nJac_values[0]=Lambda*(dx_1*Lq_tilde);\\\
+nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
+Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+j)+im1)+4;\\nJac_values[0]=Lambda*(-(dx_1*\
+Lq_tilde));\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\\
+nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+0;\\nJac_values[0]=\
+Lambda*((bb - 2*cc*(2*Qij[5*(Nx*(Ny*k+j)+i)+0] + \
+Qij[5*(Nx*(Ny*k+j)+i)+3]))*Qij[5*(Nx*(Ny*k+j)+i)+4]);\\nMatSetValues(Jac,1,\
+idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[\
+0]=5*(Nx*(Ny*k+j)+ip1)+0;\\nJac_values[0]=Lambda*(-(dx_1*Lq_tilde)/2.);\\\
+nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
+Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)+im1)+0;\\nJac_values[0]=Lambda*((dx_1*\
+Lq_tilde)/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\\
+nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+1;\\nJac_values[0]=\
+Lambda*(-(bb*Qij[5*(Nx*(Ny*k+j)+i)+2]) - \
+4*cc*Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+4]);\\nMatSetValues(Jac,1,\
+idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[\
+0]=5*(Nx*(Ny*k+jp1)+i)+1;\\nJac_values[0]=Lambda*((dy_1*Lq_tilde)/2.);\\\
+nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
+Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+i)+1;\\nJac_values[0]=Lambda*(-(dy_1*\
+Lq_tilde)/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\\
+nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+2;\\nJac_values[0]=\
+Lambda*(-(bb*Qij[5*(Nx*(Ny*k+j)+i)+1]) - \
+4*cc*Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+4]);\\nMatSetValues(Jac,1,\
+idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[\
+0]=5*(Nx*(Ny*kp1+j)+i)+2;\\nJac_values[0]=Lambda*(-(dz_1*Lq_tilde)/2.);\\\
+nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
+Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*km1+j)+i)+2;\\nJac_values[0]=Lambda*((dz_1*\
+Lq_tilde)/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\\
+nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+3;\\nJac_values[0]=\
+Lambda*(-2*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0] + \
+2*Qij[5*(Nx*(Ny*k+j)+i)+3])*Qij[5*(Nx*(Ny*k+j)+i)+4]);\\nMatSetValues(Jac,1,\
+idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[\
+0]=5*(Nx*(Ny*k+j)+ip1)+3;\\nJac_values[0]=Lambda*(-(dx_1*Lq_tilde));\\\
+nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
+Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)+im1)+3;\\nJac_values[0]=Lambda*(dx_1*\
+Lq_tilde);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+4;\\nJac_values[0]=Lambda*\
+(-2*((dx_1*dx_1) + (dy_1*dy_1) + (dz_1*dz_1))*L1 - sigma - \
+2*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*k+j)+i)+0]) + \
+Qij[5*(Nx*(Ny*k+j)+i)+0]*(bb - 2*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]) - \
+2*cc*((Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+1]) + \
+(Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+2]) + \
+(Qij[5*(Nx*(Ny*k+j)+i)+3]*Qij[5*(Nx*(Ny*k+j)+i)+3]) + \
+3*(Qij[5*(Nx*(Ny*k+j)+i)+4]*Qij[5*(Nx*(Ny*k+j)+i)+4])));\\nMatSetValues(Jac,1,\
+idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[\
+0]=5*(Nx*(Ny*kp1+j)+i)+4;\\nJac_values[0]=Lambda*((dz_1*dz_1)*L1);\\\
+nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
+Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*km1+j)+i)+4;\\nJac_values[0]=Lambda*((dz_1*\
+dz_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+jp1)+i)+4;\\nJac_values[0]=\
+Lambda*((dy_1*dy_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_\
+VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+i)+4;\\\
+nJac_values[0]=Lambda*((dy_1*dy_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++ip1)+4;\\nJac_values[0]=Lambda*((dx_1*dx_1)*L1);\\nMatSetValues(Jac,1,idxm,1,\
+idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(\
+Nx*(Ny*k+j)+im1)+4;\\nJac_values[0]=Lambda*((dx_1*dx_1)*L1);\\nMatSetValues(\
+Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\n\"\>"], "Output",
+ CellChangeTimes->{3.77824633143554*^9, 3.77824660099529*^9, 
+  3.7782495573795347`*^9, 3.778249746529284*^9, 3.778249908420518*^9, 
+  3.7782504623985653`*^9, 3.778254007565846*^9, 3.77825457860917*^9}]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2543,12 +3047,39 @@ Cell[BoxData[
     "\[IndentingNewLine]", "]"}]}], "*)"}]], "Input",
  CellChangeTimes->{{3.712399910906857*^9, 3.712399977145175*^9}, {
   3.712400832327179*^9, 3.712400833460176*^9}, {3.712401227475155*^9, 
-  3.71240123851937*^9}, {3.7142099964689207`*^9, 3.714210008828478*^9}}]
+  3.71240123851937*^9}, {3.7142099964689207`*^9, 3.714210008828478*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["String"], "Input",
+ CellChangeTimes->{{3.777978157400783*^9, 3.777978158560709*^9}}],
+
+Cell[BoxData["String"], "Output",
+ CellChangeTimes->{3.7779781592272787`*^9, 3.777989603844913*^9, 
+  3.7779896712569447`*^9, 3.7779897234764957`*^9, 3.777990854986012*^9, 
+  3.777995627120479*^9, 3.7779958215236464`*^9, 3.7779962725091963`*^9, 
+  3.778000685809619*^9, 3.7782308984851303`*^9, 3.778231804997213*^9, 
+  3.778246070967626*^9, 3.778246331445853*^9, 3.778246601010734*^9, 
+  3.7782495574539623`*^9, 3.778249746550967*^9, 3.778249908447567*^9, 
+  3.77825046240696*^9, 3.778254007579563*^9, 3.778254578636138*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Length", "[", "JacobianString", "]"}]], "Input",
+ CellChangeTimes->{{3.778246725811153*^9, 3.778246739509692*^9}}],
+
+Cell[BoxData["87"], "Output",
+ CellChangeTimes->{3.778246740145162*^9, 3.778249557713661*^9, 
+  3.778249746778474*^9, 3.778249908696554*^9, 3.778250462457443*^9, 
+  3.7782540079007053`*^9, 3.778254578646961*^9}]
+}, Open  ]]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
 },
-WindowSize->{1920, 1016},
+WindowSize->{1366, 704},
 WindowMargins->{{-1, Automatic}, {Automatic, -1}},
 FrontEndVersion->"10.0 for Linux x86 (64-bit) (June 27, 2014)",
 StyleDefinitions->"Default.nb"
@@ -2565,36 +3096,36 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[580, 22, 176, 2, 93, "Title"],
+Cell[580, 22, 176, 2, 96, "Title"],
 Cell[CellGroupData[{
-Cell[781, 28, 157, 2, 65, "Section"],
+Cell[781, 28, 157, 2, 67, "Section"],
 Cell[CellGroupData[{
-Cell[963, 34, 106, 1, 44, "Subsection"],
-Cell[1072, 37, 424, 7, 33, "Text"],
+Cell[963, 34, 106, 1, 47, "Subsection"],
+Cell[1072, 37, 424, 7, 55, "Text"],
 Cell[1499, 46, 9687, 271, 671, "Input"],
-Cell[11189, 319, 10705, 251, 593, "Input"],
+Cell[11189, 319, 10705, 251, 637, "Input"],
 Cell[21897, 572, 2556, 75, 77, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[24490, 652, 159, 2, 44, "Subsection"],
+Cell[24490, 652, 159, 2, 47, "Subsection"],
 Cell[24652, 656, 413, 13, 32, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[25102, 674, 147, 2, 45, "Subsection"],
+Cell[25102, 674, 147, 2, 47, "Subsection"],
 Cell[25252, 678, 7197, 186, 410, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[32486, 869, 104, 1, 45, "Subsection"],
+Cell[32486, 869, 104, 1, 47, "Subsection"],
 Cell[CellGroupData[{
-Cell[32615, 874, 111, 1, 35, "Subsubsection"],
+Cell[32615, 874, 111, 1, 37, "Subsubsection"],
 Cell[32729, 877, 686, 16, 62, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[33452, 898, 103, 1, 35, "Subsubsection"],
+Cell[33452, 898, 103, 1, 37, "Subsubsection"],
 Cell[33558, 901, 637, 17, 32, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[34232, 923, 158, 2, 35, "Subsubsection"],
+Cell[34232, 923, 158, 2, 37, "Subsubsection"],
 Cell[34393, 927, 170, 2, 33, "Text"],
 Cell[34566, 931, 116, 1, 33, "Text"],
 Cell[34685, 934, 5161, 130, 344, "Input"]
@@ -2602,89 +3133,98 @@ Cell[34685, 934, 5161, 130, 344, "Input"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[39907, 1071, 100, 1, 66, "Chapter"],
+Cell[39907, 1071, 100, 1, 69, "Chapter"],
 Cell[CellGroupData[{
-Cell[40032, 1076, 107, 1, 65, "Section"],
+Cell[40032, 1076, 107, 1, 67, "Section"],
 Cell[40142, 1079, 721, 11, 32, "Input"],
 Cell[CellGroupData[{
-Cell[40888, 1094, 139, 1, 45, "Subsection"],
-Cell[41030, 1097, 6074, 128, 253, "Input"]
+Cell[40888, 1094, 139, 1, 47, "Subsection"],
+Cell[41030, 1097, 6074, 128, 275, "Input"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[47153, 1231, 155, 2, 65, "Section"],
+Cell[47153, 1231, 155, 2, 67, "Section"],
 Cell[47311, 1235, 296, 5, 33, "Text"],
-Cell[47610, 1242, 1622, 28, 77, "Input"]
+Cell[47610, 1242, 2095, 39, 77, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[49269, 1275, 149, 2, 65, "Section"],
+Cell[49742, 1286, 149, 2, 67, "Section"],
 Cell[CellGroupData[{
-Cell[49443, 1281, 103, 1, 45, "Subsection"],
-Cell[49549, 1284, 2901, 62, 77, "Input"]
+Cell[49916, 1292, 103, 1, 47, "Subsection"],
+Cell[50022, 1295, 2901, 62, 77, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[52487, 1351, 108, 1, 45, "Subsection"],
-Cell[52598, 1354, 2967, 83, 121, "Input"],
+Cell[52960, 1362, 108, 1, 47, "Subsection"],
+Cell[53071, 1365, 2967, 83, 121, "Input"],
 Cell[CellGroupData[{
-Cell[55590, 1441, 130, 1, 35, "Subsubsection"],
-Cell[55723, 1444, 129, 1, 33, "Text"],
-Cell[55855, 1447, 7800, 147, 539, "Input"]
+Cell[56063, 1452, 130, 1, 37, "Subsubsection"],
+Cell[56196, 1455, 129, 1, 33, "Text"],
+Cell[56328, 1458, 7800, 147, 539, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[63692, 1599, 188, 2, 35, "Subsubsection"],
+Cell[64165, 1610, 188, 2, 37, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[63905, 1605, 1821, 43, 99, "Input"],
-Cell[65729, 1650, 1711, 24, 583, "Output"]
+Cell[64378, 1616, 1821, 43, 143, "Input"],
+Cell[66202, 1661, 2373, 33, 693, "Output"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[67501, 1681, 99, 1, 45, "Subsection"],
+Cell[68636, 1701, 99, 1, 47, "Subsection"],
 Cell[CellGroupData[{
-Cell[67625, 1686, 1529, 38, 77, "Input"],
-Cell[69157, 1726, 3605, 50, 847, "Output"]
+Cell[68760, 1706, 1529, 38, 121, "Input"],
+Cell[70292, 1746, 4268, 60, 957, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[72799, 1781, 97, 1, 35, "Subsubsection"],
+Cell[74597, 1811, 97, 1, 37, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[72921, 1786, 1697, 42, 99, "Input"],
-Cell[74621, 1830, 3311, 46, 693, "Output"]
+Cell[74719, 1816, 1697, 42, 143, "Input"],
+Cell[76419, 1860, 3950, 55, 737, "Output"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[78017, 1885, 113, 1, 66, "Chapter"],
+Cell[80454, 1924, 113, 1, 69, "Chapter"],
 Cell[CellGroupData[{
-Cell[78155, 1890, 106, 1, 65, "Section"],
-Cell[78264, 1893, 1428, 37, 121, "Input"],
-Cell[79695, 1932, 289, 6, 51, "Subsubsection"]
+Cell[80592, 1929, 106, 1, 67, "Section"],
+Cell[80701, 1932, 4419, 108, 407, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[80021, 1943, 92, 1, 65, "Section"],
-Cell[80116, 1946, 2137, 46, 77, "Input"]
+Cell[85157, 2045, 92, 1, 67, "Section"],
+Cell[85252, 2048, 2137, 46, 121, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[82290, 1997, 91, 1, 65, "Section"],
-Cell[82384, 2000, 1542, 39, 77, "Input"]
+Cell[87426, 2099, 91, 1, 67, "Section"],
+Cell[87520, 2102, 339, 5, 32, "Input"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[83975, 2045, 95, 1, 66, "Chapter"],
+Cell[87908, 2113, 95, 1, 69, "Chapter"],
 Cell[CellGroupData[{
-Cell[84095, 2050, 104, 1, 65, "Section"],
-Cell[84202, 2053, 1510, 35, 253, "Input"]
+Cell[88028, 2118, 104, 1, 67, "Section"],
+Cell[88135, 2121, 1236, 25, 99, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[85749, 2093, 91, 1, 65, "Section"],
-Cell[85843, 2096, 9781, 220, 891, "Input"],
-Cell[95627, 2318, 678, 9, 55, "Input"],
-Cell[96308, 2329, 934, 13, 32, "Input"]
+Cell[89408, 2151, 91, 1, 67, "Section"],
+Cell[89502, 2154, 19526, 427, 1353, "Input"],
+Cell[CellGroupData[{
+Cell[109053, 2585, 193, 3, 32, "Input"],
+Cell[109249, 2590, 18603, 255, 9933, "Output"]
+}, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[97279, 2347, 94, 1, 65, "Section"],
-Cell[97376, 2350, 8229, 195, 781, "Input"]
+Cell[127901, 2851, 94, 1, 67, "Section"],
+Cell[127998, 2854, 8229, 195, 803, "Input"],
+Cell[CellGroupData[{
+Cell[136252, 3053, 98, 1, 32, "Input"],
+Cell[136353, 3056, 524, 7, 32, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[136914, 3068, 138, 2, 32, "Input"],
+Cell[137055, 3072, 211, 3, 65, "Output"]
+}, Open  ]]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]

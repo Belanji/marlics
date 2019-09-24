@@ -44,7 +44,7 @@ class GEOMETRY
   virtual  double bulk_12(const double  QN[5],const double  dQ[15],const double  ddQ[30]) const;
 
   
- protected:
+  //protected:
 
 
   std::string geometry_name;
