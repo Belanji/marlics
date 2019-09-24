@@ -338,6 +338,7 @@ PetscErrorCode RhsJacobian(TS ts,PetscReal time,Vec Qij_in,Mat Jac,Mat Jac_pc, v
   const PetscScalar cc=sample_geometry->cc;
   const PetscScalar Lambda=sample_geometry->Lambda;
   const PetscScalar L1=sample_geometry->L1;
+  const PetscScalar Lq_tilde=sample_geometry->Lq_tilde;
   
   const int Nx=sample_geometry->Nx;
   const int Ny=sample_geometry->Ny;
@@ -360,26 +361,16 @@ PetscErrorCode RhsJacobian(TS ts,PetscReal time,Vec Qij_in,Mat Jac,Mat Jac_pc, v
 	  for( k= 0; k< Nz; k++)
 	    {
 
-
               idxm[0]=5*(Nx*(Ny*k+j)+i)+0;
               idxn[0]=5*(Nx*(Ny*k+j)+i)+0;
               Jac_values[0]=Lambda*(-2*((dx_1*dx_1) + (dy_1*dy_1) + (dz_1*dz_1))*L1 - sigma - (2*(9*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*k+j)+i)+0]) - bb*Qij[5*(Nx*(Ny*k+j)+i)+3] + Qij[5*(Nx*(Ny*k+j)+i)+0]*(bb + 6*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]) + 3*cc*((Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+1]) + (Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+2]) + (Qij[5*(Nx*(Ny*k+j)+i)+3]*Qij[5*(Nx*(Ny*k+j)+i)+3]) + (Qij[5*(Nx*(Ny*k+j)+i)+4]*Qij[5*(Nx*(Ny*k+j)+i)+4]))))/3.);
               MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
 
-
-
-                
-              
               idxm[0]=5*(Nx*(Ny*k+j)+i)+0;
               idxn[0]=5*(Nx*(Ny*kp1+j)+i)+0;
               Jac_values[0]=Lambda*((dz_1*dz_1)*L1);
               MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
 
-
-
-
-
-              
               idxm[0]=5*(Nx*(Ny*k+j)+i)+0;
               idxn[0]=5*(Nx*(Ny*km1+j)+i)+0;
               Jac_values[0]=Lambda*((dz_1*dz_1)*L1);
@@ -410,14 +401,29 @@ PetscErrorCode RhsJacobian(TS ts,PetscReal time,Vec Qij_in,Mat Jac,Mat Jac_pc, v
               Jac_values[0]=Lambda*((-2*(bb + 6*cc*Qij[5*(Nx*(Ny*k+j)+i)+0])*Qij[5*(Nx*(Ny*k+j)+i)+1])/3.);
               MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
 
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+0;
+              idxn[0]=5*(Nx*(Ny*kp1+j)+i)+1;
+              Jac_values[0]=Lambda*(dz_1*Lq_tilde);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
 
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+0;
+              idxn[0]=5*(Nx*(Ny*km1+j)+i)+1;
+              Jac_values[0]=Lambda*(-(dz_1*Lq_tilde));
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
 
-
-
-              
               idxm[0]=5*(Nx*(Ny*k+j)+i)+0;
               idxn[0]=5*(Nx*(Ny*k+j)+i)+2;
               Jac_values[0]=Lambda*((-2*(bb + 6*cc*Qij[5*(Nx*(Ny*k+j)+i)+0])*Qij[5*(Nx*(Ny*k+j)+i)+2])/3.);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+0;
+              idxn[0]=5*(Nx*(Ny*k+jp1)+i)+2;
+              Jac_values[0]=Lambda*(-(dy_1*Lq_tilde));
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+0;
+              idxn[0]=5*(Nx*(Ny*k+jm1)+i)+2;
+              Jac_values[0]=Lambda*(dy_1*Lq_tilde);
               MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
 
               idxm[0]=5*(Nx*(Ny*k+j)+i)+0;
@@ -433,6 +439,16 @@ PetscErrorCode RhsJacobian(TS ts,PetscReal time,Vec Qij_in,Mat Jac,Mat Jac_pc, v
               idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
               idxn[0]=5*(Nx*(Ny*k+j)+i)+0;
               Jac_values[0]=Lambda*(-(Qij[5*(Nx*(Ny*k+j)+i)+1]*(bb + 4*cc*Qij[5*(Nx*(Ny*k+j)+i)+0] + 2*cc*Qij[5*(Nx*(Ny*k+j)+i)+3])));
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+              idxn[0]=5*(Nx*(Ny*kp1+j)+i)+0;
+              Jac_values[0]=Lambda*(-(dz_1*Lq_tilde)/2.);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+              idxn[0]=5*(Nx*(Ny*km1+j)+i)+0;
+              Jac_values[0]=Lambda*((dz_1*Lq_tilde)/2.);
               MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
 
               idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
@@ -476,13 +492,43 @@ PetscErrorCode RhsJacobian(TS ts,PetscReal time,Vec Qij_in,Mat Jac,Mat Jac_pc, v
               MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
 
               idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+              idxn[0]=5*(Nx*(Ny*k+j)+ip1)+2;
+              Jac_values[0]=Lambda*((dx_1*Lq_tilde)/2.);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+              idxn[0]=5*(Nx*(Ny*k+j)+im1)+2;
+              Jac_values[0]=Lambda*(-(dx_1*Lq_tilde)/2.);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
               idxn[0]=5*(Nx*(Ny*k+j)+i)+3;
               Jac_values[0]=Lambda*(-(Qij[5*(Nx*(Ny*k+j)+i)+1]*(bb + 2*cc*Qij[5*(Nx*(Ny*k+j)+i)+0] + 4*cc*Qij[5*(Nx*(Ny*k+j)+i)+3])));
               MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
 
               idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+              idxn[0]=5*(Nx*(Ny*kp1+j)+i)+3;
+              Jac_values[0]=Lambda*((dz_1*Lq_tilde)/2.);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+              idxn[0]=5*(Nx*(Ny*km1+j)+i)+3;
+              Jac_values[0]=Lambda*(-(dz_1*Lq_tilde)/2.);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
               idxn[0]=5*(Nx*(Ny*k+j)+i)+4;
               Jac_values[0]=Lambda*(-(bb*Qij[5*(Nx*(Ny*k+j)+i)+2]) - 4*cc*Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+4]);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+              idxn[0]=5*(Nx*(Ny*k+jp1)+i)+4;
+              Jac_values[0]=Lambda*(-(dy_1*Lq_tilde)/2.);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+              idxn[0]=5*(Nx*(Ny*k+jm1)+i)+4;
+              Jac_values[0]=Lambda*((dy_1*Lq_tilde)/2.);
               MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
 
               idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
@@ -491,8 +537,28 @@ PetscErrorCode RhsJacobian(TS ts,PetscReal time,Vec Qij_in,Mat Jac,Mat Jac_pc, v
               MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
 
               idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+              idxn[0]=5*(Nx*(Ny*k+jp1)+i)+0;
+              Jac_values[0]=Lambda*(dy_1*Lq_tilde);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+              idxn[0]=5*(Nx*(Ny*k+jm1)+i)+0;
+              Jac_values[0]=Lambda*(-(dy_1*Lq_tilde));
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
               idxn[0]=5*(Nx*(Ny*k+j)+i)+1;
               Jac_values[0]=Lambda*(-4*cc*Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+2] - bb*Qij[5*(Nx*(Ny*k+j)+i)+4]);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+              idxn[0]=5*(Nx*(Ny*k+j)+ip1)+1;
+              Jac_values[0]=Lambda*(-(dx_1*Lq_tilde)/2.);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+              idxn[0]=5*(Nx*(Ny*k+j)+im1)+1;
+              Jac_values[0]=Lambda*((dx_1*Lq_tilde)/2.);
               MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
 
               idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
@@ -536,8 +602,28 @@ PetscErrorCode RhsJacobian(TS ts,PetscReal time,Vec Qij_in,Mat Jac,Mat Jac_pc, v
               MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
 
               idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+              idxn[0]=5*(Nx*(Ny*k+jp1)+i)+3;
+              Jac_values[0]=Lambda*((dy_1*Lq_tilde)/2.);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+              idxn[0]=5*(Nx*(Ny*k+jm1)+i)+3;
+              Jac_values[0]=Lambda*(-(dy_1*Lq_tilde)/2.);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
               idxn[0]=5*(Nx*(Ny*k+j)+i)+4;
               Jac_values[0]=Lambda*(-(bb*Qij[5*(Nx*(Ny*k+j)+i)+1]) - 4*cc*Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+4]);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+              idxn[0]=5*(Nx*(Ny*kp1+j)+i)+4;
+              Jac_values[0]=Lambda*((dz_1*Lq_tilde)/2.);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+              idxn[0]=5*(Nx*(Ny*km1+j)+i)+4;
+              Jac_values[0]=Lambda*(-(dz_1*Lq_tilde)/2.);
               MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
 
               idxm[0]=5*(Nx*(Ny*k+j)+i)+3;
@@ -548,6 +634,16 @@ PetscErrorCode RhsJacobian(TS ts,PetscReal time,Vec Qij_in,Mat Jac,Mat Jac_pc, v
               idxm[0]=5*(Nx*(Ny*k+j)+i)+3;
               idxn[0]=5*(Nx*(Ny*k+j)+i)+1;
               Jac_values[0]=Lambda*((-2*Qij[5*(Nx*(Ny*k+j)+i)+1]*(bb + 6*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]))/3.);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+3;
+              idxn[0]=5*(Nx*(Ny*kp1+j)+i)+1;
+              Jac_values[0]=Lambda*(-(dz_1*Lq_tilde));
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+3;
+              idxn[0]=5*(Nx*(Ny*km1+j)+i)+1;
+              Jac_values[0]=Lambda*(dz_1*Lq_tilde);
               MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
 
               idxm[0]=5*(Nx*(Ny*k+j)+i)+3;
@@ -595,9 +691,29 @@ PetscErrorCode RhsJacobian(TS ts,PetscReal time,Vec Qij_in,Mat Jac,Mat Jac_pc, v
               Jac_values[0]=Lambda*((-2*(bb + 6*cc*Qij[5*(Nx*(Ny*k+j)+i)+3])*Qij[5*(Nx*(Ny*k+j)+i)+4])/3.);
               MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
 
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+3;
+              idxn[0]=5*(Nx*(Ny*k+j)+ip1)+4;
+              Jac_values[0]=Lambda*(dx_1*Lq_tilde);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+3;
+              idxn[0]=5*(Nx*(Ny*k+j)+im1)+4;
+              Jac_values[0]=Lambda*(-(dx_1*Lq_tilde));
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
               idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
               idxn[0]=5*(Nx*(Ny*k+j)+i)+0;
               Jac_values[0]=Lambda*((bb - 2*cc*(2*Qij[5*(Nx*(Ny*k+j)+i)+0] + Qij[5*(Nx*(Ny*k+j)+i)+3]))*Qij[5*(Nx*(Ny*k+j)+i)+4]);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+              idxn[0]=5*(Nx*(Ny*k+j)+ip1)+0;
+              Jac_values[0]=Lambda*(-(dx_1*Lq_tilde)/2.);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+              idxn[0]=5*(Nx*(Ny*k+j)+im1)+0;
+              Jac_values[0]=Lambda*((dx_1*Lq_tilde)/2.);
               MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
 
               idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
@@ -606,13 +722,43 @@ PetscErrorCode RhsJacobian(TS ts,PetscReal time,Vec Qij_in,Mat Jac,Mat Jac_pc, v
               MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
 
               idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+              idxn[0]=5*(Nx*(Ny*k+jp1)+i)+1;
+              Jac_values[0]=Lambda*((dy_1*Lq_tilde)/2.);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+              idxn[0]=5*(Nx*(Ny*k+jm1)+i)+1;
+              Jac_values[0]=Lambda*(-(dy_1*Lq_tilde)/2.);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
               idxn[0]=5*(Nx*(Ny*k+j)+i)+2;
               Jac_values[0]=Lambda*(-(bb*Qij[5*(Nx*(Ny*k+j)+i)+1]) - 4*cc*Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+4]);
               MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
 
               idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+              idxn[0]=5*(Nx*(Ny*kp1+j)+i)+2;
+              Jac_values[0]=Lambda*(-(dz_1*Lq_tilde)/2.);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+              idxn[0]=5*(Nx*(Ny*km1+j)+i)+2;
+              Jac_values[0]=Lambda*((dz_1*Lq_tilde)/2.);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
               idxn[0]=5*(Nx*(Ny*k+j)+i)+3;
               Jac_values[0]=Lambda*(-2*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0] + 2*Qij[5*(Nx*(Ny*k+j)+i)+3])*Qij[5*(Nx*(Ny*k+j)+i)+4]);
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+              idxn[0]=5*(Nx*(Ny*k+j)+ip1)+3;
+              Jac_values[0]=Lambda*(-(dx_1*Lq_tilde));
+              MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+              idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+              idxn[0]=5*(Nx*(Ny*k+j)+im1)+3;
+              Jac_values[0]=Lambda*(dx_1*Lq_tilde);
               MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
 
               idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
@@ -649,6 +795,8 @@ PetscErrorCode RhsJacobian(TS ts,PetscReal time,Vec Qij_in,Mat Jac,Mat Jac_pc, v
               idxn[0]=5*(Nx*(Ny*k+j)+im1)+4;
               Jac_values[0]=Lambda*((dx_1*dx_1)*L1);
               MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+
 
               
 

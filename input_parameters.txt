@@ -2,9 +2,9 @@ geometry   bulk
 integrator CN
 
 
-Nx 31                /*      grid size      */
-Ny 31                /*      grid size      */
-Nz 31                /*      grid size      */
+Nx 51                /*      grid size      */
+Ny 51                /*      grid size      */
+Nz 51                /*      grid size      */
 
 
 a  0.086             /*     10^6 J/Km^3     */
@@ -16,7 +16,7 @@ L1  40.0
 L2  0.0
 L3  0.0
 Ls  0.0 
-Lq  0.0
+Lq  40.0
 
 #k11 16.7
 #k22 7.8
