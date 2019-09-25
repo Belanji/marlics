@@ -1,6 +1,7 @@
 #ifndef BOUNDARY_
 #define BOUNDARY_
 
+#include <petscts.h>
 #include <string>
 
 class BOUNDARY
@@ -26,6 +27,9 @@ class BOUNDARY
   const double  S_eq;
   const double q0;
   const double * Wo;
+  const int Nx;
+  const int Ny;
+  const int Nz;
   double theta_0, phi_0;
   const int boundary_id;
   std::string condition_name;
@@ -42,6 +46,9 @@ class BOUNDARY
   virtual double surface_02(const double  QN[5],const double  dQ[15],const double  ddQ[30], const double v[3]) const  = 0;
   virtual double surface_11(const double  QN[5],const double  dQ[15],const double  ddQ[30], const double v[3]) const  = 0;
   virtual double surface_12(const double  QN[5],const double  dQ[15],const double  ddQ[30], const double v[3]) const  = 0;
+
+  virtual void fill_jacobian_boundary(const PetscScalar *,Mat ,Mat , const PetscScalar *, const int , const int , const int ) const {};
+
   
 };
 

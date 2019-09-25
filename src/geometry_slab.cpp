@@ -26,7 +26,7 @@ slab::slab(const struct Simulation_Parameters * sim_param) : GEOMETRY (sim_param
 
 
   JacobianPtr=Jacobian;
-  
+  RhsPtr=RhsFunction;
 };
 
 

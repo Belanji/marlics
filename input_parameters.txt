@@ -1,4 +1,4 @@
-geometry   bulk
+geometry   slab
 integrator CN
 
 
@@ -39,20 +39,20 @@ mu_1      0.3          /*     Pa s            */
 mu_1_s    3000.0          /*     Pa nm s     */
 
 
-dt        0.00001     /*     10^-6  s        */	
+dt        0.0001     /*     10^-6  s        */	
 ti        0.0
-tf        15.0     /*    10^-6 s          */
+tf        1500.0     /*    10^-6 s          */
 
 
 time_print_type	          linear
-timeprint                 5.        /*  10^-6 s   */
-timeprint_increase_factor 5.        /*  10^-6 s   */     
-initial_output_file_number   0
+timeprint                 150.        /*  10^-6 s   */
+timeprint_increase_factor 150.        /*  10^-6 s   */     
+initial_output_file_number   1
 
 #Initial Conditions
 
 #Random ic:
-initial_conditions          random
+#initial_conditions          random
 
 
 #Random in Bulk homogeneous on the boundary:
@@ -65,21 +65,21 @@ initial_conditions          random
 #phi_i 0.0
 
 #Use other simulation output as initial condition:
-#initial_conditions           read_from_file 
-#ic_file                      director_field_5.csv
+initial_conditions           read_from_file 
+ic_file                      director_field_0.csv
 
 
 
 #Top boundary conditions:
-anchoring_type  0   fournier-galatola
+anchoring_type  0   strong
 Wo1       0    10.0                         /*     10^-3 J/m^2     */
 phi_0     0    0.
-theta_0   0    0.
+theta_0   0    89.
 
-anchoring_type  1   fournier-galatola
+anchoring_type  1   strong
 Wo1       1    10.0                         /*     10^-3 J/m^2     */
-phi_0     1    0
-theta_0   1    0
+phi_0     1    0.
+theta_0   1    89
 
 
 run

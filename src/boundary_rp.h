@@ -23,6 +23,10 @@ class Boundary_Rp : public BOUNDARY
   virtual double surface_12(const double  QN[5],const double  dQ[15],const double  ddQ[30], const double v[3]) const ;
   virtual ~Boundary_Rp() {};
 
+
+  virtual void fill_jacobian_boundary(const PetscScalar *Qij,Mat Jac,Mat Jac_pc, const PetscScalar * v, const int i, const int j, const int k) const {};
+
+  
   Boundary_Rp(const class Simulation_Parameters *, int);
 };
 
