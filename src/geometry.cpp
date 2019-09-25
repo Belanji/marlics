@@ -605,3 +605,459 @@ void GEOMETRY::ic(struct Simulation_Parameters * sim_param,double * Qij)
     }
 
 }
+
+
+
+void GEOMETRY::fill_jac_bulk(const PetscScalar *Qij,Mat Jac,Mat Jac_pc, int i, int j, int k)
+{
+
+
+  int ip1,jp1,kp1, im1, jm1, km1, ll;
+  PetscInt idxm[1],idxn[1];
+  PetscScalar Jac_values[1];
+  PetscErrorCode ierr;
+
+  
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+0;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+0;
+  Jac_values[0]=Lambda*(-2*((dx_1*dx_1) + (dy_1*dy_1) + (dz_1*dz_1))*L1 - sigma - (2*(9*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*k+j)+i)+0]) - bb*Qij[5*(Nx*(Ny*k+j)+i)+3] + Qij[5*(Nx*(Ny*k+j)+i)+0]*(bb + 6*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]) + 3*cc*((Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+1]) + (Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+2]) + (Qij[5*(Nx*(Ny*k+j)+i)+3]*Qij[5*(Nx*(Ny*k+j)+i)+3]) + (Qij[5*(Nx*(Ny*k+j)+i)+4]*Qij[5*(Nx*(Ny*k+j)+i)+4]))))/3.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+0;
+  idxn[0]=5*(Nx*(Ny*kp1+j)+i)+0;
+  Jac_values[0]=Lambda*((dz_1*dz_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+0;
+  idxn[0]=5*(Nx*(Ny*km1+j)+i)+0;
+  Jac_values[0]=Lambda*((dz_1*dz_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+0;
+  idxn[0]=5*(Nx*(Ny*k+jp1)+i)+0;
+  Jac_values[0]=Lambda*((dy_1*dy_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+0;
+  idxn[0]=5*(Nx*(Ny*k+jm1)+i)+0;
+  Jac_values[0]=Lambda*((dy_1*dy_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+0;
+  idxn[0]=5*(Nx*(Ny*k+j)+ip1)+0;
+  Jac_values[0]=Lambda*((dx_1*dx_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+0;
+  idxn[0]=5*(Nx*(Ny*k+j)+im1)+0;
+  Jac_values[0]=Lambda*((dx_1*dx_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+0;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+1;
+  Jac_values[0]=Lambda*((-2*(bb + 6*cc*Qij[5*(Nx*(Ny*k+j)+i)+0])*Qij[5*(Nx*(Ny*k+j)+i)+1])/3.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+0;
+  idxn[0]=5*(Nx*(Ny*kp1+j)+i)+1;
+  Jac_values[0]=Lambda*(dz_1*Lq_tilde);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+0;
+  idxn[0]=5*(Nx*(Ny*km1+j)+i)+1;
+  Jac_values[0]=Lambda*(-(dz_1*Lq_tilde));
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+0;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+2;
+  Jac_values[0]=Lambda*((-2*(bb + 6*cc*Qij[5*(Nx*(Ny*k+j)+i)+0])*Qij[5*(Nx*(Ny*k+j)+i)+2])/3.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+0;
+  idxn[0]=5*(Nx*(Ny*k+jp1)+i)+2;
+  Jac_values[0]=Lambda*(-(dy_1*Lq_tilde));
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+0;
+  idxn[0]=5*(Nx*(Ny*k+jm1)+i)+2;
+  Jac_values[0]=Lambda*(dy_1*Lq_tilde);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+0;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+3;
+  Jac_values[0]=Lambda*((2*(bb - 3*cc*Qij[5*(Nx*(Ny*k+j)+i)+0])*(Qij[5*(Nx*(Ny*k+j)+i)+0] + 2*Qij[5*(Nx*(Ny*k+j)+i)+3]))/3.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+0;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+4;
+  Jac_values[0]=Lambda*((4*(bb - 3*cc*Qij[5*(Nx*(Ny*k+j)+i)+0])*Qij[5*(Nx*(Ny*k+j)+i)+4])/3.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+0;
+  Jac_values[0]=Lambda*(-(Qij[5*(Nx*(Ny*k+j)+i)+1]*(bb + 4*cc*Qij[5*(Nx*(Ny*k+j)+i)+0] + 2*cc*Qij[5*(Nx*(Ny*k+j)+i)+3])));
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+  idxn[0]=5*(Nx*(Ny*kp1+j)+i)+0;
+  Jac_values[0]=Lambda*(-(dz_1*Lq_tilde)/2.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+  idxn[0]=5*(Nx*(Ny*km1+j)+i)+0;
+  Jac_values[0]=Lambda*((dz_1*Lq_tilde)/2.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+1;
+  Jac_values[0]=Lambda*(-2*((dx_1*dx_1) + (dy_1*dy_1) + (dz_1*dz_1))*L1 - sigma - 2*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*k+j)+i)+0]) - bb*Qij[5*(Nx*(Ny*k+j)+i)+3] - Qij[5*(Nx*(Ny*k+j)+i)+0]*(bb + 2*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]) - 2*cc*(3*(Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+1]) + (Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+2]) + (Qij[5*(Nx*(Ny*k+j)+i)+3]*Qij[5*(Nx*(Ny*k+j)+i)+3]) + (Qij[5*(Nx*(Ny*k+j)+i)+4]*Qij[5*(Nx*(Ny*k+j)+i)+4])));
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+  idxn[0]=5*(Nx*(Ny*kp1+j)+i)+1;
+  Jac_values[0]=Lambda*((dz_1*dz_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+  idxn[0]=5*(Nx*(Ny*km1+j)+i)+1;
+  Jac_values[0]=Lambda*((dz_1*dz_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+  idxn[0]=5*(Nx*(Ny*k+jp1)+i)+1;
+  Jac_values[0]=Lambda*((dy_1*dy_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+  idxn[0]=5*(Nx*(Ny*k+jm1)+i)+1;
+  Jac_values[0]=Lambda*((dy_1*dy_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+  idxn[0]=5*(Nx*(Ny*k+j)+ip1)+1;
+  Jac_values[0]=Lambda*((dx_1*dx_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+  idxn[0]=5*(Nx*(Ny*k+j)+im1)+1;
+  Jac_values[0]=Lambda*((dx_1*dx_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+2;
+  Jac_values[0]=Lambda*(-4*cc*Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+2] - bb*Qij[5*(Nx*(Ny*k+j)+i)+4]);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+  idxn[0]=5*(Nx*(Ny*k+j)+ip1)+2;
+  Jac_values[0]=Lambda*((dx_1*Lq_tilde)/2.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+  idxn[0]=5*(Nx*(Ny*k+j)+im1)+2;
+  Jac_values[0]=Lambda*(-(dx_1*Lq_tilde)/2.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+3;
+  Jac_values[0]=Lambda*(-(Qij[5*(Nx*(Ny*k+j)+i)+1]*(bb + 2*cc*Qij[5*(Nx*(Ny*k+j)+i)+0] + 4*cc*Qij[5*(Nx*(Ny*k+j)+i)+3])));
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+  idxn[0]=5*(Nx*(Ny*kp1+j)+i)+3;
+  Jac_values[0]=Lambda*((dz_1*Lq_tilde)/2.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+  idxn[0]=5*(Nx*(Ny*km1+j)+i)+3;
+  Jac_values[0]=Lambda*(-(dz_1*Lq_tilde)/2.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+4;
+  Jac_values[0]=Lambda*(-(bb*Qij[5*(Nx*(Ny*k+j)+i)+2]) - 4*cc*Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+4]);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+  idxn[0]=5*(Nx*(Ny*k+jp1)+i)+4;
+  Jac_values[0]=Lambda*(-(dy_1*Lq_tilde)/2.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+1;
+  idxn[0]=5*(Nx*(Ny*k+jm1)+i)+4;
+  Jac_values[0]=Lambda*((dy_1*Lq_tilde)/2.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+0;
+  Jac_values[0]=Lambda*(-2*cc*Qij[5*(Nx*(Ny*k+j)+i)+2]*(2*Qij[5*(Nx*(Ny*k+j)+i)+0] + Qij[5*(Nx*(Ny*k+j)+i)+3]));
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+  idxn[0]=5*(Nx*(Ny*k+jp1)+i)+0;
+  Jac_values[0]=Lambda*(dy_1*Lq_tilde);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+  idxn[0]=5*(Nx*(Ny*k+jm1)+i)+0;
+  Jac_values[0]=Lambda*(-(dy_1*Lq_tilde));
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+1;
+  Jac_values[0]=Lambda*(-4*cc*Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+2] - bb*Qij[5*(Nx*(Ny*k+j)+i)+4]);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+  idxn[0]=5*(Nx*(Ny*k+j)+ip1)+1;
+  Jac_values[0]=Lambda*(-(dx_1*Lq_tilde)/2.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+  idxn[0]=5*(Nx*(Ny*k+j)+im1)+1;
+  Jac_values[0]=Lambda*((dx_1*Lq_tilde)/2.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+2;
+  Jac_values[0]=Lambda*(-2*((dx_1*dx_1) + (dy_1*dy_1) + (dz_1*dz_1))*L1 - sigma + bb*Qij[5*(Nx*(Ny*k+j)+i)+3] - 2*cc*((Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*k+j)+i)+0]) + (Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+1]) + 3*(Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+2]) + Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*k+j)+i)+3] + (Qij[5*(Nx*(Ny*k+j)+i)+3]*Qij[5*(Nx*(Ny*k+j)+i)+3]) + (Qij[5*(Nx*(Ny*k+j)+i)+4]*Qij[5*(Nx*(Ny*k+j)+i)+4])));
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+  idxn[0]=5*(Nx*(Ny*kp1+j)+i)+2;
+  Jac_values[0]=Lambda*((dz_1*dz_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+  idxn[0]=5*(Nx*(Ny*km1+j)+i)+2;
+  Jac_values[0]=Lambda*((dz_1*dz_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+  idxn[0]=5*(Nx*(Ny*k+jp1)+i)+2;
+  Jac_values[0]=Lambda*((dy_1*dy_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+  idxn[0]=5*(Nx*(Ny*k+jm1)+i)+2;
+  Jac_values[0]=Lambda*((dy_1*dy_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+  idxn[0]=5*(Nx*(Ny*k+j)+ip1)+2;
+  Jac_values[0]=Lambda*((dx_1*dx_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+  idxn[0]=5*(Nx*(Ny*k+j)+im1)+2;
+  Jac_values[0]=Lambda*((dx_1*dx_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+3;
+  Jac_values[0]=Lambda*(Qij[5*(Nx*(Ny*k+j)+i)+2]*(bb - 2*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0] + 2*Qij[5*(Nx*(Ny*k+j)+i)+3])));
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+  idxn[0]=5*(Nx*(Ny*k+jp1)+i)+3;
+  Jac_values[0]=Lambda*((dy_1*Lq_tilde)/2.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+  idxn[0]=5*(Nx*(Ny*k+jm1)+i)+3;
+  Jac_values[0]=Lambda*(-(dy_1*Lq_tilde)/2.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+4;
+  Jac_values[0]=Lambda*(-(bb*Qij[5*(Nx*(Ny*k+j)+i)+1]) - 4*cc*Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+4]);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+  idxn[0]=5*(Nx*(Ny*kp1+j)+i)+4;
+  Jac_values[0]=Lambda*((dz_1*Lq_tilde)/2.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+2;
+  idxn[0]=5*(Nx*(Ny*km1+j)+i)+4;
+  Jac_values[0]=Lambda*(-(dz_1*Lq_tilde)/2.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+3;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+0;
+  Jac_values[0]=Lambda*((2*(2*Qij[5*(Nx*(Ny*k+j)+i)+0] + Qij[5*(Nx*(Ny*k+j)+i)+3])*(bb - 3*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]))/3.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+3;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+1;
+  Jac_values[0]=Lambda*((-2*Qij[5*(Nx*(Ny*k+j)+i)+1]*(bb + 6*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]))/3.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+3;
+  idxn[0]=5*(Nx*(Ny*kp1+j)+i)+1;
+  Jac_values[0]=Lambda*(-(dz_1*Lq_tilde));
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+3;
+  idxn[0]=5*(Nx*(Ny*km1+j)+i)+1;
+  Jac_values[0]=Lambda*(dz_1*Lq_tilde);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+3;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+2;
+  Jac_values[0]=Lambda*((4*Qij[5*(Nx*(Ny*k+j)+i)+2]*(bb - 3*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]))/3.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+3;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+3;
+  Jac_values[0]=Lambda*(-2*((dx_1*dx_1) + (dy_1*dy_1) + (dz_1*dz_1))*L1 - sigma - (2*(3*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*k+j)+i)+0]) + bb*Qij[5*(Nx*(Ny*k+j)+i)+3] - Qij[5*(Nx*(Ny*k+j)+i)+0]*(bb - 6*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]) + 3*cc*((Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+1]) + (Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+2]) + 3*(Qij[5*(Nx*(Ny*k+j)+i)+3]*Qij[5*(Nx*(Ny*k+j)+i)+3]) + (Qij[5*(Nx*(Ny*k+j)+i)+4]*Qij[5*(Nx*(Ny*k+j)+i)+4]))))/3.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+3;
+  idxn[0]=5*(Nx*(Ny*kp1+j)+i)+3;
+  Jac_values[0]=Lambda*((dz_1*dz_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+3;
+  idxn[0]=5*(Nx*(Ny*km1+j)+i)+3;
+  Jac_values[0]=Lambda*((dz_1*dz_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+3;
+  idxn[0]=5*(Nx*(Ny*k+jp1)+i)+3;
+  Jac_values[0]=Lambda*((dy_1*dy_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+3;
+  idxn[0]=5*(Nx*(Ny*k+jm1)+i)+3;
+  Jac_values[0]=Lambda*((dy_1*dy_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+3;
+  idxn[0]=5*(Nx*(Ny*k+j)+ip1)+3;
+  Jac_values[0]=Lambda*((dx_1*dx_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+3;
+  idxn[0]=5*(Nx*(Ny*k+j)+im1)+3;
+  Jac_values[0]=Lambda*((dx_1*dx_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+3;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+4;
+  Jac_values[0]=Lambda*((-2*(bb + 6*cc*Qij[5*(Nx*(Ny*k+j)+i)+3])*Qij[5*(Nx*(Ny*k+j)+i)+4])/3.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+3;
+  idxn[0]=5*(Nx*(Ny*k+j)+ip1)+4;
+  Jac_values[0]=Lambda*(dx_1*Lq_tilde);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+3;
+  idxn[0]=5*(Nx*(Ny*k+j)+im1)+4;
+  Jac_values[0]=Lambda*(-(dx_1*Lq_tilde));
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+0;
+  Jac_values[0]=Lambda*((bb - 2*cc*(2*Qij[5*(Nx*(Ny*k+j)+i)+0] + Qij[5*(Nx*(Ny*k+j)+i)+3]))*Qij[5*(Nx*(Ny*k+j)+i)+4]);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+  idxn[0]=5*(Nx*(Ny*k+j)+ip1)+0;
+  Jac_values[0]=Lambda*(-(dx_1*Lq_tilde)/2.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+  idxn[0]=5*(Nx*(Ny*k+j)+im1)+0;
+  Jac_values[0]=Lambda*((dx_1*Lq_tilde)/2.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+1;
+  Jac_values[0]=Lambda*(-(bb*Qij[5*(Nx*(Ny*k+j)+i)+2]) - 4*cc*Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+4]);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+  idxn[0]=5*(Nx*(Ny*k+jp1)+i)+1;
+  Jac_values[0]=Lambda*((dy_1*Lq_tilde)/2.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+  idxn[0]=5*(Nx*(Ny*k+jm1)+i)+1;
+  Jac_values[0]=Lambda*(-(dy_1*Lq_tilde)/2.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+2;
+  Jac_values[0]=Lambda*(-(bb*Qij[5*(Nx*(Ny*k+j)+i)+1]) - 4*cc*Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+4]);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+  idxn[0]=5*(Nx*(Ny*kp1+j)+i)+2;
+  Jac_values[0]=Lambda*(-(dz_1*Lq_tilde)/2.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+  idxn[0]=5*(Nx*(Ny*km1+j)+i)+2;
+  Jac_values[0]=Lambda*((dz_1*Lq_tilde)/2.);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+3;
+  Jac_values[0]=Lambda*(-2*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0] + 2*Qij[5*(Nx*(Ny*k+j)+i)+3])*Qij[5*(Nx*(Ny*k+j)+i)+4]);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+  idxn[0]=5*(Nx*(Ny*k+j)+ip1)+3;
+  Jac_values[0]=Lambda*(-(dx_1*Lq_tilde));
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+  idxn[0]=5*(Nx*(Ny*k+j)+im1)+3;
+  Jac_values[0]=Lambda*(dx_1*Lq_tilde);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+  idxn[0]=5*(Nx*(Ny*k+j)+i)+4;
+  Jac_values[0]=Lambda*(-2*((dx_1*dx_1) + (dy_1*dy_1) + (dz_1*dz_1))*L1 - sigma - 2*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*k+j)+i)+0]) + Qij[5*(Nx*(Ny*k+j)+i)+0]*(bb - 2*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]) - 2*cc*((Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+1]) + (Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+2]) + (Qij[5*(Nx*(Ny*k+j)+i)+3]*Qij[5*(Nx*(Ny*k+j)+i)+3]) + 3*(Qij[5*(Nx*(Ny*k+j)+i)+4]*Qij[5*(Nx*(Ny*k+j)+i)+4])));
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+  idxn[0]=5*(Nx*(Ny*kp1+j)+i)+4;
+  Jac_values[0]=Lambda*((dz_1*dz_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+  idxn[0]=5*(Nx*(Ny*km1+j)+i)+4;
+  Jac_values[0]=Lambda*((dz_1*dz_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+  idxn[0]=5*(Nx*(Ny*k+jp1)+i)+4;
+  Jac_values[0]=Lambda*((dy_1*dy_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+  idxn[0]=5*(Nx*(Ny*k+jm1)+i)+4;
+  Jac_values[0]=Lambda*((dy_1*dy_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+  idxn[0]=5*(Nx*(Ny*k+j)+ip1)+4;
+  Jac_values[0]=Lambda*((dx_1*dx_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+  idxm[0]=5*(Nx*(Ny*k+j)+i)+4;
+  idxn[0]=5*(Nx*(Ny*k+j)+im1)+4;
+  Jac_values[0]=Lambda*((dx_1*dx_1)*L1);
+  MatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);
+
+
+
+              
+
+}
+
+

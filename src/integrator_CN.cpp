@@ -83,9 +83,6 @@ CN::CN( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_param ) 
 
 
   TSSetExactFinalTime(cranck_int , TS_EXACTFINALTIME_MATCHSTEP);
-
-
-    
   TSSetRHSFunction(cranck_int,Rhs, sample_geometry->RhsPtr,  sample_geometry);
   TSSetRHSJacobian(cranck_int, Jac, Jac, sample_geometry->JacobianPtr, sample_geometry);
 
