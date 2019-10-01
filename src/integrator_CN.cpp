@@ -6,6 +6,8 @@
 #include <cstring>
 #include <cmath>            
 #include "geometry.h"
+#include "geometry_slab.h"
+
 #include "integrator.h"
 #include "integrator_CN.h"
 #include <petscsnes.h>
@@ -44,13 +46,8 @@ CN::CN( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_param ) 
   VecDuplicate( Qsolution , &Rhs  );
 
 
-  //Creating Matrixes:
-
-  MatCreateSeqAIJ(PETSC_COMM_SELF, 5*Nx*Ny*Nz, 5*Nx*Ny*Nz, NUMBEROFCLOSEPOINTS , NULL, &Jac );
-  MatSetUp(Jac);
-
   
-  TSAdapt * adaptor_ref;
+  //TSAdapt * adaptor_ref;
   
   //Creating the Integrator:
   TSCreate(PETSC_COMM_SELF, &cranck_int);
@@ -62,12 +59,12 @@ CN::CN( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_param ) 
   //Setuping the non-linear solver:
   
   SNES  snes;
-
+  SNESLineSearch linesearch;
+  
   TSGetSNES(cranck_int , &snes);
-  SNESSetTolerances(snes, Atol, Rtol, (Atol+Rtol)/2. , 10,10);
+  SNESSetTolerances(snes, Atol, Rtol, (Atol+Rtol) , 10,10);
   SNESSetType(snes, SNESQN);
-
-
+  
   KSP ksp;
   SNESGetKSP( snes, &ksp);
   KSPSetType(ksp, KSPGMRES);
@@ -84,11 +81,6 @@ CN::CN( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_param ) 
 
   TSSetExactFinalTime(cranck_int , TS_EXACTFINALTIME_MATCHSTEP);
   TSSetRHSFunction(cranck_int,Rhs, sample_geometry->RhsPtr,  sample_geometry);
-  TSSetRHSJacobian(cranck_int, Jac, Jac, sample_geometry->JacobianPtr, sample_geometry);
-
-  
-
-  
 
     
 };

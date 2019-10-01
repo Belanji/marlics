@@ -5,7 +5,7 @@
 #include <math.h>
 #include <iostream>
 #include <vector>
-
+#include <petscts.h>
 
 
 Boundary_Rp::Boundary_Rp(const Simulation_Parameters * sim_param, int boundary_number) : BOUNDARY ( sim_param, boundary_number)
@@ -15,7 +15,7 @@ Boundary_Rp::Boundary_Rp(const Simulation_Parameters * sim_param, int boundary_n
 
   
   condition_name="Rapini-Papoular(rp)";
-
+  
   //Asserting anchoring energy is set and get its value:
   try
     {
@@ -73,6 +73,11 @@ Boundary_Rp::Boundary_Rp(const Simulation_Parameters * sim_param, int boundary_n
   Q0_02= (0.5*S_eq*(3.0*n[0]*n[2]));
   Q0_11= (0.5*S_eq*(3.0*n[1]*n[1]-1.0));
   Q0_12= (0.5*S_eq*(3.0*n[1]*n[2]));
+
+
+  Lambda_s=1/(sim_param->mu_1_s);
+
+
   
 };
 
@@ -170,3 +175,151 @@ double Boundary_Rp::surface_12(const double  QN[5],const double  dQ[15],const do
  return Lambda_s*((2*Wo1*(-QN12 + Q0_12) + Lq_tilde*(QN00 + 2*QN11)*v[0] - Ls*Q_01_2*v[0] - Ls*Q_02_1*v[0] - 2*L1*Q_12_0*v[0] - 2*L3*QN00*Q_12_0*v[0] - 2*L3*QN01*Q_12_1*v[0] - 2*L3*QN02*Q_12_2*v[0] - Lq_tilde*QN01*v[1] + L2*Q_00_2*v[1] - L2*Q_02_0*v[1] + L2*Q_11_2*v[1] - Ls*Q_11_2*v[1] - 2*L3*QN01*Q_12_0*v[1] - 2*L1*Q_12_1*v[1] - L2*Q_12_1*v[1] - Ls*Q_12_1*v[1] - 2*L3*QN11*Q_12_1*v[1] - 2*L3*QN12*Q_12_2*v[1] - (-(Lq_tilde*QN02) - Ls*Q_00_1 + L2*Q_01_0 + L2*Q_11_1 - Ls*Q_11_1 + 2*L3*QN02*Q_12_0 + 2*L3*QN12*Q_12_1 + (2*L1 + L2 + Ls - 2*L3*(QN00 + QN11))*Q_12_2)*v[2])/2.);
 }
 
+void Boundary_Rp::fill_jacobian_boundary(const PetscScalar *Qij,Mat Jac,Mat Jac_pc, const PetscScalar * v, const int i, const int j, const int k) const 
+{
+
+  
+}
+
+void Boundary_Rp::fill_dFijQij(PetscScalar dFijdQij[5][5],const double  QN[5],const double  dQ[15],const double  ddQ[30], const double v[3]) const
+{
+
+  dFijdQij[0][0]=Lambda_s*((-32*Wo1 + 9*L3*(-3*Q_00_0*v[0] + Q_00_1*v[1] + Q_00_2*v[2]))/27.);
+  dFijdQij[0][1]=Lambda_s*((-3*L3*(Q_00_1*v[0] + Q_00_0*v[1]))/4. - (2*Lq_tilde*v[2])/3.);
+  dFijdQij[0][2]=Lambda_s*((8*Lq_tilde*v[1] - 9*L3*(Q_00_2*v[0] + Q_00_0*v[2]))/12.);
+  dFijdQij[0][3]=Lambda_s*((16*Wo1 + 9*L3*(Q_00_0*v[0] - 3*Q_00_1*v[1] + Q_00_2*v[2]))/27.);
+  dFijdQij[0][4]=Lambda_s*((-2*Lq_tilde*v[0] - 9*L3*(Q_00_2*v[1] + Q_00_1*v[2]))/12.);
+
+  dFijdQij[1][0]=Lambda_s*((-3*L3*Q_01_0*v[0] + L3*Q_01_1*v[1] + (2*Lq_tilde + L3*Q_01_2)*v[2])/3.);
+  dFijdQij[1][1]=Lambda_s*((-3*(3*Wo1 + 2*L3*Q_01_1*v[0] + 2*L3*Q_01_0*v[1]))/8.);
+  dFijdQij[1][2]=Lambda_s*(-((Lq_tilde + 3*L3*Q_01_2)*v[0])/4. - (3*L3*Q_01_0*v[2])/4.);
+  dFijdQij[1][3]=Lambda_s*((L3*Q_01_0*v[0] - 3*L3*Q_01_1*v[1] + (-2*Lq_tilde + L3*Q_01_2)*v[2])/3.);
+  dFijdQij[1][4]=Lambda_s*(((Lq_tilde - 3*L3*Q_01_2)*v[1] - 3*L3*Q_01_1*v[2])/4.);
+
+  dFijdQij[2][0]=Lambda_s*((-3*L3*Q_02_0*v[0] - 2*Lq_tilde*v[1] + L3*Q_02_1*v[1] + L3*Q_02_2*v[2])/3.);
+  dFijdQij[2][1]=Lambda_s*(((Lq_tilde - 3*L3*Q_02_1)*v[0] - 3*L3*Q_02_0*v[1])/4.);
+  dFijdQij[2][2]=Lambda_s*((-3*(3*Wo1 + 2*L3*Q_02_2*v[0] + 2*L3*Q_02_0*v[2]))/8.);
+  dFijdQij[2][3]=Lambda_s*((L3*(Q_02_0*v[0] - 3*Q_02_1*v[1] + Q_02_2*v[2]))/3.);
+  dFijdQij[2][4]=Lambda_s*((-2*Lq_tilde*v[2] - 3*L3*(Q_02_2*v[1] + Q_02_1*v[2]))/4.);
+
+  dFijdQij[3][0]=Lambda_s*((16*Wo1 + 9*L3*(-3*Q_11_0*v[0] + Q_11_1*v[1] + Q_11_2*v[2]))/27.);
+  dFijdQij[3][1]=Lambda_s*((-3*L3*(Q_11_1*v[0] + Q_11_0*v[1]))/4. + (5*Lq_tilde*v[2])/6.);
+  dFijdQij[3][2]=Lambda_s*((2*Lq_tilde*v[1] - 9*L3*(Q_11_2*v[0] + Q_11_0*v[2]))/12.);
+  dFijdQij[3][3]=Lambda_s*((-32*Wo1 + 9*L3*(Q_11_0*v[0] - 3*Q_11_1*v[1] + Q_11_2*v[2]))/27.);
+  dFijdQij[3][4]=Lambda_s*((-8*Lq_tilde*v[0] - 9*L3*(Q_11_2*v[1] + Q_11_1*v[2]))/12.);
+
+  dFijdQij[4][0]=Lambda_s*((L3*(-3*Q_12_0*v[0] + Q_12_1*v[1] + Q_12_2*v[2]))/3.);
+  dFijdQij[4][1]=Lambda_s*((-2*Lq_tilde*v[1] - 3*L3*(Q_12_1*v[0] + Q_12_0*v[1]))/4.);
+  dFijdQij[4][2]=Lambda_s*((2*Lq_tilde*v[2] - 3*L3*(Q_12_2*v[0] + Q_12_0*v[2]))/4.);
+  dFijdQij[4][3]=Lambda_s*((2*Lq_tilde*v[0] + L3*Q_12_0*v[0] - 3*L3*Q_12_1*v[1] + L3*Q_12_2*v[2])/3.);
+  dFijdQij[4][4]=Lambda_s*((-3*(3*Wo1 + 2*L3*Q_12_2*v[1] + 2*L3*Q_12_1*v[2]))/8.);
+
+}
+
+void Boundary_Rp::fill_dFijQijk(PetscScalar dFijdQij[5][5][3],const double  QN[5],const double  dQ[15],const double  ddQ[30], const double v[3]) const
+{
+
+  
+  dFijdQij[0][0][0]=Lambda_s*((-2*((L1 + L2 + Ls + L3*QN00)*v[0] + L3*QN01*v[1] + L3*QN02*v[2]))/3.);
+  dFijdQij[0][0][1]=Lambda_s*((-2*(L3*QN01*v[0] + (L1 + L3*QN11)*v[1] + L3*QN12*v[2]))/3.);
+  dFijdQij[0][0][2]=Lambda_s*((-2*(L1*v[2] + L3*(QN02*v[0] + QN12*v[1] - (QN00 + QN11)*v[2])))/3.);
+
+  dFijdQij[0][1][0]=Lambda_s*((-2*Ls*v[1])/3.);
+  dFijdQij[0][1][1]=Lambda_s*((-2*L2*v[0])/3.);
+  dFijdQij[0][1][2]=Lambda_s*(0);
+
+  dFijdQij[0][2][0]=Lambda_s*((-2*Ls*v[2])/3.);
+  dFijdQij[0][2][1]=Lambda_s*(0);
+  dFijdQij[0][2][2]=Lambda_s*((-2*L2*v[0])/3.);
+
+  dFijdQij[0][3][0]=Lambda_s*(((L1 + L3*QN00)*v[0] + L3*QN01*v[1] + L3*QN02*v[2])/3.);
+  dFijdQij[0][3][1]=Lambda_s*((L3*QN01*v[0] + (L1 + L2 + Ls + L3*QN11)*v[1] + L3*QN12*v[2])/3.);
+  dFijdQij[0][3][2]=Lambda_s*((L1*v[2] + L3*(QN02*v[0] + QN12*v[1] - (QN00 + QN11)*v[2]))/3.);
+
+  dFijdQij[0][4][0]=Lambda_s*(0);
+  dFijdQij[0][4][1]=Lambda_s*((Ls*v[2])/3.);
+  dFijdQij[0][4][2]=Lambda_s*((L2*v[1])/3.);
+
+  dFijdQij[1][0][0]=Lambda_s*(-(L2*v[1])/2.);
+  dFijdQij[1][0][1]=Lambda_s*(-(Ls*v[0])/2.);
+  dFijdQij[1][0][2]=Lambda_s*(0);
+
+  dFijdQij[1][1][0]=Lambda_s*((-(L1*v[0]) - L3*(QN00*v[0] + QN01*v[1] + QN02*v[2]))/2.);
+  dFijdQij[1][1][1]=Lambda_s*((-((L1 + L2 + Ls)*v[1]) - L3*(QN01*v[0] + QN11*v[1] + QN12*v[2]))/2.);
+  dFijdQij[1][1][2]=Lambda_s*((-(L3*(QN02*v[0] + QN12*v[1])) - L1*v[2] + L3*(QN00 + QN11)*v[2])/2.);
+
+  dFijdQij[1][2][0]=Lambda_s*(0);
+  dFijdQij[1][2][1]=Lambda_s*(-(Ls*v[2])/2.);
+  dFijdQij[1][2][2]=Lambda_s*(-(L2*v[1])/2.);
+
+  dFijdQij[1][3][0]=Lambda_s*(-(Ls*v[1])/2.);
+  dFijdQij[1][3][1]=Lambda_s*(-(L2*v[0])/2.);
+  dFijdQij[1][3][2]=Lambda_s*(0);
+
+  dFijdQij[1][4][0]=Lambda_s*(-(Ls*v[2])/2.);
+  dFijdQij[1][4][1]=Lambda_s*(0);
+  dFijdQij[1][4][2]=Lambda_s*(-(L2*v[0])/2.);
+
+  dFijdQij[2][0][0]=Lambda_s*(-(L2*v[2])/2.);
+  dFijdQij[2][0][1]=Lambda_s*(0);
+  dFijdQij[2][0][2]=Lambda_s*(-(Ls*v[0])/2.);
+
+  dFijdQij[2][1][0]=Lambda_s*(0);
+  dFijdQij[2][1][1]=Lambda_s*(-(L2*v[2])/2.);
+  dFijdQij[2][1][2]=Lambda_s*(-(Ls*v[1])/2.);
+
+  dFijdQij[2][2][0]=Lambda_s*((-(L1*v[0]) - L3*(QN00*v[0] + QN01*v[1] + QN02*v[2]))/2.);
+  dFijdQij[2][2][1]=Lambda_s*((-(L1*v[1]) - L3*(QN01*v[0] + QN11*v[1] + QN12*v[2]))/2.);
+  dFijdQij[2][2][2]=Lambda_s*((-(L3*(QN02*v[0] + QN12*v[1])) - (L1 + L2 + Ls)*v[2] + L3*(QN00 + QN11)*v[2])/2.);
+
+  dFijdQij[2][3][0]=Lambda_s*(0);
+  dFijdQij[2][3][1]=Lambda_s*(0);
+  dFijdQij[2][3][2]=Lambda_s*(0);
+
+  dFijdQij[2][4][0]=Lambda_s*(0);
+  dFijdQij[2][4][1]=Lambda_s*(0);
+  dFijdQij[2][4][2]=Lambda_s*(0);
+
+  dFijdQij[3][0][0]=Lambda_s*(((L1 + L2 + Ls + L3*QN00)*v[0] + L3*QN01*v[1] + L3*QN02*v[2])/3.);
+  dFijdQij[3][0][1]=Lambda_s*((L3*QN01*v[0] + (L1 + L3*QN11)*v[1] + L3*QN12*v[2])/3.);
+  dFijdQij[3][0][2]=Lambda_s*((L1*v[2] + L3*(QN02*v[0] + QN12*v[1] - (QN00 + QN11)*v[2]))/3.);
+
+  dFijdQij[3][1][0]=Lambda_s*((Ls*v[1])/3.);
+  dFijdQij[3][1][1]=Lambda_s*((L2*v[0])/3.);
+  dFijdQij[3][1][2]=Lambda_s*(0);
+
+  dFijdQij[3][2][0]=Lambda_s*((Ls*v[2])/3.);
+  dFijdQij[3][2][1]=Lambda_s*(0);
+  dFijdQij[3][2][2]=Lambda_s*((L2*v[0])/3.);
+
+  dFijdQij[3][3][0]=Lambda_s*((-2*((L1 + L3*QN00)*v[0] + L3*QN01*v[1] + L3*QN02*v[2]))/3.);
+  dFijdQij[3][3][1]=Lambda_s*((-2*(L3*QN01*v[0] + (L1 + L2 + Ls + L3*QN11)*v[1] + L3*QN12*v[2]))/3.);
+  dFijdQij[3][3][2]=Lambda_s*((-2*(L1*v[2] + L3*(QN02*v[0] + QN12*v[1] - (QN00 + QN11)*v[2])))/3.);
+
+  dFijdQij[3][4][0]=Lambda_s*(0);
+  dFijdQij[3][4][1]=Lambda_s*((-2*Ls*v[2])/3.);
+  dFijdQij[3][4][2]=Lambda_s*((-2*L2*v[1])/3.);
+
+  dFijdQij[4][0][0]=Lambda_s*(0);
+  dFijdQij[4][0][1]=Lambda_s*(0);
+  dFijdQij[4][0][2]=Lambda_s*(0);
+
+  dFijdQij[4][1][0]=Lambda_s*(0);
+  dFijdQij[4][1][1]=Lambda_s*(0);
+  dFijdQij[4][1][2]=Lambda_s*(0);
+
+  dFijdQij[4][2][0]=Lambda_s*(0);
+  dFijdQij[4][2][1]=Lambda_s*(0);
+  dFijdQij[4][2][2]=Lambda_s*(0);
+
+  dFijdQij[4][3][0]=Lambda_s*(0);
+  dFijdQij[4][3][1]=Lambda_s*(-(L2*v[2])/2.);
+  dFijdQij[4][3][2]=Lambda_s*(-(Ls*v[1])/2.);
+
+  dFijdQij[4][4][0]=Lambda_s*((-(L1*v[0]) - L3*(QN00*v[0] + QN01*v[1] + QN02*v[2]))/2.);
+  dFijdQij[4][4][1]=Lambda_s*((-(L1*v[1]) - L3*(QN01*v[0] + QN11*v[1] + QN12*v[2]))/2.);
+  dFijdQij[4][4][2]=Lambda_s*((-(L3*(QN02*v[0] + QN12*v[1])) - (L1 + L2 + Ls)*v[2] + L3*(QN00 + QN11)*v[2])/2.);
+
+
+
+}

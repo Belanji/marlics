@@ -12,8 +12,7 @@ class Geometry_Bulk : public GEOMETRY
  public:
 
   static PetscErrorCode RhsFunction(TS ts,PetscReal tiem,Vec Qij_in,Vec Rhs,void *sim_geometry);
-
-  static PetscErrorCode Jacobian(TS ts,PetscReal time,Vec Qij_in,Mat Jac,Mat Jac_pc, void* sim_param);
+  //static PetscErrorCode Jacobian(TS ts,PetscReal time,Vec Qij_in,Mat Jac,Mat Jac_pc, void* sim_param);
 
 
   virtual void fill_ki(double *, const double * ,const int ,const int ,const int) const ;

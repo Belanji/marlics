@@ -49,6 +49,11 @@ class BOUNDARY
 
   virtual void fill_jacobian_boundary(const PetscScalar *,Mat ,Mat , const PetscScalar *, const int , const int , const int ) const {};
 
+  void fill_dFijQij(PetscScalar dFijQij[5][5],const double  QN[5],const double  dQ[15],const double  ddQ[30], const double v[3]) const {};
+
+  void fill_dFijQijk(PetscScalar dFijdQij[5][5][3],const double  QN[5],const double  dQ[15],const double  ddQ[30], const double v[3]) const {};
+
+  
   
 };
 

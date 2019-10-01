@@ -4,13 +4,16 @@
 #include <stdio.h> 
 #include <ctime>
 #include <cstring>
+#include <iostream>
 
 #include "driver.h"
 #include "geometry.h"
 #include "geometry_slab.h"
 #include "boundary.h"
 #include <gsl/gsl_randist.h>
-#define MAX(a,b) ((a) > (b) ? a : b)
+#include <petscts.h>
+
+#define MAXX(a,b) ((a) > (b) ? a : b)
 #define min(a,b) ((a) < (b) ? a : b)
 
 
@@ -25,8 +28,11 @@ slab::slab(const struct Simulation_Parameters * sim_param) : GEOMETRY (sim_param
   boundary_needed_to_be_defined="0 and 1";
 
 
-  JacobianPtr=Jacobian;
-  RhsPtr=RhsFunction;
+
+  RhsPtr=slab::RhsFunction;
+  JacobianPtr=NULL;  
+
+
 };
 
 
@@ -65,27 +71,27 @@ void  slab::fill_ki(double * k_i,
       for(ll=0; ll<=4;ll++) dQ[ll]= 0.5*(Qij[5*((k*Ny+j)*Nx+ip1)+ll]-Qij[5*((k*Ny+j)*Nx+im1)+ll])*dx_1;
 
       
-      for(ll=0; ll<=4;ll++) dQ[5+ll]= 0.5*(Qij[5*((k*Ny+jp1)*Nx+i)+ll]-Qij[5*((k*Ny+jm1)*Nx+i)+ll])*dx_1;
+      for(ll=0; ll<=4;ll++) dQ[5+ll]= 0.5*(Qij[5*((k*Ny+jp1)*Nx+i)+ll]-Qij[5*((k*Ny+jm1)*Nx+i)+ll])*dy_1;
 
       
-      for(ll=0; ll<=4;ll++) dQ[10+ll]= 0.5*(Qij[5*((kp1*Ny+j)*Nx+i)+ll]-Qij[5*((km1*Ny+j)*Nx+i)+ll])*dx_1;
+      for(ll=0; ll<=4;ll++) dQ[10+ll]= 0.5*(Qij[5*((kp1*Ny+j)*Nx+i)+ll]-Qij[5*((km1*Ny+j)*Nx+i)+ll])*dz_1;
 
 
 
       //Calculate second derivatives of Qij:
       for(ll=0; ll<=4;ll++) ddQ[ll]= (Qij[5*((k*Ny+j)*Nx+ip1)+ll]-2.0*QN[ll]+Qij[5*((k*Ny+j)*Nx+im1)+ll])*dx_1*dx_1;
             
-      for(ll=0; ll<=4;ll++) ddQ[ll+5]= 0.25*(Qij[5*((k*Ny+jp1)*Nx+ip1)+ll]+Qij[5*((k*Ny+jm1)*Nx+im1)+ll]-Qij[5*((k*Ny+jp1)*Nx+im1)+ll]-Qij[5*((k*Ny+jm1)*Nx+ip1)+ll])*dx_1*dx_1;
+      for(ll=0; ll<=4;ll++) ddQ[ll+5]= 0.25*(Qij[5*((k*Ny+jp1)*Nx+ip1)+ll]+Qij[5*((k*Ny+jm1)*Nx+im1)+ll]-Qij[5*((k*Ny+jp1)*Nx+im1)+ll]-Qij[5*((k*Ny+jm1)*Nx+ip1)+ll])*dx_1*dy_1;
       
-      for(ll=0; ll<=4;ll++) ddQ[10+ll]= 0.25*(Qij[5*((kp1*Ny+j)*Nx+ip1)+ll]+Qij[5*((km1*Ny+j)*Nx+im1)+ll]-Qij[5*((kp1*Ny+j)*Nx+im1)+ll]-Qij[5*((km1*Ny+j)*Nx+ip1)+ll])*dx_1*dx_1;
+      for(ll=0; ll<=4;ll++) ddQ[10+ll]= 0.25*(Qij[5*((kp1*Ny+j)*Nx+ip1)+ll]+Qij[5*((km1*Ny+j)*Nx+im1)+ll]-Qij[5*((kp1*Ny+j)*Nx+im1)+ll]-Qij[5*((km1*Ny+j)*Nx+ip1)+ll])*dx_1*dz_1;
       
 
-      for(ll=0; ll<=4;ll++) ddQ[15+ll]= (Qij[5*((k*Ny+jp1)*Nx+i)+ll]-2.0*QN[ll]+Qij[5*((k*Ny+jm1)*Nx+i)+ll])*dx_1*dx_1;
+      for(ll=0; ll<=4;ll++) ddQ[15+ll]= (Qij[5*((k*Ny+jp1)*Nx+i)+ll]-2.0*QN[ll]+Qij[5*((k*Ny+jm1)*Nx+i)+ll])*dy_1*dy_1;
 
 
-      for(ll=0; ll<=4;ll++) ddQ[20+ll]= 0.25*(Qij[5*((kp1*Ny+jp1)*Nx+i)+ll]+Qij[5*((km1*Ny+jm1)*Nx+i)+ll]-Qij[5*((kp1*Ny+jm1)*Nx+i)+ll]-Qij[5*((km1*Ny+jp1)*Nx+i)+ll])*dx_1*dx_1;
+      for(ll=0; ll<=4;ll++) ddQ[20+ll]= 0.25*(Qij[5*((kp1*Ny+jp1)*Nx+i)+ll]+Qij[5*((km1*Ny+jm1)*Nx+i)+ll]-Qij[5*((kp1*Ny+jm1)*Nx+i)+ll]-Qij[5*((km1*Ny+jp1)*Nx+i)+ll])*dy_1*dz_1;
       
-      for(ll=0; ll<=4;ll++) ddQ[25+ll]= (Qij[5*((kp1*Ny+j)*Nx+i)+ll]-2.0*QN[ll]+Qij[5*((km1*Ny+j)*Nx+i)+ll])*dx_1*dx_1;
+      for(ll=0; ll<=4;ll++) ddQ[25+ll]= (Qij[5*((kp1*Ny+j)*Nx+i)+ll]-2.0*QN[ll]+Qij[5*((km1*Ny+j)*Nx+i)+ll])*dz_1*dz_1;
       
   
       k_i[5*(Nx*(Ny*k+j)+i)+0]=bulk_00(QN,dQ,ddQ); 
@@ -116,10 +122,10 @@ void  slab::fill_ki(double * k_i,
       for(ll=0; ll<=4;ll++) dQ[ll]=0.5*(Qij[5*((k*Ny+j)*Nx+ip1)+ll]-Qij[5*((k*Ny+j)*Nx+im1)+ll])*dx_1;
 
       
-      for(ll=0; ll<=4;ll++) dQ[5+ll]=0.5*(Qij[5*((k*Ny+jp1)*Nx+i)+ll]-Qij[5*((k*Ny+jm1)*Nx+i)+ll])*dx_1;
+      for(ll=0; ll<=4;ll++) dQ[5+ll]=0.5*(Qij[5*((k*Ny+jp1)*Nx+i)+ll]-Qij[5*((k*Ny+jm1)*Nx+i)+ll])*dy_1;
 
       
-      for(ll=0; ll<=4;ll++) dQ[10+ll]=(Qij[5*((kp1*Ny+j)*Nx+i)+ll]-Qij[5*((k*Ny+j)*Nx+i)+ll])*dx_1;
+      for(ll=0; ll<=4;ll++) dQ[10+ll]=(Qij[5*((kp1*Ny+j)*Nx+i)+ll]-Qij[5*((k*Ny+j)*Nx+i)+ll])*dz_1;
       
   
       k_i[5*(Nx*(Ny*k+j)+i)+0]= bc_conditions[0]->surface_00(QN,dQ,ddQ,v);
@@ -209,58 +215,13 @@ int * slab::fill_point_type( void )  const
 
 
 
-PetscErrorCode slab::Jacobian(TS ts,PetscReal time,Vec Qij_in,Mat Jac,Mat Jac_pc, void* sim_geometry)
-{
 
-
-  int i, j, k;
-  GEOMETRY * sample_geometry=(GEOMETRY *) sim_geometry;
-  const int Nx=sample_geometry->Nx;
-  const int Ny=sample_geometry->Ny;
-  const int Nz=sample_geometry->Nz;
-
-  const PetscScalar * Qij;
-  PetscErrorCode ierr;
-
-    const int *point_type= sample_geometry->point_type;;
-
-  VecGetArrayRead(Qij_in, &Qij);
-
-  for( i= 0; i< Nx; i++)
-    {
-      for( j= 0; j< Ny; j++)
-	{
-	  for( k= 0; k< Nz; k++)
-	    {
-
-	      if(point_type[(k*Ny+j)*Nx+i] == 1)
-	      {
-
-		sample_geometry->fill_jac_bulk( Qij, Jac, Jac_pc,  i,  j,  k);
-
-      
-      
-	       }
-
-	    }
-
-	}
-    }
-
-  MatAssemblyBegin(Jac, MAT_FINAL_ASSEMBLY);
-  MatAssemblyEnd(Jac, MAT_FINAL_ASSEMBLY);
-  VecRestoreArrayRead(Qij_in,&Qij);
-  return ierr;
-
-  
-}
-
-PetscErrorCode slab::RhsFunction(TS ts,PetscReal tiem,Vec Qij_in,Vec Rhs,void *sim_geometry)
+PetscErrorCode slab::RhsFunction(TS ts,PetscReal time,Vec Qij_in,Vec Rhs,void *sim_geometry)
 {
 
   GEOMETRY * sample_geometry=(GEOMETRY *) sim_geometry;
-  int i, j, k;  
-  int ip1,jp1,kp1, im1, jm1, km1, ll;
+  PetscInt i, j, k;  
+  PetscInt ip1,jp1,kp1, im1, jm1, km1, ll;
   double dQ[15];
   double ddQ[30];
   double QN[5];
@@ -281,6 +242,7 @@ PetscErrorCode slab::RhsFunction(TS ts,PetscReal tiem,Vec Qij_in,Vec Rhs,void *s
   
   PetscErrorCode ierr;
 
+  
   VecGetArrayRead(Qij_in,&Qij);
   VecGetArray(Rhs, & k_i);
 
@@ -362,10 +324,10 @@ PetscErrorCode slab::RhsFunction(TS ts,PetscReal tiem,Vec Qij_in,Vec Rhs,void *s
 		  for(ll=0; ll<=4;ll++) dQ[ll]=0.5*(Qij[5*((k*Ny+j)*Nx+ip1)+ll]-Qij[5*((k*Ny+j)*Nx+im1)+ll])*dx_1;
 
       
-		  for(ll=0; ll<=4;ll++) dQ[5+ll]=0.5*(Qij[5*((k*Ny+jp1)*Nx+i)+ll]-Qij[5*((k*Ny+jm1)*Nx+i)+ll])*dx_1;
+		  for(ll=0; ll<=4;ll++) dQ[5+ll]=0.5*(Qij[5*((k*Ny+jp1)*Nx+i)+ll]-Qij[5*((k*Ny+jm1)*Nx+i)+ll])*dy_1;
 
       
-		  for(ll=0; ll<=4;ll++) dQ[10+ll]=(Qij[5*((kp1*Ny+j)*Nx+i)+ll]-Qij[5*((k*Ny+j)*Nx+i)+ll])*dx_1;
+		  for(ll=0; ll<=4;ll++) dQ[10+ll]=(Qij[5*((kp1*Ny+j)*Nx+i)+ll]-Qij[5*((k*Ny+j)*Nx+i)+ll])*dz_1;
       
   
 		  k_i[5*(Nx*(Ny*k+j)+i)+0]= sample_geometry->bc_conditions[0]->surface_00(QN,dQ,ddQ,v);
@@ -374,8 +336,6 @@ PetscErrorCode slab::RhsFunction(TS ts,PetscReal tiem,Vec Qij_in,Vec Rhs,void *s
 		  k_i[5*(Nx*(Ny*k+j)+i)+3]= sample_geometry->bc_conditions[0]->surface_11(QN,dQ,ddQ,v);
 		  k_i[5*(Nx*(Ny*k+j)+i)+4]= sample_geometry->bc_conditions[0]->surface_12(QN,dQ,ddQ,v); 
 
-
-      
 		}
 	      else if( point_type[(k*Ny+j)*Nx+i] == 3 )
 		{
@@ -417,8 +377,8 @@ PetscErrorCode slab::RhsFunction(TS ts,PetscReal tiem,Vec Qij_in,Vec Rhs,void *s
 	}
     }
   
-  VecGetArrayRead(Qij_in,&Qij);
-  VecGetArray(Rhs, & k_i);
+  VecRestoreArrayRead(Qij_in,&Qij);
+  VecRestoreArray(Rhs, & k_i);
   return ierr;
   
 }

@@ -336,9 +336,9 @@ void driver::setup_Simulation(void)
       if ( strcasecmp(sim_param.geometry,"slab") == 0 )
 	{
 
-	  
 	  LcS_Geometry= new slab( & sim_param);
-  
+
+	  
 	}
       else if ( strcasecmp(sim_param.geometry,"bulk") == 0 )
 	{
