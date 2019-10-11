@@ -71,7 +71,7 @@ struct Simulation_Parameters
 				      viscosity_status::unset};
 
   
-  //Anchoring paramters:
+  //Anchoring parameters:
   
   std::map<int,double> theta_0;      /* degrees */
   std::map<int,double> phi_0;        /* degrees */  
@@ -80,6 +80,15 @@ struct Simulation_Parameters
 
   std::map<int,std::string> anchoring_type;
   
+  //electric field parameters:
+  parameter_status field_flag[4]={parameter_status::unset,
+                                  parameter_status::unset,
+                                  parameter_status::unset,
+                                  parameter_status::unset};
+  double elecfieldx=0;
+  double elecfieldy=0;
+  double elecfieldz=0;
+  double deltaepslon=0;
   
 
   //Initial Conditions:
