@@ -38,7 +38,7 @@ GEOMETRY::GEOMETRY(const struct Simulation_Parameters * lc) :
     dy_1(1/lc->dy),
     dz_1(1/lc->dz),
     Nx_1(1./lc->Nx),
-    deltaepslon(lc->deltaepslon),
+    deltaepslon(8.8541878176e3*lc->deltaepslon),
     elecfieldx(lc->elecfieldx),
     elecfieldy(lc->elecfieldy),
     elecfieldz(lc->elecfieldz)

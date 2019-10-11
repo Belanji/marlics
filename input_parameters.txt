@@ -7,7 +7,7 @@ Ny 20                /*      grid size      */
 Nz 20                /*      grid size      */
 
 
-a  0.086             /*     10^6 J/Km^3     */
+a  0.086             /*     10^6 J/K.m^3     */
 B -2.12              /*     10^6 J/m^3      */
 C  1.74              /*     10^6 J/m^3      */
 
@@ -77,9 +77,8 @@ phi_0     1    0
 theta_0   1    0
 
 electric_field_x 0.0                       /*     10^9 V/m        */
-electric_field_y 0.0                        /*     10^9 V/m        */
-electric_field_z 20.0                        /*     10^9 V/m        */
-delta_epslon     8.854	                    /*     10^-12 F/m  */
-
+electric_field_y 0.0                       /*     10^9 V/m        */
+electric_field_z 0.01                      /*     10^9 V/m        */
+delta_epslon     5	                   
 
 run
