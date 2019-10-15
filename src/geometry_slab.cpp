@@ -51,8 +51,8 @@ void  slab::fill_ki(double * k_i,
       ip1= (i+1)%Nx;
       jp1= (j+1)%Ny;
       kp1= (k+1);
-      im1= i-1+((Nx-1-i)/(Nx-1))*Nx;
-      jm1= j-1+((Ny-1-i)/(Ny-1))*Ny;
+      im1= (i+Nx-1)%Nx;
+      jm1= (j+Ny-1)%Ny;
       km1= (k-1);
 
       
