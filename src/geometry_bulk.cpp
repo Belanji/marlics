@@ -46,9 +46,9 @@ void  Geometry_Bulk::fill_ki(double * k_i,
   ip1= (i+1)%Nx;
   jp1= (j+1)%Ny;
   kp1= (k+1)%Nz;
-  im1= i-1+((Nx-1-i)/(Nx-1))*Nx;
-  jm1= j-1+((Ny-1-i)/(Ny-1))*Ny;
-  km1= k-1+((Nz-1-i)/(Nz-1))*Nz;
+  im1= (i+Nx-1)%Nx;
+  jm1= (j+Ny-1)%Ny;
+  km1= (k+Nz-1)%Nz;
 
       
   for(ll=0; ll<=4;ll++) QN[ll]=Qij[5*(Nx*(Ny*k+j)+i)+ll];
