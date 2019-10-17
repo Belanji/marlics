@@ -17,6 +17,7 @@ class GEOMETRY
   void read_from_file_ic(  struct Simulation_Parameters * lc_droplet,double * Qij );
   void random_ic( struct Simulation_Parameters * lc_droplet,double * Qij);
   void homogeneous_ic( struct Simulation_Parameters * lc_droplet,double * Qij);
+  void homogeneous_boundary( struct Simulation_Parameters * sim_param,double * Qij );
   void homogeneous_easy_axis_ic( struct Simulation_Parameters * sim_param,double * Qij );
   void random_bulk_homogeneous_easy_axis_ic( struct Simulation_Parameters * sim_param,double * Qij );
 
