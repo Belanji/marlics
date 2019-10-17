@@ -60,6 +60,10 @@ class GEOMETRY
   const double q0;
   const double  S_eq;    
   double theta_i, phi_i;
+  double deltaepslon;
+  double elecfieldx;
+  double elecfieldy;
+  double elecfieldz;
 
   
   double dt;

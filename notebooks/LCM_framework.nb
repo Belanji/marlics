@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    109495,       2686]
-NotebookOptionsPosition[    105645,       2550]
-NotebookOutlinePosition[    105981,       2565]
-CellTagsIndexPosition[    105938,       2562]
+NotebookDataLength[    122155,       2908]
+NotebookOptionsPosition[    118214,       2769]
+NotebookOutlinePosition[    118551,       2784]
+CellTagsIndexPosition[    118508,       2781]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -676,6 +676,8 @@ Cell["Bulk Energy:", "Subsection",
  CellChangeTimes->{{3.706259326976788*^9, 3.70625933278335*^9}, {
   3.70962907668456*^9, 3.709629088357386*^9}}],
 
+Cell[CellGroupData[{
+
 Cell[BoxData[{
  RowBox[{
   RowBox[{
@@ -834,10 +836,25 @@ Cell[BoxData[{
       RowBox[{"{", 
        RowBox[{"l", ",", "0", ",", "2"}], "}"}]}], "]"}]}]}], 
   ";"}], "\[IndentingNewLine]", 
+ RowBox[{"fe", "=", 
+  RowBox[{"deltaepslon", "*", 
+   RowBox[{"Sum", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"elecfield", "[", "i", "]"}], "*", 
+      RowBox[{"elecfield", "[", "j", "]"}], "*", 
+      RowBox[{"Q", "[", 
+       RowBox[{"i", ",", "j"}], "]"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "0", ",", "2"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"j", ",", "0", ",", "2"}], "}"}]}], 
+    "]"}]}]}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"ft", "=", 
-   RowBox[{"f1", "+", "f2", "+", "f3", "+", "fq", "+", "fs", "+", "fldg"}]}], 
-  ";"}]}], "Input",
+   RowBox[{
+   "f1", "+", "f2", "+", "f3", "+", "fq", "+", "fs", "+", "fldg", "+", 
+    "fe"}]}], ";"}]}], "Input",
  CellChangeTimes->{{3.7062585082162743`*^9, 3.706258579205392*^9}, {
    3.706258777213492*^9, 3.7062587939313593`*^9}, {3.7062589000659018`*^9, 
    3.706258915977398*^9}, {3.706262815170961*^9, 3.706262850190257*^9}, {
@@ -862,7 +879,61 @@ Cell[BoxData[{
    3.712478913530919*^9, {3.7126533294850273`*^9, 3.712653373766543*^9}, {
    3.7142937973563433`*^9, 3.714293800394332*^9}, {3.714310546986651*^9, 
    3.714310612440596*^9}, {3.714310646263857*^9, 3.71431064745893*^9}, {
-   3.714310972026579*^9, 3.714310972543131*^9}}]
+   3.714310972026579*^9, 3.714310972543131*^9}, {3.779468300135291*^9, 
+   3.779468390829331*^9}}],
+
+Cell[BoxData[
+ RowBox[{"deltaepslon", " ", 
+  RowBox[{"(", 
+   RowBox[{
+    RowBox[{
+     SuperscriptBox[
+      RowBox[{"elecfield", "[", "0", "]"}], "2"], " ", 
+     RowBox[{"Q", "[", 
+      RowBox[{"0", ",", "0"}], "]"}]}], "+", 
+    RowBox[{
+     RowBox[{"elecfield", "[", "0", "]"}], " ", 
+     RowBox[{"elecfield", "[", "1", "]"}], " ", 
+     RowBox[{"Q", "[", 
+      RowBox[{"0", ",", "1"}], "]"}]}], "+", 
+    RowBox[{
+     RowBox[{"elecfield", "[", "0", "]"}], " ", 
+     RowBox[{"elecfield", "[", "2", "]"}], " ", 
+     RowBox[{"Q", "[", 
+      RowBox[{"0", ",", "2"}], "]"}]}], "+", 
+    RowBox[{
+     RowBox[{"elecfield", "[", "0", "]"}], " ", 
+     RowBox[{"elecfield", "[", "1", "]"}], " ", 
+     RowBox[{"Q", "[", 
+      RowBox[{"1", ",", "0"}], "]"}]}], "+", 
+    RowBox[{
+     SuperscriptBox[
+      RowBox[{"elecfield", "[", "1", "]"}], "2"], " ", 
+     RowBox[{"Q", "[", 
+      RowBox[{"1", ",", "1"}], "]"}]}], "+", 
+    RowBox[{
+     RowBox[{"elecfield", "[", "1", "]"}], " ", 
+     RowBox[{"elecfield", "[", "2", "]"}], " ", 
+     RowBox[{"Q", "[", 
+      RowBox[{"1", ",", "2"}], "]"}]}], "+", 
+    RowBox[{
+     RowBox[{"elecfield", "[", "0", "]"}], " ", 
+     RowBox[{"elecfield", "[", "2", "]"}], " ", 
+     RowBox[{"Q", "[", 
+      RowBox[{"2", ",", "0"}], "]"}]}], "+", 
+    RowBox[{
+     RowBox[{"elecfield", "[", "1", "]"}], " ", 
+     RowBox[{"elecfield", "[", "2", "]"}], " ", 
+     RowBox[{"Q", "[", 
+      RowBox[{"2", ",", "1"}], "]"}]}], "+", 
+    RowBox[{
+     SuperscriptBox[
+      RowBox[{"elecfield", "[", "2", "]"}], "2"], " ", 
+     RowBox[{"Q", "[", 
+      RowBox[{"2", ",", "2"}], "]"}]}]}], ")"}]}]], "Output",
+ CellChangeTimes->{3.779468391877131*^9, 3.7794684859890614`*^9, 
+  3.7794685434491873`*^9}]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1246,11 +1317,7 @@ Cell[BoxData[
    RowBox[{
     RowBox[{"preRules", "=", 
      RowBox[{"{", 
-      RowBox[{
-       RowBox[{"l2", "\[Rule]", "0"}], ",", 
-       RowBox[{"l3", "\[Rule]", "0"}], ",", 
-       RowBox[{"ls", "\[Rule]", "0"}], ",", 
-       RowBox[{"W1", "\[Rule]", "W1"}]}], "}"}]}], ";"}], 
+      RowBox[{"W1", "\[Rule]", "W1"}], "}"}]}], ";"}], 
    "\[IndentingNewLine]"}]}]], "Input",
  CellChangeTimes->{{3.710585289628612*^9, 3.7105853300583687`*^9}, {
    3.7120656093904123`*^9, 3.7120656303762693`*^9}, {3.712066292463833*^9, 
@@ -1268,7 +1335,8 @@ Cell[BoxData[
    3.71371052802007*^9}, {3.713711441496028*^9, 3.71371144227896*^9}, 
    3.713715903578965*^9, {3.7137161449511833`*^9, 3.7137161455478373`*^9}, {
    3.7144029065984087`*^9, 3.714402912549437*^9}, {3.7189539118762407`*^9, 
-   3.718953966009183*^9}, {3.719934208820417*^9, 3.719934262055048*^9}}]
+   3.718953966009183*^9}, {3.719934208820417*^9, 3.719934262055048*^9}, 
+   3.7794685329559813`*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1499,8 +1567,13 @@ Cell[BoxData[{
       RowBox[{
        RowBox[{
        "RegularExpression", "[", "\"\<pow\\\\((v\\\\[[012]\\\\]),9\\\\)\>\"", 
-        "]"}], "\[Rule]", "\"\<($1*$1*$1*$1*$1*$1*$1*$1*$1)\>\""}]}], "}"}]}],
-    ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+        "]"}], "\[Rule]", "\"\<($1*$1*$1*$1*$1*$1*$1*$1*$1)\>\""}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+       "RegularExpression", "[", "\"\<pow\\\\((elecfield[xyz]),2\\\\)\>\"", 
+        "]"}], "\[Rule]", "\"\<($1*$1)\>\""}]}], "}"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"convertionRules", "=", 
    RowBox[{"{", 
@@ -1516,6 +1589,10 @@ Cell[BoxData[{
      RowBox[{"\"\<aa\>\"", "\[Rule]", "\"\<a\>\""}], ",", 
      RowBox[{"\"\<bb\>\"", "\[Rule]", "\"\<bb\>\""}], ",", 
      RowBox[{"\"\<cc\>\"", "\[Rule]", "\"\<cc\>\""}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<elecfield(0)\>\"", "\[Rule]", "\"\<elecfieldx\>\""}], ",", 
+     RowBox[{"\"\<elecfield(1)\>\"", "\[Rule]", "\"\<elecfieldy\>\""}], ",", 
+     RowBox[{"\"\<elecfield(2)\>\"", "\[Rule]", "\"\<elecfieldz\>\""}], ",", 
      "\[IndentingNewLine]", 
      RowBox[{"\"\<l1\>\"", "\[Rule]", "\"\<L1_tilde\>\""}], ",", 
      RowBox[{"\"\<l2\>\"", "\[Rule]", "\"\<L2_tilde\>\""}], ",", 
@@ -1592,7 +1669,7 @@ Cell[BoxData[{
    3.7144826738186417`*^9, 3.7144827074603*^9}, {3.714730122725458*^9, 
    3.714730204544548*^9}, {3.714730429209331*^9, 3.714730430405884*^9}, {
    3.714730471695655*^9, 3.714730493980261*^9}, {3.7147307558913927`*^9, 
-   3.714730799140711*^9}}]
+   3.714730799140711*^9}, {3.779468410887879*^9, 3.779468475075984*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1650,29 +1727,70 @@ const double  v[3]) \\n{ \\n return Lambda_s*(\>\"", ",",
 
 Cell[BoxData["\<\"double rp_surface_00(const double  QN[5],const double  \
 dQ[15],const double  ddQ[30], const double  v[3]) \\n{ \\n return \
-Lambda_s*(-(Wo1_tilde*QN00) + Wo1_tilde*Q0[0][0] + Lq_tilde*QN02*v[1] - \
-Lq_tilde*QN01*v[2] - L1_tilde*(Q_00_0*v[0] + Q_00_1*v[1] + Q_00_2*v[2]));\\n}\
-\\n\\ndouble rp_surface_01(const double  QN[5],const double  dQ[15],const \
-double  ddQ[30], const double  v[3]) \\n{ \\n return \
-Lambda_s*((2*Wo1_tilde*(-QN01 + Q0[0][1]) + Lq_tilde*(-(QN02*v[0]) + \
-QN12*v[1] + (QN00 - QN11)*v[2]) - 2*L1_tilde*(Q_01_0*v[0] + Q_01_1*v[1] + \
-Q_01_2*v[2]))/2.);\\n}\\n\\ndouble rp_surface_02(const double  QN[5],const \
-double  dQ[15],const double  ddQ[30], const double  v[3]) \\n{ \\n return \
-Lambda_s*((2*Wo1_tilde*(-QN02 + Q0[0][2]) + Lq_tilde*(QN01*v[0] - (2*QN00 + \
-QN11)*v[1] - QN12*v[2]) - 2*L1_tilde*(Q_02_0*v[0] + Q_02_1*v[1] + \
-Q_02_2*v[2]))/2.);\\n}\\n\\ndouble rp_surface_11(const double  QN[5],const \
-double  dQ[15],const double  ddQ[30], const double  v[3]) \\n{ \\n return \
-Lambda_s*(-(Wo1_tilde*QN11) + Wo1_tilde*Q0[1][1] - Lq_tilde*QN12*v[0] + \
-Lq_tilde*QN01*v[2] - L1_tilde*(Q_11_0*v[0] + Q_11_1*v[1] + Q_11_2*v[2]));\\n}\
-\\n\\ndouble rp_surface_12(const double  QN[5],const double  dQ[15],const \
-double  ddQ[30], const double  v[3]) \\n{ \\n return \
-Lambda_s*((2*Wo1_tilde*(-QN12 + Q0[1][2]) + Lq_tilde*((QN00 + 2*QN11)*v[0] - \
-QN01*v[1] + QN02*v[2]) - 2*L1_tilde*(Q_12_0*v[0] + Q_12_1*v[1] + \
-Q_12_2*v[2]))/2.);\\n}\\n\\n\"\>"], "Output",
+Lambda_s*((-3*Wo1_tilde*QN00 + 3*Wo1_tilde*Q0[0][0] - \
+3*L3_tilde*QN01*Q_00_1*v[0] - 3*L3_tilde*QN02*Q_00_2*v[0] - \
+2*L2_tilde*Q_01_1*v[0] + Ls*Q_01_1*v[0] - 2*L2_tilde*Q_02_2*v[0] + \
+Ls*Q_02_2*v[0] + 3*Lq_tilde*QN02*v[1] - 3*L1_tilde*Q_00_1*v[1] - \
+3*L3_tilde*QN11*Q_00_1*v[1] - 3*L3_tilde*QN12*Q_00_2*v[1] + \
+L2_tilde*Q_01_0*v[1] - 2*Ls*Q_01_0*v[1] + L2_tilde*Q_11_1*v[1] + \
+Ls*Q_11_1*v[1] + L2_tilde*Q_12_2*v[1] + Ls*Q_12_2*v[1] - (3*Lq_tilde*QN01 + \
+3*L3_tilde*QN12*Q_00_1 + (3*L1_tilde + L2_tilde + Ls)*Q_00_2 - \
+3*L3_tilde*(QN00 + QN11)*Q_00_2 - (L2_tilde - 2*Ls)*Q_02_0 + (L2_tilde + \
+Ls)*(Q_11_2 - Q_12_1))*v[2] - Q_00_0*(3*L1_tilde*v[0] + 2*L2_tilde*v[0] + \
+2*Ls*v[0] + 3*L3_tilde*QN00*v[0] + 3*L3_tilde*QN01*v[1] + \
+3*L3_tilde*QN02*v[2]))/3.);\\n}\\n\\ndouble rp_surface_01(const double  \
+QN[5],const double  dQ[15],const double  ddQ[30], const double  v[3]) \\n{ \
+\\n return Lambda_s*((-2*Wo1_tilde*QN01 + 2*Wo1_tilde*Q0[0][1] - \
+Lq_tilde*QN02*v[0] - Ls*Q_00_1*v[0] - 2*L3_tilde*QN01*Q_01_1*v[0] - \
+2*L3_tilde*QN02*Q_01_2*v[0] - L2_tilde*Q_11_1*v[0] - L2_tilde*Q_12_2*v[0] + \
+Lq_tilde*QN12*v[1] - L2_tilde*Q_00_0*v[1] - 2*L1_tilde*Q_01_1*v[1] - \
+L2_tilde*Q_01_1*v[1] - Ls*Q_01_1*v[1] - 2*L3_tilde*QN11*Q_01_1*v[1] - \
+2*L3_tilde*QN12*Q_01_2*v[1] - L2_tilde*Q_02_2*v[1] - Ls*Q_11_0*v[1] - \
+(Lq_tilde*(-QN00 + QN11) + 2*L3_tilde*QN12*Q_01_1 + 2*(L1_tilde - \
+L3_tilde*(QN00 + QN11))*Q_01_2 + Ls*(Q_02_1 + Q_12_0))*v[2] - \
+Q_01_0*(2*L1_tilde*v[0] + L2_tilde*v[0] + Ls*v[0] + 2*L3_tilde*QN00*v[0] + \
+2*L3_tilde*QN01*v[1] + 2*L3_tilde*QN02*v[2]))/2.);\\n}\\n\\ndouble \
+rp_surface_02(const double  QN[5],const double  dQ[15],const double  ddQ[30], \
+const double  v[3]) \\n{ \\n return Lambda_s*((-2*Wo1_tilde*QN02 + \
+2*Wo1_tilde*Q0[0][2] + Lq_tilde*QN01*v[0] + (L2_tilde - Ls)*Q_00_2*v[0] - \
+2*L3_tilde*QN01*Q_02_1*v[0] - 2*L3_tilde*QN02*Q_02_2*v[0] + \
+L2_tilde*Q_11_2*v[0] - L2_tilde*Q_12_1*v[0] - (Lq_tilde*(2*QN00 + QN11) + \
+Ls*Q_01_2)*v[1] - 2*L1_tilde*Q_02_1*v[1] - 2*L3_tilde*QN11*Q_02_1*v[1] - \
+2*L3_tilde*QN12*Q_02_2*v[1] - Ls*Q_12_0*v[1] - ((L2_tilde - Ls)*Q_00_0 + \
+L2_tilde*Q_01_1 + QN12*(Lq_tilde + 2*L3_tilde*Q_02_1) + 2*L1_tilde*Q_02_2 + \
+(L2_tilde + Ls - 2*L3_tilde*(QN00 + QN11))*Q_02_2 - Ls*Q_11_0)*v[2] - \
+Q_02_0*(2*L1_tilde*v[0] + L2_tilde*v[0] + Ls*v[0] + 2*L3_tilde*QN00*v[0] + \
+2*L3_tilde*QN01*v[1] + 2*L3_tilde*QN02*v[2]))/2.);\\n}\\n\\ndouble \
+rp_surface_11(const double  QN[5],const double  dQ[15],const double  ddQ[30], \
+const double  v[3]) \\n{ \\n return Lambda_s*((-3*Wo1_tilde*QN11 + \
+3*Wo1_tilde*Q0[1][1] - 3*Lq_tilde*QN12*v[0] + L2_tilde*Q_00_0*v[0] + \
+Ls*Q_00_0*v[0] + L2_tilde*Q_01_1*v[0] - 2*Ls*Q_01_1*v[0] + \
+L2_tilde*Q_02_2*v[0] + Ls*Q_02_2*v[0] - 3*L1_tilde*Q_11_0*v[0] - \
+3*L3_tilde*QN00*Q_11_0*v[0] - 3*L3_tilde*QN01*Q_11_1*v[0] - \
+3*L3_tilde*QN02*Q_11_2*v[0] - 2*L2_tilde*Q_01_0*v[1] + Ls*Q_01_0*v[1] - \
+3*L3_tilde*QN01*Q_11_0*v[1] - 3*L1_tilde*Q_11_1*v[1] - 2*L2_tilde*Q_11_1*v[1] \
+- 2*Ls*Q_11_1*v[1] - 3*L3_tilde*QN11*Q_11_1*v[1] - \
+3*L3_tilde*QN12*Q_11_2*v[1] - 2*L2_tilde*Q_12_2*v[1] + Ls*Q_12_2*v[1] + \
+(3*Lq_tilde*QN01 - (L2_tilde + Ls)*Q_00_2 + (L2_tilde + Ls)*Q_02_0 - \
+3*L3_tilde*(QN02*Q_11_0 + QN12*Q_11_1) - (3*L1_tilde + L2_tilde + Ls)*Q_11_2 \
++ 3*L3_tilde*(QN00 + QN11)*Q_11_2 + (L2_tilde - \
+2*Ls)*Q_12_1)*v[2])/3.);\\n}\\n\\ndouble rp_surface_12(const double  \
+QN[5],const double  dQ[15],const double  ddQ[30], const double  v[3]) \\n{ \
+\\n return Lambda_s*((2*Wo1_tilde*(-QN12 + Q0[1][2]) + Lq_tilde*(QN00 + \
+2*QN11)*v[0] - Ls*Q_01_2*v[0] - Ls*Q_02_1*v[0] - 2*L1_tilde*Q_12_0*v[0] - \
+2*L3_tilde*QN00*Q_12_0*v[0] - 2*L3_tilde*QN01*Q_12_1*v[0] - \
+2*L3_tilde*QN02*Q_12_2*v[0] - Lq_tilde*QN01*v[1] + L2_tilde*Q_00_2*v[1] - \
+L2_tilde*Q_02_0*v[1] + L2_tilde*Q_11_2*v[1] - Ls*Q_11_2*v[1] - \
+2*L3_tilde*QN01*Q_12_0*v[1] - 2*L1_tilde*Q_12_1*v[1] - L2_tilde*Q_12_1*v[1] - \
+Ls*Q_12_1*v[1] - 2*L3_tilde*QN11*Q_12_1*v[1] - 2*L3_tilde*QN12*Q_12_2*v[1] - \
+(-(Lq_tilde*QN02) - Ls*Q_00_1 + L2_tilde*Q_01_0 + L2_tilde*Q_11_1 - Ls*Q_11_1 \
++ 2*L3_tilde*QN02*Q_12_0 + 2*L3_tilde*QN12*Q_12_1 + (2*L1_tilde + L2_tilde + \
+Ls - 2*L3_tilde*(QN00 + QN11))*Q_12_2)*v[2])/2.);\\n}\\n\\n\"\>"], "Output",
  CellChangeTimes->{
   3.7199351039619493`*^9, 3.72017125528931*^9, 3.720177531757593*^9, {
    3.720181891391593*^9, 3.720181907473222*^9}, 3.720181989945044*^9, 
-   3.720182073478458*^9, 3.720182107321294*^9}]
+   3.720182073478458*^9, 3.720182107321294*^9, 3.779468487056554*^9, 
+   3.7794685529444923`*^9}]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -1726,55 +1844,114 @@ const double  v[3]) \\n{ \\n return Lambda_s*(\>\"", ",",
 
 Cell[BoxData["\<\"double fg_surface_00(const double  QN[5],const double  \
 dQ[15],const double  ddQ[30], const double  v[3]) \\n{ \\n return \
-Lambda_s*((-6*L1_tilde*Q_00_0*v[0] + Wo1_tilde*(S_eq_tilde - 2*(QN00 + QN11) \
-- 4*(S_eq_tilde + 2*QN00)*v[0]*v[0] + (S_eq_tilde + 6*QN00 + \
-2*QN11)*(v[0]*v[0]*v[0]*v[0])) + 6*Lq_tilde*QN02*v[1] + \
-v[1]*(-6*L1_tilde*Q_00_1 + Wo1_tilde*(2*(S_eq_tilde + 2*QN11)*v[1] + \
-(-S_eq_tilde + 2*QN00 + 8*QN11)*v[0]*v[0]*v[1] + 2*(-S_eq_tilde + \
-QN00)*(v[1]*v[1]*v[1]) + 4*QN01*v[0]*(-1 + 2*v[0]*v[0] - v[1]*v[1]))) + \
-2*(-3*Lq_tilde*QN01 - 3*L1_tilde*Q_00_2 + 2*Wo1_tilde*(QN02*v[0]*(-2 + \
-3*v[0]*v[0]) + QN12*(1 + 3*v[0]*v[0])*v[1]))*v[2] + Wo1_tilde*((S_eq_tilde - \
+Lambda_s*((Wo1_tilde*(S_eq_tilde - 2*(QN00 + QN11)) - \
+6*L3_tilde*QN02*Q_00_2*v[0] - 4*L2_tilde*Q_01_1*v[0] + 2*Ls*Q_01_1*v[0] - \
+4*L2_tilde*Q_02_2*v[0] + 2*Ls*Q_02_2*v[0] - 4*S_eq_tilde*Wo1_tilde*v[0]*v[0] \
+- 8*Wo1_tilde*QN00*v[0]*v[0] + S_eq_tilde*Wo1_tilde*(v[0]*v[0]*v[0]*v[0]) + \
+6*Wo1_tilde*QN00*(v[0]*v[0]*v[0]*v[0]) + \
+2*Wo1_tilde*QN11*(v[0]*v[0]*v[0]*v[0]) + 6*Lq_tilde*QN02*v[1] - \
+6*L3_tilde*QN12*Q_00_2*v[1] + 2*L2_tilde*Q_01_0*v[1] - 4*Ls*Q_01_0*v[1] + \
+2*L2_tilde*Q_11_1*v[1] + 2*Ls*Q_11_1*v[1] + 2*L2_tilde*Q_12_2*v[1] + \
+2*Ls*Q_12_2*v[1] - 4*Wo1_tilde*QN01*v[0]*v[1] + \
+8*Wo1_tilde*QN01*(v[0]*v[0]*v[0])*v[1] + 2*S_eq_tilde*Wo1_tilde*v[1]*v[1] + \
+4*Wo1_tilde*QN11*v[1]*v[1] - S_eq_tilde*Wo1_tilde*v[0]*v[0]*v[1]*v[1] + \
+2*Wo1_tilde*QN00*v[0]*v[0]*v[1]*v[1] + 8*Wo1_tilde*QN11*v[0]*v[0]*v[1]*v[1] - \
+4*Wo1_tilde*QN01*v[0]*(v[1]*v[1]*v[1]) - \
+2*S_eq_tilde*Wo1_tilde*(v[1]*v[1]*v[1]*v[1]) + \
+2*Wo1_tilde*QN00*(v[1]*v[1]*v[1]*v[1]) - 2*(3*Lq_tilde*QN01 + (3*L1_tilde + \
+L2_tilde + Ls - 3*L3_tilde*(QN00 + QN11))*Q_00_2 - (L2_tilde - 2*Ls)*Q_02_0 + \
+(L2_tilde + Ls)*(Q_11_2 - Q_12_1) + 2*Wo1_tilde*QN02*v[0]*(2 - 3*v[0]*v[0]) - \
+2*Wo1_tilde*QN12*(1 + 3*v[0]*v[0])*v[1])*v[2] + Wo1_tilde*((S_eq_tilde - \
 6*QN00 - 4*QN11)*v[0]*v[0] - 4*QN01*v[0]*v[1] + 2*(-S_eq_tilde + \
-QN00)*v[1]*v[1])*v[2]*v[2])/6.);\\n}\\n\\ndouble fg_surface_01(const double  \
+QN00)*v[1]*v[1])*v[2]*v[2] - 2*Q_00_0*(3*L1_tilde*v[0] + 2*L2_tilde*v[0] + \
+2*Ls*v[0] + 3*L3_tilde*QN00*v[0] + 3*L3_tilde*QN01*v[1] + \
+3*L3_tilde*QN02*v[2]) - 6*Q_00_1*(L1_tilde*v[1] + L3_tilde*(QN01*v[0] + \
+QN11*v[1] + QN12*v[2])))/6.);\\n}\\n\\ndouble fg_surface_01(const double  \
 QN[5],const double  dQ[15],const double  ddQ[30], const double  v[3]) \\n{ \
-\\n return Lambda_s*((-2*L1_tilde*Q_01_0*v[0] - v[0]*(Lq_tilde*QN02 + \
-2*Wo1_tilde*QN01*v[0]) + Lq_tilde*QN12*v[1] + v[1]*(-2*L1_tilde*Q_01_1 + \
-Wo1_tilde*(-2*(S_eq_tilde + QN00 + QN11)*v[0] + (S_eq_tilde + \
-2*QN00)*(v[0]*v[0]*v[0]) + 2*QN01*(-1 + 2*v[0]*v[0])*v[1] + (S_eq_tilde + \
-2*QN11)*v[0]*v[1]*v[1])) + (Lq_tilde*(QN00 - QN11) - 2*L1_tilde*Q_01_2 + \
-2*Wo1_tilde*(QN02*(-1 + 2*v[0]*v[0])*v[1] + QN12*v[0]*(-1 + \
-2*v[1]*v[1])))*v[2] + Wo1_tilde*(S_eq_tilde - 2*(QN00 + \
-QN11))*v[0]*v[1]*v[2]*v[2])/2.);\\n}\\n\\ndouble fg_surface_02(const double  \
+\\n return Lambda_s*((-(Lq_tilde*QN02*v[0]) - Ls*Q_00_1*v[0] - \
+2*L3_tilde*QN01*Q_01_1*v[0] - 2*L3_tilde*QN02*Q_01_2*v[0] - \
+L2_tilde*Q_11_1*v[0] - L2_tilde*Q_12_2*v[0] - 2*Wo1_tilde*QN01*v[0]*v[0] + \
+Lq_tilde*QN12*v[1] - L2_tilde*Q_00_0*v[1] - 2*L1_tilde*Q_01_1*v[1] - \
+L2_tilde*Q_01_1*v[1] - Ls*Q_01_1*v[1] - 2*L3_tilde*QN11*Q_01_1*v[1] - \
+2*L3_tilde*QN12*Q_01_2*v[1] - L2_tilde*Q_02_2*v[1] - Ls*Q_11_0*v[1] - \
+2*S_eq_tilde*Wo1_tilde*v[0]*v[1] - 2*Wo1_tilde*QN00*v[0]*v[1] - \
+2*Wo1_tilde*QN11*v[0]*v[1] + S_eq_tilde*Wo1_tilde*(v[0]*v[0]*v[0])*v[1] + \
+2*Wo1_tilde*QN00*(v[0]*v[0]*v[0])*v[1] - 2*Wo1_tilde*QN01*v[1]*v[1] + \
+4*Wo1_tilde*QN01*v[0]*v[0]*v[1]*v[1] + \
+S_eq_tilde*Wo1_tilde*v[0]*(v[1]*v[1]*v[1]) + \
+2*Wo1_tilde*QN11*v[0]*(v[1]*v[1]*v[1]) - (Lq_tilde*(-QN00 + QN11) + \
+2*L3_tilde*QN12*Q_01_1 + 2*(L1_tilde - L3_tilde*(QN00 + QN11))*Q_01_2 + \
+Ls*(Q_02_1 + Q_12_0) + 2*Wo1_tilde*(QN02*(1 - 2*v[0]*v[0])*v[1] + \
+QN12*v[0]*(1 - 2*v[1]*v[1])))*v[2] + Wo1_tilde*(S_eq_tilde - 2*(QN00 + \
+QN11))*v[0]*v[1]*v[2]*v[2] - Q_01_0*(2*L1_tilde*v[0] + L2_tilde*v[0] + \
+Ls*v[0] + 2*L3_tilde*QN00*v[0] + 2*L3_tilde*QN01*v[1] + \
+2*L3_tilde*QN02*v[2]))/2.);\\n}\\n\\ndouble fg_surface_02(const double  \
 QN[5],const double  dQ[15],const double  ddQ[30], const double  v[3]) \\n{ \
-\\n return Lambda_s*((-2*Wo1_tilde*QN02 + Lq_tilde*QN01*v[0] - \
-2*L1_tilde*Q_02_0*v[0] - Lq_tilde*(2*QN00 + QN11)*v[1] - \
-2*L1_tilde*Q_02_1*v[1] - 2*Wo1_tilde*(QN02*(-1 + v[0]*v[0]) + \
-QN12*v[0]*v[1])*(v[0]*v[0] + v[1]*v[1]) - (Lq_tilde*QN12 + 2*L1_tilde*Q_02_2 \
-+ Wo1_tilde*(2*QN01*v[1] + v[0]*(S_eq_tilde - 2*(2*QN01*v[0]*v[1] + QN00*(-1 \
-+ 2*v[0]*v[0] + v[1]*v[1]) + QN11*(v[0]*v[0] + 2*v[1]*v[1])))))*v[2] + \
-2*Wo1_tilde*v[0]*(QN02*v[0] + QN12*v[1])*v[2]*v[2])/2.);\\n}\\n\\ndouble \
-fg_surface_11(const double  QN[5],const double  dQ[15],const double  ddQ[30], \
-const double  v[3]) \\n{ \\n return Lambda_s*((-6*Lq_tilde*QN12*v[0] - \
-6*L1_tilde*Q_11_0*v[0] + Wo1_tilde*(S_eq_tilde - 2*(QN00 + QN11) + \
-2*(S_eq_tilde + 2*QN00)*v[0]*v[0] + 2*(-S_eq_tilde + \
-QN11)*(v[0]*v[0]*v[0]*v[0])) + v[1]*(-6*L1_tilde*Q_11_1 + \
-Wo1_tilde*(-4*(S_eq_tilde + 2*QN11)*v[1] + (-S_eq_tilde + 8*QN00 + \
-2*QN11)*v[0]*v[0]*v[1] + (S_eq_tilde + 2*QN00 + 6*QN11)*(v[1]*v[1]*v[1]) - \
-4*QN01*v[0]*(1 + v[0]*v[0] - 2*v[1]*v[1]))) + 2*(3*Lq_tilde*QN01 - \
-3*L1_tilde*Q_11_2 + 2*Wo1_tilde*(QN12*v[1]*(-2 + 3*v[1]*v[1]) + QN02*v[0]*(1 \
-+ 3*v[1]*v[1])))*v[2] + Wo1_tilde*(2*(-S_eq_tilde + QN11)*v[0]*v[0] - \
+\\n return Lambda_s*((-2*Wo1_tilde*QN02 + Lq_tilde*QN01*v[0] + (L2_tilde - \
+Ls)*Q_00_2*v[0] - 2*L3_tilde*QN01*Q_02_1*v[0] - 2*L3_tilde*QN02*Q_02_2*v[0] + \
+L2_tilde*Q_11_2*v[0] - L2_tilde*Q_12_1*v[0] + 2*Wo1_tilde*QN02*v[0]*v[0] - \
+2*Wo1_tilde*QN02*(v[0]*v[0]*v[0]*v[0]) - (Lq_tilde*(2*QN00 + QN11) + \
+Ls*Q_01_2)*v[1] - 2*L1_tilde*Q_02_1*v[1] - 2*L3_tilde*QN11*Q_02_1*v[1] - \
+2*L3_tilde*QN12*Q_02_2*v[1] - Ls*Q_12_0*v[1] - \
+2*Wo1_tilde*QN12*(v[0]*v[0]*v[0])*v[1] + 2*Wo1_tilde*QN02*v[1]*v[1] - \
+2*Wo1_tilde*QN02*v[0]*v[0]*v[1]*v[1] - 2*Wo1_tilde*QN12*v[0]*(v[1]*v[1]*v[1]) \
+- (Lq_tilde*QN12 + (L2_tilde - Ls)*Q_00_0 + L2_tilde*Q_01_1 + (2*L1_tilde + \
+L2_tilde + Ls)*Q_02_2 - Ls*Q_11_0 + S_eq_tilde*Wo1_tilde*v[0] + \
+2*(L3_tilde*QN12*Q_02_1 - L3_tilde*(QN00 + QN11)*Q_02_2 + \
+Wo1_tilde*(QN01*v[1] - v[0]*(2*QN01*v[0]*v[1] + QN00*(-1 + 2*v[0]*v[0] + \
+v[1]*v[1]) + QN11*(v[0]*v[0] + 2*v[1]*v[1])))))*v[2] + \
+2*Wo1_tilde*v[0]*(QN02*v[0] + QN12*v[1])*v[2]*v[2] - Q_02_0*(2*L1_tilde*v[0] \
++ L2_tilde*v[0] + Ls*v[0] + 2*L3_tilde*QN00*v[0] + 2*L3_tilde*QN01*v[1] + \
+2*L3_tilde*QN02*v[2]))/2.);\\n}\\n\\ndouble fg_surface_11(const double  \
+QN[5],const double  dQ[15],const double  ddQ[30], const double  v[3]) \\n{ \
+\\n return Lambda_s*((S_eq_tilde*Wo1_tilde - 2*Wo1_tilde*(QN00 + QN11) - \
+6*Lq_tilde*QN12*v[0] + 2*L2_tilde*Q_00_0*v[0] + 2*Ls*Q_00_0*v[0] + \
+2*L2_tilde*Q_01_1*v[0] - 4*Ls*Q_01_1*v[0] + 2*L2_tilde*Q_02_2*v[0] + \
+2*Ls*Q_02_2*v[0] - 6*L1_tilde*Q_11_0*v[0] - 6*L3_tilde*QN00*Q_11_0*v[0] - \
+6*L3_tilde*QN01*Q_11_1*v[0] - 6*L3_tilde*QN02*Q_11_2*v[0] + \
+2*S_eq_tilde*Wo1_tilde*v[0]*v[0] + 4*Wo1_tilde*QN00*v[0]*v[0] - \
+2*S_eq_tilde*Wo1_tilde*(v[0]*v[0]*v[0]*v[0]) + \
+2*Wo1_tilde*QN11*(v[0]*v[0]*v[0]*v[0]) - 4*L2_tilde*Q_01_0*v[1] + \
+2*Ls*Q_01_0*v[1] - 6*L3_tilde*QN01*Q_11_0*v[1] - 6*L1_tilde*Q_11_1*v[1] - \
+4*L2_tilde*Q_11_1*v[1] - 4*Ls*Q_11_1*v[1] - 6*L3_tilde*QN11*Q_11_1*v[1] - \
+6*L3_tilde*QN12*Q_11_2*v[1] - 4*L2_tilde*Q_12_2*v[1] + 2*Ls*Q_12_2*v[1] - \
+4*Wo1_tilde*QN01*v[0]*v[1] - 4*Wo1_tilde*QN01*(v[0]*v[0]*v[0])*v[1] - \
+4*S_eq_tilde*Wo1_tilde*v[1]*v[1] - 8*Wo1_tilde*QN11*v[1]*v[1] - \
+S_eq_tilde*Wo1_tilde*v[0]*v[0]*v[1]*v[1] + \
+8*Wo1_tilde*QN00*v[0]*v[0]*v[1]*v[1] + 2*Wo1_tilde*QN11*v[0]*v[0]*v[1]*v[1] + \
+8*Wo1_tilde*QN01*v[0]*(v[1]*v[1]*v[1]) + \
+S_eq_tilde*Wo1_tilde*(v[1]*v[1]*v[1]*v[1]) + \
+2*Wo1_tilde*QN00*(v[1]*v[1]*v[1]*v[1]) + \
+6*Wo1_tilde*QN11*(v[1]*v[1]*v[1]*v[1]) + 2*(3*Lq_tilde*QN01 - (L2_tilde + \
+Ls)*Q_00_2 + (L2_tilde + Ls)*Q_02_0 - 3*L3_tilde*QN02*Q_11_0 - \
+3*L3_tilde*QN12*Q_11_1 - 3*L1_tilde*Q_11_2 - (L2_tilde + Ls - \
+3*L3_tilde*(QN00 + QN11))*Q_11_2 + (L2_tilde - 2*Ls)*Q_12_1 + \
+2*Wo1_tilde*(QN12*v[1]*(-2 + 3*v[1]*v[1]) + QN02*v[0]*(1 + \
+3*v[1]*v[1])))*v[2] + Wo1_tilde*(2*(-S_eq_tilde + QN11)*v[0]*v[0] - \
 4*QN01*v[0]*v[1] + (S_eq_tilde - 4*QN00 - \
 6*QN11)*v[1]*v[1])*v[2]*v[2])/6.);\\n}\\n\\ndouble fg_surface_12(const double \
  QN[5],const double  dQ[15],const double  ddQ[30], const double  v[3]) \\n{ \
 \\n return Lambda_s*((-2*Wo1_tilde*QN12 + Lq_tilde*(QN00 + 2*QN11)*v[0] - \
-2*L1_tilde*Q_12_0*v[0] - Lq_tilde*QN01*v[1] - 2*L1_tilde*Q_12_1*v[1] - \
-2*Wo1_tilde*(v[0]*v[0] + v[1]*v[1])*(QN02*v[0]*v[1] + QN12*(-1 + v[1]*v[1])) \
-+ (Lq_tilde*QN02 - 2*L1_tilde*Q_12_2 + Wo1_tilde*(2*QN01*v[0]*(-1 + \
-2*v[1]*v[1]) + v[1]*(-S_eq_tilde + 2*(QN00*(2*v[0]*v[0] + v[1]*v[1]) + \
-QN11*(-1 + v[0]*v[0] + 2*v[1]*v[1])))))*v[2] + 2*Wo1_tilde*v[1]*(QN02*v[0] + \
-QN12*v[1])*v[2]*v[2])/2.);\\n}\\n\\n\"\>"], "Output",
+Ls*Q_01_2*v[0] - Ls*Q_02_1*v[0] - 2*L1_tilde*Q_12_0*v[0] - \
+2*L3_tilde*QN00*Q_12_0*v[0] - 2*L3_tilde*QN01*Q_12_1*v[0] - \
+2*L3_tilde*QN02*Q_12_2*v[0] + 2*Wo1_tilde*QN12*v[0]*v[0] - Lq_tilde*QN01*v[1] \
++ L2_tilde*Q_00_2*v[1] - L2_tilde*Q_02_0*v[1] + L2_tilde*Q_11_2*v[1] - \
+Ls*Q_11_2*v[1] - 2*L3_tilde*QN01*Q_12_0*v[1] - 2*L1_tilde*Q_12_1*v[1] - \
+L2_tilde*Q_12_1*v[1] - Ls*Q_12_1*v[1] - 2*L3_tilde*QN11*Q_12_1*v[1] - \
+2*L3_tilde*QN12*Q_12_2*v[1] - 2*Wo1_tilde*QN02*(v[0]*v[0]*v[0])*v[1] + \
+2*Wo1_tilde*QN12*v[1]*v[1] - 2*Wo1_tilde*QN12*v[0]*v[0]*v[1]*v[1] - \
+2*Wo1_tilde*QN02*v[0]*(v[1]*v[1]*v[1]) - \
+2*Wo1_tilde*QN12*(v[1]*v[1]*v[1]*v[1]) + (Lq_tilde*QN02 + Ls*Q_00_1 + \
+Ls*Q_11_1 - 2*L3_tilde*(QN02*Q_12_0 + QN12*Q_12_1) - 2*L1_tilde*Q_12_2 + (-Ls \
++ 2*L3_tilde*(QN00 + QN11))*Q_12_2 - L2_tilde*(Q_01_0 + Q_11_1 + Q_12_2) + \
+2*Wo1_tilde*(2*QN00*v[0]*v[0] + QN11*(-1 + v[0]*v[0]))*v[1] + \
+4*Wo1_tilde*QN01*v[0]*v[1]*v[1] + 2*Wo1_tilde*(QN00 + \
+2*QN11)*(v[1]*v[1]*v[1]) - Wo1_tilde*(2*QN01*v[0] + S_eq_tilde*v[1]))*v[2] + \
+2*Wo1_tilde*v[1]*(QN02*v[0] + QN12*v[1])*v[2]*v[2])/2.);\\n}\\n\\n\"\>"], \
+"Output",
  CellChangeTimes->{{3.72018189269666*^9, 3.720181907607712*^9}, 
-   3.720181997199821*^9, 3.720182086593916*^9, 3.72018212586598*^9}]
+   3.720181997199821*^9, 3.720182086593916*^9, 3.72018212586598*^9, 
+   3.7794685039210987`*^9, 3.779468572820915*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1829,31 +2006,73 @@ Cell[BoxData[{
    3.7199345679548883`*^9}],
 
 Cell[BoxData["\<\"double bulk_00(const double  QN[5],const double  \
-dQ[15],const double  ddQ[30]) \\n{ \\n return Lambda*((-3*sigma*QN00 - \
-6*cc*QN00*((QN00*QN00) + (QN01*QN01) + (QN02*QN02) + QN00*QN11 + (QN11*QN11) \
-+ (QN12*QN12)) - bb*((QN00*QN00) + (QN01*QN01) + (QN02*QN02) - 2*QN00*QN11 - \
-2*((QN11*QN11) + (QN12*QN12))) + 6*Lq_tilde*(Q_01_2 - Q_02_1) + \
-3*L1_tilde*(Q_00_00 + Q_00_11 + Q_00_22))/3.);\\n}\\n\\ndouble bulk_01(const \
+dQ[15],const double  ddQ[30]) \\n{ \\n return \
+Lambda*((deltaepslon*(-2*(elecfieldx*elecfieldx) + (elecfieldy*elecfieldy) + \
+(elecfieldz*elecfieldz)) - 3*sigma*QN00 - 6*cc*QN00*((QN00*QN00) + \
+(QN01*QN01) + (QN02*QN02) + QN00*QN11 + (QN11*QN11) + (QN12*QN12)) - \
+bb*((QN00*QN00) + (QN01*QN01) + (QN02*QN02) - 2*QN00*QN11 - 2*((QN11*QN11) + \
+(QN12*QN12))) + 6*Lq_tilde*(Q_01_2 - Q_02_1) + (3*L1_tilde + 2*(L2_tilde + \
+Ls))*Q_00_00 + 3*L1_tilde*Q_00_11 + 3*L1_tilde*Q_00_22 + L2_tilde*Q_00_22 + \
+Ls*Q_00_22 + L3_tilde*((Q_00_0*Q_00_0) + (Q_00_1*Q_00_1) - 2*(Q_00_2*Q_00_2) \
+- 2*(Q_01_0*Q_01_0) + (Q_01_1*Q_01_1) + (Q_01_2*Q_01_2) - 2*(Q_02_0*Q_02_0) + \
+(Q_02_1*Q_02_1) + (Q_02_2*Q_02_2) + Q_00_0*(3*(Q_01_1 + Q_02_2) - 2*Q_11_0) - \
+2*(Q_11_0*Q_11_0) + (Q_11_1*Q_11_1) + (Q_11_2*Q_11_2) - 2*(Q_12_0*Q_12_0) + \
+(Q_12_1*Q_12_1) + Q_00_2*(3*Q_02_0 - 2*Q_11_2 + 3*Q_12_1) + (Q_12_2*Q_12_2) + \
+Q_00_1*(3*Q_01_0 + 4*Q_11_1 + 3*Q_12_2) + 3*QN00*Q_00_00 + 6*QN01*Q_00_01 + \
+6*QN02*Q_00_02 + 3*QN11*Q_00_11 + 6*QN12*Q_00_12 - 3*(QN00 + QN11)*Q_00_22) + \
+L2_tilde*Q_01_01 + Ls*Q_01_01 + L2_tilde*Q_02_02 + Ls*Q_02_02 - \
+L2_tilde*Q_11_11 - Ls*Q_11_11 + L2_tilde*Q_11_22 + Ls*Q_11_22 - 2*(L2_tilde + \
+Ls)*Q_12_12)/3.);\\n}\\n\\ndouble bulk_01(const double  QN[5],const double  \
+dQ[15],const double  ddQ[30]) \\n{ \\n return Lambda*((-2*Q_00_2*(Lq_tilde + \
+L3_tilde*Q_01_2) - L3_tilde*Q_00_0*(2*Q_00_1 - 2*Q_01_0 + Q_11_1) + \
+2*Lq_tilde*(Q_02_0 + Q_11_2 - Q_12_1) - 2*(deltaepslon*elecfieldx*elecfieldy \
++ sigma*QN01 + bb*QN01*(QN00 + QN11) + bb*QN02*QN12 + 2*cc*QN01*((QN00*QN00) \
++ (QN01*QN01) + (QN02*QN02) + QN00*QN11 + (QN11*QN11) + (QN12*QN12)) - \
+L1_tilde*(Q_01_00 + Q_01_11 + Q_01_22)) + L3_tilde*(-2*Q_02_0*Q_02_1 + \
+2*Q_01_0*(Q_01_1 + Q_02_2) - Q_11_0*(Q_00_1 + 2*Q_11_1) + 2*Q_01_2*(Q_02_0 - \
+Q_11_2 + Q_12_1) + 2*(-(Q_12_0*Q_12_1) + Q_01_1*(Q_11_1 + Q_12_2) + \
+QN00*Q_01_00 + 2*QN01*Q_01_01 + 2*QN02*Q_01_02 + QN11*Q_01_11 + \
+2*QN12*Q_01_12 - (QN00 + QN11)*Q_01_22)) + (L2_tilde + Ls)*(Q_00_01 + Q_01_00 \
++ Q_01_11 + Q_02_12 + Q_11_01 + Q_12_02))/2.);\\n}\\n\\ndouble bulk_02(const \
 double  QN[5],const double  dQ[15],const double  ddQ[30]) \\n{ \\n return \
-Lambda*(-(QN01*(sigma + bb*(QN00 + QN11) + 2*cc*((QN00*QN00) + (QN01*QN01) + \
-(QN02*QN02) + QN00*QN11 + (QN11*QN11)))) - bb*QN02*QN12 - \
-2*cc*QN01*(QN12*QN12) + Lq_tilde*(-Q_00_2 + Q_02_0 + Q_11_2 - Q_12_1) + \
-L1_tilde*(Q_01_00 + Q_01_11 + Q_01_22));\\n}\\n\\ndouble bulk_02(const double \
- QN[5],const double  dQ[15],const double  ddQ[30]) \\n{ \\n return \
-Lambda*(-(sigma*QN02) + bb*(QN02*QN11 - QN01*QN12) - 2*cc*QN02*((QN00*QN00) + \
-(QN01*QN01) + (QN02*QN02) + QN00*QN11 + (QN11*QN11) + (QN12*QN12)) + \
-Lq_tilde*(2*Q_00_1 - Q_01_0 + Q_11_1 + Q_12_2) + L1_tilde*(Q_02_00 + Q_02_11 \
-+ Q_02_22));\\n}\\n\\ndouble bulk_11(const double  QN[5],const double  \
-dQ[15],const double  ddQ[30]) \\n{ \\n return Lambda*((bb*(2*(QN00*QN00) - \
+Lambda*((4*Lq_tilde*Q_00_1 + 2*Lq_tilde*(-Q_01_0 + Q_11_1 + Q_12_2) - \
+2*(deltaepslon*elecfieldx*elecfieldz + sigma*QN02 - bb*QN02*QN11 + \
+bb*QN01*QN12 + 2*cc*QN02*((QN00*QN00) + (QN01*QN01) + (QN02*QN02) + QN00*QN11 \
++ (QN11*QN11) + (QN12*QN12)) - L1_tilde*(Q_02_00 + Q_02_11 + Q_02_22)) + \
+L3_tilde*(-(Q_00_2*(2*Q_02_2 + Q_11_0)) - Q_00_0*(2*Q_00_2 - 2*Q_02_0 + \
+Q_11_2) + 2*(Q_01_1*Q_02_0 + Q_02_0*Q_02_2 - (Q_02_2 + Q_11_0)*Q_11_2 + \
+Q_02_2*Q_12_1) + 2*(Q_01_0*(-Q_01_2 + Q_02_1) - Q_12_0*Q_12_2 + \
+Q_02_1*(Q_11_1 + Q_12_2) + QN00*Q_02_00 + 2*QN01*Q_02_01 + 2*QN02*Q_02_02 + \
+QN11*Q_02_11 + 2*QN12*Q_02_12 - (QN00 + QN11)*Q_02_22)) + (L2_tilde + \
+Ls)*(Q_01_12 + Q_02_00 + Q_02_22 - Q_11_02 + Q_12_01))/2.);\\n}\\n\\ndouble \
+bulk_11(const double  QN[5],const double  dQ[15],const double  ddQ[30]) \\n{ \
+\\n return Lambda*((deltaepslon*((elecfieldx*elecfieldx) - \
+2*(elecfieldy*elecfieldy) + (elecfieldz*elecfieldz)) + bb*(2*(QN00*QN00) - \
 (QN01*QN01) + 2*(QN02*QN02) + 2*QN00*QN11 - (QN11*QN11) - (QN12*QN12)) - \
 3*QN11*(sigma + 2*cc*((QN00*QN00) + (QN01*QN01) + (QN02*QN02) + QN00*QN11 + \
-(QN11*QN11) + (QN12*QN12))) - 6*Lq_tilde*Q_01_2 + 6*Lq_tilde*Q_12_0 + \
-3*L1_tilde*(Q_11_00 + Q_11_11 + Q_11_22))/3.);\\n}\\n\\ndouble bulk_12(const \
-double  QN[5],const double  dQ[15],const double  ddQ[30]) \\n{ \\n return \
-Lambda*(bb*(-(QN01*QN02) + QN00*QN12) - QN12*(sigma + 2*cc*((QN00*QN00) + \
-(QN01*QN01) + (QN02*QN02) + QN00*QN11 + (QN11*QN11) + (QN12*QN12))) - \
-Lq_tilde*(Q_00_0 - Q_01_1 + Q_02_2 + 2*Q_11_0) + L1_tilde*(Q_12_00 + Q_12_11 \
-+ Q_12_22));\\n}\\n\\n\"\>"], "Output",
+(QN11*QN11) + (QN12*QN12))) + 6*Lq_tilde*(-Q_01_2 + Q_12_0) - (L2_tilde + \
+Ls)*Q_00_00 + 3*L1_tilde*(Q_11_00 + Q_11_11 + Q_11_22) + \
+L3_tilde*((Q_00_0*Q_00_0) - 2*(Q_00_1*Q_00_1) + (Q_00_2*Q_00_2) + \
+(Q_01_0*Q_01_0) - 2*(Q_01_1*Q_01_1) + (Q_01_2*Q_01_2) + (Q_02_0*Q_02_0) - \
+2*(Q_02_1*Q_02_1) + (Q_02_2*Q_02_2) + (4*Q_00_0 + 3*(Q_01_1 + Q_02_2))*Q_11_0 \
++ (Q_11_0*Q_11_0) - 2*Q_00_1*Q_11_1 + 3*Q_01_0*Q_11_1 + (Q_11_1*Q_11_1) - \
+2*Q_00_2*Q_11_2 + 3*Q_02_0*Q_11_2 - 2*(Q_11_2*Q_11_2) + (Q_12_0*Q_12_0) + \
+3*Q_11_2*Q_12_1 - 2*(Q_12_1*Q_12_1) + 3*Q_11_1*Q_12_2 + (Q_12_2*Q_12_2) + \
+3*QN00*Q_11_00 + 6*QN01*Q_11_01 + 6*QN02*Q_11_02 + 3*QN11*Q_11_11 + \
+6*QN12*Q_11_12 - 3*(QN00 + QN11)*Q_11_22) + (L2_tilde + Ls)*(Q_00_22 + \
+Q_01_01 - 2*Q_02_02 + 2*Q_11_11 + Q_11_22 + Q_12_12))/3.);\\n}\\n\\ndouble \
+bulk_12(const double  QN[5],const double  dQ[15],const double  ddQ[30]) \\n{ \
+\\n return Lambda*((2*Lq_tilde*(Q_01_1 - Q_02_2 - 2*Q_11_0) - \
+2*Q_00_0*(Lq_tilde - L3_tilde*Q_12_0) - (L2_tilde + Ls)*Q_00_12 + (L2_tilde + \
+Ls)*(Q_01_02 + Q_02_01 + Q_12_11 + Q_12_22) - \
+2*(deltaepslon*elecfieldy*elecfieldz + bb*QN01*QN02 + (sigma - bb*QN00 + \
+2*cc*((QN00*QN00) + (QN01*QN01) + (QN02*QN02) + QN00*QN11 + \
+(QN11*QN11)))*QN12 + 2*cc*(QN12*QN12*QN12) - L1_tilde*(Q_12_00 + Q_12_11 + \
+Q_12_22)) + L3_tilde*(-(Q_00_1*(2*Q_00_2 + Q_11_2)) + 2*Q_02_0*Q_12_2 - \
+2*(Q_11_2 - Q_12_1)*(Q_11_1 + Q_12_2) - Q_00_2*(Q_11_1 + 2*Q_12_2) + \
+2*(Q_01_1*(-Q_01_2 + Q_12_0) + Q_02_2*(-Q_02_1 + Q_12_0) + Q_01_0*Q_12_1 + \
+QN00*Q_12_00 + 2*QN01*Q_12_01 + 2*QN02*Q_12_02 + QN11*Q_12_11 + \
+2*QN12*Q_12_12 - (QN00 + QN11)*Q_12_22)))/2.);\\n}\\n\\n\"\>"], "Output",
  CellChangeTimes->{
   3.712913201565599*^9, 3.712928768604219*^9, 3.7129298589210987`*^9, 
    3.712932614252495*^9, 3.712933085190968*^9, 3.7129333579195642`*^9, 
@@ -1874,7 +2093,7 @@ Lq_tilde*(Q_00_0 - Q_01_1 + Q_02_2 + 2*Q_11_0) + L1_tilde*(Q_12_00 + Q_12_11 \
    3.719934531285878*^9, 3.719934574255516*^9, 3.719935108430484*^9, 
    3.720171258814996*^9, 3.720177538770823*^9, {3.720181900133684*^9, 
    3.720181910849029*^9}, 3.720182000833559*^9, 3.720182090282174*^9, 
-   3.72018212960457*^9}]
+   3.72018212960457*^9, 3.779468508415111*^9, 3.7794686392689753`*^9}]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
@@ -2548,8 +2767,8 @@ Cell[BoxData[
 }, Open  ]]
 }, Open  ]]
 },
-WindowSize->{1920, 1016},
-WindowMargins->{{-1, Automatic}, {Automatic, -1}},
+WindowSize->{1366, 715},
+WindowMargins->{{-14, Automatic}, {Automatic, -14}},
 FrontEndVersion->"10.0 for Linux x86 (64-bit) (June 27, 2014)",
 StyleDefinitions->"Default.nb"
 ]
@@ -2570,9 +2789,9 @@ Cell[CellGroupData[{
 Cell[781, 28, 157, 2, 65, "Section"],
 Cell[CellGroupData[{
 Cell[963, 34, 106, 1, 44, "Subsection"],
-Cell[1072, 37, 424, 7, 33, "Text"],
+Cell[1072, 37, 424, 7, 55, "Text"],
 Cell[1499, 46, 9687, 271, 671, "Input"],
-Cell[11189, 319, 10705, 251, 593, "Input"],
+Cell[11189, 319, 10705, 251, 631, "Input"],
 Cell[21897, 572, 2556, 75, 77, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
@@ -2581,110 +2800,113 @@ Cell[24652, 656, 413, 13, 32, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
 Cell[25102, 674, 147, 2, 45, "Subsection"],
-Cell[25252, 678, 7197, 186, 410, "Input"]
+Cell[CellGroupData[{
+Cell[25274, 680, 7721, 202, 387, "Input"],
+Cell[32998, 884, 1746, 50, 85, "Output"]
+}, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[32486, 869, 104, 1, 45, "Subsection"],
+Cell[34793, 940, 104, 1, 45, "Subsection"],
 Cell[CellGroupData[{
-Cell[32615, 874, 111, 1, 35, "Subsubsection"],
-Cell[32729, 877, 686, 16, 62, "Input"]
+Cell[34922, 945, 111, 1, 35, "Subsubsection"],
+Cell[35036, 948, 686, 16, 56, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[33452, 898, 103, 1, 35, "Subsubsection"],
-Cell[33558, 901, 637, 17, 32, "Input"]
+Cell[35759, 969, 103, 1, 35, "Subsubsection"],
+Cell[35865, 972, 637, 17, 32, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[34232, 923, 158, 2, 35, "Subsubsection"],
-Cell[34393, 927, 170, 2, 33, "Text"],
-Cell[34566, 931, 116, 1, 33, "Text"],
-Cell[34685, 934, 5161, 130, 344, "Input"]
+Cell[36539, 994, 158, 2, 35, "Subsubsection"],
+Cell[36700, 998, 170, 2, 33, "Text"],
+Cell[36873, 1002, 116, 1, 33, "Text"],
+Cell[36992, 1005, 5161, 130, 327, "Input"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[39907, 1071, 100, 1, 66, "Chapter"],
+Cell[42214, 1142, 100, 1, 66, "Chapter"],
 Cell[CellGroupData[{
-Cell[40032, 1076, 107, 1, 65, "Section"],
-Cell[40142, 1079, 721, 11, 32, "Input"],
+Cell[42339, 1147, 107, 1, 65, "Section"],
+Cell[42449, 1150, 721, 11, 32, "Input"],
 Cell[CellGroupData[{
-Cell[40888, 1094, 139, 1, 45, "Subsection"],
-Cell[41030, 1097, 6074, 128, 253, "Input"]
+Cell[43195, 1165, 139, 1, 45, "Subsection"],
+Cell[43337, 1168, 6074, 128, 275, "Input"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[47153, 1231, 155, 2, 65, "Section"],
-Cell[47311, 1235, 296, 5, 33, "Text"],
-Cell[47610, 1242, 1622, 28, 77, "Input"]
+Cell[49460, 1302, 155, 2, 65, "Section"],
+Cell[49618, 1306, 296, 5, 33, "Text"],
+Cell[49917, 1313, 1497, 25, 77, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[49269, 1275, 149, 2, 65, "Section"],
+Cell[51451, 1343, 149, 2, 65, "Section"],
 Cell[CellGroupData[{
-Cell[49443, 1281, 103, 1, 45, "Subsection"],
-Cell[49549, 1284, 2901, 62, 77, "Input"]
+Cell[51625, 1349, 103, 1, 45, "Subsection"],
+Cell[51731, 1352, 2901, 62, 77, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[52487, 1351, 108, 1, 45, "Subsection"],
-Cell[52598, 1354, 2967, 83, 121, "Input"],
+Cell[54669, 1419, 108, 1, 45, "Subsection"],
+Cell[54780, 1422, 2967, 83, 121, "Input"],
 Cell[CellGroupData[{
-Cell[55590, 1441, 130, 1, 35, "Subsubsection"],
-Cell[55723, 1444, 129, 1, 33, "Text"],
-Cell[55855, 1447, 7800, 147, 539, "Input"]
+Cell[57772, 1509, 130, 1, 35, "Subsubsection"],
+Cell[57905, 1512, 129, 1, 33, "Text"],
+Cell[58037, 1515, 8299, 156, 583, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[63692, 1599, 188, 2, 35, "Subsubsection"],
+Cell[66373, 1676, 188, 2, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[63905, 1605, 1821, 43, 99, "Input"],
-Cell[65729, 1650, 1711, 24, 583, "Output"]
-}, Open  ]]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[67501, 1681, 99, 1, 45, "Subsection"],
-Cell[CellGroupData[{
-Cell[67625, 1686, 1529, 38, 77, "Input"],
-Cell[69157, 1726, 3605, 50, 847, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[72799, 1781, 97, 1, 35, "Subsubsection"],
-Cell[CellGroupData[{
-Cell[72921, 1786, 1697, 42, 99, "Input"],
-Cell[74621, 1830, 3311, 46, 693, "Output"]
-}, Open  ]]
-}, Open  ]]
+Cell[66586, 1682, 1821, 43, 143, "Input"],
+Cell[68410, 1727, 4594, 65, 1133, "Output"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[78017, 1885, 113, 1, 66, "Chapter"],
+Cell[73065, 1799, 99, 1, 45, "Subsection"],
 Cell[CellGroupData[{
-Cell[78155, 1890, 106, 1, 65, "Section"],
-Cell[78264, 1893, 1428, 37, 121, "Input"],
-Cell[79695, 1932, 289, 6, 51, "Subsubsection"]
+Cell[73189, 1804, 1529, 38, 121, "Input"],
+Cell[74721, 1844, 7460, 109, 1639, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[80021, 1943, 92, 1, 65, "Section"],
-Cell[80116, 1946, 2137, 46, 77, "Input"]
-}, Open  ]],
+Cell[82218, 1958, 97, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[82290, 1997, 91, 1, 65, "Section"],
-Cell[82384, 2000, 1542, 39, 77, "Input"]
+Cell[82340, 1963, 1697, 42, 143, "Input"],
+Cell[84040, 2007, 6461, 88, 1243, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[83975, 2045, 95, 1, 66, "Chapter"],
+Cell[90586, 2104, 113, 1, 66, "Chapter"],
 Cell[CellGroupData[{
-Cell[84095, 2050, 104, 1, 65, "Section"],
-Cell[84202, 2053, 1510, 35, 253, "Input"]
+Cell[90724, 2109, 106, 1, 65, "Section"],
+Cell[90833, 2112, 1428, 37, 121, "Input"],
+Cell[92264, 2151, 289, 6, 48, "Subsubsection"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[85749, 2093, 91, 1, 65, "Section"],
-Cell[85843, 2096, 9781, 220, 891, "Input"],
-Cell[95627, 2318, 678, 9, 55, "Input"],
-Cell[96308, 2329, 934, 13, 32, "Input"]
+Cell[92590, 2162, 92, 1, 65, "Section"],
+Cell[92685, 2165, 2137, 46, 121, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[97279, 2347, 94, 1, 65, "Section"],
-Cell[97376, 2350, 8229, 195, 781, "Input"]
+Cell[94859, 2216, 91, 1, 65, "Section"],
+Cell[94953, 2219, 1542, 39, 121, "Input"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[96544, 2264, 95, 1, 66, "Chapter"],
+Cell[CellGroupData[{
+Cell[96664, 2269, 104, 1, 65, "Section"],
+Cell[96771, 2272, 1510, 35, 253, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[98318, 2312, 91, 1, 65, "Section"],
+Cell[98412, 2315, 9781, 220, 913, "Input"],
+Cell[108196, 2537, 678, 9, 55, "Input"],
+Cell[108877, 2548, 934, 13, 32, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[109848, 2566, 94, 1, 65, "Section"],
+Cell[109945, 2569, 8229, 195, 803, "Input"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]

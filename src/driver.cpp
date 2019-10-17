@@ -28,6 +28,7 @@ driver::driver(void)
 void driver::setup_LC(void)
 {
 
+  
   //Setting the chirality parameter:
   switch(sim_param.chirality_flag)
     {
@@ -107,8 +108,32 @@ void driver::setup_LC(void)
       break;
         
     }
-
-
+  /*checking electric field parameters - since Marlics require 4 parameters to apply
+   * the electric field
+  */
+  if(sim_param.field_flag[0]==parameter_status::unset&&
+     sim_param.field_flag[1]==parameter_status::unset&&
+     sim_param.field_flag[2]==parameter_status::unset&&
+     sim_param.field_flag[3]==parameter_status::unset)
+    {
+      std::cout<<"None of the electric field parameters are defined in your input folder"<<std::endl;
+      std::cout<<"Proceding without field interaction"<<std::endl;
+    }
+  else if (sim_param.field_flag[0]==parameter_status::set&&
+           sim_param.field_flag[1]==parameter_status::set&&
+           sim_param.field_flag[2]==parameter_status::set&&
+           sim_param.field_flag[3]==parameter_status::set)  
+    {  
+      std::cout<<"Electric field defined as E="<<sim_param.elecfieldx<<"i+";
+      std::cout<<sim_param.elecfieldy<<"j+"<<sim_param.elecfieldz<<"k.";
+      std::cout<<" With dielectric anisotropy equals "<<sim_param.deltaepslon<<std::endl;
+    } 
+  else
+    {
+      std::cout<<"You must define the 4 electric parameters in your input in order to apply the electric field."<<std::endl;
+      std::cout<<"You can't define any electric parameter in a fieldless simulation."<<std::endl; 
+      exit(1);
+    }
   switch(sim_param.viscosity_flag[0])
     {
     case viscosity_status::unset:
@@ -176,8 +201,6 @@ void driver::setup_LC(void)
       std::cout << "Aborting the program";
         
     }
-
-  
 
       
 }
@@ -1065,6 +1088,42 @@ int driver::parse_input_file(char input_name[])
           fgets(garbage,400,input_file);
 
 
+        }
+       else if ( strcasecmp(parser,"elecfieldx") == 0 || strcasecmp(parser,"electric_field_x") == 0  )
+        {
+          sim_param.field_flag[0]=parameter_status::set;
+          error_handler=fscanf(input_file,"%lf",&sim_param.elecfieldx);
+
+          error_check(error_handler,parser);
+          
+          fgets(garbage,400,input_file);
+        }
+       else if ( strcasecmp(parser,"elecfieldy") == 0 || strcasecmp(parser,"electric_field_y") == 0  )
+        {
+          sim_param.field_flag[1]=parameter_status::set;
+          error_handler=fscanf(input_file,"%lf",&sim_param.elecfieldy);
+
+          error_check(error_handler,parser);
+          
+          fgets(garbage,400,input_file);
+        }
+       else if ( strcasecmp(parser,"elecfieldz") == 0 || strcasecmp(parser,"electric_field_z") == 0  )
+        {
+          sim_param.field_flag[2]=parameter_status::set;
+          error_handler=fscanf(input_file,"%lf",&sim_param.elecfieldz);
+
+          error_check(error_handler,parser);
+          
+          fgets(garbage,400,input_file);
+        }
+       else if ( strcasecmp(parser,"deltaepslon") == 0 || strcasecmp(parser,"delta_epslon") == 0  )
+        {
+          sim_param.field_flag[3]=parameter_status::set;
+          error_handler=fscanf(input_file,"%lf",&sim_param.deltaepslon);
+
+          error_check(error_handler,parser);
+          
+          fgets(garbage,400,input_file);
         }
       else if (strcasecmp(parser,"run") == 0)
         {

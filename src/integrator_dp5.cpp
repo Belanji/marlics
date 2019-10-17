@@ -209,7 +209,7 @@ void DP5::evolve( double * Qij, double *time, double tf )
           
           //Restarting global error:
           global_error=0.;
-        
+        #pragma omp barrier
           //Calculating error:
           #pragma omp for simd schedule(simd:dynamic,new_chunk_size) reduction(max:global_error)
           for( ll=0; ll<5*Ny*Ny*Nz;ll++)
@@ -246,7 +246,11 @@ void DP5::evolve( double * Qij, double *time, double tf )
             
               hfactor=min(facmax,MAX(facmin,prefac*pow(global_error,-0.2000000000)));
               dt=dt*hfactor;
-            
+              if(dt<1e-14)
+                {
+                  printf("Convergence problem!!!\n Aborting execution!!!\n");
+                  exit(5);
+                }      
               if( (tf-*time) < dt) dt=tf-*time;
               
             }

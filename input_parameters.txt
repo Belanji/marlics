@@ -2,25 +2,25 @@ geometry slab
 integrator DP5
 
 
-Nx 101                /*      grid size      */
-Ny 101                /*      grid size      */
-Nz 101                /*      grid size      */
+Nx 30                /*      grid size      */
+Ny 30                /*      grid size      */
+Nz 30                /*      grid size      */
 
 
-a  0.086             /*     10^6 J/Km^3     */
+a  0.086             /*     10^6 J/K.m^3     */
 B -2.12              /*     10^6 J/m^3      */
 C  1.74              /*     10^6 J/m^3      */
 
 
-L1  15.0
-L2  15.0
-L3  15.0
-Ls  0.0 
-Lq  0.0
+#L1  15.0
+#L2  15.0
+#L3  15.0
+#Ls  0.0 
+#Lq  0.0
 
-#k11 16.7
-#k22 7.8
-#k33 18.1
+k11 16.7
+k22 7.8
+k33 18.1
 
 T   -1.0
 
@@ -30,7 +30,7 @@ facmax 3.0
 facmin 0.4
 prefac 0.8
 
-p0        500.0        /*     10^-9 m         */
+#p0        500.0        /*     10^-9 m         */
 dx        10.0          /*     10^-9 m         */
 dy        10.0          /*     10^-9 m         */
 dz        10.0          /*     10^-9 m         */
@@ -40,41 +40,45 @@ mu_1_s    3.0          /*     10 ^-9 Pa s     */
 
 dt        0.001     /*     10^-6  s        */	
 #ti        0.0
-tf        5000.0     /*    10^-6 s          */
+tf        10.0     /*    10^-6 s          */
 
 
 time_print_type	          logarithmic
-timeprint                 50.        /*  10^-6 s   */
+timeprint                 0.5        /*  10^-6 s   */
 timeprint_increase_factor 1.16        /*  10^-6 s   */     
 
 
 #Initial Conditions
 
 #Random ic:
-initial_conditions          random
-#initial_conditions homogeneous_easy_axis
+#initial_conditions          random
+initial_conditions homogeneous  _easy_axis
 
-theta_i 45.0
-phi_i 0.0
+theta_i 90.0
+phi_i    3.0
 
 #Use other simulation output as initial condition:
 #initial_conditions           read_from_file 
 #ic_file                      director_field_5.csv
 
 initial_output_file_number   0
-#output_folder   .
+output_folder   csv
 #output_fname   n_$$.csv
 
 #Top boundary conditions:
-anchoring_type  0   fournier-galatola
+anchoring_type  0   rp
 Wo1       0    10.0                         /*     10^-3 J/m^2     */
-phi_0     0    0.
-theta_0   0    0.
+phi_0     0    3.
+theta_0   0    90.
 
-anchoring_type  1   fournier-galatola
+anchoring_type  1   rp
 Wo1       1    10.0                         /*     10^-3 J/m^2     */
-phi_0     1    0
-theta_0   1    0
+phi_0     1    3
+theta_0   1    90
 
+electric_field_x 0.0                       /*     10^6 V/m        */
+electric_field_y 2.0                       /*     10^6 V/m        */
+electric_field_z 0                        /*     10^6 V/m        */
+delta_epslon     5	                   
 
 run
