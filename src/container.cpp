@@ -21,6 +21,7 @@ container::container(struct Simulation_Parameters * sim_param)
 
   if (stat(output_folder,&buffer)!=0)
   {
+      std::cout<<output_folder<<": directory not found"<<endl;
       perror(output_folder);
       exit(4);
   }  

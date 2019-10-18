@@ -83,21 +83,23 @@ void driver::setup_LC(void)
         
     case elastic_const_status::Ks:
 
-      std::cout<<"Converting elastic constants Kii to Li.\n";
+      {
+        std::cout<<"Converting elastic constants Kii to Li.\n";
 
-      double S_eq=sim_param.S_eq;
-      double k11=sim_param.k11;
-      double k22=sim_param.k22;
-      double k33=sim_param.k33;
-      double k24=sim_param.k24;
-
-  
-      sim_param.L1=2.0*(k33-k11+3.0*k22)/(27.0*S_eq*S_eq);
-      sim_param.L2=4.0*(k11-k22-k24)/(9.0*S_eq*S_eq);
-      sim_param.L3=4.0*(k33-k11)/(27.0*S_eq*S_eq*S_eq);
-      sim_param.Lq=2.0*(k22)/(9.0*S_eq*S_eq);
-      sim_param.Ls=4*(k24)/(9.0*S_eq*S_eq);
-      break;
+        double S_eq=sim_param.S_eq;
+        double k11=sim_param.k11;
+        double k22=sim_param.k22;
+        double k33=sim_param.k33;
+        double k24=sim_param.k24;
+        
+        
+        sim_param.L1=2.0*(k33-k11+3.0*k22)/(27.0*S_eq*S_eq);
+        sim_param.L2=4.0*(k11-k22-k24)/(9.0*S_eq*S_eq);
+        sim_param.L3=4.0*(k33-k11)/(27.0*S_eq*S_eq*S_eq);
+        sim_param.Lq=2.0*(k22)/(9.0*S_eq*S_eq);
+        sim_param.Ls=4*(k24)/(9.0*S_eq*S_eq);
+        break;
+      }
 
     case elastic_const_status::unset:
 
