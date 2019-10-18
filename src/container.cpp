@@ -43,15 +43,23 @@ container::container(struct Simulation_Parameters * sim_param)
   switch(sim_param->timeprint_status[3])
     {
       case parameter_status::set:
-      
-        file_number=sim_param->first_output_file_number;
-        cout << "First snapshot will written at \"" << output_folder <<"\\"<<output_fname<<"_"<<file_number<<".csv\"."<<std::endl;
-        
-        Nx=sim_param->Nx;
-        Ny=sim_param->Ny;
-        Nz=sim_param->Nz;
-        break;
-      
+        {
+          char first_name[100];
+          char fn[3];
+          sprintf(fn,"%d",sim_param->first_output_file_number);
+          std::string output_name=output_fname;
+          std::size_t found = output_name.rfind("$$");
+          if (found!=std::string::npos)
+            output_name.replace (found,2,fn);
+            
+          sprintf(first_name,"%s/%s", output_folder, output_name.c_str());
+          cout << "First snapshot will written at \"" << first_name <<"\"."<<std::endl;
+          
+          Nx=sim_param->Nx;
+          Ny=sim_param->Ny;
+          Nz=sim_param->Nz;
+          break;
+        }
       case parameter_status::unset:
       
         std::cout << "First snapshot file number not set.";
