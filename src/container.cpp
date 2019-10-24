@@ -47,6 +47,7 @@ container::container(struct Simulation_Parameters * sim_param)
           char first_name[100];
           char fn[3];
           sprintf(fn,"%d",sim_param->first_output_file_number);
+          file_number=sim_param->first_output_file_number;
           std::string output_name=output_fname;
           std::size_t found = output_name.rfind("$$");
           if (found!=std::string::npos)
