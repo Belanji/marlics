@@ -179,7 +179,6 @@ void CN::evolve( double * Qij, double *time, double tf )
   
   
   TSSolve(cranck_int, NULL );
-  exit(0);
   *time=tf;
   
 

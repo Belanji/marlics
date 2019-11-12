@@ -217,7 +217,7 @@ PetscErrorCode Geometry_Bulk::Jacobian(TS ts,PetscReal time,Vec Qij_in,Mat Jac,M
   const PetscScalar * Qij;
   PetscErrorCode ierr;
 
-  
+  MatZeroEntries(Jac);
   VecGetArrayRead(Qij_in, &Qij);
  
 
