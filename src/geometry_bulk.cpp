@@ -21,7 +21,7 @@ Geometry_Bulk::Geometry_Bulk(const struct Simulation_Parameters * sim_param) : G
   bc_conditions=std::vector<class BOUNDARY *>(number_of_boundaries);
 
   RhsPtr=Geometry_Bulk::RhsFunction;
-  JacobianPtr=NULL;
+  JacobianPtr=Geometry_Bulk::Jacobian;
 
   
 };
@@ -205,3 +205,43 @@ PetscErrorCode Geometry_Bulk::RhsFunction(TS ts,PetscReal time,Vec Qij_in,Vec Rh
   return ierr;
 }
 
+PetscErrorCode Geometry_Bulk::Jacobian(TS ts,PetscReal time,Vec Qij_in,Mat Jac,Mat Jac_pc, void* sim_geometry)
+{
+
+  int i, j, k;
+  GEOMETRY * sample_geometry=(GEOMETRY *) sim_geometry;
+  const int Nx=sample_geometry->Nx;
+  const int Ny=sample_geometry->Ny;
+  const int Nz=sample_geometry->Nz;
+
+  const PetscScalar * Qij;
+  PetscErrorCode ierr;
+
+  
+  VecGetArrayRead(Qij_in, &Qij);
+ 
+
+  for( i= 0; i< Nx; i++)
+    {
+      for( j= 0; j< Ny; j++)
+	{
+	  for( k= 0; k< Nz; k++)
+	    {
+
+	      sample_geometry->fill_jac_bulk( Qij, Jac, Jac_pc,  i,  j,  k);
+
+	    }
+
+	}
+
+
+    }
+	
+
+  
+  MatAssemblyBegin(Jac, MAT_FINAL_ASSEMBLY);
+  MatAssemblyEnd(Jac, MAT_FINAL_ASSEMBLY);
+  VecRestoreArrayRead(Qij_in,&Qij);
+  return ierr;
+
+}

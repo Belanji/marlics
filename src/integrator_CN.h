@@ -15,7 +15,7 @@ class CN : public Integrator
 
 
   Vec  Qsolution, Qtij, Rhs;
-  //Mat  Jac, Jac_precond;
+  Mat  Jac, Jac_precond;
   TS   cranck_int;
   
   

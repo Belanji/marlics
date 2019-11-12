@@ -6,7 +6,7 @@
 ############ Intel:
 
 COMPILER = mpiicpc
-FLAGS=   -fPIC -wd1572  -O3  -no-prec-div -xHost -simd -qopenmp -fp-model fast=2  -g
+FLAGS=   -fPIC -wd1572  -O3  -no-prec-div -xHost -simd -qopenmp -fp-model fast=2  
 LIB = -mkl -lgsl 
 
 ############ Intel 2 :

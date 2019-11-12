@@ -58,6 +58,10 @@ class GEOMETRY
   virtual  double bulk_12(const double  QN[5],const double  dQ[15],const double  ddQ[30]) const;
 
 
+  void fill_jac_bulk(const PetscScalar *Qij,Mat Jac,Mat Jac_pc, int i, int j, int k);
+  
+
+  
   //protected:
 
 

@@ -1,4 +1,4 @@
-geometry   slab
+geometry   bulk
 integrator CN
 
 
@@ -47,12 +47,12 @@ tf        1500.0     /*    10^-6 s          */
 time_print_type	          linear
 timeprint                 150.        /*  10^-6 s   */
 timeprint_increase_factor 150.        /*  10^-6 s   */     
-initial_output_file_number   1
+initial_output_file_number   0
 
 #Initial Conditions
 
 #Random ic:
-#initial_conditions          random
+initial_conditions          random
 
 
 #Random in Bulk homogeneous on the boundary:
@@ -65,8 +65,8 @@ initial_output_file_number   1
 #phi_i 0.0
 
 #Use other simulation output as initial condition:
-initial_conditions           read_from_file 
-ic_file                      director_field_0.csv
+#initial_conditions           read_from_file 
+#ic_file                      director_field_0.csv
 
 
 

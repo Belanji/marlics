@@ -45,6 +45,8 @@ CN::CN( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_param ) 
   VecDuplicate( Qsolution , &Qtij  );
   VecDuplicate( Qsolution , &Rhs  );
 
+  MatCreateSeqAIJ(PETSC_COMM_SELF, 5*Nx*Ny*Nz, 5*Nx*Ny*Nz, NUMBEROFCLOSEPOINTS , NULL, &Jac );
+  MatSetUp(Jac);
 
   
   //TSAdapt * adaptor_ref;
@@ -63,7 +65,7 @@ CN::CN( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_param ) 
   
   TSGetSNES(cranck_int , &snes);
   SNESSetTolerances(snes, Atol, Rtol, (Atol+Rtol) , 10,10);
-  SNESSetType(snes, SNESQN);
+  SNESSetType(snes, SNESNEWTONLS);
   
   KSP ksp;
   SNESGetKSP( snes, &ksp);
@@ -81,7 +83,7 @@ CN::CN( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_param ) 
 
   TSSetExactFinalTime(cranck_int , TS_EXACTFINALTIME_MATCHSTEP);
   TSSetRHSFunction(cranck_int,Rhs, sample_geometry->RhsPtr,  sample_geometry);
-
+  TSSetRHSJacobian(cranck_int,Jac,Jac,sample_geometry->JacobianPtr,sample_geometry);
     
 };
 
@@ -176,8 +178,8 @@ void CN::evolve( double * Qij, double *time, double tf )
   TSSetMaxTime(cranck_int , tf);
   
   
-  TSSolve(cranck_int , NULL);
-
+  TSSolve(cranck_int, NULL );
+  exit(0);
   *time=tf;
   
 
