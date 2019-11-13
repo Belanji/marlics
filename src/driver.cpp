@@ -7,6 +7,8 @@
 #include "boundary.h"
 #include "integrator.h"
 #include "integrator_dp5.h" 
+#include "integrator_rk2.h" 
+#include "integrator_euler.h" 
 #include <cstdlib>          
 #include <cstring>
 #include <cmath>            
@@ -411,6 +413,18 @@ void driver::setup_Simulation(void)
         {
   
           LcS_Integrator= new DP5(LcS_Geometry, & sim_param );
+  
+        }
+      else if ( strcasecmp(sim_param.integrator_type,"RK2") == 0 || strcasecmp(sim_param.integrator_type,"Runge-Kutta2") == 0)
+        {
+  
+          LcS_Integrator= new RK2(LcS_Geometry, & sim_param );
+  
+        }
+      else if ( strcasecmp(sim_param.integrator_type,"RK1") == 0 || strcasecmp(sim_param.integrator_type,"Euler") == 0)
+        {
+  
+          LcS_Integrator= new Euler(LcS_Geometry, & sim_param );
   
         }
   

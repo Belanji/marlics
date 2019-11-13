@@ -1,5 +1,5 @@
 geometry slab
-integrator DP5
+integrator Euler 
 
 
 Nx 30                /*      grid size      */
@@ -62,7 +62,7 @@ phi_i    3.0
 #ic_file                      director_field_5.csv
 
 initial_output_file_number   0
-output_folder   csv
+output_folder   csv_euler
 #output_fname   n_$$.csv
 
 #Top boundary conditions:
