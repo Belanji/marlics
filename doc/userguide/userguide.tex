@@ -27,8 +27,7 @@
 \lstset{morecomment=[l]{\%}}
 	
 \title{Marlics User Guide}
-\author{Renato Ferreira de Souza and
-Eric Koudhi Omori}
+\author{Renato Ferreira de Souza, Eric Koudhi Omori and Rafael Soares Zola}
 
 \begin{document}
 
@@ -38,165 +37,216 @@ Eric Koudhi Omori}
   
 Welcome to Marlics (\textbf{Mar}ingá \textbf{li}quid \textbf{c}rystal
 \textbf{s}imulator). Marlics is a software developed in C++ to
-simulate the dynamics of the liquid crystal tensorial order parameter
-by means\added[id=e]{ of} finite differences. Finite differences works very well in
-non-curvilinear geometries, and in a\replaced[id=e]{ lesser}{ less} extent, in curvilinear
-geometries as well. We already provided three of such geometries
-(slab, bulk and sphere), but since we are providing the source code
-under a GPL license, the user can implement their own geometries if
-needed (please see developer guide). 
+simulate the dynamics a liquid crystal order parameters by means of
+finite differences. Our software is mainly intended to be used to
+simulate non-curvilinear geometries were finite differences works very
+well. We have provided two of such geometries: bulk and slab.
+Non-curvilinear geometries can also be implemented if they are well
+approximated by cartesian grids. We have provided one of these
+geoemetries: sphere.  Since we are providing the source code under a
+GPL license, the user can implement their own geometries if needed.
 
-The software usage is simple: the user fills an input file chosing the
+The software usage is as follows: the user fills an input file choosing the
 values of simulation parameters and the stage variables. This script
-is passed to the software as the main input (``$<$'' in Unix systems)
-which in turns set up and run the simulation. For ease of use we have
-provided an example input file with the code. \added[id=e]{In the section \ref{sec:inputfile} we are going to describe all the available parameters and options.} 
+is passed to the software as a call variable. For ease of use we have
+provided an example input file with the code, which can also be
+visualized in section\ref{sec:inputfile}. Also, we have provided a
+table with all variables for reference in section
+\ref{sec:parameterlist}.
 
-\replaced[id=e]
-{In the following sections we will shown how to obtain and execute the MarLiCS, along with the source code.}
-{In the following sections we will shown describe which are all the possible 
-parameters and options.
-}
 
 \section{Download and Compilation}
 
-The marlics source code can be downloaded in Renato Ferreira de Souza(Belanji) git-hub page (\textbf{Fill here the gitub page later}). If you use an Unix system, the source code provides a makefile (thanks to Eric Koudhi Omori)\footnote{stop misspelling koudhi, please, just please. and don't forget to erase this =D} to easy up the process of compilation.
-Marlics needs the following libraries installed on your system and reachable by the compiler: gsl (Gnu scientific library) and BLAS. We provide two examples in the make file, one we use the GSL BLAS, and other we use the mkl library to provide the necessary functions.
-After setting up you just have to type:
+The marlics source code can be downloaded in Renato Ferreira de
+Souza(Belanji) git-hub page
+(\textbf{https://github.com/Belanji/marlics}). If you use an Unix
+system, the source code provides a makefile \footnote{thanks to Eric
+  Koudhi Omori} to easy up the process of compilation.  Marlics needs
+the following libraries installed on your system and reachable by the
+compiler: gsl (Gnu scientific library) and BLAS. We provide two
+examples in the make file, one we use the GSL BLAS, and other we use
+the mkl library to provide the necessary functions.  After setting up
+you just have to type:
 
 \consoleline{\$ make}
 
-Now, Marlics is already functional. If you prefer you can add an shortcut (or a copy of the program) in a folder where your system can reach automatically\replaced[id=e]{, known as binary directories in Unix system. A list of these directories can, and must, be found under the variable \$PATH.}{In Unix system the folder searched by the system when can be found in the variable \$PATH.}
+Now, Marlics is already functional. If you prefer you can add an
+shortcut (or a copy of the program) in a folder where your system can
+reach automatically. In Unix system the folder searched by the system
+when can be found in the variable \$PATH.
+
 \section{Execution}
 
-Executing Marlics is very straightforward, you call the program and pass a input file as the standard input. For example,
-\replaced[id=e]
-{ assuming that you have some version (or a link) of the marlics in one binary folder, you can use the command:}
-{if you are using an Unix system and your marlics has an shortcut/copy in a directory shown in the \$PATH. If your input file is named ``input\_file.txt'' you will launch Marlics typing (we provide an example input file if you would like to try it in your console):}
+Executing Marlics is very straightforward, you call the program and
+pass a input file as an argument. For example, if you
+are using an Unix system and your marlics has an shortcut/copy in a
+directory shown in the \$PATH. If your input file is named
+``input\_file.txt'' you will launch Marlics typing (we provide an
+example input file if you would like to try it in your console):
 
 
-\consoleline{\$ marlics $<$ input\_file.txt}
+\consoleline{\$ marlics input\_file.txt}
 
 
-\added[id=e]{to launch a instance of marlics using the ``input\_file.txt'' as input file.}
+\noindent to launch a instance of marlics using the ``input\_file.txt'' as input
+file.
 
-You will notice that the software display several lines of information on your display, if you would like to save these lines to keep an log of the simulation execution (which we strongly advise you to do so), you can redirect the output direct to a file. In Unix systems this can be done with the redirection operator $>$, which will create a new file if it does not exist, or it will overwrite an existing file. If you would like to keep the previous content in the file you can use append operator $>>$, however, we strongly advise against the use of $>>$, since it can leave the output files very difficult to understand.
+You will notice that the software display several lines of information
+on your display, if you would like to save these lines to keep an log
+of the simulation execution (which we strongly advise you to do so),
+you can redirect the output direct to a file. In Unix systems this can
+be done with the redirection operator $>$, which will create a new
+file if it does not exist, otherwise it will overwrite the existing
+file with the same name. If you would like to keep the previous
+content in the file you are overwriting, you can use append operator
+$>>$, however, we strongly advise against its use, since it can leave
+the output files very difficult to understand.
 
 Again as an example, if your settings is in a file named ``input\_file.txt'' and you would like to place the log information in a new$/$overwritten  output file named ``simulation.log'', you can do this by typing:
 
-\consoleline{\$ marlics $<$ input\_file.txt $>$simulation.log}
+\consoleline{\$ marlics  input\_file.txt $>$simulation.log}
 
 \section{Setting up your input file}\label{sec:inputfile}
 
-All parameters and simulation setup \replaced[id=e]{ can be}{ are} passed to marlics via the input file. In this section we will describe how to set up your simulation and how chose the parameters necessary.
+All parameters and simulation setup are passed to marlics via the
+input file. In this section we will describe how to set up your
+simulation and how to chose the necessary parameters.
 
 To help the user we provided an example input file with the program.
 
 \subsection{Filling the input file}
 
-To fill in an parameter value in the input file you
-\replaced[id=e]{
- need to include a line with the parameter name and the parameter value separated by space:
-}{
-type de parameter name followed by any number of spaces and the parameter value afterwards:
-}
+To fill in an parameter value in the input file you need to include a
+line with the parameter name followed by the parameter value (or values depending on the parameter informed) separated by any number of spaces:
 \begin{lstlisting}
    parameter_name  value
 \end{lstlisting}
-notice that any excess space will be ignored. For ease of the users, the parameter names on marlics isn't case sensitive.
+Notice that any excess space will be ignored, also anything written
+after the required parameter values (this is useful to let some
+annotations about the parameters informed). For ease of the use, the
+parameter names on marlics are not case sensitive.
 
-\added[id=e]{Be carefull since marlics can accept multiple instances of the same parameter, but will consider just the last one.}
+Comments line can be placed in the input file initiating the line with
+the symbol ``\#''. We strong recommend the user to place comments in
+the input file in order to document it.
 
-If you want to write a text to help you remember something our to help others understand you input file, you can place a comment on the file. Comments are lines placed in the input file that are ignored by marlics. In marlics comments start with the character \# and goes until the end of the line.
+Be carefull since marlics accept multiple instances of the same
+parameter, but will consider just the last one.
 
-\subsection{Marlics parameters}
 
-In marlics some parameters are mandatory and others are optional, have some standard values predefined or depends of others parameters. In order to guide the input file construction, here is a list of the actual defined parameters:
+\subsection{Marlics parameters} \label{sec:parameterlist}
+
+In marlics, some parameters are mandatory while others are optional,
+some have standard values predefined or depends on others
+parameters. In order to guide the input file construction, we present
+a table containing a list of all defined parameters. In the list you
+can find the parameters names, their units (the column is left in
+blank when the parameter has no units or its adimentional) and
+whenever it is mandatory or not. Note that whenever a parameter has an
+standard value it will be informed in the `''mandatory/standard
+value''. Also, whenever the parameter usage don't fit in any of the
+previous cases, there is a reference to the section where you can find
+more information.
+
 \begin{center}
-	\begin{longtable}{|c|c|c|}
-		\hline 
-		Parameter name  & variable type	& mandatory/standard value\\ 
-		\hline 
-		\hyperref[geometry]{Geometry}	& string	& Yes  \\ 
-\iffalse		\hline 
-		R\_in&	double & In sphere geometry \\ 
-		\hline 
-		R\_out&	double & In sphere geometry  \\ 
-\fi		\hline 
-		\hyperref[geometry]{Nx}	& integer	& Yes \\ 
-		\hline 
-		\hyperref[geometry]{Ny}	& integer	& Yes \\ 
-		\hline 
-		\hyperref[geometry]{Nz}	& integer	& Yes \\ 
-		\hline 
-		\hyperref[geometry]{dx}	& integer	& Yes \\ 
-		\hline 
-		\hyperref[geometry]{dy}	& integer	& Yes \\ 
-		\hline 
-		\hyperref[geometry]{dz}	& integer	& Yes \\ 
-		\hline 
-		\hyperref[integrator.param]{integrator}	& string & Yes\\ 
-		\hline 
-		facmin	& double & 0.4\\ 
-		\hline 
-		facmax	& double & 3\\ 
-		\hline 
-		prefac	& double & 0.8\\ 
-		\hline 
-		Atol	& double & 0.001\\ 
-		\hline 
-		Rtol & double & 0.001\\ 
-		\hline 
-		\hyperref[lc.param]{A, b and c}	& double & Yes\\ 
-		\hline 
-		\hyperref[lc.param]{K1, K2 and K3} & double & if L1 is not defined\\ 
-		\hline 
-		\hyperref[lc.param]{L1}	& double & if K1, K2 and K3 are not defined  \\ 
-		\hline 
-		\hyperref[lc.param]{L2, L3, Ls and Lq} & double	& No   \\ 
-		\hline 
-		\hyperref[lc.param]{p0 or q0} & double & no \\ 
-		\hline 
-		\hyperref[lc.param]{T}  & double	& no \\ 
-		\hline 
-		\hyperref[lc.param]{Mu or gamma} & double & Yes \\ 
-		\hline 
-		\hyperref[lc.param]{Mu\_s or gamma\_s} & double & Except in bulk geometry \\ 
-		\hline 
-		\hyperref[time.param]{ti}& double & 0.0 \\ 
-		\hline 
-		\hyperref[time.param]{tf}& double & Yes\\ 
-		\hline 
-		\hyperref[time.param]{dt} &	double & Tf/1e6 \\ 
-		\hline 
-		\hyperref[snapshot.param]{timeprint}&	double &  Tf/20 \\ 
-		\hline 
-		\hyperref[snapshot.param]{timeprint\_type}& string & Linear\\ 
-		\hline 
-		\hyperref[snapshot.param]{timeprint\_increase\_factor}& double & Tf/20 \\ 
-		\hline 
-		\hyperref[snapshot.param]{output\_folder}&	string & . \\ 
-		\hline 
-		\hyperref[snapshot.param]{output\_fname}&	string & director\_field\_\$\$.csv \\ 
-		\hline 
-		\hyperref[snapshot.param]{initial\_output\_file\_number} &	int & 0 \\ 
-		\hline 
-		\hyperref[ic.param]{initial\_conditions} & string & yes \\ 
-		\hline 
-		\hyperref[ic.param]{initial\_file\_name} & string & in read\_from\_file ic \\ 
-		\hline 
-		\hyperref[ic.param]{theta\_i} &	double & in homogeneous ic \\ 
-		\hline 
-		\hyperref[ic.param]{phi\_i} &	double & in homogeneous ic\\ 
-		\hline 
-		\hyperref[boundary.params]{anchoring\_type} & int + string & 1 for sphere and 2 for slab geometry\\ 
-		\hline 
-		\hyperref[boundary.params]{W01}& int + double & 1 for each Founier-Galatola or Rapini-Papoular anchoring\\ 
-		\hline 
-		\hyperref[boundary.params]{theta\_0} &  int + double  & 1 for each Rapini-Papolar or strong anchoring \\ 
-		\hline 
-		\hyperref[boundary.params]{phi\_0} &	 int + double  & 1 	for each Rapini-Papolar or strong anchoring \\ 
-		\hline 
+	\begin{longtable}{|c|c|c|c|}
+          \hline 
+          Parameter name  & variable type	& units & mandatory/standard value\\ 
+          \hline 
+          \hyperref[geometry]{Geometry}	& string & 	& Yes  \\ 
+          \iffalse		\hline 
+          R\_in&	double &  &  No \\ 
+          \hline 
+          R\_out&	double & & yes in sphere geometry  \\ 
+          \fi		\hline 
+          \hyperref[geometry]{Nx}	& integer &	& Yes \\ 
+          \hline                                  
+          \hyperref[geometry]{Ny}	& integer &      & Yes \\ 
+          \hline                                  
+          \hyperref[geometry]{Nz}	& integer &      & Yes \\ 
+          \hline                                  
+          \hyperref[geometry]{dx}	& real & nm      & Yes \\ 
+          \hline                                  
+          \hyperref[geometry]{dy}	& real & nm   & Yes \\ 
+          \hline                                  
+          \hyperref[geometry]{dz}	& real & nm	& Yes \\ 
+          \hline 
+          \hyperref[integrator.param]{integrator}	& string & & Yes\\ 
+          \hline 
+          facmin	& real &   & 0.4\\ 
+          \hline 
+          facmax	& real &   & 3\\ 
+          \hline 
+          prefac	& real &  & 0.8\\ 
+          \hline 
+          Atol	& real &  &0.001\\ 
+          \hline 
+          Rtol & real &  &0.001\\ 
+          \hline 
+          \hyperref[lc.param]{a} & real& MJ$/(m^2 K)$ & Yes\\
+          \hline 
+          \hyperref[lc.param]{b} & real& MJ$/m^2$ & Yes\\ 
+          \hline
+          \hyperref[lc.param]{c} & real& MJ$/m^2$ & Yes\\ 
+          \hline 
+          \hyperref[lc.param]{K1} & real &  pN  &  See \ref{lc.param}\\ 
+          \hline
+          \hyperref[lc.param]{K2} & real &  pN  &  See \ref{lc.param}\\ 
+          \hline
+          \hyperref[lc.param]{K3} & real &  pN  &  See \ref{lc.param}\\ 
+          \hline 
+          \hyperref[lc.param]{L1} & real &  pN & See \ref{lc.param}\\ 
+          \hline 
+          \hyperref[lc.param]{L2} & real &  pN & No   \\ 
+          \hline
+          \hyperref[lc.param]{ L3} & real & pN & No   \\ 
+          \hline
+          \hyperref[lc.param]{ Ls} & real & pN & No   \\ 
+          \hline
+          \hyperref[lc.param]{ Lq} & real & pN/m & No   \\ 
+          \hline 
+          \hyperref[lc.param]{p0 or q0} & real & nm or 1/nm & No \\ 
+          \hline
+          \hyperref[lc.param]{T}  & real & K	& No \\ 
+          \hline 
+          \hyperref[lc.param]{Mu or gamma} & real & Pa/s & Yes \\ 
+          \hline 
+          \hyperref[lc.param]{Mu\_s or gamma\_s} & real & nm Pa m/s&  See \ref{lc.param}\\ 
+          \hline 
+          \hyperref[time.param]{ti}& real & $\mu$s  & 0.0 \\ 
+          \hline 
+          \hyperref[time.param]{tf}& real & $\mu$s  & Yes\\ 
+          \hline 
+          \hyperref[time.param]{dt}& real & $\mu$s  & Tf/1e6 \\ 
+          \hline 
+          \hyperref[snapshot.param]{timeprint}& real & $\mu$s &  Tf/20 \\ 
+          \hline 
+          \hyperref[snapshot.param]{timeprint\_type}& string &  & Linear\\ 
+          \hline 
+          \hyperref[snapshot.param]{timeprint\_increase\_factor}& real&   & Tf/20 \\ 
+          \hline 
+          \hyperref[snapshot.param]{output\_folder}&	string & & . \\ 
+          \hline 
+          \hyperref[snapshot.param]{output\_fname}&	string & & director\_field\_\$\$.csv \\ 
+          \hline 
+          \hyperref[snapshot.param]{initial\_output\_file\_number} & int & & 0 \\ 
+          \hline 
+          \hyperref[ic.param]{initial\_conditions} & string & & yes \\ 
+          \hline 
+          \hyperref[ic.param]{initial\_file\_name} & string & & See \ref{ic.params} \\ 
+          \hline 
+          \hyperref[ic.param]{theta\_i} &	real & degrees & See \ref{ic.params} \\ 
+          \hline 
+          \hyperref[ic.param]{phi\_i} &	real & degrees  & See \ref{ic.params}\\ 
+          \hline 
+          \hyperref[boundary.params]{anchoring\_type} & int + string & & See \ref{boundary.params}\\ 
+          \hline 
+          \hyperref[boundary.params]{W01}& int + real & &  See \ref{boundary.params}  \\ 
+          \hline 
+          \hyperref[boundary.params]{theta\_0} &  int + real  & & See \ref{boundary.params} \\ 
+          \hline 
+          \hyperref[boundary.params]{phi\_0} &	 int + real  & & See \ref{boundary.params} \\ 
+          \hline 
 	\end{longtable} 
 \end{center}
 
@@ -204,39 +254,74 @@ For more information about these parameters, check the following sections.
 
 
 \subsection{Geometry parameters}\label{geometry}
-The geometry parameter sets up the confinement of your liquid crystal. Actually there are 3 different types of geometries available in marlics: bulk, slab and sphere(experimental).
 
-In bulk simulations, the liquid crystal is placed in an square box with periodic boundary conditions in all directions.
+The grid size and spacing is controlled with 6 parameters: $Nx$, $Ny$,
+$Nz$ ,$dx$ ,$dy$ and $dz$. The number of points in each axis
+directions is defined ny the parameters $Ni$, while de distance
+between them is set by the parameters $di$.
 
-In slab the liquid crystal is placed inside a box with periodic boundary conditions in the x and y direction, and with boundary conditions chosen by the user in both ends of the z axis.
+The geometry parameter sets up the confinement of your liquid
+crystal. Actually there are 3 different types of geometries available:
+bulk, slab and sphere(experimental).
 
-\replaced[id=e]{
-Finally, in the sphere geometry the liquid crystal is placed inside an ellipsoid with radius equals half of the Grid size i.e. $Nx/2, Ny/2$ and $Nz/2$. Here, one boundary condition has to be defined as the ellipsoid outer layer, giving no space to an periodic boundary condition. Take note that, since we are using a regular grid to define a curvilinear geometry, the geometry resolution greatly depends on the Grid Size.
-}{
-Finally in the sphere geometry the liquid crystal is places inside an sphere with one boundary condition setup-ed by the user and no periodic boundary conditions at all. Since here we use regular grids and the sphere has an curvilinear geometry, the fit of the liquid crystal inside the sphere is ....
-}
+In \textbf{bulk} geometry, the liquid crystal is placed in an square box
+with periodic boundary conditions in all directions, and therefore, no boundary conditions to be defined by the user.
 
-The grid size and spacing is controlled with 6 parameters: $Nx$, $Ny$, $Nz$ ,$dx$ ,$dy$ and $dz$. The number of points in each axis directions is defined ny the parameters $Ni$, while de distance between them is set by the parameters $di$. For example:
+In \textbf{slab} geometry, the liquid crystal is placed inside a box
+with periodic boundary conditions in the x and y direction, and with
+boundary conditions chosen by the user in both ends of the z
+axis i.e there is two boundary conditions to be defined by the user. 
+
+Finally, in the \textbf{sphere} geometry the liquid crystal is placed
+inside an sphere with radius $R=dx*Nx/2=dy*Ny/2=dz*Nz/2$. Here it
+is imperative that you define the same number of points for $Nx$, $Ny$
+and $Nz$, also it is important that the grid spacing is equal in any
+direction i.e. $dx=dy=dz$. This geometry has one boundary condition
+has to be defined and no periodic boundary conditions. Take note that,
+since we are using a regular grid to define a curvilinear geometry,
+the geometry resolution greatly depends on the grid sizes.
+
+An example of geometry section is:
 
 \begin{lstlisting}	
    geometry  slab
-   Nx  200             %   /*      grid size      */
-   Ny  200             %   /*      grid size      */
-   Nz  100             %   /*      grid size      */
-   dx  10.0            %   /*      10^-9 m         */
-   dy  10.0            %   /*      10^-9 m         */
-   dz  10.0            %   /*      10^-9 m         */
+   Nx  200                /*      grid size      */
+   Ny  200                /*      grid size      */
+   Nz  100                /*      grid size      */
+   dx  10.0               /*      10^-9 m         */
+   dy  10.0               /*      10^-9 m         */
+   dz  10.0               /*      10^-9 m         */
 \end{lstlisting}
 
-Sets a slab with 200 points in the $x$ and $y$ axis and 100 in the $z$ one, and every point is separated by a distance of $10$ nanometers in each direction.
+Which sets a slab with 200 points in the $x$ and $y$ axis and 100 in the $z$ one, and every point is separated by a distance of $10$ nanometers in each direction.
 
 \subsection{Integrator}\label{integrator.param}
 
-We have now just one integrator implemented in marlics, the Dormand-Prince 5(4), a time adaptive 5th order Runge-Kutta method. Our implementation accepts 5 parameters to control how the time-adaption is performed, but all of them have standard values (we refer the interested reader to read the reference guide for more details).
+We have now  three integrator implemented in marlics: explicit euler (EULER), explicit second order Runge-Kutta (RK2) and the Dormand-Prince 5(4) (DP5), a time adaptive 5th order Runge-Kutta method.
 
- An example line would be:
+The use of EULER and RK2 do not require any special parameters. Both
+integratocrs keep the time-step $dt$ constant during the whole
+simulation.
+
+The integrator DP5 uses a 5th order Runge-Kutta to propagate the
+solution and a 4th order Runge-Kutta to calculate the error $err$. We
+implemented the time-step control as presented by \textbf{cite the
+  nordicks here later}. This implementation requires 5 additional
+parameters: facmin, facmax, Atol, Rtol and prefac. facmax gives the
+maximum increase factor of the time-step $dt$, while facmin gives its
+maximum reduction. The values Atol and Rtol gives the the absolute and
+relative error tolerances respectively. Finally prefac is safety
+factor which multiplies the increase/decrease factor (we advise the
+using prefac$=0.9$ or prefac$=0.8$).
+
+ An example of integrator section would be:
 \begin{lstlisting}
-   integrator  DP5
+  integrator  DP5
+  atol 0.005
+  rtol 0.005
+  facmax 3.0
+  facmin 0.4
+  prefac 0.8
 \end{lstlisting}
 
 \subsection{Liquid crystal Parameters}\label{lc.param}
