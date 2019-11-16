@@ -1,5 +1,4 @@
 \documentclass{article}
-
 \usepackage{lmodern}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -29,6 +28,7 @@
 \title{Marlics User Guide}
 \author{Renato Ferreira de Souza, Eric Koudhi Omori and Rafael Soares Zola}
 
+
 \begin{document}
 
 \maketitle
@@ -42,8 +42,8 @@ finite differences. Our software is mainly intended to be used to
 simulate non-curvilinear geometries were finite differences works very
 well. We have provided two of such geometries: bulk and slab.
 Non-curvilinear geometries can also be implemented if they are well
-approximated by cartesian grids. We have provided one of these
-geoemetries: sphere.  Since we are providing the source code under a
+approximated by Cartesian grids. We have provided one of these
+geometries: sphere.  Since we are providing the source code under a
 GPL license, the user can implement their own geometries if needed.
 
 The software usage is as follows: the user fills an input file choosing the
@@ -257,7 +257,7 @@ For more information about these parameters, check the following sections.
 
 The grid size and spacing is controlled with 6 parameters: $Nx$, $Ny$,
 $Nz$ ,$dx$ ,$dy$ and $dz$. The number of points in each axis
-directions is defined ny the parameters $Ni$, while de distance
+directions is defined ny the parameters $Ni$, while the distance
 between them is set by the parameters $di$.
 
 The geometry parameter sets up the confinement of your liquid
@@ -270,14 +270,14 @@ with periodic boundary conditions in all directions, and therefore, no boundary 
 In \textbf{slab} geometry, the liquid crystal is placed inside a box
 with periodic boundary conditions in the x and y direction, and with
 boundary conditions chosen by the user in both ends of the z
-axis i.e there is two boundary conditions to be defined by the user. 
+axis i.e. there is two boundary conditions to be defined by the user. 
 
 Finally, in the \textbf{sphere} geometry the liquid crystal is placed
 inside an sphere with radius $R=dx*Nx/2=dy*Ny/2=dz*Nz/2$. Here it
 is imperative that you define the same number of points for $Nx$, $Ny$
 and $Nz$, also it is important that the grid spacing is equal in any
 direction i.e. $dx=dy=dz$. This geometry has one boundary condition
-has to be defined and no periodic boundary conditions. Take note that,
+has to be defed and no periodic boundary conditions. Take note that,
 since we are using a regular grid to define a curvilinear geometry,
 the geometry resolution greatly depends on the grid sizes.
 
@@ -299,12 +299,13 @@ Which sets a slab with 200 points in the $x$ and $y$ axis and 100 in the $z$ one
 
 We have now  three integrator implemented in marlics: explicit euler (EULER), explicit second order Runge-Kutta (RK2) and the Dormand-Prince 5(4) (DP5), a time adaptive 5th order Runge-Kutta method.
 
-The use of EULER and RK2 do not require any special parameters. Both
-integratocrs keep the time-step $dt$ constant during the whole
-simulation.
+The use of EULER and RK2 do not require any special parameters, you
+just have to provide the line ``integrator'' and they are set to
+use. Both integrators keep the time-step $dt$ constant during the
+whole simulation.
 
 The integrator DP5 uses a 5th order Runge-Kutta to propagate the
-solution and a 4th order Runge-Kutta to calculate the error $err$. We
+solution and a 4th order Runge-Kutta to estimate the error $err$. We
 implemented the time-step control as presented by \textbf{cite the
   nordicks here later}. This implementation requires 5 additional
 parameters: facmin, facmax, Atol, Rtol and prefac. facmax gives the
@@ -326,119 +327,161 @@ using prefac$=0.9$ or prefac$=0.8$).
 
 \subsection{Liquid crystal Parameters}\label{lc.param}
 
-In Marlics, we simulate the elastic behavior of chiral, or non-chiral, nematics by solving the dynamic equations given by Landau-de Gennes 
-model (please, see reference xx). This model needs a set of parameters: $a$, $b$, $c$, $T-T*$, $L_1$, $L_2$, $L_3$, $L_q$, $L_s$, $p_0$, $mu$, $mu_s$.
+In Marlics, we simulate the elastic behavior of a chiral, or non-chiral, nematics by solving the dynamic equations given by Landau-de Gennes 
+model (please, see reference xx). This model needs a set of parameters: $a$, $b$, $c$, $T-T*$, $L_1$, $L_2$, $L_3$, $L_q$, $L_s$, $p_0$, $mu$, $mu_s$ which are set in the input file.
 
-The parameters $a$, $b$ and $c$ are the thermodynamic parameters and defines the equilibrium liquid crystal order parameter, together with energy necessary to shift its value. It is obligatory to define all 3 of them, $c$ can not be 0 and $a$ has to be bigger to 0 to define a liquid crystal system.
-Example:
+The parameters $a$, $b$ and $c$ are the thermodynamic parameters
+together with the temperature $T$ defines: the equilibrium value of
+the scalar order parameter $S$ and energy necessary to shift its
+value. It is obligatory to define all of them and the they need to
+fulfill the following constraints: $c$ can not be 0 and $a T$ has to
+be lower than 0 to define a liquid crystal system. The temperature $T$
+is taken relative to virtual phase transition temperature $T^*$, for
+example:
 \begin{lstlisting}	
-   A   0.182
+   a   0.182
    b  -2.12
    c  1.73
+   T -1            Kelvin
 \end{lstlisting}
-
+defines a liquid crystal at 1 degree lower than the virtual transition
+temperature.
 
 The parameters $L_i$ can be filled in two different ways. You can pass the values of $L_i$ directly , for example:
 \begin{lstlisting}
-   L1  7.26        %  \* pN *\
-   L2  18.8        %  \* pN *\
-   L3  1.91        %  \* pN *\
-   Ls  1.0         %  \* pN *\
-   Lq  3.42        %  \* pN/nm *\
+   L1  7.26          /*  pN  */
+   L2  18.8          /*  pN  */
+   L3  1.91          /*  pN  */
+   Ls  1.0           /*  pN  */
+   Lq  3.42          /*  pN/nm  */
 \end{lstlisting}
 
 
-Or you can provide the values of the Frank elastic constant and let marlics calculates the values of $L_i$ for you. Example:
+Or you can provide the values of the Frank elastic constant
+$\lbrace K_{11}, K_{22}, K_{33}, K_{24} \rbrace$ and let marlics
+calculates the values of $L_i$ as proposed in \cite{} (note that this
+method uses the equilibrium vale of $S$ to calculate the values of
+$L_i$). Example:
+
 \begin{lstlisting}
-   k11  16.7        %  \* pN *\
-   k22  7.8         %  \* pN *\
-   k33  18.1        %  \* pN *\
+   k11  16.7        /*   pN   */
+   k22  7.8         /*   pN   */
+   k33  18.1        /*   pN   */
+   k24  0           /*   pN   */ 
 \end{lstlisting}
-If you \replaced[id=e]{, for some reason, define both}{ miss the use of} $K_i$ and $L_i$\added[id=e]{, or insert multiple instances}, the software will use only the last mentioned and ignore the others (We strong advise against it, since it can make your input file very confusing).
 
-\replaced[id=e]{To simulate a chiral nematic you need to define the helix passe, $p_0$,}
-{If you want to simulate a chiral nematic you define the helix passe $p_0$} as the space necessary to the helix execute a $2 \pi$  turn (distance being set in nanometers)\added[id=e]{, under the parameter name p0 or p\_0}. For example:
+As explained before, If you define both $K_i$ and $L_i$, or if you
+insert multiple instances of these parameters, the software will use
+only the last mentioned and ignore the others (We strong advise
+against it, since it can make your input file very confusing).
+
+In order to simulate a chiral nematic you need to define the helix
+pitch, $p_0$, as the space necessary to the helix execute a $2 \pi$
+turn (in nanometers). For example:
 
 \begin{lstlisting}
    p0  500
 \end{lstlisting}
-Sets the passe to be 500 nanometers.\added[id=e]{ In a alternative way, you can (but you shouldn't) define the quiral constant, $q_0$, given by $q_0=2 \pi /p_0$.}
+Sets the pitch to be 500 nanometers.  In a alternative way, you can
+define the chiral constant, $q_0$, given by $q_0=2 \pi /p_0$. 
 
-
-The temperature $T$  is taken relative to virtual phase transition temperature $T^*$, for example:
-
-\begin{lstlisting}
-   T -1
-\end{lstlisting}
-means that $(T-T^*)=-1$ Kelvin.
-
-%It seems that you mixed the viscosity and surface viscosity
-Finally, the liquid crystal viscosities can be passed in two different ways. You can pass the $\mu$ (set in \replaced[id=e]{$Pa\ s$}{$Pa s$}) value directly, or pass the parameter $\gamma$ (set in \replaced[id=e]{$Pa\ s$}{$Pa nm s$}) as used in the Frank-Osen theory and let marlics calculate the value of \replaced[id=e]{$\mu$}{$mu_s$} for you. The same can be done with the surface viscosity. For example:
+Finally, the liquid crystal viscosities can be passed in two different
+ways. You can pass constant the $\mu_1$ value directly, or pass the
+parameter $\gamma$ as used in the Frank-Osen theory and let marlics
+calculate the value of its value using $\mu_1=\gamma/S_{eq}$. The same can be done with the surface
+viscosity $\mu_{1s}$ which can be passed directly or by means of $\gamma_s$. For example:
 \begin{lstlisting}
    mu_1     0.3          %/*     Pa s            */
-   mu_1_s   3.0          %/*     10 ^-9 Pa s     */
+   mu_1_s   30.0          %/*     10 ^-9 Pa s     */
+\end{lstlisting}
+defines the values of $\lbrace \mu_1,\mu_{1s} \rbrace$, or by passing  
+\begin{lstlisting}
+   gamma     0.3          %/*     Pa s            */
+   gamma_s   30.0          %/*     10 ^-9 Pa s     */
 \end{lstlisting}
 
 
 \subsection{Time parameters}\label{time.param}
 
-There is 3 time parameters to be set in the input file.\replaced[id=e]{The parameter $t_i$ and $t_f$ (in microseconds) defines respectively the start and the end time of the simulation. The parameter $dt$ (in microseconds) defines the time step, for a fixed time-step integrator, and the initial one for an adaptive time integrator.}  {The parameter $t_i$ (in microseconds) defines the start time of the simulation. The parameter $t_f$ (in microseconds) defines the time the simulation finished and $dt$ (in microseconds) defines the initial time step for a fixed time-step integrator and the initial for an adaptive time integrator}. For example:
+There is 3 time parameters to be set in the input file. The parameter
+$t_i$ and $t_f$ (in microseconds) defines respectively the start and
+the end time of the simulation. The parameter $dt$ (in microseconds)
+defines the time step, for a fixed time-step integrator, and the
+initial one for an adaptive time integrator.  For example:
 \begin{lstlisting}
    dt  0.001            %/*     10^-6 s         */	
    ti  0.0              %/*     10^-6 s         */	
    tf  5000.0           %/*     10^-6 s         */
 \end{lstlisting}
-
+set-up a simulation that starts at $t=0$ and finishes at $t=5 ms$. If
+using a fixed time-step integrator the time steps will be taken with
+an interval $dt=0.001 \mu s$, otherwise it will start the simulation
+with a time-step $dt=0.001$ but this value will be adapted as the
+simulation evolves.
 
 \subsection{output parameters}\label{snapshot.param}
 
 
-There are 3 parameters to control how snapshots are taken and 3 controlling the file names in Marlics. The parameters controling the snapshot frequency are: \textit{timeprint}, \textit{timeprint_type}, \textit{timeprint_increase_factor}. The \textit{timeprint} sets when the first snapshot is taken (in microseconds). 
+There are 3 parameters to control how snapshots are taken and 3 controlling the file names in Marlics. The parameters controlling the snapshot frequency are: \textit{timeprint}, \textit{timeprint_type}, \textit{timeprint_increase_factor}. The \textit{timeprint} sets the time when the first snapshot is taken (in microseconds). 
 
-The \textit{timeprint_type} \replaced[id=e]{defines the interval function between snapshots, as linear or logarithmic.
-In the ``linear'' \textit{timeprint_type}, the value of \textit{timeprint_increase_factor} is the time interval between snapshots.
-In the ``logarithmic'' \textit{timeprint_type}, the value of \textit{timeprint_increase_factor} is factor which we multiply the snapshots times. Mathematicaly, it can be expressed as:\\}
-{set if the interval between snapshots will be linear or logarithmic.
-The parameter \textit{timeprint_increase_factor} sets the time interval between snapshots.
-If \textit{timeprint_type} is set to ``linear'', the value of \textit{timeprint_increase_factor} is the time interval between snapshots. If \textit{timeprint_type} is set to ``logarithmic'', the value of \textit{timeprint_increase_factor} is factor which we multiply the snapshots times. Mathematicaly, it can be expressed as:}
+The \textit{timeprint_type} defines if the snapshots will be taken in
+linear or logarithmic rate.  If \textit{timeprint_type} is set to
+\textbf{linear}, then the value of \textit{timeprint_increase_factor}
+is the time interval between snapshots. If \textit{timeprint_type} is
+set to \textbf{logarithmic}, then the the snapshot number $s+1$ will
+be taken at:
 \begin{equation}
   t_{s+1}=t_s *\textrm{timeprint_increase_factor}
 \end{equation}
-where $t_s$ is the $S$th snapshot time and $t_{s+1}$ is the $(S+1)$th snapshot time.
-
-The \textit{output\_folder} can be used to define a output directory (the standard value is``.\textbackslash'', also known as ``current folder'').
-For naming your output files, you can use the parameter \textit{output\_fname} to define a pattern (the standard value is ``director\_field\_\$\$.csv'').
-The given name must have a ``\$\$'' to define the file number position.
-for example:
-\begin{lstlisting}
-   output_folder  csv
-   output_fname   output_$$.csv
-\end{lstlisting}
-will produce the sequence ``output\_0.csv, output\_1.csv, output\_2.csv,...'' and so on, inside the folder ``csv''.  
-
-Finally, there is the parameter \textit{initial_output_file_number} which sets the number of the first snapshot taken \added[id=e]{ (the standard value is 0)}. For example if \textit{initial_output_file_number} is set to 3, them, the first snapshot will be \textit{director_field_3.csv}.
-
-One example of the setup would be:
+where $t_s$ is the $S$th snapshot time and $t_{s+1}$ is the $(S+1)$th snapshot time. For example:
 \begin{lstlisting}
    time_print_type             logarithmic
    timeprint                   50.        % /*  10^-6 s   */
    timeprint_increase_factor   1.16       % /*  10^-6 s   */     
+\end{lstlisting}
+sets the first snapshot to be taken at $t=50 \mu s$, while the
+following ones will be taken at logarithmic rate with an increase
+factor of 1.16.
+
+
+The \textit{output\_folder} can be used to define a output directory
+(the standard value is``.\textbackslash'', also known as ``current
+folder'' in Unix system).  For naming your output files, you can use
+the parameter \textit{output\_fname} to define a pattern (the standard
+value is ``director\_field\_\$\$.csv'').  The given name must have a
+``\$\$'' to be substituted for the snapshot number. For example:
+\begin{lstlisting}
+   output_folder  csv
+   output_fname   output_$$.csv
    initial_output_file_number  0	
 \end{lstlisting}
-
+will produce the sequence ``output\_0.csv, output\_1.csv, output\_2.csv,...'' and so on, inside the folder ``csv''.  
 
 
 \subsection{Initial Condtions}\label{ic.params}
 
 Marlics provides 4 types of initial conditions: Random, homogeneous, random_bulk_homogeneous_easy_axis and read_from_file.
 
-The \textit{Random} initial conditions gets random directors, however, the nematic order parameter is set to $S=0.15 S_{eq}$ (there would be no meaning leaving the order parameter fluctuating with high variance).
+The \textit{Random} initial conditions gets random directors, however,
+the nematic order parameter is set to $S=0.15 S_{eq}$ (there would be
+no meaning leaving the order parameter fluctuating with high
+variance).
 
-The \textit{homogeneous} initial conditions set the liquid crystal order parameter at $S=S_{eq}$ and $P=0$ and all the directors are set in the same direction. The direction is given by two parameters \textit{theta_i} and \textit{phi_i}, the polar and azimutal angles, both in degrees units.
+The \textit{homogeneous} initial conditions set the liquid crystal
+order parameter at $S=S_{eq}$ and $P=0$ while all the directors are
+set in the same direction. This direction is given by two parameters
+\textit{theta_i} and \textit{phi_i}, the polar and azimuthal angles,
+both in degrees units.
 
-The \textit{random_bulk_homogeneous_easy_axis} sets the liquid crystal as \textit{random} in the bulk and as \textit{homogeneous} in the boundaries, in this case, the liquid crystal will be oriented along the easy axis in the boundary, see section \label{ssec:boundary} for more information
+The \textit{random_bulk_homogeneous_easy_axis} sets the liquid crystal
+as \textit{random} in the bulk and as \textit{homogeneous} in the
+boundaries, in this case, the liquid crystal will be oriented along
+the easy axis in the boundary, see section \label{ssec:boundary} for
+more information
 
-Finally, the \textit{read_from_file} take an marlics snapshot and use it as initial conditions. The file name is passed by the variable \textit{ic_file}. 
+Finally, the \textit{read_from_file} take an marlics snapshot and use
+it as initial conditions. The file name is passed by the variable
+\textit{ic_file}.
 
 One example of the initial condition setup would be:
 \begin{lstlisting}
@@ -450,24 +493,50 @@ One example of the initial condition setup would be:
 
 \subsection{Boundary Conditions:}\label{boundary.params}
 
-For each geometry you must setup a defined number of boundaries. For example, in the slab geometry you must define two boundaries, the top and the bottom wall containing the liquid crystal. Each boundary region has a number that can be used to identify which boundary are you working with. For example, in the slab the bottom wall is referred by 0 while the top wall is referred by 1.
+For each geometry you must setup a defined number of boundaries, each
+boundary has a number which must be informed together with the
+parameter yu want to set. In more details:
 
-Actually there is 3 kinds of boundaries conditions implemented in marlics: Rapini-Papoular(Nobili-Durant), Fournier-Galatola and strong boundary conditions. Each boundary conditions needs its sets \added[id=e]{a set(?)} of parameters defined.
+\textbf{slab}: you must define two boundaries in this geometry, the
+top and the bottom wall containing the liquid crystal. The bottom wall
+is referred by 0 while the top wall is referred by 1.
 
-Boundary conditions that rely on a penalty function\added[id=e]{, like Rapini-Papoular and Founier-Galatola,} needs to defines an anchoring intensity Wo1. Boundary condtions that rely on an easy axis for the energy calculation\added[id=e]{, \textit{i.e.} Rapnini-Papoular and strong boundary,} also need to define the easy axis by means of the polar angle theta_0 and azimutal angle phi_0.
+\textbf{sphere}: This geometry has one boundary to be defined, the
+outer layer of the sphere, which is refereed by the number 0.
 
-If you want to define a boundary condition, for example, of Rapini-Papoular at the 0 wall, you \replaced[id=e]{need to iclude:}{type:}
+\textbf{bulk}: this geometry has no boundaries.
+
+Actually there is 3 kinds of boundaries conditions implemented in
+marlics: Rapini-Papoular(Nobili-Durant), Fournier-Galatola and strong
+boundary conditions. Each boundary conditions requires some parameters
+to be defined.
+
+Boundary conditions that rely on a penalty function, like
+  Rapini-Papoular and Founier-Galatola, requires an anchoring
+intensity Wo1. Boundary condtions that rely on an easy axis for the
+energy calculation, \textit{i.e.} Rapnini-Papoular and
+  strong boundary, also need to define the easy axis by means of the
+polar angle theta_0 and azimutal angle phi_0.
+
+If you want to define a boundary condition, for example, of
+Rapini-Papoular at the 0 wall of an sphere, you need to include:
 \begin{lstlisting}
    anchoring_type 0  Rapini-Papoular.
    W01            0  1000.0
    theta_0        0  45.0
    phi_0          0  45.0	
 \end{lstlisting}
+and if you want to implement an Fournier and Galatola on the top
+surface you must include:
 
-
+\begin{lstlisting}
+   anchoring_type 1  Fournier-Galatola
+   W01            1  1000.0
+\end{lstlisting}
 
 
 \subsection{Complete input file:}
 
+Here you can find the complete input file:
 
 \end{document}
