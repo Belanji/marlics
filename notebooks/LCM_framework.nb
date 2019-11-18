@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    187392,       4421]
-NotebookOptionsPosition[    183057,       4268]
-NotebookOutlinePosition[    183392,       4283]
-CellTagsIndexPosition[    183349,       4280]
+NotebookDataLength[    223490,       4411]
+NotebookOptionsPosition[    219157,       4258]
+NotebookOutlinePosition[    219492,       4273]
+CellTagsIndexPosition[    219449,       4270]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -1439,15 +1439,7 @@ Cell[BoxData[
        RowBox[{"l3", "\[Rule]", "l3"}], ",", 
        RowBox[{"ls", "\[Rule]", "ls"}], ",", 
        RowBox[{"W1", "\[Rule]", "W1"}]}], "}"}]}], ";"}], 
-   "\[IndentingNewLine]", 
-   RowBox[{
-    RowBox[{"preRules", "=", 
-     RowBox[{"{", 
-      RowBox[{
-       RowBox[{"l2", "\[Rule]", "0"}], ",", 
-       RowBox[{"l3", "\[Rule]", "0"}], ",", 
-       RowBox[{"ls", "\[Rule]", "0"}], ",", 
-       RowBox[{"W1", "\[Rule]", "W1"}]}], "}"}]}], ";"}]}]}]], "Input",
+   "\[IndentingNewLine]"}]}]], "Input",
  CellChangeTimes->{{3.710585289628612*^9, 3.7105853300583687`*^9}, {
    3.7120656093904123`*^9, 3.7120656303762693`*^9}, {3.712066292463833*^9, 
    3.712066304821444*^9}, 3.7120664913302402`*^9, {3.7120665825324574`*^9, 
@@ -1468,7 +1460,7 @@ Cell[BoxData[
    3.778246828345142*^9, 3.778246835351447*^9}, {3.778249515594998*^9, 
    3.778249522712727*^9}, {3.7782538117142773`*^9, 3.778253813465972*^9}, {
    3.778254541120358*^9, 3.7782545418057747`*^9}, 3.7783168346664553`*^9, {
-   3.778333452546102*^9, 3.778333455888682*^9}}]
+   3.778333452546102*^9, 3.778333455888682*^9}, 3.783083002331094*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1697,25 +1689,55 @@ const double  v[3]) \\n{ \\n return Lambda_s*(\>\"", ",",
 
 Cell[BoxData["\<\"double rp_surface_00(const double  QN[5],const double  \
 dQ[15],const double  ddQ[30], const double  v[3]) \\n{ \\n return \
-Lambda_s*(-(Wo1*QN00) + Wo1*Q0[0][0] + Lq_tilde*QN02*v[1] - \
-Lq_tilde*QN01*v[2] - L1*(Q_00_0*v[0] + Q_00_1*v[1] + \
-Q_00_2*v[2]));\\n}\\n\\ndouble rp_surface_01(const double  QN[5],const double \
- dQ[15],const double  ddQ[30], const double  v[3]) \\n{ \\n return \
-Lambda_s*((2*Wo1*(-QN01 + Q0[0][1]) + Lq_tilde*(-(QN02*v[0]) + QN12*v[1] + \
-(QN00 - QN11)*v[2]) - 2*L1*(Q_01_0*v[0] + Q_01_1*v[1] + \
-Q_01_2*v[2]))/2.);\\n}\\n\\ndouble rp_surface_02(const double  QN[5],const \
+Lambda_s*((-3*Wo1*QN00 + 3*Wo1*Q0[0][0] - 3*L3*QN01*Q_00_1*v[0] - \
+3*L3*QN02*Q_00_2*v[0] - 2*L2*Q_01_1*v[0] + Ls*Q_01_1*v[0] - 2*L2*Q_02_2*v[0] \
++ Ls*Q_02_2*v[0] + 3*Lq_tilde*QN02*v[1] - 3*L1*Q_00_1*v[1] - \
+3*L3*QN11*Q_00_1*v[1] - 3*L3*QN12*Q_00_2*v[1] + L2*Q_01_0*v[1] - \
+2*Ls*Q_01_0*v[1] + L2*Q_11_1*v[1] + Ls*Q_11_1*v[1] + L2*Q_12_2*v[1] + \
+Ls*Q_12_2*v[1] - (3*Lq_tilde*QN01 + 3*L3*QN12*Q_00_1 + (3*L1 + L2 + \
+Ls)*Q_00_2 - 3*L3*(QN00 + QN11)*Q_00_2 - (L2 - 2*Ls)*Q_02_0 + (L2 + \
+Ls)*(Q_11_2 - Q_12_1))*v[2] - Q_00_0*(3*L1*v[0] + 2*L2*v[0] + 2*Ls*v[0] + \
+3*L3*QN00*v[0] + 3*L3*QN01*v[1] + 3*L3*QN02*v[2]))/3.);\\n}\\n\\ndouble \
+rp_surface_01(const double  QN[5],const double  dQ[15],const double  ddQ[30], \
+const double  v[3]) \\n{ \\n return Lambda_s*((-2*Wo1*QN01 + 2*Wo1*Q0[0][1] - \
+Lq_tilde*QN02*v[0] - Ls*Q_00_1*v[0] - 2*L3*QN01*Q_01_1*v[0] - \
+2*L3*QN02*Q_01_2*v[0] - L2*Q_11_1*v[0] - L2*Q_12_2*v[0] + Lq_tilde*QN12*v[1] \
+- L2*Q_00_0*v[1] - 2*L1*Q_01_1*v[1] - L2*Q_01_1*v[1] - Ls*Q_01_1*v[1] - \
+2*L3*QN11*Q_01_1*v[1] - 2*L3*QN12*Q_01_2*v[1] - L2*Q_02_2*v[1] - \
+Ls*Q_11_0*v[1] - (Lq_tilde*(-QN00 + QN11) + 2*L3*QN12*Q_01_1 + 2*(L1 - \
+L3*(QN00 + QN11))*Q_01_2 + Ls*(Q_02_1 + Q_12_0))*v[2] - Q_01_0*(2*L1*v[0] + \
+L2*v[0] + Ls*v[0] + 2*L3*QN00*v[0] + 2*L3*QN01*v[1] + \
+2*L3*QN02*v[2]))/2.);\\n}\\n\\ndouble rp_surface_02(const double  QN[5],const \
 double  dQ[15],const double  ddQ[30], const double  v[3]) \\n{ \\n return \
-Lambda_s*((2*Wo1*(-QN02 + Q0[0][2]) + Lq_tilde*(QN01*v[0] - (2*QN00 + \
-QN11)*v[1] - QN12*v[2]) - 2*L1*(Q_02_0*v[0] + Q_02_1*v[1] + \
-Q_02_2*v[2]))/2.);\\n}\\n\\ndouble rp_surface_11(const double  QN[5],const \
-double  dQ[15],const double  ddQ[30], const double  v[3]) \\n{ \\n return \
-Lambda_s*(-(Wo1*QN11) + Wo1*Q0[1][1] - Lq_tilde*QN12*v[0] + \
-Lq_tilde*QN01*v[2] - L1*(Q_11_0*v[0] + Q_11_1*v[1] + \
-Q_11_2*v[2]));\\n}\\n\\ndouble rp_surface_12(const double  QN[5],const double \
- dQ[15],const double  ddQ[30], const double  v[3]) \\n{ \\n return \
-Lambda_s*((2*Wo1*(-QN12 + Q0[1][2]) + Lq_tilde*((QN00 + 2*QN11)*v[0] - \
-QN01*v[1] + QN02*v[2]) - 2*L1*(Q_12_0*v[0] + Q_12_1*v[1] + Q_12_2*v[2]))/2.);\
-\\n}\\n\\n\"\>"], "Output",
+Lambda_s*((-2*Wo1*QN02 + 2*Wo1*Q0[0][2] + Lq_tilde*QN01*v[0] + (L2 - \
+Ls)*Q_00_2*v[0] - 2*L3*QN01*Q_02_1*v[0] - 2*L3*QN02*Q_02_2*v[0] + \
+L2*Q_11_2*v[0] - L2*Q_12_1*v[0] - (Lq_tilde*(2*QN00 + QN11) + Ls*Q_01_2)*v[1] \
+- 2*L1*Q_02_1*v[1] - 2*L3*QN11*Q_02_1*v[1] - 2*L3*QN12*Q_02_2*v[1] - \
+Ls*Q_12_0*v[1] - ((L2 - Ls)*Q_00_0 + L2*Q_01_1 + QN12*(Lq_tilde + \
+2*L3*Q_02_1) + 2*L1*Q_02_2 + (L2 + Ls - 2*L3*(QN00 + QN11))*Q_02_2 - \
+Ls*Q_11_0)*v[2] - Q_02_0*(2*L1*v[0] + L2*v[0] + Ls*v[0] + 2*L3*QN00*v[0] + \
+2*L3*QN01*v[1] + 2*L3*QN02*v[2]))/2.);\\n}\\n\\ndouble rp_surface_11(const \
+double  QN[5],const double  dQ[15],const double  ddQ[30], const double  v[3]) \
+\\n{ \\n return Lambda_s*((-3*Wo1*QN11 + 3*Wo1*Q0[1][1] - \
+3*Lq_tilde*QN12*v[0] + L2*Q_00_0*v[0] + Ls*Q_00_0*v[0] + L2*Q_01_1*v[0] - \
+2*Ls*Q_01_1*v[0] + L2*Q_02_2*v[0] + Ls*Q_02_2*v[0] - 3*L1*Q_11_0*v[0] - \
+3*L3*QN00*Q_11_0*v[0] - 3*L3*QN01*Q_11_1*v[0] - 3*L3*QN02*Q_11_2*v[0] - \
+2*L2*Q_01_0*v[1] + Ls*Q_01_0*v[1] - 3*L3*QN01*Q_11_0*v[1] - 3*L1*Q_11_1*v[1] \
+- 2*L2*Q_11_1*v[1] - 2*Ls*Q_11_1*v[1] - 3*L3*QN11*Q_11_1*v[1] - \
+3*L3*QN12*Q_11_2*v[1] - 2*L2*Q_12_2*v[1] + Ls*Q_12_2*v[1] + (3*Lq_tilde*QN01 \
+- (L2 + Ls)*Q_00_2 + (L2 + Ls)*Q_02_0 - 3*L3*(QN02*Q_11_0 + QN12*Q_11_1) - \
+(3*L1 + L2 + Ls)*Q_11_2 + 3*L3*(QN00 + QN11)*Q_11_2 + (L2 - \
+2*Ls)*Q_12_1)*v[2])/3.);\\n}\\n\\ndouble rp_surface_12(const double  \
+QN[5],const double  dQ[15],const double  ddQ[30], const double  v[3]) \\n{ \
+\\n return Lambda_s*((2*Wo1*(-QN12 + Q0[1][2]) + Lq_tilde*(QN00 + \
+2*QN11)*v[0] - Ls*Q_01_2*v[0] - Ls*Q_02_1*v[0] - 2*L1*Q_12_0*v[0] - \
+2*L3*QN00*Q_12_0*v[0] - 2*L3*QN01*Q_12_1*v[0] - 2*L3*QN02*Q_12_2*v[0] - \
+Lq_tilde*QN01*v[1] + L2*Q_00_2*v[1] - L2*Q_02_0*v[1] + L2*Q_11_2*v[1] - \
+Ls*Q_11_2*v[1] - 2*L3*QN01*Q_12_0*v[1] - 2*L1*Q_12_1*v[1] - L2*Q_12_1*v[1] - \
+Ls*Q_12_1*v[1] - 2*L3*QN11*Q_12_1*v[1] - 2*L3*QN12*Q_12_2*v[1] - \
+(-(Lq_tilde*QN02) - Ls*Q_00_1 + L2*Q_01_0 + L2*Q_11_1 - Ls*Q_11_1 + \
+2*L3*QN02*Q_12_0 + 2*L3*QN12*Q_12_1 + (2*L1 + L2 + Ls - 2*L3*(QN00 + \
+QN11))*Q_12_2)*v[2])/2.);\\n}\\n\\n\"\>"], "Output",
  CellChangeTimes->{
   3.7199351039619493`*^9, 3.72017125528931*^9, 3.720177531757593*^9, {
    3.720181891391593*^9, 3.720181907473222*^9}, 3.720181989945044*^9, 
@@ -1731,7 +1753,8 @@ QN01*v[1] + QN02*v[2]) - 2*L1*(Q_12_0*v[0] + Q_12_1*v[1] + Q_12_2*v[2]))/2.);\
    3.778253819061952*^9, 3.778253979123863*^9, 3.778254546322166*^9, 
    3.778316841844943*^9, 3.7783334602165327`*^9, 3.778428575464814*^9, 
    3.778597017001617*^9, 3.778597512310506*^9, 3.778849747850306*^9, 
-   3.7788543344337673`*^9, 3.7789388245734587`*^9, 3.778945719787086*^9}]
+   3.7788543344337673`*^9, 3.7789388245734587`*^9, 3.778945719787086*^9, 
+   3.783083019881584*^9}]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -1785,47 +1808,88 @@ const double  v[3]) \\n{ \\n return Lambda_s*(\>\"", ",",
 
 Cell[BoxData["\<\"double fg_surface_00(const double  QN[5],const double  \
 dQ[15],const double  ddQ[30], const double  v[3]) \\n{ \\n return \
-Lambda_s*((-6*L1*Q_00_0*v[0] + Wo1*(S_eq - 2*(QN00 + QN11) - 4*(S_eq + \
-2*QN00)*v[0]*v[0] + (S_eq + 6*QN00 + 2*QN11)*(v[0]*v[0]*v[0]*v[0])) + \
-6*Lq_tilde*QN02*v[1] + v[1]*(-6*L1*Q_00_1 + Wo1*(2*(S_eq + 2*QN11)*v[1] + \
-(-S_eq + 2*QN00 + 8*QN11)*v[0]*v[0]*v[1] + 2*(-S_eq + QN00)*(v[1]*v[1]*v[1]) \
-+ 4*QN01*v[0]*(-1 + 2*v[0]*v[0] - v[1]*v[1]))) + 2*(-3*Lq_tilde*QN01 - \
-3*L1*Q_00_2 + 2*Wo1*(QN02*v[0]*(-2 + 3*v[0]*v[0]) + QN12*(1 + \
-3*v[0]*v[0])*v[1]))*v[2] + Wo1*((S_eq - 6*QN00 - 4*QN11)*v[0]*v[0] - \
-4*QN01*v[0]*v[1] + 2*(-S_eq + \
-QN00)*v[1]*v[1])*v[2]*v[2])/6.);\\n}\\n\\ndouble fg_surface_01(const double  \
-QN[5],const double  dQ[15],const double  ddQ[30], const double  v[3]) \\n{ \
-\\n return Lambda_s*((-2*L1*Q_01_0*v[0] - v[0]*(Lq_tilde*QN02 + \
-2*Wo1*QN01*v[0]) + Lq_tilde*QN12*v[1] + v[1]*(-2*L1*Q_01_1 + Wo1*(-2*(S_eq + \
-QN00 + QN11)*v[0] + (S_eq + 2*QN00)*(v[0]*v[0]*v[0]) + 2*QN01*(-1 + \
-2*v[0]*v[0])*v[1] + (S_eq + 2*QN11)*v[0]*v[1]*v[1])) + (Lq_tilde*(QN00 - \
-QN11) - 2*L1*Q_01_2 + 2*Wo1*(QN02*(-1 + 2*v[0]*v[0])*v[1] + QN12*v[0]*(-1 + \
-2*v[1]*v[1])))*v[2] + Wo1*(S_eq - 2*(QN00 + \
-QN11))*v[0]*v[1]*v[2]*v[2])/2.);\\n}\\n\\ndouble fg_surface_02(const double  \
-QN[5],const double  dQ[15],const double  ddQ[30], const double  v[3]) \\n{ \
-\\n return Lambda_s*((-2*Wo1*QN02 + Lq_tilde*QN01*v[0] - 2*L1*Q_02_0*v[0] - \
-Lq_tilde*(2*QN00 + QN11)*v[1] - 2*L1*Q_02_1*v[1] - 2*Wo1*(QN02*(-1 + \
-v[0]*v[0]) + QN12*v[0]*v[1])*(v[0]*v[0] + v[1]*v[1]) - (Lq_tilde*QN12 + \
-2*L1*Q_02_2 + Wo1*(2*QN01*v[1] + v[0]*(S_eq - 2*(2*QN01*v[0]*v[1] + QN00*(-1 \
-+ 2*v[0]*v[0] + v[1]*v[1]) + QN11*(v[0]*v[0] + 2*v[1]*v[1])))))*v[2] + \
-2*Wo1*v[0]*(QN02*v[0] + QN12*v[1])*v[2]*v[2])/2.);\\n}\\n\\ndouble \
-fg_surface_11(const double  QN[5],const double  dQ[15],const double  ddQ[30], \
-const double  v[3]) \\n{ \\n return Lambda_s*((-6*Lq_tilde*QN12*v[0] - \
-6*L1*Q_11_0*v[0] + Wo1*(S_eq - 2*(QN00 + QN11) + 2*(S_eq + 2*QN00)*v[0]*v[0] \
-+ 2*(-S_eq + QN11)*(v[0]*v[0]*v[0]*v[0])) + v[1]*(-6*L1*Q_11_1 + \
-Wo1*(-4*(S_eq + 2*QN11)*v[1] + (-S_eq + 8*QN00 + 2*QN11)*v[0]*v[0]*v[1] + \
-(S_eq + 2*QN00 + 6*QN11)*(v[1]*v[1]*v[1]) - 4*QN01*v[0]*(1 + v[0]*v[0] - \
-2*v[1]*v[1]))) + 2*(3*Lq_tilde*QN01 - 3*L1*Q_11_2 + 2*Wo1*(QN12*v[1]*(-2 + \
-3*v[1]*v[1]) + QN02*v[0]*(1 + 3*v[1]*v[1])))*v[2] + Wo1*(2*(-S_eq + \
-QN11)*v[0]*v[0] - 4*QN01*v[0]*v[1] + (S_eq - 4*QN00 - \
-6*QN11)*v[1]*v[1])*v[2]*v[2])/6.);\\n}\\n\\ndouble fg_surface_12(const double \
- QN[5],const double  dQ[15],const double  ddQ[30], const double  v[3]) \\n{ \
-\\n return Lambda_s*((-2*Wo1*QN12 + Lq_tilde*(QN00 + 2*QN11)*v[0] - \
-2*L1*Q_12_0*v[0] - Lq_tilde*QN01*v[1] - 2*L1*Q_12_1*v[1] - 2*Wo1*(v[0]*v[0] + \
-v[1]*v[1])*(QN02*v[0]*v[1] + QN12*(-1 + v[1]*v[1])) + (Lq_tilde*QN02 - \
-2*L1*Q_12_2 + Wo1*(2*QN01*v[0]*(-1 + 2*v[1]*v[1]) + v[1]*(-S_eq + \
-2*(QN00*(2*v[0]*v[0] + v[1]*v[1]) + QN11*(-1 + v[0]*v[0] + \
-2*v[1]*v[1])))))*v[2] + 2*Wo1*v[1]*(QN02*v[0] + \
+Lambda_s*((Wo1*(S_eq - 2*(QN00 + QN11)) - 6*L3*QN02*Q_00_2*v[0] - \
+4*L2*Q_01_1*v[0] + 2*Ls*Q_01_1*v[0] - 4*L2*Q_02_2*v[0] + 2*Ls*Q_02_2*v[0] - \
+4*S_eq*Wo1*v[0]*v[0] - 8*Wo1*QN00*v[0]*v[0] + S_eq*Wo1*(v[0]*v[0]*v[0]*v[0]) \
++ 6*Wo1*QN00*(v[0]*v[0]*v[0]*v[0]) + 2*Wo1*QN11*(v[0]*v[0]*v[0]*v[0]) + \
+6*Lq_tilde*QN02*v[1] - 6*L3*QN12*Q_00_2*v[1] + 2*L2*Q_01_0*v[1] - \
+4*Ls*Q_01_0*v[1] + 2*L2*Q_11_1*v[1] + 2*Ls*Q_11_1*v[1] + 2*L2*Q_12_2*v[1] + \
+2*Ls*Q_12_2*v[1] - 4*Wo1*QN01*v[0]*v[1] + 8*Wo1*QN01*(v[0]*v[0]*v[0])*v[1] + \
+2*S_eq*Wo1*v[1]*v[1] + 4*Wo1*QN11*v[1]*v[1] - S_eq*Wo1*v[0]*v[0]*v[1]*v[1] + \
+2*Wo1*QN00*v[0]*v[0]*v[1]*v[1] + 8*Wo1*QN11*v[0]*v[0]*v[1]*v[1] - \
+4*Wo1*QN01*v[0]*(v[1]*v[1]*v[1]) - 2*S_eq*Wo1*(v[1]*v[1]*v[1]*v[1]) + \
+2*Wo1*QN00*(v[1]*v[1]*v[1]*v[1]) - 2*(3*Lq_tilde*QN01 + (3*L1 + L2 + Ls - \
+3*L3*(QN00 + QN11))*Q_00_2 - (L2 - 2*Ls)*Q_02_0 + (L2 + Ls)*(Q_11_2 - Q_12_1) \
++ 2*Wo1*QN02*v[0]*(2 - 3*v[0]*v[0]) - 2*Wo1*QN12*(1 + 3*v[0]*v[0])*v[1])*v[2] \
++ Wo1*((S_eq - 6*QN00 - 4*QN11)*v[0]*v[0] - 4*QN01*v[0]*v[1] + 2*(-S_eq + \
+QN00)*v[1]*v[1])*v[2]*v[2] - 2*Q_00_0*(3*L1*v[0] + 2*L2*v[0] + 2*Ls*v[0] + \
+3*L3*QN00*v[0] + 3*L3*QN01*v[1] + 3*L3*QN02*v[2]) - 6*Q_00_1*(L1*v[1] + \
+L3*(QN01*v[0] + QN11*v[1] + QN12*v[2])))/6.);\\n}\\n\\ndouble \
+fg_surface_01(const double  QN[5],const double  dQ[15],const double  ddQ[30], \
+const double  v[3]) \\n{ \\n return Lambda_s*((-(Lq_tilde*QN02*v[0]) - \
+Ls*Q_00_1*v[0] - 2*L3*QN01*Q_01_1*v[0] - 2*L3*QN02*Q_01_2*v[0] - \
+L2*Q_11_1*v[0] - L2*Q_12_2*v[0] - 2*Wo1*QN01*v[0]*v[0] + Lq_tilde*QN12*v[1] - \
+L2*Q_00_0*v[1] - 2*L1*Q_01_1*v[1] - L2*Q_01_1*v[1] - Ls*Q_01_1*v[1] - \
+2*L3*QN11*Q_01_1*v[1] - 2*L3*QN12*Q_01_2*v[1] - L2*Q_02_2*v[1] - \
+Ls*Q_11_0*v[1] - 2*S_eq*Wo1*v[0]*v[1] - 2*Wo1*QN00*v[0]*v[1] - \
+2*Wo1*QN11*v[0]*v[1] + S_eq*Wo1*(v[0]*v[0]*v[0])*v[1] + \
+2*Wo1*QN00*(v[0]*v[0]*v[0])*v[1] - 2*Wo1*QN01*v[1]*v[1] + \
+4*Wo1*QN01*v[0]*v[0]*v[1]*v[1] + S_eq*Wo1*v[0]*(v[1]*v[1]*v[1]) + \
+2*Wo1*QN11*v[0]*(v[1]*v[1]*v[1]) - (Lq_tilde*(-QN00 + QN11) + \
+2*L3*QN12*Q_01_1 + 2*(L1 - L3*(QN00 + QN11))*Q_01_2 + Ls*(Q_02_1 + Q_12_0) + \
+2*Wo1*(QN02*(1 - 2*v[0]*v[0])*v[1] + QN12*v[0]*(1 - 2*v[1]*v[1])))*v[2] + \
+Wo1*(S_eq - 2*(QN00 + QN11))*v[0]*v[1]*v[2]*v[2] - Q_01_0*(2*L1*v[0] + \
+L2*v[0] + Ls*v[0] + 2*L3*QN00*v[0] + 2*L3*QN01*v[1] + \
+2*L3*QN02*v[2]))/2.);\\n}\\n\\ndouble fg_surface_02(const double  QN[5],const \
+double  dQ[15],const double  ddQ[30], const double  v[3]) \\n{ \\n return \
+Lambda_s*((-2*Wo1*QN02 + Lq_tilde*QN01*v[0] + (L2 - Ls)*Q_00_2*v[0] - \
+2*L3*QN01*Q_02_1*v[0] - 2*L3*QN02*Q_02_2*v[0] + L2*Q_11_2*v[0] - \
+L2*Q_12_1*v[0] + 2*Wo1*QN02*v[0]*v[0] - 2*Wo1*QN02*(v[0]*v[0]*v[0]*v[0]) - \
+(Lq_tilde*(2*QN00 + QN11) + Ls*Q_01_2)*v[1] - 2*L1*Q_02_1*v[1] - \
+2*L3*QN11*Q_02_1*v[1] - 2*L3*QN12*Q_02_2*v[1] - Ls*Q_12_0*v[1] - \
+2*Wo1*QN12*(v[0]*v[0]*v[0])*v[1] + 2*Wo1*QN02*v[1]*v[1] - \
+2*Wo1*QN02*v[0]*v[0]*v[1]*v[1] - 2*Wo1*QN12*v[0]*(v[1]*v[1]*v[1]) - \
+(Lq_tilde*QN12 + (L2 - Ls)*Q_00_0 + L2*Q_01_1 + (2*L1 + L2 + Ls)*Q_02_2 - \
+Ls*Q_11_0 + S_eq*Wo1*v[0] + 2*(L3*QN12*Q_02_1 - L3*(QN00 + QN11)*Q_02_2 + \
+Wo1*(QN01*v[1] - v[0]*(2*QN01*v[0]*v[1] + QN00*(-1 + 2*v[0]*v[0] + v[1]*v[1]) \
++ QN11*(v[0]*v[0] + 2*v[1]*v[1])))))*v[2] + 2*Wo1*v[0]*(QN02*v[0] + \
+QN12*v[1])*v[2]*v[2] - Q_02_0*(2*L1*v[0] + L2*v[0] + Ls*v[0] + 2*L3*QN00*v[0] \
++ 2*L3*QN01*v[1] + 2*L3*QN02*v[2]))/2.);\\n}\\n\\ndouble fg_surface_11(const \
+double  QN[5],const double  dQ[15],const double  ddQ[30], const double  v[3]) \
+\\n{ \\n return Lambda_s*((S_eq*Wo1 - 2*Wo1*(QN00 + QN11) - \
+6*Lq_tilde*QN12*v[0] + 2*L2*Q_00_0*v[0] + 2*Ls*Q_00_0*v[0] + 2*L2*Q_01_1*v[0] \
+- 4*Ls*Q_01_1*v[0] + 2*L2*Q_02_2*v[0] + 2*Ls*Q_02_2*v[0] - 6*L1*Q_11_0*v[0] - \
+6*L3*QN00*Q_11_0*v[0] - 6*L3*QN01*Q_11_1*v[0] - 6*L3*QN02*Q_11_2*v[0] + \
+2*S_eq*Wo1*v[0]*v[0] + 4*Wo1*QN00*v[0]*v[0] - \
+2*S_eq*Wo1*(v[0]*v[0]*v[0]*v[0]) + 2*Wo1*QN11*(v[0]*v[0]*v[0]*v[0]) - \
+4*L2*Q_01_0*v[1] + 2*Ls*Q_01_0*v[1] - 6*L3*QN01*Q_11_0*v[1] - \
+6*L1*Q_11_1*v[1] - 4*L2*Q_11_1*v[1] - 4*Ls*Q_11_1*v[1] - \
+6*L3*QN11*Q_11_1*v[1] - 6*L3*QN12*Q_11_2*v[1] - 4*L2*Q_12_2*v[1] + \
+2*Ls*Q_12_2*v[1] - 4*Wo1*QN01*v[0]*v[1] - 4*Wo1*QN01*(v[0]*v[0]*v[0])*v[1] - \
+4*S_eq*Wo1*v[1]*v[1] - 8*Wo1*QN11*v[1]*v[1] - S_eq*Wo1*v[0]*v[0]*v[1]*v[1] + \
+8*Wo1*QN00*v[0]*v[0]*v[1]*v[1] + 2*Wo1*QN11*v[0]*v[0]*v[1]*v[1] + \
+8*Wo1*QN01*v[0]*(v[1]*v[1]*v[1]) + S_eq*Wo1*(v[1]*v[1]*v[1]*v[1]) + \
+2*Wo1*QN00*(v[1]*v[1]*v[1]*v[1]) + 6*Wo1*QN11*(v[1]*v[1]*v[1]*v[1]) + \
+2*(3*Lq_tilde*QN01 - (L2 + Ls)*Q_00_2 + (L2 + Ls)*Q_02_0 - 3*L3*QN02*Q_11_0 - \
+3*L3*QN12*Q_11_1 - 3*L1*Q_11_2 - (L2 + Ls - 3*L3*(QN00 + QN11))*Q_11_2 + (L2 \
+- 2*Ls)*Q_12_1 + 2*Wo1*(QN12*v[1]*(-2 + 3*v[1]*v[1]) + QN02*v[0]*(1 + \
+3*v[1]*v[1])))*v[2] + Wo1*(2*(-S_eq + QN11)*v[0]*v[0] - 4*QN01*v[0]*v[1] + \
+(S_eq - 4*QN00 - 6*QN11)*v[1]*v[1])*v[2]*v[2])/6.);\\n}\\n\\ndouble \
+fg_surface_12(const double  QN[5],const double  dQ[15],const double  ddQ[30], \
+const double  v[3]) \\n{ \\n return Lambda_s*((-2*Wo1*QN12 + Lq_tilde*(QN00 + \
+2*QN11)*v[0] - Ls*Q_01_2*v[0] - Ls*Q_02_1*v[0] - 2*L1*Q_12_0*v[0] - \
+2*L3*QN00*Q_12_0*v[0] - 2*L3*QN01*Q_12_1*v[0] - 2*L3*QN02*Q_12_2*v[0] + \
+2*Wo1*QN12*v[0]*v[0] - Lq_tilde*QN01*v[1] + L2*Q_00_2*v[1] - L2*Q_02_0*v[1] + \
+L2*Q_11_2*v[1] - Ls*Q_11_2*v[1] - 2*L3*QN01*Q_12_0*v[1] - 2*L1*Q_12_1*v[1] - \
+L2*Q_12_1*v[1] - Ls*Q_12_1*v[1] - 2*L3*QN11*Q_12_1*v[1] - \
+2*L3*QN12*Q_12_2*v[1] - 2*Wo1*QN02*(v[0]*v[0]*v[0])*v[1] + \
+2*Wo1*QN12*v[1]*v[1] - 2*Wo1*QN12*v[0]*v[0]*v[1]*v[1] - \
+2*Wo1*QN02*v[0]*(v[1]*v[1]*v[1]) - 2*Wo1*QN12*(v[1]*v[1]*v[1]*v[1]) + \
+(Lq_tilde*QN02 + Ls*Q_00_1 + Ls*Q_11_1 - 2*L3*(QN02*Q_12_0 + QN12*Q_12_1) - \
+2*L1*Q_12_2 + (-Ls + 2*L3*(QN00 + QN11))*Q_12_2 - L2*(Q_01_0 + Q_11_1 + \
+Q_12_2) + 2*Wo1*(2*QN00*v[0]*v[0] + QN11*(-1 + v[0]*v[0]))*v[1] + \
+4*Wo1*QN01*v[0]*v[1]*v[1] + 2*Wo1*(QN00 + 2*QN11)*(v[1]*v[1]*v[1]) - \
+Wo1*(2*QN01*v[0] + S_eq*v[1]))*v[2] + 2*Wo1*v[1]*(QN02*v[0] + \
 QN12*v[1])*v[2]*v[2])/2.);\\n}\\n\\n\"\>"], "Output",
  CellChangeTimes->{{3.72018189269666*^9, 3.720181907607712*^9}, 
    3.720181997199821*^9, 3.720182086593916*^9, 3.72018212586598*^9, 
@@ -1841,7 +1905,7 @@ QN12*v[1])*v[2]*v[2])/2.);\\n}\\n\\n\"\>"], "Output",
    3.77825455710544*^9, 3.778316851529441*^9, 3.778333468959136*^9, 
    3.778428593484761*^9, 3.778597025661096*^9, 3.7785975210906467`*^9, 
    3.778849756741609*^9, 3.778854345029214*^9, 3.778938837887714*^9, 
-   3.7789457329815397`*^9}]
+   3.7789457329815397`*^9, 3.78308302923491*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1899,28 +1963,63 @@ Cell[BoxData["\<\"double bulk_00(const double  QN[5],const double  \
 dQ[15],const double  ddQ[30]) \\n{ \\n return Lambda*((-3*sigma*QN00 - \
 6*cc*QN00*((QN00*QN00) + (QN01*QN01) + (QN02*QN02) + QN00*QN11 + (QN11*QN11) \
 + (QN12*QN12)) - bb*((QN00*QN00) + (QN01*QN01) + (QN02*QN02) - 2*QN00*QN11 - \
-2*((QN11*QN11) + (QN12*QN12))) + 6*Lq_tilde*(Q_01_2 - Q_02_1) + 3*L1*(Q_00_00 \
-+ Q_00_11 + Q_00_22))/3.);\\n}\\n\\ndouble bulk_01(const double  QN[5],const \
-double  dQ[15],const double  ddQ[30]) \\n{ \\n return Lambda*(-(QN01*(sigma + \
-bb*(QN00 + QN11) + 2*cc*((QN00*QN00) + (QN01*QN01) + (QN02*QN02) + QN00*QN11 \
-+ (QN11*QN11)))) - bb*QN02*QN12 - 2*cc*QN01*(QN12*QN12) + Lq_tilde*(-Q_00_2 + \
-Q_02_0 + Q_11_2 - Q_12_1) + L1*(Q_01_00 + Q_01_11 + \
-Q_01_22));\\n}\\n\\ndouble bulk_02(const double  QN[5],const double  \
-dQ[15],const double  ddQ[30]) \\n{ \\n return Lambda*(-(sigma*QN02) + \
-bb*(QN02*QN11 - QN01*QN12) - 2*cc*QN02*((QN00*QN00) + (QN01*QN01) + \
-(QN02*QN02) + QN00*QN11 + (QN11*QN11) + (QN12*QN12)) + Lq_tilde*(2*Q_00_1 - \
-Q_01_0 + Q_11_1 + Q_12_2) + L1*(Q_02_00 + Q_02_11 + \
-Q_02_22));\\n}\\n\\ndouble bulk_11(const double  QN[5],const double  \
-dQ[15],const double  ddQ[30]) \\n{ \\n return Lambda*((bb*(2*(QN00*QN00) - \
-(QN01*QN01) + 2*(QN02*QN02) + 2*QN00*QN11 - (QN11*QN11) - (QN12*QN12)) - \
-3*QN11*(sigma + 2*cc*((QN00*QN00) + (QN01*QN01) + (QN02*QN02) + QN00*QN11 + \
-(QN11*QN11) + (QN12*QN12))) - 6*Lq_tilde*Q_01_2 + 6*Lq_tilde*Q_12_0 + \
-3*L1*(Q_11_00 + Q_11_11 + Q_11_22))/3.);\\n}\\n\\ndouble bulk_12(const double \
- QN[5],const double  dQ[15],const double  ddQ[30]) \\n{ \\n return \
-Lambda*(bb*(-(QN01*QN02) + QN00*QN12) - QN12*(sigma + 2*cc*((QN00*QN00) + \
-(QN01*QN01) + (QN02*QN02) + QN00*QN11 + (QN11*QN11) + (QN12*QN12))) - \
-Lq_tilde*(Q_00_0 - Q_01_1 + Q_02_2 + 2*Q_11_0) + L1*(Q_12_00 + Q_12_11 + \
-Q_12_22));\\n}\\n\\n\"\>"], "Output",
+2*((QN11*QN11) + (QN12*QN12))) + 6*Lq_tilde*(Q_01_2 - Q_02_1) + (3*L1 + 2*(L2 \
++ Ls))*Q_00_00 + 3*L1*Q_00_11 + 3*L1*Q_00_22 + L2*Q_00_22 + Ls*Q_00_22 + \
+L3*((Q_00_0*Q_00_0) + (Q_00_1*Q_00_1) - 2*(Q_00_2*Q_00_2) - 2*(Q_01_0*Q_01_0) \
++ (Q_01_1*Q_01_1) + (Q_01_2*Q_01_2) - 2*(Q_02_0*Q_02_0) + (Q_02_1*Q_02_1) + \
+(Q_02_2*Q_02_2) + Q_00_0*(3*(Q_01_1 + Q_02_2) - 2*Q_11_0) - 2*(Q_11_0*Q_11_0) \
++ (Q_11_1*Q_11_1) + (Q_11_2*Q_11_2) - 2*(Q_12_0*Q_12_0) + (Q_12_1*Q_12_1) + \
+Q_00_2*(3*Q_02_0 - 2*Q_11_2 + 3*Q_12_1) + (Q_12_2*Q_12_2) + Q_00_1*(3*Q_01_0 \
++ 4*Q_11_1 + 3*Q_12_2) + 3*QN00*Q_00_00 + 6*QN01*Q_00_01 + 6*QN02*Q_00_02 + \
+3*QN11*Q_00_11 + 6*QN12*Q_00_12 - 3*(QN00 + QN11)*Q_00_22) + L2*Q_01_01 + \
+Ls*Q_01_01 + L2*Q_02_02 + Ls*Q_02_02 - L2*Q_11_11 - Ls*Q_11_11 + L2*Q_11_22 + \
+Ls*Q_11_22 - 2*(L2 + Ls)*Q_12_12)/3.);\\n}\\n\\ndouble bulk_01(const double  \
+QN[5],const double  dQ[15],const double  ddQ[30]) \\n{ \\n return \
+Lambda*((-2*Q_00_2*(Lq_tilde + L3*Q_01_2) - L3*Q_00_0*(2*Q_00_1 - 2*Q_01_0 + \
+Q_11_1) + 2*Lq_tilde*(Q_02_0 + Q_11_2 - Q_12_1) - 2*(sigma*QN01 + \
+bb*QN01*(QN00 + QN11) + bb*QN02*QN12 + 2*cc*QN01*((QN00*QN00) + (QN01*QN01) + \
+(QN02*QN02) + QN00*QN11 + (QN11*QN11) + (QN12*QN12)) - L1*(Q_01_00 + Q_01_11 \
++ Q_01_22)) + L3*(-2*Q_02_0*Q_02_1 + 2*Q_01_0*(Q_01_1 + Q_02_2) - \
+Q_11_0*(Q_00_1 + 2*Q_11_1) + 2*Q_01_2*(Q_02_0 - Q_11_2 + Q_12_1) + \
+2*(-(Q_12_0*Q_12_1) + Q_01_1*(Q_11_1 + Q_12_2) + QN00*Q_01_00 + \
+2*QN01*Q_01_01 + 2*QN02*Q_01_02 + QN11*Q_01_11 + 2*QN12*Q_01_12 - (QN00 + \
+QN11)*Q_01_22)) + (L2 + Ls)*(Q_00_01 + Q_01_00 + Q_01_11 + Q_02_12 + Q_11_01 \
++ Q_12_02))/2.);\\n}\\n\\ndouble bulk_02(const double  QN[5],const double  \
+dQ[15],const double  ddQ[30]) \\n{ \\n return Lambda*((4*Lq_tilde*Q_00_1 + \
+2*Lq_tilde*(-Q_01_0 + Q_11_1 + Q_12_2) - 2*(sigma*QN02 - bb*QN02*QN11 + \
+bb*QN01*QN12 + 2*cc*QN02*((QN00*QN00) + (QN01*QN01) + (QN02*QN02) + QN00*QN11 \
++ (QN11*QN11) + (QN12*QN12)) - L1*(Q_02_00 + Q_02_11 + Q_02_22)) + \
+L3*(-(Q_00_2*(2*Q_02_2 + Q_11_0)) - Q_00_0*(2*Q_00_2 - 2*Q_02_0 + Q_11_2) + \
+2*(Q_01_1*Q_02_0 + Q_02_0*Q_02_2 - (Q_02_2 + Q_11_0)*Q_11_2 + Q_02_2*Q_12_1) \
++ 2*(Q_01_0*(-Q_01_2 + Q_02_1) - Q_12_0*Q_12_2 + Q_02_1*(Q_11_1 + Q_12_2) + \
+QN00*Q_02_00 + 2*QN01*Q_02_01 + 2*QN02*Q_02_02 + QN11*Q_02_11 + \
+2*QN12*Q_02_12 - (QN00 + QN11)*Q_02_22)) + (L2 + Ls)*(Q_01_12 + Q_02_00 + \
+Q_02_22 - Q_11_02 + Q_12_01))/2.);\\n}\\n\\ndouble bulk_11(const double  \
+QN[5],const double  dQ[15],const double  ddQ[30]) \\n{ \\n return \
+Lambda*((bb*(2*(QN00*QN00) - (QN01*QN01) + 2*(QN02*QN02) + 2*QN00*QN11 - \
+(QN11*QN11) - (QN12*QN12)) - 3*QN11*(sigma + 2*cc*((QN00*QN00) + (QN01*QN01) \
++ (QN02*QN02) + QN00*QN11 + (QN11*QN11) + (QN12*QN12))) + 6*Lq_tilde*(-Q_01_2 \
++ Q_12_0) - (L2 + Ls)*Q_00_00 + 3*L1*(Q_11_00 + Q_11_11 + Q_11_22) + \
+L3*((Q_00_0*Q_00_0) - 2*(Q_00_1*Q_00_1) + (Q_00_2*Q_00_2) + (Q_01_0*Q_01_0) - \
+2*(Q_01_1*Q_01_1) + (Q_01_2*Q_01_2) + (Q_02_0*Q_02_0) - 2*(Q_02_1*Q_02_1) + \
+(Q_02_2*Q_02_2) + (4*Q_00_0 + 3*(Q_01_1 + Q_02_2))*Q_11_0 + (Q_11_0*Q_11_0) - \
+2*Q_00_1*Q_11_1 + 3*Q_01_0*Q_11_1 + (Q_11_1*Q_11_1) - 2*Q_00_2*Q_11_2 + \
+3*Q_02_0*Q_11_2 - 2*(Q_11_2*Q_11_2) + (Q_12_0*Q_12_0) + 3*Q_11_2*Q_12_1 - \
+2*(Q_12_1*Q_12_1) + 3*Q_11_1*Q_12_2 + (Q_12_2*Q_12_2) + 3*QN00*Q_11_00 + \
+6*QN01*Q_11_01 + 6*QN02*Q_11_02 + 3*QN11*Q_11_11 + 6*QN12*Q_11_12 - 3*(QN00 + \
+QN11)*Q_11_22) + (L2 + Ls)*(Q_00_22 + Q_01_01 - 2*Q_02_02 + 2*Q_11_11 + \
+Q_11_22 + Q_12_12))/3.);\\n}\\n\\ndouble bulk_12(const double  QN[5],const \
+double  dQ[15],const double  ddQ[30]) \\n{ \\n return \
+Lambda*((2*Lq_tilde*(Q_01_1 - Q_02_2 - 2*Q_11_0) - 2*Q_00_0*(Lq_tilde - \
+L3*Q_12_0) - (L2 + Ls)*Q_00_12 + (L2 + Ls)*(Q_01_02 + Q_02_01 + Q_12_11 + \
+Q_12_22) - 2*(bb*QN01*QN02 + (sigma - bb*QN00 + 2*cc*((QN00*QN00) + \
+(QN01*QN01) + (QN02*QN02) + QN00*QN11 + (QN11*QN11)))*QN12 + \
+2*cc*(QN12*QN12*QN12) - L1*(Q_12_00 + Q_12_11 + Q_12_22)) + \
+L3*(-(Q_00_1*(2*Q_00_2 + Q_11_2)) + 2*Q_02_0*Q_12_2 - 2*(Q_11_2 - \
+Q_12_1)*(Q_11_1 + Q_12_2) - Q_00_2*(Q_11_1 + 2*Q_12_2) + 2*(Q_01_1*(-Q_01_2 + \
+Q_12_0) + Q_02_2*(-Q_02_1 + Q_12_0) + Q_01_0*Q_12_1 + QN00*Q_12_00 + \
+2*QN01*Q_12_01 + 2*QN02*Q_12_02 + QN11*Q_12_11 + 2*QN12*Q_12_12 - (QN00 + \
+QN11)*Q_12_22)))/2.);\\n}\\n\\n\"\>"], "Output",
  CellChangeTimes->{
   3.712913201565599*^9, 3.712928768604219*^9, 3.7129298589210987`*^9, 
    3.712932614252495*^9, 3.712933085190968*^9, 3.7129333579195642`*^9, 
@@ -1953,7 +2052,7 @@ Q_12_22));\\n}\\n\\n\"\>"], "Output",
    3.778254559094419*^9, 3.7783168819084797`*^9, 3.778333470887973*^9, 
    3.778428597391026*^9, 3.77859702836576*^9, 3.7785975238936234`*^9, 
    3.778849759517274*^9, 3.778854347832466*^9, 3.778938840073*^9, 
-   3.778945735190227*^9}]
+   3.778945735190227*^9, 3.783083059355112*^9}]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
@@ -2562,260 +2661,1225 @@ Cell[BoxData[
   3.778232759223735*^9, 3.7782327647433367`*^9}}],
 
 Cell[BoxData["\<\"idxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+0;\
-\\nJac_values[0]=Lambda*(-2*((dx_1*dx_1) + (dy_1*dy_1) + (dz_1*dz_1))*L1 - \
-sigma - (2*(9*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*k+j)+i)+0]) - \
-bb*Qij[5*(Nx*(Ny*k+j)+i)+3] + Qij[5*(Nx*(Ny*k+j)+i)+0]*(bb + \
-6*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]) + \
-3*cc*((Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+1]) + \
-(Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+2]) + \
-(Qij[5*(Nx*(Ny*k+j)+i)+3]*Qij[5*(Nx*(Ny*k+j)+i)+3]) + \
-(Qij[5*(Nx*(Ny*k+j)+i)+4]*Qij[5*(Nx*(Ny*k+j)+i)+4]))))/3.);\\nMatSetValues(\
+\\nJac_values[0]=Lambda*((-2*(3*(dy_1*dy_1)*L1 + (dz_1*dz_1)*(3*L1 + L2 + Ls) \
++ (dx_1*dx_1)*(3*L1 + 2*(L2 + Ls))) - 3*sigma - \
+18*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*k+j)+i)+0]) - \
+3*(dz_1*dz_1)*L3*Qij[5*(Nx*(Ny*km1+j)+i)+0] - \
+3*(dz_1*dz_1)*L3*Qij[5*(Nx*(Ny*kp1+j)+i)+0] + \
+3*(dx_1*dx_1)*L3*Qij[5*(Nx*(Ny*k+j)+im1)+0] + \
+3*(dx_1*dx_1)*L3*Qij[5*(Nx*(Ny*k+j)+ip1)+0] - \
+6*cc*((Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+1]) + \
+(Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+2])) + \
+2*bb*Qij[5*(Nx*(Ny*k+j)+i)+3] - 6*(dy_1*dy_1)*L3*Qij[5*(Nx*(Ny*k+j)+i)+3] + \
+6*(dz_1*dz_1)*L3*Qij[5*(Nx*(Ny*k+j)+i)+3] - \
+6*cc*(Qij[5*(Nx*(Ny*k+j)+i)+3]*Qij[5*(Nx*(Ny*k+j)+i)+3]) - \
+2*Qij[5*(Nx*(Ny*k+j)+i)+0]*(bb + 6*(dx_1 - dz_1)*(dx_1 + dz_1)*L3 + \
+6*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]) - \
+6*cc*(Qij[5*(Nx*(Ny*k+j)+i)+4]*Qij[5*(Nx*(Ny*k+j)+i)+4]))/3.);\\nMatSetValues(\
 Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\\
-nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+0;\\nJac_values[0]=Lambda*((dz_1*dz_1)*L1);\\\
-nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
-Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*km1+j)+i)+0;\\nJac_values[0]=Lambda*((dz_1*\
-dz_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
-0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+jp1)+i)+0;\\nJac_values[0]=\
-Lambda*((dy_1*dy_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_\
-VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+i)+0;\\\
-nJac_values[0]=Lambda*((dy_1*dy_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
-values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+j)\
-+ip1)+0;\\nJac_values[0]=Lambda*((dx_1*dx_1)*L1);\\nMatSetValues(Jac,1,idxm,1,\
+nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+0;\\nJac_values[0]=Lambda*((dz_1*(4*dz_1*(3*L1 + \
+L2 + Ls) - L3*(2*dz_1*(6*Qij[5*(Nx*(Ny*k+j)+i)+0] - \
+2*Qij[5*(Nx*(Ny*km1+j)+i)+0] + 2*Qij[5*(Nx*(Ny*kp1+j)+i)+0] + \
+6*Qij[5*(Nx*(Ny*k+j)+i)+3] - Qij[5*(Nx*(Ny*km1+j)+i)+3] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+3]) + 3*(dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+2] - \
+dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+2] + dy_1*(Qij[5*(Nx*(Ny*k+jm1)+i)+4] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+4])))))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*km1+\
+j)+i)+0;\\nJac_values[0]=Lambda*((dz_1*(4*dz_1*(3*L1 + L2 + Ls) - \
+L3*(-3*dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+2] + 3*dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+2] + \
+2*dz_1*(6*Qij[5*(Nx*(Ny*k+j)+i)+0] + 2*Qij[5*(Nx*(Ny*km1+j)+i)+0] - \
+2*Qij[5*(Nx*(Ny*kp1+j)+i)+0] + 6*Qij[5*(Nx*(Ny*k+j)+i)+3] + \
+Qij[5*(Nx*(Ny*km1+j)+i)+3] - Qij[5*(Nx*(Ny*kp1+j)+i)+3]) - \
+3*dy_1*Qij[5*(Nx*(Ny*k+jm1)+i)+4] + \
+3*dy_1*Qij[5*(Nx*(Ny*k+jp1)+i)+4])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
+Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*\
+k+jp1)+i)+0;\\nJac_values[0]=Lambda*((dy_1*(12*dy_1*L1 + \
+L3*(-3*dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+1] + 3*dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+1] + \
+2*dy_1*(-Qij[5*(Nx*(Ny*k+jm1)+i)+0] + Qij[5*(Nx*(Ny*k+jp1)+i)+0] + \
+6*Qij[5*(Nx*(Ny*k+j)+i)+3] - 2*Qij[5*(Nx*(Ny*k+jm1)+i)+3] + \
+2*Qij[5*(Nx*(Ny*k+jp1)+i)+3]) - 3*dz_1*Qij[5*(Nx*(Ny*km1+j)+i)+4] + \
+3*dz_1*Qij[5*(Nx*(Ny*kp1+j)+i)+4])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
+Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*\
+kp1+jp1)+i)+0;\\nJac_values[0]=Lambda*((dy_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+4])\
+/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*\
+(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*km1+jp1)+i)+0;\\nJac_values[0]=Lambda*(\
+-(dy_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+4])/2.);\\nMatSetValues(Jac,1,idxm,1,\
 idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(\
-Nx*(Ny*k+j)+im1)+0;\\nJac_values[0]=Lambda*((dx_1*dx_1)*L1);\\nMatSetValues(\
-Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\\
-nidxn[0]=5*(Nx*(Ny*k+j)+i)+1;\\nJac_values[0]=Lambda*((-2*(bb + \
+Nx*(Ny*k+jm1)+i)+0;\\nJac_values[0]=Lambda*((dy_1*(12*dy_1*L1 + \
+L3*(2*dy_1*(Qij[5*(Nx*(Ny*k+jm1)+i)+0] - Qij[5*(Nx*(Ny*k+jp1)+i)+0] + \
+6*Qij[5*(Nx*(Ny*k+j)+i)+3] + 2*Qij[5*(Nx*(Ny*k+jm1)+i)+3] - \
+2*Qij[5*(Nx*(Ny*k+jp1)+i)+3]) + 3*(dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+1] - \
+dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+1] + dz_1*(Qij[5*(Nx*(Ny*km1+j)+i)+4] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+4])))))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+jm1)+i)+0;\\nJac_values[0]=Lambda*(-(dy_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+4])/2.\
+);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(\
+Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*km1+jm1)+i)+0;\\nJac_values[0]=Lambda*((\
+dy_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+4])/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
+Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*\
+k+j)+ip1)+0;\\nJac_values[0]=Lambda*((dx_1*(4*dx_1*(3*L1 + 2*(L2 + Ls)) + \
+L3*(-3*dy_1*Qij[5*(Nx*(Ny*k+jm1)+i)+1] + 3*dy_1*Qij[5*(Nx*(Ny*k+jp1)+i)+1] - \
+3*dz_1*Qij[5*(Nx*(Ny*km1+j)+i)+2] + 3*dz_1*Qij[5*(Nx*(Ny*kp1+j)+i)+2] + \
+2*dx_1*(6*Qij[5*(Nx*(Ny*k+j)+i)+0] - Qij[5*(Nx*(Ny*k+j)+im1)+0] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+0] + Qij[5*(Nx*(Ny*k+j)+im1)+3] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+3]))))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+j)+ip1)+0;\\nJac_values[0]=Lambda*((dx_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+2])/2.)\
+;\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*\
+(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*km1+j)+ip1)+0;\\nJac_values[0]=Lambda*(-(\
+dx_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+2])/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
+Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*\
+k+jp1)+ip1)+0;\\nJac_values[0]=Lambda*((dx_1*dy_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+1])\
+/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*\
+(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+ip1)+0;\\nJac_values[0]=Lambda*(\
+-(dx_1*dy_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+1])/2.);\\nMatSetValues(Jac,1,idxm,1,\
+idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(\
+Nx*(Ny*k+j)+im1)+0;\\nJac_values[0]=Lambda*((dx_1*(4*dx_1*(3*L1 + 2*(L2 + \
+Ls)) + L3*(3*(dy_1*Qij[5*(Nx*(Ny*k+jm1)+i)+1] - \
+dy_1*Qij[5*(Nx*(Ny*k+jp1)+i)+1] + dz_1*(Qij[5*(Nx*(Ny*km1+j)+i)+2] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+2])) + 2*dx_1*(6*Qij[5*(Nx*(Ny*k+j)+i)+0] + \
+Qij[5*(Nx*(Ny*k+j)+im1)+0] - Qij[5*(Nx*(Ny*k+j)+ip1)+0] - \
+Qij[5*(Nx*(Ny*k+j)+im1)+3] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+3]))))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+j)+im1)+0;\\nJac_values[0]=Lambda*(-(dx_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+2])/2.\
+);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(\
+Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*km1+j)+im1)+0;\\nJac_values[0]=Lambda*((\
+dx_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+2])/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
+Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*\
+k+jp1)+im1)+0;\\nJac_values[0]=Lambda*(-(dx_1*dy_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+1]\
+)/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=\
+5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+im1)+0;\\nJac_values[0]=\
+Lambda*((dx_1*dy_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+1])/2.);\\nMatSetValues(Jac,1,\
+idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[\
+0]=5*(Nx*(Ny*k+j)+i)+1;\\nJac_values[0]=Lambda*((dx_1*dy_1*L3*(Qij[5*(Nx*(Ny*\
+k+jm1)+im1)+0] - Qij[5*(Nx*(Ny*k+jp1)+im1)+0] - Qij[5*(Nx*(Ny*k+jm1)+ip1)+0] \
++ Qij[5*(Nx*(Ny*k+jp1)+ip1)+0]))/2. - (2*(bb + \
 6*cc*Qij[5*(Nx*(Ny*k+j)+i)+0])*Qij[5*(Nx*(Ny*k+j)+i)+1])/3.);\\nMatSetValues(\
 Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\\
-nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+1;\\nJac_values[0]=Lambda*(dz_1*Lq_tilde);\\\
-nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
-Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*km1+j)+i)+1;\\nJac_values[0]=Lambda*(-(dz_1*\
-Lq_tilde));\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\\
-nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+2;\\nJac_values[0]=\
-Lambda*((-2*(bb + \
+nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+1;\\nJac_values[0]=Lambda*(dz_1*Lq_tilde + \
+((dz_1*dz_1)*L3*(-Qij[5*(Nx*(Ny*km1+j)+i)+1] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+1]))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*km1+j)+i)+\
+1;\\nJac_values[0]=Lambda*((dz_1*(-6*Lq_tilde + \
+dz_1*L3*(Qij[5*(Nx*(Ny*km1+j)+i)+1] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+1])))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+i)+1;\\nJac_values[0]=Lambda*((dy_1*L3*(-3*dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+\
+0] + 3*dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+0] + 2*dy_1*(-Qij[5*(Nx*(Ny*k+jm1)+i)+1] \
++ Qij[5*(Nx*(Ny*k+jp1)+i)+1])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+\
+jm1)+i)+1;\\nJac_values[0]=Lambda*((dy_1*L3*(3*dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+0]\
+ - 3*dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+0] + 2*dy_1*(Qij[5*(Nx*(Ny*k+jm1)+i)+1] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+1])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++ip1)+1;\\nJac_values[0]=Lambda*((dx_1*L3*(-3*dy_1*Qij[5*(Nx*(Ny*k+jm1)+i)+0] \
++ 3*dy_1*Qij[5*(Nx*(Ny*k+jp1)+i)+0] + 4*dx_1*(Qij[5*(Nx*(Ny*k+j)+im1)+1] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+1])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+ip1)+1;\\nJac_values[0]=Lambda*((dx_1*dy_1*(L2 + \
+Ls))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+ip1)+1;\\nJac_values[0]=\
+Lambda*(-(dx_1*dy_1*(L2 + \
+Ls))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+j)+im1)+1;\\nJac_values[0]=\
+Lambda*((dx_1*L3*(3*dy_1*Qij[5*(Nx*(Ny*k+jm1)+i)+0] - \
+3*dy_1*Qij[5*(Nx*(Ny*k+jp1)+i)+0] + 4*dx_1*(-Qij[5*(Nx*(Ny*k+j)+im1)+1] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+1])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+im1)+1;\\nJac_values[0]=Lambda*(-(dx_1*dy_1*(L2 + \
+Ls))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+im1)+1;\\nJac_values[0]=\
+Lambda*((dx_1*dy_1*(L2 + \
+Ls))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+2;\\nJac_values[0]=Lambda*\
+((dx_1*dz_1*L3*(Qij[5*(Nx*(Ny*km1+j)+im1)+0] - Qij[5*(Nx*(Ny*kp1+j)+im1)+0] - \
+Qij[5*(Nx*(Ny*km1+j)+ip1)+0] + Qij[5*(Nx*(Ny*kp1+j)+ip1)+0]))/2. - (2*(bb + \
 6*cc*Qij[5*(Nx*(Ny*k+j)+i)+0])*Qij[5*(Nx*(Ny*k+j)+i)+2])/3.);\\nMatSetValues(\
 Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\\
-nidxn[0]=5*(Nx*(Ny*k+jp1)+i)+2;\\nJac_values[0]=Lambda*(-(dy_1*Lq_tilde));\\\
-nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
-Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+i)+2;\\nJac_values[0]=Lambda*(dy_1*\
-Lq_tilde);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+2;\\nJac_values[0]=Lambda*((dz_1*L3*(-3*dx_1*Qij[\
+5*(Nx*(Ny*k+j)+im1)+0] + 3*dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+0] + \
+2*dz_1*(-Qij[5*(Nx*(Ny*km1+j)+i)+2] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+2])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*km1+\
+j)+i)+2;\\nJac_values[0]=Lambda*((dz_1*L3*(3*dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+0] \
+- 3*dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+0] + 2*dz_1*(Qij[5*(Nx*(Ny*km1+j)+i)+2] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+2])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+i)+2;\\nJac_values[0]=Lambda*((dy_1*(-6*Lq_tilde + \
+dy_1*L3*(-Qij[5*(Nx*(Ny*k+jm1)+i)+2] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+2])))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+\
+jm1)+i)+2;\\nJac_values[0]=Lambda*((dy_1*(6*Lq_tilde + \
+dy_1*L3*(Qij[5*(Nx*(Ny*k+jm1)+i)+2] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+2])))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++ip1)+2;\\nJac_values[0]=Lambda*((dx_1*L3*(-3*dz_1*Qij[5*(Nx*(Ny*km1+j)+i)+0] \
++ 3*dz_1*Qij[5*(Nx*(Ny*kp1+j)+i)+0] + 4*dx_1*(Qij[5*(Nx*(Ny*k+j)+im1)+2] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+2])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+j)+ip1)+2;\\nJac_values[0]=Lambda*((dx_1*dz_1*(L2 + \
+Ls))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*km1+j)+ip1)+2;\\nJac_values[0]=\
+Lambda*(-(dx_1*dz_1*(L2 + \
+Ls))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+j)+im1)+2;\\nJac_values[0]=\
+Lambda*((dx_1*L3*(3*dz_1*Qij[5*(Nx*(Ny*km1+j)+i)+0] - \
+3*dz_1*Qij[5*(Nx*(Ny*kp1+j)+i)+0] + 4*dx_1*(-Qij[5*(Nx*(Ny*k+j)+im1)+2] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+2])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+j)+im1)+2;\\nJac_values[0]=Lambda*(-(dx_1*dz_1*(L2 + \
+Ls))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*km1+j)+im1)+2;\\nJac_values[0]=\
+Lambda*((dx_1*dz_1*(L2 + \
+Ls))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
 0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+3;\\nJac_values[0]=Lambda*\
-((2*(bb - 3*cc*Qij[5*(Nx*(Ny*k+j)+i)+0])*(Qij[5*(Nx*(Ny*k+j)+i)+0] + \
-2*Qij[5*(Nx*(Ny*k+j)+i)+3]))/3.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
-ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+4;\
-\\nJac_values[0]=Lambda*((4*(bb - \
+((2*(dy_1 - dz_1)*(dy_1 + dz_1)*(L2 + Ls) - \
+6*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*k+j)+i)+0]) + \
+3*L3*(-((dz_1*dz_1)*(Qij[5*(Nx*(Ny*km1+j)+i)+0] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+0])) + (dy_1*dy_1)*(Qij[5*(Nx*(Ny*k+jm1)+i)+0] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+0])) + 4*bb*Qij[5*(Nx*(Ny*k+j)+i)+3] + \
+2*Qij[5*(Nx*(Ny*k+j)+i)+0]*(bb - 3*(dy_1*dy_1)*L3 + 3*(dz_1*dz_1)*L3 - \
+6*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]))/3.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+j)+i)+3;\\nJac_values[0]=Lambda*(((dz_1*dz_1)*(2*(L2 + Ls) + \
+L3*(Qij[5*(Nx*(Ny*km1+j)+i)+0] - Qij[5*(Nx*(Ny*kp1+j)+i)+0] - \
+Qij[5*(Nx*(Ny*km1+j)+i)+3] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+3])))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*km1+\
+j)+i)+3;\\nJac_values[0]=Lambda*(((dz_1*dz_1)*(2*(L2 + Ls) + \
+L3*(-Qij[5*(Nx*(Ny*km1+j)+i)+0] + Qij[5*(Nx*(Ny*kp1+j)+i)+0] + \
+Qij[5*(Nx*(Ny*km1+j)+i)+3] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+3])))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+i)+3;\\nJac_values[0]=Lambda*(-((dy_1*dy_1)*(2*(L2 + Ls) + \
+L3*(2*Qij[5*(Nx*(Ny*k+jm1)+i)+0] - 2*Qij[5*(Nx*(Ny*k+jp1)+i)+0] + \
+Qij[5*(Nx*(Ny*k+jm1)+i)+3] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+3])))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+\
+jm1)+i)+3;\\nJac_values[0]=Lambda*(-((dy_1*dy_1)*(2*(L2 + Ls) + \
+L3*(-2*Qij[5*(Nx*(Ny*k+jm1)+i)+0] + 2*Qij[5*(Nx*(Ny*k+jp1)+i)+0] - \
+Qij[5*(Nx*(Ny*k+jm1)+i)+3] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+3])))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++ip1)+3;\\nJac_values[0]=Lambda*(((dx_1*dx_1)*L3*(Qij[5*(Nx*(Ny*k+j)+im1)+0] \
+- Qij[5*(Nx*(Ny*k+j)+ip1)+0] + 2*Qij[5*(Nx*(Ny*k+j)+im1)+3] - \
+2*Qij[5*(Nx*(Ny*k+j)+ip1)+3]))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++im1)+3;\\nJac_values[0]=Lambda*(((dx_1*dx_1)*L3*(-Qij[5*(Nx*(Ny*k+j)+im1)+0] \
++ Qij[5*(Nx*(Ny*k+j)+ip1)+0] - 2*Qij[5*(Nx*(Ny*k+j)+im1)+3] + \
+2*Qij[5*(Nx*(Ny*k+j)+ip1)+3]))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++i)+4;\\nJac_values[0]=Lambda*((dy_1*dz_1*L3*(Qij[5*(Nx*(Ny*km1+jm1)+i)+0] - \
+Qij[5*(Nx*(Ny*kp1+jm1)+i)+0] - Qij[5*(Nx*(Ny*km1+jp1)+i)+0] + \
+Qij[5*(Nx*(Ny*kp1+jp1)+i)+0]))/2. + (4*(bb - \
 3*cc*Qij[5*(Nx*(Ny*k+j)+i)+0])*Qij[5*(Nx*(Ny*k+j)+i)+4])/3.);\\nMatSetValues(\
-Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\\
-nidxn[0]=5*(Nx*(Ny*k+j)+i)+0;\\nJac_values[0]=Lambda*(-(Qij[5*(Nx*(Ny*k+j)+i)+\
-1]*(bb + 4*cc*Qij[5*(Nx*(Ny*k+j)+i)+0] + \
-2*cc*Qij[5*(Nx*(Ny*k+j)+i)+3])));\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\\
+nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+4;\\nJac_values[0]=Lambda*((dz_1*L3*(-3*dy_1*Qij[\
+5*(Nx*(Ny*k+jm1)+i)+0] + 3*dy_1*Qij[5*(Nx*(Ny*k+jp1)+i)+0] + \
+2*dz_1*(-Qij[5*(Nx*(Ny*km1+j)+i)+4] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+4])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*km1+\
+j)+i)+4;\\nJac_values[0]=Lambda*((dz_1*L3*(3*dy_1*Qij[5*(Nx*(Ny*k+jm1)+i)+0] \
+- 3*dy_1*Qij[5*(Nx*(Ny*k+jp1)+i)+0] + 2*dz_1*(Qij[5*(Nx*(Ny*km1+j)+i)+4] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+4])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+i)+4;\\nJac_values[0]=Lambda*((dy_1*L3*(-3*dz_1*Qij[5*(Nx*(Ny*km1+j)+i)+\
+0] + 3*dz_1*Qij[5*(Nx*(Ny*kp1+j)+i)+0] + 2*dy_1*(-Qij[5*(Nx*(Ny*k+jm1)+i)+4] \
++ Qij[5*(Nx*(Ny*k+jp1)+i)+4])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+jp1)+i)+4;\\nJac_values[0]=Lambda*(-(dy_1*dz_1*(L2 + \
+Ls))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*km1+jp1)+i)+4;\\nJac_values[0]=\
+Lambda*((dy_1*dz_1*(L2 + \
+Ls))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+i)+4;\\nJac_values[0]=\
+Lambda*((dy_1*L3*(3*dz_1*Qij[5*(Nx*(Ny*km1+j)+i)+0] - \
+3*dz_1*Qij[5*(Nx*(Ny*kp1+j)+i)+0] + 2*dy_1*(Qij[5*(Nx*(Ny*k+jm1)+i)+4] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+4])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+jm1)+i)+4;\\nJac_values[0]=Lambda*((dy_1*dz_1*(L2 + \
+Ls))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*km1+jm1)+i)+4;\\nJac_values[0]=\
+Lambda*(-(dy_1*dz_1*(L2 + \
+Ls))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+j)+ip1)+4;\\nJac_values[0]=\
+Lambda*(((dx_1*dx_1)*L3*(Qij[5*(Nx*(Ny*k+j)+im1)+4] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+4]))/3.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+0;\\nidxn[0]=5*(Nx*(Ny*k+j)+im1)+\
+4;\\nJac_values[0]=Lambda*(((dx_1*dx_1)*L3*(-Qij[5*(Nx*(Ny*k+j)+im1)+4] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+4]))/3.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+0;\
+\\nJac_values[0]=Lambda*(L3*(-((dz_1*dz_1)*(Qij[5*(Nx*(Ny*km1+j)+i)+1] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+1])) + (dx_1*dx_1)*(Qij[5*(Nx*(Ny*k+j)+im1)+1] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+1])) - Qij[5*(Nx*(Ny*k+j)+i)+1]*(bb + 2*(dx_1 - \
+dz_1)*(dx_1 + dz_1)*L3 + 4*cc*Qij[5*(Nx*(Ny*k+j)+i)+0] + \
+2*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]));\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
 ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+\
-0;\\nJac_values[0]=Lambda*(-(dz_1*Lq_tilde)/2.);\\nMatSetValues(Jac,1,idxm,1,\
-idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(\
-Nx*(Ny*km1+j)+i)+0;\\nJac_values[0]=Lambda*((dz_1*Lq_tilde)/2.);\\\
-nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
-Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+1;\\nJac_values[0]=Lambda*(-2*((dx_\
-1*dx_1) + (dy_1*dy_1) + (dz_1*dz_1))*L1 - sigma - \
-2*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*k+j)+i)+0]) - \
-bb*Qij[5*(Nx*(Ny*k+j)+i)+3] - Qij[5*(Nx*(Ny*k+j)+i)+0]*(bb + \
+0;\\nJac_values[0]=Lambda*((dz_1*(-2*Lq_tilde + \
+dz_1*L3*(Qij[5*(Nx*(Ny*km1+j)+i)+1] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+1])))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*km1+\
+j)+i)+0;\\nJac_values[0]=Lambda*((dz_1*(2*Lq_tilde + \
+dz_1*L3*(-Qij[5*(Nx*(Ny*km1+j)+i)+1] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+1])))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+i)+0;\\nJac_values[0]=Lambda*((dx_1*dy_1*L3*(2*Qij[5*(Nx*(Ny*k+j)+im1)+0]\
+ - 2*Qij[5*(Nx*(Ny*k+j)+ip1)+0] + Qij[5*(Nx*(Ny*k+j)+im1)+3] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+3]))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+i)+\
+0;\\nJac_values[0]=Lambda*((dx_1*dy_1*L3*(-2*Qij[5*(Nx*(Ny*k+j)+im1)+0] + \
+2*Qij[5*(Nx*(Ny*k+j)+ip1)+0] - Qij[5*(Nx*(Ny*k+j)+im1)+3] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+3]))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+j)+ip1)+\
+0;\\nJac_values[0]=Lambda*((dx_1*L3*(2*dx_1*(-Qij[5*(Nx*(Ny*k+j)+im1)+1] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+1]) + dy_1*(2*Qij[5*(Nx*(Ny*k+jm1)+i)+0] - \
+2*Qij[5*(Nx*(Ny*k+jp1)+i)+0] + Qij[5*(Nx*(Ny*k+jm1)+i)+3] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+3])))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+ip1)+0;\\nJac_values[0]=Lambda*((dx_1*dy_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+ip1)+0;\\nJac_values[0]=\
+Lambda*(-(dx_1*dy_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+j)+im1)+0;\\nJac_values[0]=\
+Lambda*((dx_1*L3*(2*dx_1*(Qij[5*(Nx*(Ny*k+j)+im1)+1] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+1]) + dy_1*(-2*Qij[5*(Nx*(Ny*k+jm1)+i)+0] + \
+2*Qij[5*(Nx*(Ny*k+jp1)+i)+0] - Qij[5*(Nx*(Ny*k+jm1)+i)+3] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+3])))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+im1)+0;\\nJac_values[0]=Lambda*(-(dx_1*dy_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+im1)+0;\\nJac_values[0]=\
+Lambda*((dx_1*dy_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+1;\\nJac_values[0]=Lambda*\
+((-2*(2*(dz_1*dz_1)*L1 + (dx_1*dx_1)*(2*L1 + L2 + Ls) + (dy_1*dy_1)*(2*L1 + \
+L2 + Ls) + sigma) - 4*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*k+j)+i)+0]) \
++ dx_1*dy_1*L3*(Qij[5*(Nx*(Ny*k+jm1)+im1)+1] - Qij[5*(Nx*(Ny*k+jp1)+im1)+1] - \
+Qij[5*(Nx*(Ny*k+jm1)+ip1)+1] + Qij[5*(Nx*(Ny*k+jp1)+ip1)+1]) - 2*(bb + \
+2*(dy_1 - dz_1)*(dy_1 + dz_1)*L3)*Qij[5*(Nx*(Ny*k+j)+i)+3] - \
+2*Qij[5*(Nx*(Ny*k+j)+i)+0]*(bb + 2*(dx_1 - dz_1)*(dx_1 + dz_1)*L3 + \
 2*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]) - \
-2*cc*(3*(Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+1]) + \
+4*cc*(3*(Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+1]) + \
 (Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+2]) + \
 (Qij[5*(Nx*(Ny*k+j)+i)+3]*Qij[5*(Nx*(Ny*k+j)+i)+3]) + \
-(Qij[5*(Nx*(Ny*k+j)+i)+4]*Qij[5*(Nx*(Ny*k+j)+i)+4])));\\nMatSetValues(Jac,1,\
-idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[\
-0]=5*(Nx*(Ny*kp1+j)+i)+1;\\nJac_values[0]=Lambda*((dz_1*dz_1)*L1);\\\
-nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
-Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*km1+j)+i)+1;\\nJac_values[0]=Lambda*((dz_1*\
-dz_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
-0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+jp1)+i)+1;\\nJac_values[0]=\
-Lambda*((dy_1*dy_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_\
-VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+i)+1;\\\
-nJac_values[0]=Lambda*((dy_1*dy_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
-values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+j)\
-+ip1)+1;\\nJac_values[0]=Lambda*((dx_1*dx_1)*L1);\\nMatSetValues(Jac,1,idxm,1,\
-idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(\
-Nx*(Ny*k+j)+im1)+1;\\nJac_values[0]=Lambda*((dx_1*dx_1)*L1);\\nMatSetValues(\
-Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\\
-nidxn[0]=5*(Nx*(Ny*k+j)+i)+2;\\nJac_values[0]=Lambda*(-4*cc*Qij[5*(Nx*(Ny*k+j)\
-+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+2] - \
-bb*Qij[5*(Nx*(Ny*k+j)+i)+4]);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_\
-VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+j)+ip1)+2;\\\
-nJac_values[0]=Lambda*((dx_1*Lq_tilde)/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
-Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*\
-k+j)+im1)+2;\\nJac_values[0]=Lambda*(-(dx_1*Lq_tilde)/2.);\\nMatSetValues(Jac,\
+(Qij[5*(Nx*(Ny*k+j)+i)+4]*Qij[5*(Nx*(Ny*k+j)+i)+4])))/2.);\\nMatSetValues(Jac,\
 1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\\
-nidxn[0]=5*(Nx*(Ny*k+j)+i)+3;\\nJac_values[0]=Lambda*(-(Qij[5*(Nx*(Ny*k+j)+i)+\
-1]*(bb + 2*cc*Qij[5*(Nx*(Ny*k+j)+i)+0] + \
-4*cc*Qij[5*(Nx*(Ny*k+j)+i)+3])));\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
-ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+\
-3;\\nJac_values[0]=Lambda*((dz_1*Lq_tilde)/2.);\\nMatSetValues(Jac,1,idxm,1,\
+nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+1;\\nJac_values[0]=Lambda*((dz_1*(4*dz_1*L1 - \
+L3*(dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+2] - dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+2] + \
+dz_1*(4*Qij[5*(Nx*(Ny*k+j)+i)+0] - Qij[5*(Nx*(Ny*km1+j)+i)+0] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+0] + 4*Qij[5*(Nx*(Ny*k+j)+i)+3] - \
+Qij[5*(Nx*(Ny*km1+j)+i)+3] + Qij[5*(Nx*(Ny*kp1+j)+i)+3]) + \
+dy_1*(Qij[5*(Nx*(Ny*k+jm1)+i)+4] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+4]))))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*km1+\
+j)+i)+1;\\nJac_values[0]=Lambda*((dz_1*(4*dz_1*L1 - \
+L3*(-(dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+2]) + dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+2] + \
+dz_1*(4*Qij[5*(Nx*(Ny*k+j)+i)+0] + Qij[5*(Nx*(Ny*km1+j)+i)+0] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+0] + 4*Qij[5*(Nx*(Ny*k+j)+i)+3] + \
+Qij[5*(Nx*(Ny*km1+j)+i)+3] - Qij[5*(Nx*(Ny*kp1+j)+i)+3]) + \
+dy_1*(-Qij[5*(Nx*(Ny*k+jm1)+i)+4] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+4]))))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+i)+1;\\nJac_values[0]=Lambda*((dy_1*(2*dy_1*(2*L1 + L2 + Ls) + \
+L3*(-(dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+1]) + dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+1] + \
+dy_1*(4*Qij[5*(Nx*(Ny*k+j)+i)+3] - Qij[5*(Nx*(Ny*k+jm1)+i)+3] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+3]) + dz_1*(-Qij[5*(Nx*(Ny*km1+j)+i)+4] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+4]))))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+jp1)+i)+1;\\nJac_values[0]=Lambda*((dy_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+4])/2.)\
+;\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*\
+(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*km1+jp1)+i)+1;\\nJac_values[0]=Lambda*(-(\
+dy_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+4])/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
+Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*\
+k+jm1)+i)+1;\\nJac_values[0]=Lambda*((dy_1*(2*dy_1*(2*L1 + L2 + Ls) + \
+L3*(dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+1] - dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+1] + \
+dy_1*(4*Qij[5*(Nx*(Ny*k+j)+i)+3] + Qij[5*(Nx*(Ny*k+jm1)+i)+3] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+3]) + dz_1*(Qij[5*(Nx*(Ny*km1+j)+i)+4] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+4]))))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+jm1)+i)+1;\\nJac_values[0]=Lambda*(-(dy_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+4])/2.\
+);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(\
+Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*km1+jm1)+i)+1;\\nJac_values[0]=Lambda*((\
+dy_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+4])/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
+Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*\
+k+j)+ip1)+1;\\nJac_values[0]=Lambda*((dx_1*(2*dx_1*(2*L1 + L2 + Ls) + \
+L3*(dx_1*(4*Qij[5*(Nx*(Ny*k+j)+i)+0] - Qij[5*(Nx*(Ny*k+j)+im1)+0] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+0]) - dy_1*Qij[5*(Nx*(Ny*k+jm1)+i)+1] + \
+dy_1*Qij[5*(Nx*(Ny*k+jp1)+i)+1] + dz_1*(-Qij[5*(Nx*(Ny*km1+j)+i)+2] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+2]))))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+j)+ip1)+1;\\nJac_values[0]=Lambda*((dx_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+2])/2.)\
+;\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*\
+(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*km1+j)+ip1)+1;\\nJac_values[0]=Lambda*(-(\
+dx_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+2])/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
+Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*\
+k+jp1)+ip1)+1;\\nJac_values[0]=Lambda*((dx_1*dy_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+1])\
+/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*\
+(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+ip1)+1;\\nJac_values[0]=Lambda*(\
+-(dx_1*dy_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+1])/2.);\\nMatSetValues(Jac,1,idxm,1,\
 idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(\
-Nx*(Ny*km1+j)+i)+3;\\nJac_values[0]=Lambda*(-(dz_1*Lq_tilde)/2.);\\\
-nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
-Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+4;\\nJac_values[0]=Lambda*(-(bb*Qij[\
-5*(Nx*(Ny*k+j)+i)+2]) - \
+Nx*(Ny*k+j)+im1)+1;\\nJac_values[0]=Lambda*((dx_1*(2*dx_1*(2*L1 + L2 + Ls) + \
+L3*(dx_1*(4*Qij[5*(Nx*(Ny*k+j)+i)+0] + Qij[5*(Nx*(Ny*k+j)+im1)+0] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+0]) + dy_1*Qij[5*(Nx*(Ny*k+jm1)+i)+1] - \
+dy_1*Qij[5*(Nx*(Ny*k+jp1)+i)+1] + dz_1*(Qij[5*(Nx*(Ny*km1+j)+i)+2] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+2]))))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+j)+im1)+1;\\nJac_values[0]=Lambda*(-(dx_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+2])/2.\
+);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(\
+Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*km1+j)+im1)+1;\\nJac_values[0]=Lambda*((\
+dx_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+2])/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
+Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*\
+k+jp1)+im1)+1;\\nJac_values[0]=Lambda*(-(dx_1*dy_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+1]\
+)/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=\
+5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+im1)+1;\\nJac_values[0]=\
+Lambda*((dx_1*dy_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+1])/2.);\\nMatSetValues(Jac,1,\
+idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[\
+0]=5*(Nx*(Ny*k+j)+i)+2;\\nJac_values[0]=Lambda*((dx_1*dz_1*L3*(Qij[5*(Nx*(Ny*\
+km1+j)+im1)+1] - Qij[5*(Nx*(Ny*kp1+j)+im1)+1] - Qij[5*(Nx*(Ny*km1+j)+ip1)+1] \
++ Qij[5*(Nx*(Ny*kp1+j)+ip1)+1]))/2. - \
+4*cc*Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+2] - \
+bb*Qij[5*(Nx*(Ny*k+j)+i)+4]);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_\
+VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+2;\\\
+nJac_values[0]=Lambda*((dx_1*dz_1*L3*(-Qij[5*(Nx*(Ny*k+j)+im1)+1] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+1]))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*km1+j)+i)+\
+2;\\nJac_values[0]=Lambda*((dx_1*dz_1*L3*(Qij[5*(Nx*(Ny*k+j)+im1)+1] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+1]))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+jp1)+i)+\
+2;\\nJac_values[0]=Lambda*((dx_1*dy_1*L3*(Qij[5*(Nx*(Ny*k+j)+im1)+2] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+2]))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*kp1+jp1)+i)\
++2;\\nJac_values[0]=Lambda*((dy_1*dz_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*km1+jp1)+i)+2;\\nJac_values[0]=\
+Lambda*(-(dy_1*dz_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+i)+2;\\nJac_values[0]=\
+Lambda*((dx_1*dy_1*L3*(-Qij[5*(Nx*(Ny*k+j)+im1)+2] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+2]))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*kp1+jm1)+i)\
++2;\\nJac_values[0]=Lambda*(-(dy_1*dz_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*km1+jm1)+i)+2;\\nJac_values[0]=\
+Lambda*((dy_1*dz_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+j)+ip1)+2;\\nJac_values[0]=\
+Lambda*((dx_1*(2*Lq_tilde - dz_1*L3*Qij[5*(Nx*(Ny*km1+j)+i)+1] + \
+dz_1*L3*Qij[5*(Nx*(Ny*kp1+j)+i)+1] + dy_1*L3*(Qij[5*(Nx*(Ny*k+jm1)+i)+2] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+2])))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++im1)+2;\\nJac_values[0]=Lambda*(-(dx_1*(2*Lq_tilde - \
+dz_1*L3*Qij[5*(Nx*(Ny*km1+j)+i)+1] + dz_1*L3*Qij[5*(Nx*(Ny*kp1+j)+i)+1] + \
+dy_1*L3*(Qij[5*(Nx*(Ny*k+jm1)+i)+2] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+2])))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++i)+3;\\nJac_values[0]=Lambda*(L3*(-((dz_1*dz_1)*(Qij[5*(Nx*(Ny*km1+j)+i)+1] \
++ Qij[5*(Nx*(Ny*kp1+j)+i)+1])) + (dy_1*dy_1)*(Qij[5*(Nx*(Ny*k+jm1)+i)+1] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+1])) - Qij[5*(Nx*(Ny*k+j)+i)+1]*(bb + 2*(dy_1 - \
+dz_1)*(dy_1 + dz_1)*L3 + 2*cc*Qij[5*(Nx*(Ny*k+j)+i)+0] + \
+4*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]));\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+\
+3;\\nJac_values[0]=Lambda*((dz_1*(2*Lq_tilde + \
+dz_1*L3*(Qij[5*(Nx*(Ny*km1+j)+i)+1] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+1])))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*km1+\
+j)+i)+3;\\nJac_values[0]=Lambda*(-(dz_1*(2*Lq_tilde + \
+dz_1*L3*(Qij[5*(Nx*(Ny*km1+j)+i)+1] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+1])))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+i)+3;\\nJac_values[0]=Lambda*((dy_1*L3*(2*dy_1*(-Qij[5*(Nx*(Ny*k+jm1)+i)+\
+1] + Qij[5*(Nx*(Ny*k+jp1)+i)+1]) + dx_1*(Qij[5*(Nx*(Ny*k+j)+im1)+0] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+0] + 2*Qij[5*(Nx*(Ny*k+j)+im1)+3] - \
+2*Qij[5*(Nx*(Ny*k+j)+ip1)+3])))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+\
+jm1)+i)+3;\\nJac_values[0]=Lambda*((dy_1*L3*(2*dy_1*(Qij[5*(Nx*(Ny*k+jm1)+i)+\
+1] - Qij[5*(Nx*(Ny*k+jp1)+i)+1]) + dx_1*(-Qij[5*(Nx*(Ny*k+j)+im1)+0] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+0] - 2*Qij[5*(Nx*(Ny*k+j)+im1)+3] + \
+2*Qij[5*(Nx*(Ny*k+j)+ip1)+3])))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++ip1)+3;\\nJac_values[0]=Lambda*((dx_1*dy_1*L3*(Qij[5*(Nx*(Ny*k+jm1)+i)+0] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+0] + 2*Qij[5*(Nx*(Ny*k+jm1)+i)+3] - \
+2*Qij[5*(Nx*(Ny*k+jp1)+i)+3]))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+ip1)+3;\\nJac_values[0]=Lambda*((dx_1*dy_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+ip1)+3;\\nJac_values[0]=\
+Lambda*(-(dx_1*dy_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+j)+im1)+3;\\nJac_values[0]=\
+Lambda*((dx_1*dy_1*L3*(-Qij[5*(Nx*(Ny*k+jm1)+i)+0] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+0] - 2*Qij[5*(Nx*(Ny*k+jm1)+i)+3] + \
+2*Qij[5*(Nx*(Ny*k+jp1)+i)+3]))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+im1)+3;\\nJac_values[0]=Lambda*(-(dx_1*dy_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+im1)+3;\\nJac_values[0]=\
+Lambda*((dx_1*dy_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+4;\\nJac_values[0]=Lambda*\
+((dy_1*dz_1*L3*(Qij[5*(Nx*(Ny*km1+jm1)+i)+1] - Qij[5*(Nx*(Ny*kp1+jm1)+i)+1] - \
+Qij[5*(Nx*(Ny*km1+jp1)+i)+1] + Qij[5*(Nx*(Ny*kp1+jp1)+i)+1]))/2. - \
+bb*Qij[5*(Nx*(Ny*k+j)+i)+2] - \
 4*cc*Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+4]);\\nMatSetValues(Jac,1,\
 idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[\
-0]=5*(Nx*(Ny*k+jp1)+i)+4;\\nJac_values[0]=Lambda*(-(dy_1*Lq_tilde)/2.);\\\
-nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
-Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+i)+4;\\nJac_values[0]=Lambda*((dy_1*\
-Lq_tilde)/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\\
-nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+0;\\nJac_values[0]=\
-Lambda*(-2*cc*Qij[5*(Nx*(Ny*k+j)+i)+2]*(2*Qij[5*(Nx*(Ny*k+j)+i)+0] + \
-Qij[5*(Nx*(Ny*k+j)+i)+3]));\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_\
-VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+jp1)+i)+0;\\\
-nJac_values[0]=Lambda*(dy_1*Lq_tilde);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+0]=5*(Nx*(Ny*kp1+j)+i)+4;\\nJac_values[0]=Lambda*((dy_1*dz_1*L3*(-Qij[5*(Nx*(\
+Ny*k+jm1)+i)+1] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+1]))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*km1+j)+i)+\
+4;\\nJac_values[0]=Lambda*((dy_1*dz_1*L3*(Qij[5*(Nx*(Ny*k+jm1)+i)+1] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+1]))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+jp1)+i)+\
+4;\\nJac_values[0]=Lambda*(-(dy_1*(2*Lq_tilde + \
+dz_1*L3*Qij[5*(Nx*(Ny*km1+j)+i)+1] - dz_1*L3*Qij[5*(Nx*(Ny*kp1+j)+i)+1] + \
+dx_1*L3*(-Qij[5*(Nx*(Ny*k+j)+im1)+4] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+4])))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+\
+jm1)+i)+4;\\nJac_values[0]=Lambda*((dy_1*(2*Lq_tilde + \
+dz_1*L3*Qij[5*(Nx*(Ny*km1+j)+i)+1] - dz_1*L3*Qij[5*(Nx*(Ny*kp1+j)+i)+1] + \
+dx_1*L3*(-Qij[5*(Nx*(Ny*k+j)+im1)+4] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+4])))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++ip1)+4;\\nJac_values[0]=Lambda*((dx_1*dy_1*L3*(Qij[5*(Nx*(Ny*k+jm1)+i)+4] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+4]))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*kp1+j)+ip1)\
++4;\\nJac_values[0]=Lambda*((dx_1*dz_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*km1+j)+ip1)+4;\\nJac_values[0]=\
+Lambda*(-(dx_1*dz_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*k+j)+im1)+4;\\nJac_values[0]=\
+Lambda*((dx_1*dy_1*L3*(-Qij[5*(Nx*(Ny*k+jm1)+i)+4] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+4]))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*kp1+j)+im1)\
++4;\\nJac_values[0]=Lambda*(-(dx_1*dz_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+1;\\nidxn[0]=5*(Nx*(Ny*km1+j)+im1)+4;\\nJac_values[0]=\
+Lambda*((dx_1*dz_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+0;\\nJac_values[0]=Lambda*\
+(L3*(-((dz_1*dz_1)*(Qij[5*(Nx*(Ny*km1+j)+i)+2] + Qij[5*(Nx*(Ny*kp1+j)+i)+2])) \
++ (dx_1*dx_1)*(Qij[5*(Nx*(Ny*k+j)+im1)+2] + Qij[5*(Nx*(Ny*k+j)+ip1)+2])) - \
+2*Qij[5*(Nx*(Ny*k+j)+i)+2]*((dx_1 - dz_1)*(dx_1 + dz_1)*L3 + \
+2*cc*Qij[5*(Nx*(Ny*k+j)+i)+0] + \
+cc*Qij[5*(Nx*(Ny*k+j)+i)+3]));\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+\
+0;\\nJac_values[0]=Lambda*((dz_1*L3*(2*dz_1*(Qij[5*(Nx*(Ny*km1+j)+i)+2] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+2]) + dx_1*(2*Qij[5*(Nx*(Ny*k+j)+im1)+0] - \
+2*Qij[5*(Nx*(Ny*k+j)+ip1)+0] + Qij[5*(Nx*(Ny*k+j)+im1)+3] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+3])))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*km1+\
+j)+i)+0;\\nJac_values[0]=Lambda*((dz_1*L3*(2*dz_1*(-Qij[5*(Nx*(Ny*km1+j)+i)+2]\
+ + Qij[5*(Nx*(Ny*kp1+j)+i)+2]) + dx_1*(-2*Qij[5*(Nx*(Ny*k+j)+im1)+0] + \
+2*Qij[5*(Nx*(Ny*k+j)+ip1)+0] - Qij[5*(Nx*(Ny*k+j)+im1)+3] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+3])))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
 values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+\
-jm1)+i)+0;\\nJac_values[0]=Lambda*(-(dy_1*Lq_tilde));\\nMatSetValues(Jac,1,\
-idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[\
-0]=5*(Nx*(Ny*k+j)+i)+1;\\nJac_values[0]=Lambda*(-4*cc*Qij[5*(Nx*(Ny*k+j)+i)+1]\
-*Qij[5*(Nx*(Ny*k+j)+i)+2] - \
-bb*Qij[5*(Nx*(Ny*k+j)+i)+4]);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_\
-VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+j)+ip1)+1;\\\
-nJac_values[0]=Lambda*(-(dx_1*Lq_tilde)/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
-Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*\
-k+j)+im1)+1;\\nJac_values[0]=Lambda*((dx_1*Lq_tilde)/2.);\\nMatSetValues(Jac,\
-1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\\
-nidxn[0]=5*(Nx*(Ny*k+j)+i)+2;\\nJac_values[0]=Lambda*(-2*((dx_1*dx_1) + \
-(dy_1*dy_1) + (dz_1*dz_1))*L1 - sigma + bb*Qij[5*(Nx*(Ny*k+j)+i)+3] - \
-2*cc*((Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*k+j)+i)+0]) + \
-(Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+1]) + \
-3*(Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+2]) + \
-Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*k+j)+i)+3] + \
-(Qij[5*(Nx*(Ny*k+j)+i)+3]*Qij[5*(Nx*(Ny*k+j)+i)+3]) + \
-(Qij[5*(Nx*(Ny*k+j)+i)+4]*Qij[5*(Nx*(Ny*k+j)+i)+4])));\\nMatSetValues(Jac,1,\
-idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[\
-0]=5*(Nx*(Ny*kp1+j)+i)+2;\\nJac_values[0]=Lambda*((dz_1*dz_1)*L1);\\\
-nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
-Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*km1+j)+i)+2;\\nJac_values[0]=Lambda*((dz_1*\
-dz_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
-0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+jp1)+i)+2;\\nJac_values[0]=\
-Lambda*((dy_1*dy_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_\
-VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+i)+2;\\\
-nJac_values[0]=Lambda*((dy_1*dy_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
-values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+j)\
-+ip1)+2;\\nJac_values[0]=Lambda*((dx_1*dx_1)*L1);\\nMatSetValues(Jac,1,idxm,1,\
-idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(\
-Nx*(Ny*k+j)+im1)+2;\\nJac_values[0]=Lambda*((dx_1*dx_1)*L1);\\nMatSetValues(\
+jp1)+i)+0;\\nJac_values[0]=Lambda*(dy_1*Lq_tilde);\\nMatSetValues(Jac,1,idxm,\
+1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(\
+Nx*(Ny*k+jm1)+i)+0;\\nJac_values[0]=Lambda*(-(dy_1*Lq_tilde));\\nMatSetValues(\
 Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\\
-nidxn[0]=5*(Nx*(Ny*k+j)+i)+3;\\nJac_values[0]=Lambda*(Qij[5*(Nx*(Ny*k+j)+i)+2]\
-*(bb - 2*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0] + \
-2*Qij[5*(Nx*(Ny*k+j)+i)+3])));\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+nidxn[0]=5*(Nx*(Ny*k+j)+ip1)+0;\\nJac_values[0]=Lambda*((dx_1*L3*(2*dx_1*(-\
+Qij[5*(Nx*(Ny*k+j)+im1)+2] + Qij[5*(Nx*(Ny*k+j)+ip1)+2]) + \
+dz_1*(2*Qij[5*(Nx*(Ny*km1+j)+i)+0] - 2*Qij[5*(Nx*(Ny*kp1+j)+i)+0] + \
+Qij[5*(Nx*(Ny*km1+j)+i)+3] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+3])))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++im1)+0;\\nJac_values[0]=Lambda*((dx_1*L3*(2*dx_1*(Qij[5*(Nx*(Ny*k+j)+im1)+2] \
+- Qij[5*(Nx*(Ny*k+j)+ip1)+2]) + dz_1*(-2*Qij[5*(Nx*(Ny*km1+j)+i)+0] + \
+2*Qij[5*(Nx*(Ny*kp1+j)+i)+0] - Qij[5*(Nx*(Ny*km1+j)+i)+3] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+3])))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++i)+1;\\nJac_values[0]=Lambda*(-4*cc*Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+\
+j)+i)+2] + (dx_1*dy_1*L3*(Qij[5*(Nx*(Ny*k+jm1)+im1)+2] - \
+Qij[5*(Nx*(Ny*k+jp1)+im1)+2] - Qij[5*(Nx*(Ny*k+jm1)+ip1)+2] + \
+Qij[5*(Nx*(Ny*k+jp1)+ip1)+2]))/2. - \
+bb*Qij[5*(Nx*(Ny*k+j)+i)+4]);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_\
+VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+1;\\\
+nJac_values[0]=Lambda*((dx_1*dz_1*L3*(Qij[5*(Nx*(Ny*k+j)+im1)+1] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+1]))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*km1+j)+i)+\
+1;\\nJac_values[0]=Lambda*((dx_1*dz_1*L3*(-Qij[5*(Nx*(Ny*k+j)+im1)+1] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+1]))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
 ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+jp1)+i)+\
-3;\\nJac_values[0]=Lambda*((dy_1*Lq_tilde)/2.);\\nMatSetValues(Jac,1,idxm,1,\
+1;\\nJac_values[0]=Lambda*((dx_1*dy_1*L3*(-Qij[5*(Nx*(Ny*k+j)+im1)+2] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+2]))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*kp1+jp1)+i)\
++1;\\nJac_values[0]=Lambda*((dy_1*dz_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*km1+jp1)+i)+1;\\nJac_values[0]=\
+Lambda*(-(dy_1*dz_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+i)+1;\\nJac_values[0]=\
+Lambda*((dx_1*dy_1*L3*(Qij[5*(Nx*(Ny*k+j)+im1)+2] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+2]))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*kp1+jm1)+i)\
++1;\\nJac_values[0]=Lambda*(-(dy_1*dz_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*km1+jm1)+i)+1;\\nJac_values[0]=\
+Lambda*((dy_1*dz_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+j)+ip1)+1;\\nJac_values[0]=\
+Lambda*(-(dx_1*(2*Lq_tilde - dz_1*L3*Qij[5*(Nx*(Ny*km1+j)+i)+1] + \
+dz_1*L3*Qij[5*(Nx*(Ny*kp1+j)+i)+1] + dy_1*L3*(Qij[5*(Nx*(Ny*k+jm1)+i)+2] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+2])))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++im1)+1;\\nJac_values[0]=Lambda*((dx_1*(2*Lq_tilde - \
+dz_1*L3*Qij[5*(Nx*(Ny*km1+j)+i)+1] + dz_1*L3*Qij[5*(Nx*(Ny*kp1+j)+i)+1] + \
+dy_1*L3*(Qij[5*(Nx*(Ny*k+jm1)+i)+2] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+2])))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++i)+2;\\nJac_values[0]=Lambda*((-4*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*\
+k+j)+i)+0]) + dx_1*dz_1*L3*(Qij[5*(Nx*(Ny*km1+j)+im1)+2] - \
+Qij[5*(Nx*(Ny*kp1+j)+im1)+2] - Qij[5*(Nx*(Ny*km1+j)+ip1)+2] + \
+Qij[5*(Nx*(Ny*kp1+j)+ip1)+2]) + 4*(-(dy_1*dy_1) + \
+(dz_1*dz_1))*L3*Qij[5*(Nx*(Ny*k+j)+i)+3] - 2*(2*(dy_1*dy_1)*L1 + \
+(dx_1*dx_1)*(2*L1 + L2 + Ls) + (dz_1*dz_1)*(2*L1 + L2 + Ls) + sigma - \
+bb*Qij[5*(Nx*(Ny*k+j)+i)+3]) - 4*Qij[5*(Nx*(Ny*k+j)+i)+0]*((dx_1 - \
+dz_1)*(dx_1 + dz_1)*L3 + cc*Qij[5*(Nx*(Ny*k+j)+i)+3]) - \
+4*cc*((Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+1]) + \
+3*(Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+2]) + \
+(Qij[5*(Nx*(Ny*k+j)+i)+3]*Qij[5*(Nx*(Ny*k+j)+i)+3]) + \
+(Qij[5*(Nx*(Ny*k+j)+i)+4]*Qij[5*(Nx*(Ny*k+j)+i)+4])))/2.);\\nMatSetValues(Jac,\
+1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\\
+nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+2;\\nJac_values[0]=Lambda*((dz_1*(2*dz_1*(2*L1 + \
+L2 + Ls) - L3*(dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+2] - \
+dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+2] + dz_1*(4*Qij[5*(Nx*(Ny*k+j)+i)+0] - \
+Qij[5*(Nx*(Ny*km1+j)+i)+0] + Qij[5*(Nx*(Ny*kp1+j)+i)+0] + \
+4*Qij[5*(Nx*(Ny*k+j)+i)+3] - Qij[5*(Nx*(Ny*km1+j)+i)+3] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+3]) + dy_1*(Qij[5*(Nx*(Ny*k+jm1)+i)+4] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+4]))))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*km1+\
+j)+i)+2;\\nJac_values[0]=Lambda*((dz_1*(2*dz_1*(2*L1 + L2 + Ls) - \
+L3*(-(dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+2]) + dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+2] + \
+dz_1*(4*Qij[5*(Nx*(Ny*k+j)+i)+0] + Qij[5*(Nx*(Ny*km1+j)+i)+0] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+0] + 4*Qij[5*(Nx*(Ny*k+j)+i)+3] + \
+Qij[5*(Nx*(Ny*km1+j)+i)+3] - Qij[5*(Nx*(Ny*kp1+j)+i)+3]) + \
+dy_1*(-Qij[5*(Nx*(Ny*k+jm1)+i)+4] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+4]))))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+i)+2;\\nJac_values[0]=Lambda*((dy_1*(4*dy_1*L1 + \
+L3*(-(dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+1]) + dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+1] + \
+dy_1*(4*Qij[5*(Nx*(Ny*k+j)+i)+3] - Qij[5*(Nx*(Ny*k+jm1)+i)+3] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+3]) + dz_1*(-Qij[5*(Nx*(Ny*km1+j)+i)+4] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+4]))))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+jp1)+i)+2;\\nJac_values[0]=Lambda*((dy_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+4])/2.)\
+;\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*\
+(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*km1+jp1)+i)+2;\\nJac_values[0]=Lambda*(-(\
+dy_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+4])/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
+Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*\
+k+jm1)+i)+2;\\nJac_values[0]=Lambda*((dy_1*(4*dy_1*L1 + \
+L3*(dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+1] - dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+1] + \
+dy_1*(4*Qij[5*(Nx*(Ny*k+j)+i)+3] + Qij[5*(Nx*(Ny*k+jm1)+i)+3] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+3]) + dz_1*(Qij[5*(Nx*(Ny*km1+j)+i)+4] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+4]))))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+jm1)+i)+2;\\nJac_values[0]=Lambda*(-(dy_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+4])/2.\
+);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(\
+Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*km1+jm1)+i)+2;\\nJac_values[0]=Lambda*((\
+dy_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+4])/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
+Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*\
+k+j)+ip1)+2;\\nJac_values[0]=Lambda*((dx_1*(2*dx_1*(2*L1 + L2 + Ls) + \
+L3*(dx_1*(4*Qij[5*(Nx*(Ny*k+j)+i)+0] - Qij[5*(Nx*(Ny*k+j)+im1)+0] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+0]) - dy_1*Qij[5*(Nx*(Ny*k+jm1)+i)+1] + \
+dy_1*Qij[5*(Nx*(Ny*k+jp1)+i)+1] + dz_1*(-Qij[5*(Nx*(Ny*km1+j)+i)+2] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+2]))))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+j)+ip1)+2;\\nJac_values[0]=Lambda*((dx_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+2])/2.)\
+;\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*\
+(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*km1+j)+ip1)+2;\\nJac_values[0]=Lambda*(-(\
+dx_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+2])/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
+Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*\
+k+jp1)+ip1)+2;\\nJac_values[0]=Lambda*((dx_1*dy_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+1])\
+/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*\
+(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+ip1)+2;\\nJac_values[0]=Lambda*(\
+-(dx_1*dy_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+1])/2.);\\nMatSetValues(Jac,1,idxm,1,\
 idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(\
-Nx*(Ny*k+jm1)+i)+3;\\nJac_values[0]=Lambda*(-(dy_1*Lq_tilde)/2.);\\\
-nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
-Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+4;\\nJac_values[0]=Lambda*(-(bb*Qij[\
-5*(Nx*(Ny*k+j)+i)+1]) - \
+Nx*(Ny*k+j)+im1)+2;\\nJac_values[0]=Lambda*((dx_1*(2*dx_1*(2*L1 + L2 + Ls) + \
+L3*(dx_1*(4*Qij[5*(Nx*(Ny*k+j)+i)+0] + Qij[5*(Nx*(Ny*k+j)+im1)+0] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+0]) + dy_1*Qij[5*(Nx*(Ny*k+jm1)+i)+1] - \
+dy_1*Qij[5*(Nx*(Ny*k+jp1)+i)+1] + dz_1*(Qij[5*(Nx*(Ny*km1+j)+i)+2] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+2]))))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+j)+im1)+2;\\nJac_values[0]=Lambda*(-(dx_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+2])/2.\
+);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(\
+Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*km1+j)+im1)+2;\\nJac_values[0]=Lambda*((\
+dx_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+2])/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
+Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*\
+k+jp1)+im1)+2;\\nJac_values[0]=Lambda*(-(dx_1*dy_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+1]\
+)/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=\
+5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+im1)+2;\\nJac_values[0]=\
+Lambda*((dx_1*dy_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+1])/2.);\\nMatSetValues(Jac,1,\
+idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[\
+0]=5*(Nx*(Ny*k+j)+i)+3;\\nJac_values[0]=Lambda*(L3*(-((dz_1*dz_1)*(Qij[5*(Nx*(\
+Ny*km1+j)+i)+2] + Qij[5*(Nx*(Ny*kp1+j)+i)+2])) + \
+(dy_1*dy_1)*(Qij[5*(Nx*(Ny*k+jm1)+i)+2] + Qij[5*(Nx*(Ny*k+jp1)+i)+2])) + \
+Qij[5*(Nx*(Ny*k+j)+i)+2]*(bb + 2*(-(dy_1*dy_1) + (dz_1*dz_1))*L3 - \
+2*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0] + \
+2*Qij[5*(Nx*(Ny*k+j)+i)+3])));\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+\
+3;\\nJac_values[0]=Lambda*((dz_1*L3*(2*dz_1*(Qij[5*(Nx*(Ny*km1+j)+i)+2] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+2]) + dx_1*(Qij[5*(Nx*(Ny*k+j)+im1)+0] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+0] + 2*Qij[5*(Nx*(Ny*k+j)+im1)+3] - \
+2*Qij[5*(Nx*(Ny*k+j)+ip1)+3])))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*km1+\
+j)+i)+3;\\nJac_values[0]=Lambda*((dz_1*L3*(2*dz_1*(-Qij[5*(Nx*(Ny*km1+j)+i)+2]\
+ + Qij[5*(Nx*(Ny*kp1+j)+i)+2]) + dx_1*(-Qij[5*(Nx*(Ny*k+j)+im1)+0] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+0] - 2*Qij[5*(Nx*(Ny*k+j)+im1)+3] + \
+2*Qij[5*(Nx*(Ny*k+j)+ip1)+3])))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+i)+3;\\nJac_values[0]=Lambda*((dy_1*(2*Lq_tilde + \
+dy_1*L3*(-Qij[5*(Nx*(Ny*k+jm1)+i)+2] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+2])))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+\
+jm1)+i)+3;\\nJac_values[0]=Lambda*((dy_1*(-2*Lq_tilde + \
+dy_1*L3*(Qij[5*(Nx*(Ny*k+jm1)+i)+2] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+2])))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++ip1)+3;\\nJac_values[0]=Lambda*((dx_1*dz_1*L3*(Qij[5*(Nx*(Ny*km1+j)+i)+0] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+0] + 2*Qij[5*(Nx*(Ny*km1+j)+i)+3] - \
+2*Qij[5*(Nx*(Ny*kp1+j)+i)+3]))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+j)+ip1)+3;\\nJac_values[0]=Lambda*(-(dx_1*dz_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*km1+j)+ip1)+3;\\nJac_values[0]=\
+Lambda*((dx_1*dz_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+j)+im1)+3;\\nJac_values[0]=\
+Lambda*((dx_1*dz_1*L3*(-Qij[5*(Nx*(Ny*km1+j)+i)+0] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+0] - 2*Qij[5*(Nx*(Ny*km1+j)+i)+3] + \
+2*Qij[5*(Nx*(Ny*kp1+j)+i)+3]))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+j)+im1)+3;\\nJac_values[0]=Lambda*((dx_1*dz_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*km1+j)+im1)+3;\\nJac_values[0]=\
+Lambda*(-(dx_1*dz_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+4;\\nJac_values[0]=Lambda*\
+(-(bb*Qij[5*(Nx*(Ny*k+j)+i)+1]) + (dy_1*dz_1*L3*(Qij[5*(Nx*(Ny*km1+jm1)+i)+2] \
+- Qij[5*(Nx*(Ny*kp1+jm1)+i)+2] - Qij[5*(Nx*(Ny*km1+jp1)+i)+2] + \
+Qij[5*(Nx*(Ny*kp1+jp1)+i)+2]))/2. - \
 4*cc*Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+4]);\\nMatSetValues(Jac,1,\
 idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[\
-0]=5*(Nx*(Ny*kp1+j)+i)+4;\\nJac_values[0]=Lambda*((dz_1*Lq_tilde)/2.);\\\
-nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
-Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*km1+j)+i)+4;\\nJac_values[0]=Lambda*(-(dz_1*\
-Lq_tilde)/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\\
-nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+0;\\nJac_values[0]=\
-Lambda*((2*(2*Qij[5*(Nx*(Ny*k+j)+i)+0] + Qij[5*(Nx*(Ny*k+j)+i)+3])*(bb - \
-3*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]))/3.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
-values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+j)\
-+i)+1;\\nJac_values[0]=Lambda*((-2*Qij[5*(Nx*(Ny*k+j)+i)+1]*(bb + \
-6*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]))/3.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+0]=5*(Nx*(Ny*kp1+j)+i)+4;\\nJac_values[0]=Lambda*((dz_1*(2*Lq_tilde - \
+dy_1*L3*Qij[5*(Nx*(Ny*k+jm1)+i)+2] + dy_1*L3*Qij[5*(Nx*(Ny*k+jp1)+i)+2] + \
+dx_1*L3*(Qij[5*(Nx*(Ny*k+j)+im1)+4] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+4])))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*km1+\
+j)+i)+4;\\nJac_values[0]=Lambda*(-(dz_1*(2*Lq_tilde - \
+dy_1*L3*Qij[5*(Nx*(Ny*k+jm1)+i)+2] + dy_1*L3*Qij[5*(Nx*(Ny*k+jp1)+i)+2] + \
+dx_1*L3*(Qij[5*(Nx*(Ny*k+j)+im1)+4] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+4])))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+i)+4;\\nJac_values[0]=Lambda*((dy_1*dz_1*L3*(-Qij[5*(Nx*(Ny*km1+j)+i)+2] \
++ Qij[5*(Nx*(Ny*kp1+j)+i)+2]))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+\
+jm1)+i)+4;\\nJac_values[0]=Lambda*((dy_1*dz_1*L3*(Qij[5*(Nx*(Ny*km1+j)+i)+2] \
+- Qij[5*(Nx*(Ny*kp1+j)+i)+2]))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++ip1)+4;\\nJac_values[0]=Lambda*((dx_1*dz_1*L3*(Qij[5*(Nx*(Ny*km1+j)+i)+4] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+4]))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+jp1)+ip1)\
++4;\\nJac_values[0]=Lambda*((dx_1*dy_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+ip1)+4;\\nJac_values[0]=\
+Lambda*(-(dx_1*dy_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+j)+im1)+4;\\nJac_values[0]=\
+Lambda*((dx_1*dz_1*L3*(-Qij[5*(Nx*(Ny*km1+j)+i)+4] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+4]))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+jp1)+im1)\
++4;\\nJac_values[0]=Lambda*(-(dx_1*dy_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+im1)+4;\\nJac_values[0]=\
+Lambda*((dx_1*dy_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+0;\\nJac_values[0]=Lambda*\
+((2*(dx_1 - dz_1)*(dx_1 + dz_1)*(L2 + Ls) + 2*(bb - 3*(dx_1*dx_1)*L3 + \
+3*(dz_1*dz_1)*L3)*Qij[5*(Nx*(Ny*k+j)+i)+3] - \
+6*cc*(Qij[5*(Nx*(Ny*k+j)+i)+3]*Qij[5*(Nx*(Ny*k+j)+i)+3]) + \
+4*Qij[5*(Nx*(Ny*k+j)+i)+0]*(bb - 3*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]) + \
+3*L3*(-((dz_1*dz_1)*(Qij[5*(Nx*(Ny*km1+j)+i)+3] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+3])) + (dx_1*dx_1)*(Qij[5*(Nx*(Ny*k+j)+im1)+3] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+3])))/3.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
 values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*kp1+\
-j)+i)+1;\\nJac_values[0]=Lambda*(-(dz_1*Lq_tilde));\\nMatSetValues(Jac,1,idxm,\
-1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(\
-Nx*(Ny*km1+j)+i)+1;\\nJac_values[0]=Lambda*(dz_1*Lq_tilde);\\nMatSetValues(\
-Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\\
-nidxn[0]=5*(Nx*(Ny*k+j)+i)+2;\\nJac_values[0]=Lambda*((4*Qij[5*(Nx*(Ny*k+j)+i)\
-+2]*(bb - \
-3*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]))/3.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+j)+i)+0;\\nJac_values[0]=Lambda*(((dz_1*dz_1)*(2*(L2 + Ls) + \
+L3*(-Qij[5*(Nx*(Ny*km1+j)+i)+0] + Qij[5*(Nx*(Ny*kp1+j)+i)+0] + \
+Qij[5*(Nx*(Ny*km1+j)+i)+3] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+3])))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*km1+\
+j)+i)+0;\\nJac_values[0]=Lambda*(((dz_1*dz_1)*(2*(L2 + Ls) + \
+L3*(Qij[5*(Nx*(Ny*km1+j)+i)+0] - Qij[5*(Nx*(Ny*kp1+j)+i)+0] - \
+Qij[5*(Nx*(Ny*km1+j)+i)+3] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+3])))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+i)+0;\\nJac_values[0]=Lambda*(((dy_1*dy_1)*L3*(2*Qij[5*(Nx*(Ny*k+jm1)+i)+\
+0] - 2*Qij[5*(Nx*(Ny*k+jp1)+i)+0] + Qij[5*(Nx*(Ny*k+jm1)+i)+3] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+3]))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+i)+\
+0;\\nJac_values[0]=Lambda*(((dy_1*dy_1)*L3*(-2*Qij[5*(Nx*(Ny*k+jm1)+i)+0] + \
+2*Qij[5*(Nx*(Ny*k+jp1)+i)+0] - Qij[5*(Nx*(Ny*k+jm1)+i)+3] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+3]))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+j)+ip1)+\
+0;\\nJac_values[0]=Lambda*(-((dx_1*dx_1)*(2*(L2 + Ls) + \
+L3*(Qij[5*(Nx*(Ny*k+j)+im1)+0] - Qij[5*(Nx*(Ny*k+j)+ip1)+0] + \
+2*Qij[5*(Nx*(Ny*k+j)+im1)+3] - \
+2*Qij[5*(Nx*(Ny*k+j)+ip1)+3])))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
 values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+j)\
-+i)+3;\\nJac_values[0]=Lambda*(-2*((dx_1*dx_1) + (dy_1*dy_1) + \
-(dz_1*dz_1))*L1 - sigma - \
-(2*(3*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*k+j)+i)+0]) + \
-bb*Qij[5*(Nx*(Ny*k+j)+i)+3] - Qij[5*(Nx*(Ny*k+j)+i)+0]*(bb - \
++im1)+0;\\nJac_values[0]=Lambda*(-((dx_1*dx_1)*(2*(L2 + Ls) + \
+L3*(-Qij[5*(Nx*(Ny*k+j)+im1)+0] + Qij[5*(Nx*(Ny*k+j)+ip1)+0] - \
+2*Qij[5*(Nx*(Ny*k+j)+im1)+3] + \
+2*Qij[5*(Nx*(Ny*k+j)+ip1)+3])))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++i)+1;\\nJac_values[0]=Lambda*((-4*Qij[5*(Nx*(Ny*k+j)+i)+1]*(bb + \
+6*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]) + 3*dx_1*dy_1*L3*(Qij[5*(Nx*(Ny*k+jm1)+im1)+3] \
+- Qij[5*(Nx*(Ny*k+jp1)+im1)+3] - Qij[5*(Nx*(Ny*k+jm1)+ip1)+3] + \
+Qij[5*(Nx*(Ny*k+jp1)+ip1)+3]))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+j)+i)+1;\\nJac_values[0]=Lambda*((dz_1*(-6*Lq_tilde + \
+dz_1*L3*(-Qij[5*(Nx*(Ny*km1+j)+i)+1] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+1])))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*km1+\
+j)+i)+1;\\nJac_values[0]=Lambda*((dz_1*(6*Lq_tilde + \
+dz_1*L3*(Qij[5*(Nx*(Ny*km1+j)+i)+1] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+1])))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+i)+1;\\nJac_values[0]=Lambda*((dy_1*L3*(4*dy_1*Qij[5*(Nx*(Ny*k+jm1)+i)+1]\
+ - 4*dy_1*Qij[5*(Nx*(Ny*k+jp1)+i)+1] + 3*dx_1*(-Qij[5*(Nx*(Ny*k+j)+im1)+3] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+3])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+\
+jm1)+i)+1;\\nJac_values[0]=Lambda*((dy_1*L3*(-4*dy_1*Qij[5*(Nx*(Ny*k+jm1)+i)+\
+1] + 4*dy_1*Qij[5*(Nx*(Ny*k+jp1)+i)+1] + 3*dx_1*(Qij[5*(Nx*(Ny*k+j)+im1)+3] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+3])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++ip1)+1;\\nJac_values[0]=Lambda*((dx_1*L3*(-2*dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+1] \
++ 2*dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+1] + 3*dy_1*(-Qij[5*(Nx*(Ny*k+jm1)+i)+3] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+3])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+ip1)+1;\\nJac_values[0]=Lambda*((dx_1*dy_1*(L2 + \
+Ls))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+ip1)+1;\\nJac_values[0]=\
+Lambda*(-(dx_1*dy_1*(L2 + \
+Ls))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+j)+im1)+1;\\nJac_values[0]=\
+Lambda*((dx_1*L3*(2*dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+1] - \
+2*dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+1] + 3*dy_1*(Qij[5*(Nx*(Ny*k+jm1)+i)+3] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+3])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+im1)+1;\\nJac_values[0]=Lambda*(-(dx_1*dy_1*(L2 + \
+Ls))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+im1)+1;\\nJac_values[0]=\
+Lambda*((dx_1*dy_1*(L2 + \
+Ls))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+2;\\nJac_values[0]=Lambda*\
+((8*Qij[5*(Nx*(Ny*k+j)+i)+2]*(bb - 3*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]) + \
+3*dx_1*dz_1*L3*(Qij[5*(Nx*(Ny*km1+j)+im1)+3] - Qij[5*(Nx*(Ny*kp1+j)+im1)+3] - \
+Qij[5*(Nx*(Ny*km1+j)+ip1)+3] + \
+Qij[5*(Nx*(Ny*kp1+j)+ip1)+3]))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+j)+i)+2;\\nJac_values[0]=Lambda*((dz_1*L3*(-2*dz_1*Qij[5*(Nx*(Ny*km1+j)+i)+2] \
++ 2*dz_1*Qij[5*(Nx*(Ny*kp1+j)+i)+2] + 3*dx_1*(-Qij[5*(Nx*(Ny*k+j)+im1)+3] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+3])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*km1+\
+j)+i)+2;\\nJac_values[0]=Lambda*((dz_1*L3*(2*dz_1*Qij[5*(Nx*(Ny*km1+j)+i)+2] \
+- 2*dz_1*Qij[5*(Nx*(Ny*kp1+j)+i)+2] + 3*dx_1*(Qij[5*(Nx*(Ny*k+j)+im1)+3] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+3])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+i)+2;\\nJac_values[0]=Lambda*(((dy_1*dy_1)*L3*(Qij[5*(Nx*(Ny*k+jm1)+i)+2]\
+ - Qij[5*(Nx*(Ny*k+jp1)+i)+2]))/3.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+\
+jm1)+i)+2;\\nJac_values[0]=Lambda*(((dy_1*dy_1)*L3*(-Qij[5*(Nx*(Ny*k+jm1)+i)+\
+2] + Qij[5*(Nx*(Ny*k+jp1)+i)+2]))/3.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++ip1)+2;\\nJac_values[0]=Lambda*((dx_1*L3*(-2*dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+2] \
++ 2*dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+2] + 3*dz_1*(-Qij[5*(Nx*(Ny*km1+j)+i)+3] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+3])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+j)+ip1)+2;\\nJac_values[0]=Lambda*(-(dx_1*dz_1*(L2 + \
+Ls))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*km1+j)+ip1)+2;\\nJac_values[0]=\
+Lambda*((dx_1*dz_1*(L2 + \
+Ls))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+j)+im1)+2;\\nJac_values[0]=\
+Lambda*((dx_1*L3*(2*dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+2] - \
+2*dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+2] + 3*dz_1*(Qij[5*(Nx*(Ny*km1+j)+i)+3] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+3])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+j)+im1)+2;\\nJac_values[0]=Lambda*((dx_1*dz_1*(L2 + \
+Ls))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*km1+j)+im1)+2;\\nJac_values[0]=\
+Lambda*(-(dx_1*dz_1*(L2 + \
+Ls))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+3;\\nJac_values[0]=Lambda*\
+((-2*(3*(dx_1*dx_1)*L1 + (dz_1*dz_1)*(3*L1 + L2 + Ls) + (dy_1*dy_1)*(3*L1 + \
+2*(L2 + Ls))) - 3*sigma - \
+6*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*k+j)+i)+0]) - 2*(bb + 6*(dy_1 - \
+dz_1)*(dy_1 + dz_1)*L3)*Qij[5*(Nx*(Ny*k+j)+i)+3] + \
+2*Qij[5*(Nx*(Ny*k+j)+i)+0]*(bb + 3*(-(dx_1*dx_1) + (dz_1*dz_1))*L3 - \
 6*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]) + \
-3*cc*((Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+1]) + \
+3*L3*(-((dz_1*dz_1)*(Qij[5*(Nx*(Ny*km1+j)+i)+3] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+3])) + (dy_1*dy_1)*(Qij[5*(Nx*(Ny*k+jm1)+i)+3] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+3])) - \
+6*cc*((Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+1]) + \
 (Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+2]) + \
 3*(Qij[5*(Nx*(Ny*k+j)+i)+3]*Qij[5*(Nx*(Ny*k+j)+i)+3]) + \
-(Qij[5*(Nx*(Ny*k+j)+i)+4]*Qij[5*(Nx*(Ny*k+j)+i)+4]))))/3.);\\nMatSetValues(\
-Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\\
-nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+3;\\nJac_values[0]=Lambda*((dz_1*dz_1)*L1);\\\
-nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
-Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*km1+j)+i)+3;\\nJac_values[0]=Lambda*((dz_1*\
-dz_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
-0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+jp1)+i)+3;\\nJac_values[0]=\
-Lambda*((dy_1*dy_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_\
-VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+i)+3;\\\
-nJac_values[0]=Lambda*((dy_1*dy_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
-values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+j)\
-+ip1)+3;\\nJac_values[0]=Lambda*((dx_1*dx_1)*L1);\\nMatSetValues(Jac,1,idxm,1,\
+(Qij[5*(Nx*(Ny*k+j)+i)+4]*Qij[5*(Nx*(Ny*k+j)+i)+4])))/3.);\\nMatSetValues(Jac,\
+1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\\
+nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+3;\\nJac_values[0]=Lambda*((dz_1*(4*dz_1*(3*L1 + \
+L2 + Ls) - L3*(2*dz_1*(6*Qij[5*(Nx*(Ny*k+j)+i)+0] - \
+Qij[5*(Nx*(Ny*km1+j)+i)+0] + Qij[5*(Nx*(Ny*kp1+j)+i)+0] + \
+6*Qij[5*(Nx*(Ny*k+j)+i)+3] - 2*Qij[5*(Nx*(Ny*km1+j)+i)+3] + \
+2*Qij[5*(Nx*(Ny*kp1+j)+i)+3]) + 3*(dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+2] - \
+dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+2] + dy_1*(Qij[5*(Nx*(Ny*k+jm1)+i)+4] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+4])))))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*km1+\
+j)+i)+3;\\nJac_values[0]=Lambda*((dz_1*(4*dz_1*(3*L1 + L2 + Ls) - \
+L3*(-3*dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+2] + 3*dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+2] + \
+2*dz_1*(6*Qij[5*(Nx*(Ny*k+j)+i)+0] + Qij[5*(Nx*(Ny*km1+j)+i)+0] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+0] + 6*Qij[5*(Nx*(Ny*k+j)+i)+3] + \
+2*Qij[5*(Nx*(Ny*km1+j)+i)+3] - 2*Qij[5*(Nx*(Ny*kp1+j)+i)+3]) - \
+3*dy_1*Qij[5*(Nx*(Ny*k+jm1)+i)+4] + \
+3*dy_1*Qij[5*(Nx*(Ny*k+jp1)+i)+4])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
+Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*\
+k+jp1)+i)+3;\\nJac_values[0]=Lambda*((dy_1*(4*dy_1*(3*L1 + 2*(L2 + Ls)) + \
+L3*(-3*dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+1] + 3*dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+1] + \
+2*dy_1*(Qij[5*(Nx*(Ny*k+jm1)+i)+0] - Qij[5*(Nx*(Ny*k+jp1)+i)+0] + \
+6*Qij[5*(Nx*(Ny*k+j)+i)+3] - Qij[5*(Nx*(Ny*k+jm1)+i)+3] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+3]) - 3*dz_1*Qij[5*(Nx*(Ny*km1+j)+i)+4] + \
+3*dz_1*Qij[5*(Nx*(Ny*kp1+j)+i)+4])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
+Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*\
+kp1+jp1)+i)+3;\\nJac_values[0]=Lambda*((dy_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+4])\
+/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*\
+(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*km1+jp1)+i)+3;\\nJac_values[0]=Lambda*(\
+-(dy_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+4])/2.);\\nMatSetValues(Jac,1,idxm,1,\
 idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(\
-Nx*(Ny*k+j)+im1)+3;\\nJac_values[0]=Lambda*((dx_1*dx_1)*L1);\\nMatSetValues(\
-Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\\
-nidxn[0]=5*(Nx*(Ny*k+j)+i)+4;\\nJac_values[0]=Lambda*((-2*(bb + \
+Nx*(Ny*k+jm1)+i)+3;\\nJac_values[0]=Lambda*((dy_1*(4*dy_1*(3*L1 + 2*(L2 + \
+Ls)) + L3*(2*dy_1*(-Qij[5*(Nx*(Ny*k+jm1)+i)+0] + Qij[5*(Nx*(Ny*k+jp1)+i)+0] + \
+6*Qij[5*(Nx*(Ny*k+j)+i)+3] + Qij[5*(Nx*(Ny*k+jm1)+i)+3] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+3]) + 3*(dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+1] - \
+dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+1] + dz_1*(Qij[5*(Nx*(Ny*km1+j)+i)+4] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+4])))))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+jm1)+i)+3;\\nJac_values[0]=Lambda*(-(dy_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+4])/2.\
+);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(\
+Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*km1+jm1)+i)+3;\\nJac_values[0]=Lambda*((\
+dy_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+4])/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
+Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*\
+k+j)+ip1)+3;\\nJac_values[0]=Lambda*((dx_1*(12*dx_1*L1 + \
+L3*(-3*dy_1*Qij[5*(Nx*(Ny*k+jm1)+i)+1] + 3*dy_1*Qij[5*(Nx*(Ny*k+jp1)+i)+1] - \
+3*dz_1*Qij[5*(Nx*(Ny*km1+j)+i)+2] + 3*dz_1*Qij[5*(Nx*(Ny*kp1+j)+i)+2] + \
+2*dx_1*(6*Qij[5*(Nx*(Ny*k+j)+i)+0] - 2*Qij[5*(Nx*(Ny*k+j)+im1)+0] + \
+2*Qij[5*(Nx*(Ny*k+j)+ip1)+0] - Qij[5*(Nx*(Ny*k+j)+im1)+3] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+3]))))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+j)+ip1)+3;\\nJac_values[0]=Lambda*((dx_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+2])/2.)\
+;\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*\
+(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*km1+j)+ip1)+3;\\nJac_values[0]=Lambda*(-(\
+dx_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+2])/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
+Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*\
+k+jp1)+ip1)+3;\\nJac_values[0]=Lambda*((dx_1*dy_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+1])\
+/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*\
+(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+ip1)+3;\\nJac_values[0]=Lambda*(\
+-(dx_1*dy_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+1])/2.);\\nMatSetValues(Jac,1,idxm,1,\
+idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(\
+Nx*(Ny*k+j)+im1)+3;\\nJac_values[0]=Lambda*((dx_1*(12*dx_1*L1 + \
+L3*(3*(dy_1*Qij[5*(Nx*(Ny*k+jm1)+i)+1] - dy_1*Qij[5*(Nx*(Ny*k+jp1)+i)+1] + \
+dz_1*(Qij[5*(Nx*(Ny*km1+j)+i)+2] - Qij[5*(Nx*(Ny*kp1+j)+i)+2])) + \
+2*dx_1*(6*Qij[5*(Nx*(Ny*k+j)+i)+0] + 2*Qij[5*(Nx*(Ny*k+j)+im1)+0] - \
+2*Qij[5*(Nx*(Ny*k+j)+ip1)+0] + Qij[5*(Nx*(Ny*k+j)+im1)+3] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+3]))))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+j)+im1)+3;\\nJac_values[0]=Lambda*(-(dx_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+2])/2.\
+);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(\
+Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*km1+j)+im1)+3;\\nJac_values[0]=Lambda*((\
+dx_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+2])/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
+Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*\
+k+jp1)+im1)+3;\\nJac_values[0]=Lambda*(-(dx_1*dy_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+1]\
+)/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=\
+5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+im1)+3;\\nJac_values[0]=\
+Lambda*((dx_1*dy_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+1])/2.);\\nMatSetValues(Jac,1,\
+idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[\
+0]=5*(Nx*(Ny*k+j)+i)+4;\\nJac_values[0]=Lambda*((dy_1*dz_1*L3*(Qij[5*(Nx*(Ny*\
+km1+jm1)+i)+3] - Qij[5*(Nx*(Ny*kp1+jm1)+i)+3] - Qij[5*(Nx*(Ny*km1+jp1)+i)+3] \
++ Qij[5*(Nx*(Ny*kp1+jp1)+i)+3]))/2. - (2*(bb + \
 6*cc*Qij[5*(Nx*(Ny*k+j)+i)+3])*Qij[5*(Nx*(Ny*k+j)+i)+4])/3.);\\nMatSetValues(\
 Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\\
-nidxn[0]=5*(Nx*(Ny*k+j)+ip1)+4;\\nJac_values[0]=Lambda*(dx_1*Lq_tilde);\\\
-nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
-Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+j)+im1)+4;\\nJac_values[0]=Lambda*(-(dx_1*\
-Lq_tilde));\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\\
-nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+0;\\nJac_values[0]=\
-Lambda*((bb - 2*cc*(2*Qij[5*(Nx*(Ny*k+j)+i)+0] + \
-Qij[5*(Nx*(Ny*k+j)+i)+3]))*Qij[5*(Nx*(Ny*k+j)+i)+4]);\\nMatSetValues(Jac,1,\
-idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[\
-0]=5*(Nx*(Ny*k+j)+ip1)+0;\\nJac_values[0]=Lambda*(-(dx_1*Lq_tilde)/2.);\\\
-nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
-Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)+im1)+0;\\nJac_values[0]=Lambda*((dx_1*\
-Lq_tilde)/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\\
-nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+1;\\nJac_values[0]=\
-Lambda*(-(bb*Qij[5*(Nx*(Ny*k+j)+i)+2]) - \
-4*cc*Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+4]);\\nMatSetValues(Jac,1,\
-idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[\
-0]=5*(Nx*(Ny*k+jp1)+i)+1;\\nJac_values[0]=Lambda*((dy_1*Lq_tilde)/2.);\\\
-nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
-Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+i)+1;\\nJac_values[0]=Lambda*(-(dy_1*\
-Lq_tilde)/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\\
-nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+2;\\nJac_values[0]=\
-Lambda*(-(bb*Qij[5*(Nx*(Ny*k+j)+i)+1]) - \
-4*cc*Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+4]);\\nMatSetValues(Jac,1,\
-idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[\
-0]=5*(Nx*(Ny*kp1+j)+i)+2;\\nJac_values[0]=Lambda*(-(dz_1*Lq_tilde)/2.);\\\
-nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
-Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*km1+j)+i)+2;\\nJac_values[0]=Lambda*((dz_1*\
-Lq_tilde)/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\\
-nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+3;\\nJac_values[0]=\
-Lambda*(-2*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0] + \
-2*Qij[5*(Nx*(Ny*k+j)+i)+3])*Qij[5*(Nx*(Ny*k+j)+i)+4]);\\nMatSetValues(Jac,1,\
-idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[\
-0]=5*(Nx*(Ny*k+j)+ip1)+3;\\nJac_values[0]=Lambda*(-(dx_1*Lq_tilde));\\\
-nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
-Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)+im1)+3;\\nJac_values[0]=Lambda*(dx_1*\
-Lq_tilde);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
-0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+4;\\nJac_values[0]=Lambda*\
-(-2*((dx_1*dx_1) + (dy_1*dy_1) + (dz_1*dz_1))*L1 - sigma - \
-2*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*k+j)+i)+0]) + \
-Qij[5*(Nx*(Ny*k+j)+i)+0]*(bb - 2*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]) - \
-2*cc*((Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+1]) + \
+nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+4;\\nJac_values[0]=Lambda*((dz_1*L3*(-3*dy_1*Qij[\
+5*(Nx*(Ny*k+jm1)+i)+3] + 3*dy_1*Qij[5*(Nx*(Ny*k+jp1)+i)+3] + \
+2*dz_1*(-Qij[5*(Nx*(Ny*km1+j)+i)+4] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+4])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*km1+\
+j)+i)+4;\\nJac_values[0]=Lambda*((dz_1*L3*(3*dy_1*Qij[5*(Nx*(Ny*k+jm1)+i)+3] \
+- 3*dy_1*Qij[5*(Nx*(Ny*k+jp1)+i)+3] + 2*dz_1*(Qij[5*(Nx*(Ny*km1+j)+i)+4] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+4])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+i)+4;\\nJac_values[0]=Lambda*((dy_1*L3*(-3*dz_1*Qij[5*(Nx*(Ny*km1+j)+i)+\
+3] + 3*dz_1*Qij[5*(Nx*(Ny*kp1+j)+i)+3] + 4*dy_1*(Qij[5*(Nx*(Ny*k+jm1)+i)+4] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+4])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+jp1)+i)+4;\\nJac_values[0]=Lambda*((dy_1*dz_1*(L2 + \
+Ls))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*km1+jp1)+i)+4;\\nJac_values[0]=\
+Lambda*(-(dy_1*dz_1*(L2 + \
+Ls))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+i)+4;\\nJac_values[0]=\
+Lambda*((dy_1*L3*(3*dz_1*Qij[5*(Nx*(Ny*km1+j)+i)+3] - \
+3*dz_1*Qij[5*(Nx*(Ny*kp1+j)+i)+3] + 4*dy_1*(-Qij[5*(Nx*(Ny*k+jm1)+i)+4] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+4])))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+jm1)+i)+4;\\nJac_values[0]=Lambda*(-(dy_1*dz_1*(L2 + \
+Ls))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*km1+jm1)+i)+4;\\nJac_values[0]=\
+Lambda*((dy_1*dz_1*(L2 + \
+Ls))/12.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+j)+ip1)+4;\\nJac_values[0]=\
+Lambda*(dx_1*Lq_tilde + ((dx_1*dx_1)*L3*(-Qij[5*(Nx*(Ny*k+j)+im1)+4] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+4]))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+3;\\nidxn[0]=5*(Nx*(Ny*k+j)+im1)+\
+4;\\nJac_values[0]=Lambda*((dx_1*(-6*Lq_tilde + \
+dx_1*L3*(Qij[5*(Nx*(Ny*k+j)+im1)+4] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+4])))/6.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++i)+0;\\nJac_values[0]=Lambda*((bb + 2*(-(dx_1*dx_1) + (dz_1*dz_1))*L3 - \
+2*cc*(2*Qij[5*(Nx*(Ny*k+j)+i)+0] + \
+Qij[5*(Nx*(Ny*k+j)+i)+3]))*Qij[5*(Nx*(Ny*k+j)+i)+4] + \
+L3*(-((dz_1*dz_1)*(Qij[5*(Nx*(Ny*km1+j)+i)+4] + Qij[5*(Nx*(Ny*kp1+j)+i)+4])) \
++ (dx_1*dx_1)*(Qij[5*(Nx*(Ny*k+j)+im1)+4] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+4])));\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+\
+0;\\nJac_values[0]=Lambda*((dz_1*L3*(dy_1*(2*Qij[5*(Nx*(Ny*k+jm1)+i)+0] - \
+2*Qij[5*(Nx*(Ny*k+jp1)+i)+0] + Qij[5*(Nx*(Ny*k+jm1)+i)+3] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+3]) + 2*dz_1*(Qij[5*(Nx*(Ny*km1+j)+i)+4] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+4])))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*km1+\
+j)+i)+0;\\nJac_values[0]=Lambda*((dz_1*L3*(dy_1*(-2*Qij[5*(Nx*(Ny*k+jm1)+i)+0]\
+ + 2*Qij[5*(Nx*(Ny*k+jp1)+i)+0] - Qij[5*(Nx*(Ny*k+jm1)+i)+3] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+3]) + 2*dz_1*(-Qij[5*(Nx*(Ny*km1+j)+i)+4] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+4])))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+i)+0;\\nJac_values[0]=Lambda*((dy_1*dz_1*L3*(2*Qij[5*(Nx*(Ny*km1+j)+i)+0]\
+ - 2*Qij[5*(Nx*(Ny*kp1+j)+i)+0] + Qij[5*(Nx*(Ny*km1+j)+i)+3] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+3]))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*kp1+jp1)+i)\
++0;\\nJac_values[0]=Lambda*(-(dy_1*dz_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*km1+jp1)+i)+0;\\nJac_values[0]=\
+Lambda*((dy_1*dz_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+i)+0;\\nJac_values[0]=\
+Lambda*((dy_1*dz_1*L3*(-2*Qij[5*(Nx*(Ny*km1+j)+i)+0] + \
+2*Qij[5*(Nx*(Ny*kp1+j)+i)+0] - Qij[5*(Nx*(Ny*km1+j)+i)+3] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+3]))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*kp1+jm1)+i)\
++0;\\nJac_values[0]=Lambda*((dy_1*dz_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*km1+jm1)+i)+0;\\nJac_values[0]=\
+Lambda*(-(dy_1*dz_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)+ip1)+0;\\nJac_values[0]=\
+Lambda*(-(dx_1*(2*Lq_tilde + dx_1*L3*(Qij[5*(Nx*(Ny*k+j)+im1)+4] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+4])))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++im1)+0;\\nJac_values[0]=Lambda*((dx_1*(2*Lq_tilde + \
+dx_1*L3*(Qij[5*(Nx*(Ny*k+j)+im1)+4] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+4])))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++i)+1;\\nJac_values[0]=Lambda*(-(bb*Qij[5*(Nx*(Ny*k+j)+i)+2]) - \
+4*cc*Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+4] + \
+(dx_1*dy_1*L3*(Qij[5*(Nx*(Ny*k+jm1)+im1)+4] - Qij[5*(Nx*(Ny*k+jp1)+im1)+4] - \
+Qij[5*(Nx*(Ny*k+jm1)+ip1)+4] + \
+Qij[5*(Nx*(Ny*k+jp1)+ip1)+4]))/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+j)+i)+1;\\nJac_values[0]=Lambda*((dy_1*dz_1*L3*(Qij[5*(Nx*(Ny*k+jm1)+i)+1] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+1]))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*km1+j)+i)+\
+1;\\nJac_values[0]=Lambda*((dy_1*dz_1*L3*(-Qij[5*(Nx*(Ny*k+jm1)+i)+1] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+1]))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+jp1)+i)+\
+1;\\nJac_values[0]=Lambda*((dy_1*(2*Lq_tilde + \
+dz_1*L3*Qij[5*(Nx*(Ny*km1+j)+i)+1] - dz_1*L3*Qij[5*(Nx*(Ny*kp1+j)+i)+1] + \
+dx_1*L3*(-Qij[5*(Nx*(Ny*k+j)+im1)+4] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+4])))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+\
+jm1)+i)+1;\\nJac_values[0]=Lambda*(-(dy_1*(2*Lq_tilde + \
+dz_1*L3*Qij[5*(Nx*(Ny*km1+j)+i)+1] - dz_1*L3*Qij[5*(Nx*(Ny*kp1+j)+i)+1] + \
+dx_1*L3*(-Qij[5*(Nx*(Ny*k+j)+im1)+4] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+4])))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++ip1)+1;\\nJac_values[0]=Lambda*((dx_1*dy_1*L3*(-Qij[5*(Nx*(Ny*k+jm1)+i)+4] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+4]))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*kp1+j)+ip1)\
++1;\\nJac_values[0]=Lambda*((dx_1*dz_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*km1+j)+ip1)+1;\\nJac_values[0]=\
+Lambda*(-(dx_1*dz_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)+im1)+1;\\nJac_values[0]=\
+Lambda*((dx_1*dy_1*L3*(Qij[5*(Nx*(Ny*k+jm1)+i)+4] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+4]))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*kp1+j)+im1)\
++1;\\nJac_values[0]=Lambda*(-(dx_1*dz_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*km1+j)+im1)+1;\\nJac_values[0]=\
+Lambda*((dx_1*dz_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+2;\\nJac_values[0]=Lambda*\
+(-(bb*Qij[5*(Nx*(Ny*k+j)+i)+1]) - \
+4*cc*Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+4] + \
+(dx_1*dz_1*L3*(Qij[5*(Nx*(Ny*km1+j)+im1)+4] - Qij[5*(Nx*(Ny*kp1+j)+im1)+4] - \
+Qij[5*(Nx*(Ny*km1+j)+ip1)+4] + \
+Qij[5*(Nx*(Ny*kp1+j)+ip1)+4]))/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+j)+i)+2;\\nJac_values[0]=Lambda*(-(dz_1*(2*Lq_tilde - \
+dy_1*L3*Qij[5*(Nx*(Ny*k+jm1)+i)+2] + dy_1*L3*Qij[5*(Nx*(Ny*k+jp1)+i)+2] + \
+dx_1*L3*(Qij[5*(Nx*(Ny*k+j)+im1)+4] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+4])))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*km1+\
+j)+i)+2;\\nJac_values[0]=Lambda*((dz_1*(2*Lq_tilde - \
+dy_1*L3*Qij[5*(Nx*(Ny*k+jm1)+i)+2] + dy_1*L3*Qij[5*(Nx*(Ny*k+jp1)+i)+2] + \
+dx_1*L3*(Qij[5*(Nx*(Ny*k+j)+im1)+4] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+4])))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+i)+2;\\nJac_values[0]=Lambda*((dy_1*dz_1*L3*(Qij[5*(Nx*(Ny*km1+j)+i)+2] \
+- Qij[5*(Nx*(Ny*kp1+j)+i)+2]))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+\
+jm1)+i)+2;\\nJac_values[0]=Lambda*((dy_1*dz_1*L3*(-Qij[5*(Nx*(Ny*km1+j)+i)+2] \
++ Qij[5*(Nx*(Ny*kp1+j)+i)+2]))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++ip1)+2;\\nJac_values[0]=Lambda*((dx_1*dz_1*L3*(-Qij[5*(Nx*(Ny*km1+j)+i)+4] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+4]))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+jp1)+ip1)\
++2;\\nJac_values[0]=Lambda*((dx_1*dy_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+ip1)+2;\\nJac_values[0]=\
+Lambda*(-(dx_1*dy_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)+im1)+2;\\nJac_values[0]=\
+Lambda*((dx_1*dz_1*L3*(Qij[5*(Nx*(Ny*km1+j)+i)+4] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+4]))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+jp1)+im1)\
++2;\\nJac_values[0]=Lambda*(-(dx_1*dy_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+im1)+2;\\nJac_values[0]=\
+Lambda*((dx_1*dy_1*(L2 + \
+Ls))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
+0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+3;\\nJac_values[0]=Lambda*\
+(-2*((dy_1 - dz_1)*(dy_1 + dz_1)*L3 + cc*Qij[5*(Nx*(Ny*k+j)+i)+0] + \
+2*cc*Qij[5*(Nx*(Ny*k+j)+i)+3])*Qij[5*(Nx*(Ny*k+j)+i)+4] + \
+L3*(-((dz_1*dz_1)*(Qij[5*(Nx*(Ny*km1+j)+i)+4] + Qij[5*(Nx*(Ny*kp1+j)+i)+4])) \
++ (dy_1*dy_1)*(Qij[5*(Nx*(Ny*k+jm1)+i)+4] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+4])));\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*kp1+j)+i)+\
+3;\\nJac_values[0]=Lambda*((dz_1*L3*(dy_1*(Qij[5*(Nx*(Ny*k+jm1)+i)+0] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+0] + 2*Qij[5*(Nx*(Ny*k+jm1)+i)+3] - \
+2*Qij[5*(Nx*(Ny*k+jp1)+i)+3]) + 2*dz_1*(Qij[5*(Nx*(Ny*km1+j)+i)+4] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+4])))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*km1+\
+j)+i)+3;\\nJac_values[0]=Lambda*((dz_1*L3*(dy_1*(-Qij[5*(Nx*(Ny*k+jm1)+i)+0] \
++ Qij[5*(Nx*(Ny*k+jp1)+i)+0] - 2*Qij[5*(Nx*(Ny*k+jm1)+i)+3] + \
+2*Qij[5*(Nx*(Ny*k+jp1)+i)+3]) + 2*dz_1*(-Qij[5*(Nx*(Ny*km1+j)+i)+4] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+4])))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+i)+3;\\nJac_values[0]=Lambda*((dy_1*L3*(dz_1*(Qij[5*(Nx*(Ny*km1+j)+i)+0] \
+- Qij[5*(Nx*(Ny*kp1+j)+i)+0] + 2*Qij[5*(Nx*(Ny*km1+j)+i)+3] - \
+2*Qij[5*(Nx*(Ny*kp1+j)+i)+3]) + 2*dy_1*(-Qij[5*(Nx*(Ny*k+jm1)+i)+4] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+4])))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+\
+jm1)+i)+3;\\nJac_values[0]=Lambda*((dy_1*L3*(dz_1*(-Qij[5*(Nx*(Ny*km1+j)+i)+0]\
+ + Qij[5*(Nx*(Ny*kp1+j)+i)+0] - 2*Qij[5*(Nx*(Ny*km1+j)+i)+3] + \
+2*Qij[5*(Nx*(Ny*kp1+j)+i)+3]) + 2*dy_1*(Qij[5*(Nx*(Ny*k+jm1)+i)+4] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+4])))/8.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)\
++ip1)+3;\\nJac_values[0]=Lambda*(-(dx_1*Lq_tilde));\\nMatSetValues(Jac,1,idxm,\
+1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(\
+Nx*(Ny*k+j)+im1)+3;\\nJac_values[0]=Lambda*(dx_1*Lq_tilde);\\nMatSetValues(\
+Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\\
+nidxn[0]=5*(Nx*(Ny*k+j)+i)+4;\\nJac_values[0]=Lambda*((-2*(2*(dx_1*dx_1)*L1 + \
+((dy_1*dy_1) + (dz_1*dz_1))*(2*L1 + L2 + Ls) + sigma) - \
+4*cc*(Qij[5*(Nx*(Ny*k+j)+i)+0]*Qij[5*(Nx*(Ny*k+j)+i)+0]) + 4*(-(dy_1*dy_1) + \
+(dz_1*dz_1))*L3*Qij[5*(Nx*(Ny*k+j)+i)+3] + 2*Qij[5*(Nx*(Ny*k+j)+i)+0]*(bb - \
+2*(dx_1*dx_1)*L3 + 2*(dz_1*dz_1)*L3 - 2*cc*Qij[5*(Nx*(Ny*k+j)+i)+3]) - \
+4*cc*((Qij[5*(Nx*(Ny*k+j)+i)+1]*Qij[5*(Nx*(Ny*k+j)+i)+1]) + \
 (Qij[5*(Nx*(Ny*k+j)+i)+2]*Qij[5*(Nx*(Ny*k+j)+i)+2]) + \
 (Qij[5*(Nx*(Ny*k+j)+i)+3]*Qij[5*(Nx*(Ny*k+j)+i)+3]) + \
-3*(Qij[5*(Nx*(Ny*k+j)+i)+4]*Qij[5*(Nx*(Ny*k+j)+i)+4])));\\nMatSetValues(Jac,1,\
-idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[\
-0]=5*(Nx*(Ny*kp1+j)+i)+4;\\nJac_values[0]=Lambda*((dz_1*dz_1)*L1);\\\
-nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(\
-Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*km1+j)+i)+4;\\nJac_values[0]=Lambda*((dz_1*\
-dz_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[\
-0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+jp1)+i)+4;\\nJac_values[0]=\
-Lambda*((dy_1*dy_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_\
-VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+i)+4;\\\
-nJac_values[0]=Lambda*((dy_1*dy_1)*L1);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
-values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+j)\
-+ip1)+4;\\nJac_values[0]=Lambda*((dx_1*dx_1)*L1);\\nMatSetValues(Jac,1,idxm,1,\
+3*(Qij[5*(Nx*(Ny*k+j)+i)+4]*Qij[5*(Nx*(Ny*k+j)+i)+4])) + \
+dy_1*dz_1*L3*(Qij[5*(Nx*(Ny*km1+jm1)+i)+4] - Qij[5*(Nx*(Ny*kp1+jm1)+i)+4] - \
+Qij[5*(Nx*(Ny*km1+jp1)+i)+4] + \
+Qij[5*(Nx*(Ny*kp1+jp1)+i)+4]))/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+j)+i)+4;\\nJac_values[0]=Lambda*((dz_1*(2*dz_1*(2*L1 + L2 + Ls) - \
+L3*(dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+2] - dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+2] + \
+dz_1*(4*Qij[5*(Nx*(Ny*k+j)+i)+0] - Qij[5*(Nx*(Ny*km1+j)+i)+0] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+0] + 4*Qij[5*(Nx*(Ny*k+j)+i)+3] - \
+Qij[5*(Nx*(Ny*km1+j)+i)+3] + Qij[5*(Nx*(Ny*kp1+j)+i)+3]) + \
+dy_1*(Qij[5*(Nx*(Ny*k+jm1)+i)+4] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+4]))))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*km1+\
+j)+i)+4;\\nJac_values[0]=Lambda*((dz_1*(2*dz_1*(2*L1 + L2 + Ls) - \
+L3*(-(dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+2]) + dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+2] + \
+dz_1*(4*Qij[5*(Nx*(Ny*k+j)+i)+0] + Qij[5*(Nx*(Ny*km1+j)+i)+0] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+0] + 4*Qij[5*(Nx*(Ny*k+j)+i)+3] + \
+Qij[5*(Nx*(Ny*km1+j)+i)+3] - Qij[5*(Nx*(Ny*kp1+j)+i)+3]) + \
+dy_1*(-Qij[5*(Nx*(Ny*k+jm1)+i)+4] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+4]))))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+\
+jp1)+i)+4;\\nJac_values[0]=Lambda*((dy_1*(2*dy_1*(2*L1 + L2 + Ls) + \
+L3*(-(dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+1]) + dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+1] + \
+dy_1*(4*Qij[5*(Nx*(Ny*k+j)+i)+3] - Qij[5*(Nx*(Ny*k+jm1)+i)+3] + \
+Qij[5*(Nx*(Ny*k+jp1)+i)+3]) + dz_1*(-Qij[5*(Nx*(Ny*km1+j)+i)+4] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+4]))))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+jp1)+i)+4;\\nJac_values[0]=Lambda*((dy_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+4])/2.)\
+;\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*\
+(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*km1+jp1)+i)+4;\\nJac_values[0]=Lambda*(-(\
+dy_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+4])/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
+Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*\
+k+jm1)+i)+4;\\nJac_values[0]=Lambda*((dy_1*(2*dy_1*(2*L1 + L2 + Ls) + \
+L3*(dx_1*Qij[5*(Nx*(Ny*k+j)+im1)+1] - dx_1*Qij[5*(Nx*(Ny*k+j)+ip1)+1] + \
+dy_1*(4*Qij[5*(Nx*(Ny*k+j)+i)+3] + Qij[5*(Nx*(Ny*k+jm1)+i)+3] - \
+Qij[5*(Nx*(Ny*k+jp1)+i)+3]) + dz_1*(Qij[5*(Nx*(Ny*km1+j)+i)+4] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+4]))))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+jm1)+i)+4;\\nJac_values[0]=Lambda*(-(dy_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+4])/2.\
+);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(\
+Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*km1+jm1)+i)+4;\\nJac_values[0]=Lambda*((\
+dy_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+4])/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
+Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*\
+k+j)+ip1)+4;\\nJac_values[0]=Lambda*((dx_1*(4*dx_1*L1 + \
+L3*(dx_1*(4*Qij[5*(Nx*(Ny*k+j)+i)+0] - Qij[5*(Nx*(Ny*k+j)+im1)+0] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+0]) - dy_1*Qij[5*(Nx*(Ny*k+jm1)+i)+1] + \
+dy_1*Qij[5*(Nx*(Ny*k+jp1)+i)+1] + dz_1*(-Qij[5*(Nx*(Ny*km1+j)+i)+2] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+2]))))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+j)+ip1)+4;\\nJac_values[0]=Lambda*((dx_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+2])/2.)\
+;\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*\
+(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*km1+j)+ip1)+4;\\nJac_values[0]=Lambda*(-(\
+dx_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+2])/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
+Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*\
+k+jp1)+ip1)+4;\\nJac_values[0]=Lambda*((dx_1*dy_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+1])\
+/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*\
+(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+ip1)+4;\\nJac_values[0]=Lambda*(\
+-(dx_1*dy_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+1])/2.);\\nMatSetValues(Jac,1,idxm,1,\
 idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(\
-Nx*(Ny*k+j)+im1)+4;\\nJac_values[0]=Lambda*((dx_1*dx_1)*L1);\\nMatSetValues(\
-Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\n\"\>"], "Output",
+Nx*(Ny*k+j)+im1)+4;\\nJac_values[0]=Lambda*((dx_1*(4*dx_1*L1 + \
+L3*(dx_1*(4*Qij[5*(Nx*(Ny*k+j)+i)+0] + Qij[5*(Nx*(Ny*k+j)+im1)+0] - \
+Qij[5*(Nx*(Ny*k+j)+ip1)+0]) + dy_1*Qij[5*(Nx*(Ny*k+jm1)+i)+1] - \
+dy_1*Qij[5*(Nx*(Ny*k+jp1)+i)+1] + dz_1*(Qij[5*(Nx*(Ny*km1+j)+i)+2] - \
+Qij[5*(Nx*(Ny*kp1+j)+i)+2]))))/4.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_\
+values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*kp1+\
+j)+im1)+4;\\nJac_values[0]=Lambda*(-(dx_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+2])/2.\
+);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(\
+Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*km1+j)+im1)+4;\\nJac_values[0]=Lambda*((\
+dx_1*dz_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+2])/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,\
+Jac_values,ADD_VALUES);\\n\\nidxm[0]=5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*\
+k+jp1)+im1)+4;\\nJac_values[0]=Lambda*(-(dx_1*dy_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+1]\
+)/2.);\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\nidxm[0]=\
+5*(Nx*(Ny*k+j)+i)+4;\\nidxn[0]=5*(Nx*(Ny*k+jm1)+im1)+4;\\nJac_values[0]=\
+Lambda*((dx_1*dy_1*L3*Qij[5*(Nx*(Ny*k+j)+i)+1])/2.);\\nMatSetValues(Jac,1,\
+idxm,1,idxn,Jac_values,ADD_VALUES);\\n\\n\"\>"], "Output",
  CellChangeTimes->{3.778854370939891*^9, 3.7789388606626253`*^9, 
-  3.778945759761669*^9}]
+  3.778945759761669*^9, 3.7830831489209023`*^9}]
 }, Open  ]]
 }, Open  ]],
 
@@ -2985,7 +4049,8 @@ L3*(Q_12_2*v[1] + Q_12_1*v[2]));\\n\\n\"\>"], "Output",
  CellChangeTimes->{{3.778852703200202*^9, 3.778852732207954*^9}, 
    3.7788528518127813`*^9, {3.778852938468116*^9, 3.7788529784426107`*^9}, 
    3.77885416443602*^9, 3.7788543715412827`*^9, 3.778854959486537*^9, 
-   3.7788583354827623`*^9, 3.7789388610263863`*^9, 3.778945760181479*^9}]
+   3.7788583354827623`*^9, 3.7789388610263863`*^9, 3.778945760181479*^9, 
+   3.7830831493930397`*^9}]
 }, Open  ]],
 
 Cell[BoxData["\[IndentingNewLine]"], "Input",
@@ -3143,7 +4208,7 @@ QN12*v[2]))/2.);\\ndFijdQij[4][4][2]=Lambda_s*(-(L3*(QN02*v[0] + QN12*v[1])) \
 - ((2*L1 + L2 + Ls)*v[2])/2. + L3*(QN00 + QN11)*v[2]);\\n\\n\"\>"], "Output",
  CellChangeTimes->{3.77885538698903*^9, 3.778858354214376*^9, 
   3.7788583980739603`*^9, 3.778858513412499*^9, 3.778858546714332*^9, 
-  3.778938861740888*^9, 3.778945760864648*^9}]
+  3.778938861740888*^9, 3.778945760864648*^9, 3.7830831501218576`*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3152,1115 +4217,40 @@ Cell[BoxData[
  RowBox[{"Length", "[", "JacobianString", "]"}]], "Input",
  CellChangeTimes->{{3.778246725811153*^9, 3.778246739509692*^9}}],
 
-Cell[BoxData["87"], "Output",
+Cell[BoxData["299"], "Output",
  CellChangeTimes->{3.778246740145162*^9, 3.778249557713661*^9, 
   3.778249746778474*^9, 3.778249908696554*^9, 3.778250462457443*^9, 
   3.7782540079007053`*^9, 3.778254578646961*^9, 3.7783334906757317`*^9, 
   3.77842863700768*^9, 3.778597545726705*^9, 3.7788497817687902`*^9, 
-  3.778854371670636*^9, 3.7789388617565937`*^9, 3.778945760884418*^9}]
+  3.778854371670636*^9, 3.7789388617565937`*^9, 3.778945760884418*^9, 
+  3.783083150153241*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"\[IndentingNewLine]", "kl"}]], "Input",
- CellChangeTimes->{{3.778599045427741*^9, 3.778599045835114*^9}}],
+ RowBox[{"300", "/", "5"}]], "Input",
+ CellChangeTimes->{{3.78308372232796*^9, 3.7830837238395023`*^9}}],
 
-Cell[BoxData[
- RowBox[{"Sequence", "[", 
-  RowBox[{"1", ",", "2"}], "]"}]], "Output",
- CellChangeTimes->{3.778599046263906*^9, 3.77884978177448*^9, 
-  3.778854371689582*^9, 3.778938861766824*^9, 3.778945760887082*^9}]
+Cell[BoxData["60"], "Output",
+ CellChangeTimes->{3.783083725143464*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"  ", 
-  RowBox[{"bulkBeris", "[", 
-   RowBox[{"0", ",", "0"}], "]"}]}]], "Input",
- CellChangeTimes->{{3.778945610700704*^9, 3.778945634942445*^9}}],
+ RowBox[{"JacobianString", "[", 
+  RowBox[{"[", "123", "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.783083775052306*^9, 3.78308383659746*^9}}],
 
-Cell[BoxData[
- RowBox[{
-  RowBox[{
-   RowBox[{"-", 
-    FractionBox["2", "3"]}], " ", 
-   RowBox[{"(", 
-    RowBox[{
-     RowBox[{"sigma", " ", 
-      RowBox[{"Q", "[", 
-       RowBox[{"0", ",", "0"}], "]"}]}], "+", 
-     RowBox[{
-      FractionBox["1", "3"], " ", "bb", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"3", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"0", ",", "0"}], "]"}], "2"]}], "+", 
-        RowBox[{"3", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"0", ",", "1"}], "]"}], "2"]}], "+", 
-        RowBox[{"3", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"0", ",", "2"}], "]"}], "2"]}]}], ")"}]}], "+", 
-     RowBox[{"cc", " ", 
-      RowBox[{"Q", "[", 
-       RowBox[{"0", ",", "0"}], "]"}], " ", 
-      RowBox[{"(", 
-       RowBox[{
-        SuperscriptBox[
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0"}], "]"}], "2"], "+", 
-        RowBox[{"2", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"0", ",", "1"}], "]"}], "2"]}], "+", 
-        RowBox[{"2", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"0", ",", "2"}], "]"}], "2"]}], "+", 
-        SuperscriptBox[
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0"}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1"}], "]"}]}], ")"}], "2"], "+", 
-        SuperscriptBox[
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1"}], "]"}], "2"], "+", 
-        RowBox[{"2", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"1", ",", "2"}], "]"}], "2"]}]}], ")"}]}], "-", 
-     RowBox[{"lq", " ", 
-      RowBox[{"Q", "[", 
-       RowBox[{"0", ",", "1", ",", 
-        RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "+", 
-     RowBox[{"lq", " ", 
-      RowBox[{"Q", "[", 
-       RowBox[{"0", ",", "2", ",", 
-        RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "+", 
-     RowBox[{"lq", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"-", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "1", ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "+", 
-        RowBox[{"Q", "[", 
-         RowBox[{"0", ",", "2", ",", 
-          RowBox[{"x", "[", "1", "]"}]}], "]"}]}], ")"}]}], "+", 
-     RowBox[{
-      FractionBox["1", "2"], " ", "l3", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        SuperscriptBox[
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "0", "]"}]}], "]"}], "2"], "+", 
-        RowBox[{"2", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"0", ",", "1", ",", 
-            RowBox[{"x", "[", "0", "]"}]}], "]"}], "2"]}], "+", 
-        RowBox[{"2", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"0", ",", "2", ",", 
-            RowBox[{"x", "[", "0", "]"}]}], "]"}], "2"]}], "+", 
-        SuperscriptBox[
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0", ",", 
-              RowBox[{"x", "[", "0", "]"}]}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1", ",", 
-             RowBox[{"x", "[", "0", "]"}]}], "]"}]}], ")"}], "2"], "+", 
-        SuperscriptBox[
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1", ",", 
-           RowBox[{"x", "[", "0", "]"}]}], "]"}], "2"], "+", 
-        RowBox[{"2", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"1", ",", "2", ",", 
-            RowBox[{"x", "[", "0", "]"}]}], "]"}], "2"]}]}], ")"}]}], "-", 
-     RowBox[{"l1", " ", 
-      RowBox[{"Q", "[", 
-       RowBox[{"0", ",", "0", ",", 
-        RowBox[{"x", "[", "0", "]"}], ",", 
-        RowBox[{"x", "[", "0", "]"}]}], "]"}]}], "-", 
-     RowBox[{"ls", " ", 
-      RowBox[{"Q", "[", 
-       RowBox[{"0", ",", "0", ",", 
-        RowBox[{"x", "[", "0", "]"}], ",", 
-        RowBox[{"x", "[", "0", "]"}]}], "]"}]}], "-", 
-     RowBox[{
-      FractionBox["1", "2"], " ", "l3", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"2", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"0", ",", "0", ",", 
-            RowBox[{"x", "[", "0", "]"}]}], "]"}], "2"]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "1", ",", 
-           RowBox[{"x", "[", "0", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "2", ",", 
-           RowBox[{"x", "[", "0", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0"}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "0", "]"}], ",", 
-           RowBox[{"x", "[", "0", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "1"}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "0", "]"}], ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "2"}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "0", "]"}], ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}]}]}], ")"}]}], "-", 
-     RowBox[{"l1", " ", 
-      RowBox[{"Q", "[", 
-       RowBox[{"0", ",", "0", ",", 
-        RowBox[{"x", "[", "1", "]"}], ",", 
-        RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "-", 
-     RowBox[{
-      FractionBox["1", "2"], " ", "l3", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "0", "]"}]}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "1", ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1", ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "2", ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "1"}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "0", "]"}], ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1"}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "1", "]"}], ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "2"}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "1", "]"}], ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}]}]}], ")"}]}], "-", 
-     RowBox[{"l1", " ", 
-      RowBox[{"Q", "[", 
-       RowBox[{"0", ",", "0", ",", 
-        RowBox[{"x", "[", "2", "]"}], ",", 
-        RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "-", 
-     RowBox[{
-      FractionBox["1", "2"], " ", "l3", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "0", "]"}]}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "2", ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}], " ", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0", ",", 
-              RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1", ",", 
-             RowBox[{"x", "[", "2", "]"}]}], "]"}]}], ")"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "2", ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "2"}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "0", "]"}], ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "2"}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "1", "]"}], ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0"}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1"}], "]"}]}], ")"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "2", "]"}], ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}]}]}], ")"}]}], "-", 
-     RowBox[{"ls", " ", 
-      RowBox[{"Q", "[", 
-       RowBox[{"0", ",", "1", ",", 
-        RowBox[{"x", "[", "0", "]"}], ",", 
-        RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "-", 
-     RowBox[{"ls", " ", 
-      RowBox[{"Q", "[", 
-       RowBox[{"0", ",", "2", ",", 
-        RowBox[{"x", "[", "0", "]"}], ",", 
-        RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "-", 
-     RowBox[{
-      FractionBox["1", "2"], " ", "l2", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "0", "]"}], ",", 
-           RowBox[{"x", "[", "0", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "1", ",", 
-           RowBox[{"x", "[", "0", "]"}], ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "2", ",", 
-           RowBox[{"x", "[", "0", "]"}], ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}]}]}], ")"}]}]}], ")"}]}], "+", 
-  RowBox[{
-   FractionBox["1", "3"], " ", 
-   RowBox[{"(", 
-    RowBox[{
-     RowBox[{"sigma", " ", 
-      RowBox[{"Q", "[", 
-       RowBox[{"1", ",", "1"}], "]"}]}], "+", 
-     RowBox[{"cc", " ", 
-      RowBox[{"Q", "[", 
-       RowBox[{"1", ",", "1"}], "]"}], " ", 
-      RowBox[{"(", 
-       RowBox[{
-        SuperscriptBox[
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0"}], "]"}], "2"], "+", 
-        RowBox[{"2", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"0", ",", "1"}], "]"}], "2"]}], "+", 
-        RowBox[{"2", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"0", ",", "2"}], "]"}], "2"]}], "+", 
-        SuperscriptBox[
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0"}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1"}], "]"}]}], ")"}], "2"], "+", 
-        SuperscriptBox[
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1"}], "]"}], "2"], "+", 
-        RowBox[{"2", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"1", ",", "2"}], "]"}], "2"]}]}], ")"}]}], "+", 
-     RowBox[{
-      FractionBox["1", "3"], " ", "bb", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"3", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"0", ",", "1"}], "]"}], "2"]}], "+", 
-        RowBox[{"3", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"1", ",", "1"}], "]"}], "2"]}], "+", 
-        RowBox[{"3", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"1", ",", "2"}], "]"}], "2"]}]}], ")"}]}], "+", 
-     RowBox[{"lq", " ", 
-      RowBox[{"Q", "[", 
-       RowBox[{"0", ",", "1", ",", 
-        RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "+", 
-     RowBox[{"lq", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"Q", "[", 
-         RowBox[{"0", ",", "1", ",", 
-          RowBox[{"x", "[", "2", "]"}]}], "]"}], "-", 
-        RowBox[{"Q", "[", 
-         RowBox[{"1", ",", "2", ",", 
-          RowBox[{"x", "[", "0", "]"}]}], "]"}]}], ")"}]}], "-", 
-     RowBox[{"lq", " ", 
-      RowBox[{"Q", "[", 
-       RowBox[{"1", ",", "2", ",", 
-        RowBox[{"x", "[", "0", "]"}]}], "]"}]}], "+", 
-     RowBox[{
-      FractionBox["1", "2"], " ", "l3", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        SuperscriptBox[
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}], "2"], "+", 
-        RowBox[{"2", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"0", ",", "1", ",", 
-            RowBox[{"x", "[", "1", "]"}]}], "]"}], "2"]}], "+", 
-        RowBox[{"2", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"0", ",", "2", ",", 
-            RowBox[{"x", "[", "1", "]"}]}], "]"}], "2"]}], "+", 
-        SuperscriptBox[
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0", ",", 
-              RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1", ",", 
-             RowBox[{"x", "[", "1", "]"}]}], "]"}]}], ")"}], "2"], "+", 
-        SuperscriptBox[
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1", ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}], "2"], "+", 
-        RowBox[{"2", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"1", ",", "2", ",", 
-            RowBox[{"x", "[", "1", "]"}]}], "]"}], "2"]}]}], ")"}]}], "-", 
-     RowBox[{"ls", " ", 
-      RowBox[{"Q", "[", 
-       RowBox[{"0", ",", "1", ",", 
-        RowBox[{"x", "[", "0", "]"}], ",", 
-        RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "-", 
-     RowBox[{"l1", " ", 
-      RowBox[{"Q", "[", 
-       RowBox[{"1", ",", "1", ",", 
-        RowBox[{"x", "[", "0", "]"}], ",", 
-        RowBox[{"x", "[", "0", "]"}]}], "]"}]}], "-", 
-     RowBox[{
-      FractionBox["1", "2"], " ", "l3", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "0", "]"}]}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1", ",", 
-           RowBox[{"x", "[", "0", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "1", ",", 
-           RowBox[{"x", "[", "0", "]"}]}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1", ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "2", ",", 
-           RowBox[{"x", "[", "0", "]"}]}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1", ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0"}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1", ",", 
-           RowBox[{"x", "[", "0", "]"}], ",", 
-           RowBox[{"x", "[", "0", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "1"}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1", ",", 
-           RowBox[{"x", "[", "0", "]"}], ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "2"}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1", ",", 
-           RowBox[{"x", "[", "0", "]"}], ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}]}]}], ")"}]}], "-", 
-     RowBox[{"l1", " ", 
-      RowBox[{"Q", "[", 
-       RowBox[{"1", ",", "1", ",", 
-        RowBox[{"x", "[", "1", "]"}], ",", 
-        RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "-", 
-     RowBox[{"ls", " ", 
-      RowBox[{"Q", "[", 
-       RowBox[{"1", ",", "1", ",", 
-        RowBox[{"x", "[", "1", "]"}], ",", 
-        RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "-", 
-     RowBox[{
-      FractionBox["1", "2"], " ", "l3", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "1", ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1", ",", 
-           RowBox[{"x", "[", "0", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"1", ",", "1", ",", 
-            RowBox[{"x", "[", "1", "]"}]}], "]"}], "2"]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1", ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "2", ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "1"}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1", ",", 
-           RowBox[{"x", "[", "0", "]"}], ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1"}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1", ",", 
-           RowBox[{"x", "[", "1", "]"}], ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "2"}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1", ",", 
-           RowBox[{"x", "[", "1", "]"}], ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}]}]}], ")"}]}], "-", 
-     RowBox[{"l1", " ", 
-      RowBox[{"Q", "[", 
-       RowBox[{"1", ",", "1", ",", 
-        RowBox[{"x", "[", "2", "]"}], ",", 
-        RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "-", 
-     RowBox[{
-      FractionBox["1", "2"], " ", "l3", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "2", ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1", ",", 
-           RowBox[{"x", "[", "0", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0", ",", 
-              RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1", ",", 
-             RowBox[{"x", "[", "2", "]"}]}], "]"}]}], ")"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1", ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1", ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "2", ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "2"}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1", ",", 
-           RowBox[{"x", "[", "0", "]"}], ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "2"}], "]"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1", ",", 
-           RowBox[{"x", "[", "1", "]"}], ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0"}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1"}], "]"}]}], ")"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1", ",", 
-           RowBox[{"x", "[", "2", "]"}], ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}]}]}], ")"}]}], "-", 
-     RowBox[{"ls", " ", 
-      RowBox[{"Q", "[", 
-       RowBox[{"1", ",", "2", ",", 
-        RowBox[{"x", "[", "1", "]"}], ",", 
-        RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "-", 
-     RowBox[{
-      FractionBox["1", "2"], " ", "l2", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "1", ",", 
-           RowBox[{"x", "[", "0", "]"}], ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1", ",", 
-           RowBox[{"x", "[", "1", "]"}], ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "2", ",", 
-           RowBox[{"x", "[", "1", "]"}], ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}]}]}], ")"}]}]}], ")"}]}], "+", 
-  RowBox[{
-   FractionBox["1", "3"], " ", 
-   RowBox[{"(", 
-    RowBox[{
-     RowBox[{"sigma", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"-", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0"}], "]"}]}], "-", 
-        RowBox[{"Q", "[", 
-         RowBox[{"1", ",", "1"}], "]"}]}], ")"}]}], "+", 
-     RowBox[{"cc", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"-", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0"}], "]"}]}], "-", 
-        RowBox[{"Q", "[", 
-         RowBox[{"1", ",", "1"}], "]"}]}], ")"}], " ", 
-      RowBox[{"(", 
-       RowBox[{
-        SuperscriptBox[
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0"}], "]"}], "2"], "+", 
-        RowBox[{"2", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"0", ",", "1"}], "]"}], "2"]}], "+", 
-        RowBox[{"2", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"0", ",", "2"}], "]"}], "2"]}], "+", 
-        SuperscriptBox[
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0"}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1"}], "]"}]}], ")"}], "2"], "+", 
-        SuperscriptBox[
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1"}], "]"}], "2"], "+", 
-        RowBox[{"2", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"1", ",", "2"}], "]"}], "2"]}]}], ")"}]}], "+", 
-     RowBox[{
-      FractionBox["1", "3"], " ", "bb", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"3", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"0", ",", "2"}], "]"}], "2"]}], "+", 
-        RowBox[{"3", " ", 
-         SuperscriptBox[
-          RowBox[{"(", 
-           RowBox[{
-            RowBox[{"-", 
-             RowBox[{"Q", "[", 
-              RowBox[{"0", ",", "0"}], "]"}]}], "-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"1", ",", "1"}], "]"}]}], ")"}], "2"]}], "+", 
-        RowBox[{"3", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"1", ",", "2"}], "]"}], "2"]}]}], ")"}]}], "-", 
-     RowBox[{"lq", " ", 
-      RowBox[{"Q", "[", 
-       RowBox[{"0", ",", "2", ",", 
-        RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "+", 
-     RowBox[{"lq", " ", 
-      RowBox[{"Q", "[", 
-       RowBox[{"1", ",", "2", ",", 
-        RowBox[{"x", "[", "0", "]"}]}], "]"}]}], "+", 
-     RowBox[{"lq", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"-", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "2", ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "+", 
-        RowBox[{"Q", "[", 
-         RowBox[{"1", ",", "2", ",", 
-          RowBox[{"x", "[", "0", "]"}]}], "]"}]}], ")"}]}], "+", 
-     RowBox[{
-      FractionBox["1", "2"], " ", "l3", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        SuperscriptBox[
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}], "2"], "+", 
-        RowBox[{"2", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"0", ",", "1", ",", 
-            RowBox[{"x", "[", "2", "]"}]}], "]"}], "2"]}], "+", 
-        RowBox[{"2", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"0", ",", "2", ",", 
-            RowBox[{"x", "[", "2", "]"}]}], "]"}], "2"]}], "+", 
-        SuperscriptBox[
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0", ",", 
-              RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1", ",", 
-             RowBox[{"x", "[", "2", "]"}]}], "]"}]}], ")"}], "2"], "+", 
-        SuperscriptBox[
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1", ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}], "2"], "+", 
-        RowBox[{"2", " ", 
-         SuperscriptBox[
-          RowBox[{"Q", "[", 
-           RowBox[{"1", ",", "2", ",", 
-            RowBox[{"x", "[", "2", "]"}]}], "]"}], "2"]}]}], ")"}]}], "-", 
-     RowBox[{"ls", " ", 
-      RowBox[{"Q", "[", 
-       RowBox[{"0", ",", "2", ",", 
-        RowBox[{"x", "[", "0", "]"}], ",", 
-        RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "-", 
-     RowBox[{"l1", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"-", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "0", "]"}], ",", 
-           RowBox[{"x", "[", "0", "]"}]}], "]"}]}], "-", 
-        RowBox[{"Q", "[", 
-         RowBox[{"1", ",", "1", ",", 
-          RowBox[{"x", "[", "0", "]"}], ",", 
-          RowBox[{"x", "[", "0", "]"}]}], "]"}]}], ")"}]}], "-", 
-     RowBox[{
-      FractionBox["1", "2"], " ", "l3", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "0", "]"}]}], "]"}], " ", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0", ",", 
-              RowBox[{"x", "[", "0", "]"}]}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1", ",", 
-             RowBox[{"x", "[", "0", "]"}]}], "]"}]}], ")"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "1", ",", 
-           RowBox[{"x", "[", "0", "]"}]}], "]"}], " ", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0", ",", 
-              RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1", ",", 
-             RowBox[{"x", "[", "1", "]"}]}], "]"}]}], ")"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "2", ",", 
-           RowBox[{"x", "[", "0", "]"}]}], "]"}], " ", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0", ",", 
-              RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1", ",", 
-             RowBox[{"x", "[", "2", "]"}]}], "]"}]}], ")"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0"}], "]"}], " ", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0", ",", 
-              RowBox[{"x", "[", "0", "]"}], ",", 
-              RowBox[{"x", "[", "0", "]"}]}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1", ",", 
-             RowBox[{"x", "[", "0", "]"}], ",", 
-             RowBox[{"x", "[", "0", "]"}]}], "]"}]}], ")"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "1"}], "]"}], " ", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0", ",", 
-              RowBox[{"x", "[", "0", "]"}], ",", 
-              RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1", ",", 
-             RowBox[{"x", "[", "0", "]"}], ",", 
-             RowBox[{"x", "[", "1", "]"}]}], "]"}]}], ")"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "2"}], "]"}], " ", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0", ",", 
-              RowBox[{"x", "[", "0", "]"}], ",", 
-              RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1", ",", 
-             RowBox[{"x", "[", "0", "]"}], ",", 
-             RowBox[{"x", "[", "2", "]"}]}], "]"}]}], ")"}]}]}], ")"}]}], "-", 
-     RowBox[{"l1", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"-", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "1", "]"}], ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "-", 
-        RowBox[{"Q", "[", 
-         RowBox[{"1", ",", "1", ",", 
-          RowBox[{"x", "[", "1", "]"}], ",", 
-          RowBox[{"x", "[", "1", "]"}]}], "]"}]}], ")"}]}], "-", 
-     RowBox[{
-      FractionBox["1", "2"], " ", "l3", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "1", ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}], " ", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0", ",", 
-              RowBox[{"x", "[", "0", "]"}]}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1", ",", 
-             RowBox[{"x", "[", "0", "]"}]}], "]"}]}], ")"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0", ",", 
-              RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1", ",", 
-             RowBox[{"x", "[", "1", "]"}]}], "]"}]}], ")"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1", ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0", ",", 
-              RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1", ",", 
-             RowBox[{"x", "[", "2", "]"}]}], "]"}]}], ")"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "2", ",", 
-           RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "1"}], "]"}], " ", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0", ",", 
-              RowBox[{"x", "[", "0", "]"}], ",", 
-              RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1", ",", 
-             RowBox[{"x", "[", "0", "]"}], ",", 
-             RowBox[{"x", "[", "1", "]"}]}], "]"}]}], ")"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "1"}], "]"}], " ", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0", ",", 
-              RowBox[{"x", "[", "1", "]"}], ",", 
-              RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1", ",", 
-             RowBox[{"x", "[", "1", "]"}], ",", 
-             RowBox[{"x", "[", "1", "]"}]}], "]"}]}], ")"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "2"}], "]"}], " ", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0", ",", 
-              RowBox[{"x", "[", "1", "]"}], ",", 
-              RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1", ",", 
-             RowBox[{"x", "[", "1", "]"}], ",", 
-             RowBox[{"x", "[", "2", "]"}]}], "]"}]}], ")"}]}]}], ")"}]}], "-", 
-     RowBox[{
-      FractionBox["1", "2"], " ", "l3", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "2", ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}], " ", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0", ",", 
-              RowBox[{"x", "[", "0", "]"}]}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1", ",", 
-             RowBox[{"x", "[", "0", "]"}]}], "]"}]}], ")"}]}], "+", 
-        RowBox[{"2", " ", 
-         SuperscriptBox[
-          RowBox[{"(", 
-           RowBox[{
-            RowBox[{"-", 
-             RowBox[{"Q", "[", 
-              RowBox[{"0", ",", "0", ",", 
-               RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"1", ",", "1", ",", 
-              RowBox[{"x", "[", "2", "]"}]}], "]"}]}], ")"}], "2"]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0", ",", 
-              RowBox[{"x", "[", "1", "]"}]}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1", ",", 
-             RowBox[{"x", "[", "1", "]"}]}], "]"}]}], ")"}], " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "2", ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "2"}], "]"}], " ", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0", ",", 
-              RowBox[{"x", "[", "0", "]"}], ",", 
-              RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1", ",", 
-             RowBox[{"x", "[", "0", "]"}], ",", 
-             RowBox[{"x", "[", "2", "]"}]}], "]"}]}], ")"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "2"}], "]"}], " ", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0", ",", 
-              RowBox[{"x", "[", "1", "]"}], ",", 
-              RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1", ",", 
-             RowBox[{"x", "[", "1", "]"}], ",", 
-             RowBox[{"x", "[", "2", "]"}]}], "]"}]}], ")"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0"}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1"}], "]"}]}], ")"}], " ", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0", ",", 
-              RowBox[{"x", "[", "2", "]"}], ",", 
-              RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1", ",", 
-             RowBox[{"x", "[", "2", "]"}], ",", 
-             RowBox[{"x", "[", "2", "]"}]}], "]"}]}], ")"}]}]}], ")"}]}], "-", 
-     RowBox[{"l1", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"-", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "2", "]"}], ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "-", 
-        RowBox[{"Q", "[", 
-         RowBox[{"1", ",", "1", ",", 
-          RowBox[{"x", "[", "2", "]"}], ",", 
-          RowBox[{"x", "[", "2", "]"}]}], "]"}]}], ")"}]}], "-", 
-     RowBox[{"ls", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"-", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "0", ",", 
-           RowBox[{"x", "[", "2", "]"}], ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "-", 
-        RowBox[{"Q", "[", 
-         RowBox[{"1", ",", "1", ",", 
-          RowBox[{"x", "[", "2", "]"}], ",", 
-          RowBox[{"x", "[", "2", "]"}]}], "]"}]}], ")"}]}], "-", 
-     RowBox[{"ls", " ", 
-      RowBox[{"Q", "[", 
-       RowBox[{"1", ",", "2", ",", 
-        RowBox[{"x", "[", "1", "]"}], ",", 
-        RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "-", 
-     RowBox[{
-      FractionBox["1", "2"], " ", "l2", " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"0", ",", "2", ",", 
-           RowBox[{"x", "[", "0", "]"}], ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"-", 
-            RowBox[{"Q", "[", 
-             RowBox[{"0", ",", "0", ",", 
-              RowBox[{"x", "[", "2", "]"}], ",", 
-              RowBox[{"x", "[", "2", "]"}]}], "]"}]}], "-", 
-           RowBox[{"Q", "[", 
-            RowBox[{"1", ",", "1", ",", 
-             RowBox[{"x", "[", "2", "]"}], ",", 
-             RowBox[{"x", "[", "2", "]"}]}], "]"}]}], ")"}]}], "+", 
-        RowBox[{"2", " ", 
-         RowBox[{"Q", "[", 
-          RowBox[{"1", ",", "2", ",", 
-           RowBox[{"x", "[", "1", "]"}], ",", 
-           RowBox[{"x", "[", "2", "]"}]}], "]"}]}]}], ")"}]}]}], 
-    ")"}]}]}]], "Output",
- CellChangeTimes->{3.778945613911641*^9, 3.778945760918106*^9}]
+Cell[BoxData["\<\"idxm[0]=5*(Nx*(Ny*k+j)+i)+2;\\nidxn[0]=5*(Nx*(Ny*k+j)+i)+0;\
+\\nJac_values[0]=Lambda*(L3*(-((dz_1*dz_1)*(Qij[5*(Nx*(Ny*km1+j)+i)+2] + \
+Qij[5*(Nx*(Ny*kp1+j)+i)+2])) + (dx_1*dx_1)*(Qij[5*(Nx*(Ny*k+j)+im1)+2] + \
+Qij[5*(Nx*(Ny*k+j)+ip1)+2])) - 2*Qij[5*(Nx*(Ny*k+j)+i)+2]*((dx_1 - \
+dz_1)*(dx_1 + dz_1)*L3 + 2*cc*Qij[5*(Nx*(Ny*k+j)+i)+0] + \
+cc*Qij[5*(Nx*(Ny*k+j)+i)+3]));\\nMatSetValues(Jac,1,idxm,1,idxn,Jac_values,\
+ADD_VALUES);\\n\\n\"\>"], "Output",
+ CellChangeTimes->{{3.783083786626112*^9, 3.783083837054963*^9}}]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
@@ -4340,85 +4330,85 @@ Cell[50246, 1285, 6074, 128, 275, "Input"]
 Cell[CellGroupData[{
 Cell[56369, 1419, 155, 2, 67, "Section"],
 Cell[56527, 1423, 296, 5, 33, "Text"],
-Cell[56826, 1430, 2169, 40, 77, "Input"]
+Cell[56826, 1430, 1921, 32, 77, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[59032, 1475, 149, 2, 67, "Section"],
+Cell[58784, 1467, 149, 2, 67, "Section"],
 Cell[CellGroupData[{
-Cell[59206, 1481, 103, 1, 47, "Subsection"],
-Cell[59312, 1484, 3052, 65, 77, "Input"]
+Cell[58958, 1473, 103, 1, 47, "Subsection"],
+Cell[59064, 1476, 3052, 65, 77, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[62401, 1554, 108, 1, 47, "Subsection"],
-Cell[62512, 1557, 3164, 86, 121, "Input"],
+Cell[62153, 1546, 108, 1, 47, "Subsection"],
+Cell[62264, 1549, 3164, 86, 121, "Input"],
 Cell[CellGroupData[{
-Cell[65701, 1647, 188, 2, 37, "Subsubsection"],
+Cell[65453, 1639, 188, 2, 37, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[65914, 1653, 1817, 42, 143, "Input"],
-Cell[67734, 1697, 2517, 36, 649, "Output"]
+Cell[65666, 1645, 1817, 42, 143, "Input"],
+Cell[67486, 1689, 4786, 67, 1045, "Output"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[70312, 1740, 99, 1, 47, "Subsection"],
+Cell[72333, 1763, 99, 1, 47, "Subsection"],
 Cell[CellGroupData[{
-Cell[70436, 1745, 1529, 38, 121, "Input"],
-Cell[71968, 1785, 4130, 58, 957, "Output"]
+Cell[72457, 1768, 1529, 38, 121, "Input"],
+Cell[73989, 1808, 7136, 99, 1441, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[76135, 1848, 97, 1, 37, "Subsubsection"],
+Cell[81162, 1912, 97, 1, 37, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[76257, 1853, 1697, 42, 143, "Input"],
-Cell[77957, 1897, 4130, 58, 737, "Output"]
+Cell[81284, 1917, 1697, 42, 143, "Input"],
+Cell[82984, 1961, 6808, 93, 1177, "Output"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[82172, 1964, 113, 1, 69, "Chapter"],
+Cell[89877, 2063, 113, 1, 69, "Chapter"],
 Cell[CellGroupData[{
-Cell[82310, 1969, 106, 1, 67, "Section"],
-Cell[82419, 1972, 4419, 108, 407, "Input"]
+Cell[90015, 2068, 106, 1, 67, "Section"],
+Cell[90124, 2071, 4419, 108, 407, "Input"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[86887, 2086, 95, 1, 69, "Chapter"],
+Cell[94592, 2185, 95, 1, 69, "Chapter"],
 Cell[CellGroupData[{
-Cell[87007, 2091, 104, 1, 67, "Section"],
-Cell[87114, 2094, 1236, 25, 99, "Input"]
+Cell[94712, 2190, 104, 1, 67, "Section"],
+Cell[94819, 2193, 1236, 25, 99, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[88387, 2124, 91, 1, 67, "Section"],
-Cell[88481, 2127, 19573, 427, 1353, "Input"],
+Cell[96092, 2223, 91, 1, 67, "Section"],
+Cell[96186, 2226, 19573, 427, 1353, "Input"],
 Cell[CellGroupData[{
-Cell[108079, 2558, 193, 3, 32, "Input"],
-Cell[108275, 2563, 18491, 254, 9933, "Output"]
+Cell[115784, 2657, 193, 3, 32, "Input"],
+Cell[115980, 2662, 85645, 1219, 37169, "Output"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[126815, 2823, 145, 2, 67, "Section"],
-Cell[126963, 2827, 1687, 35, 121, "Input"],
+Cell[201674, 3887, 145, 2, 67, "Section"],
+Cell[201822, 3891, 1687, 35, 121, "Input"],
 Cell[CellGroupData[{
-Cell[128675, 2866, 3833, 87, 429, "Input"],
-Cell[132511, 2955, 2282, 32, 693, "Output"]
+Cell[203534, 3930, 3833, 87, 429, "Input"],
+Cell[207370, 4019, 2310, 33, 693, "Output"]
 }, Open  ]],
-Cell[134808, 2990, 89, 1, 55, "Input"],
+Cell[209695, 4055, 89, 1, 55, "Input"],
 Cell[CellGroupData[{
-Cell[134922, 2995, 3073, 79, 385, "Input"],
-Cell[137998, 3076, 4655, 69, 2233, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[142690, 3150, 138, 2, 32, "Input"],
-Cell[142831, 3154, 376, 5, 32, "Output"]
+Cell[209809, 4060, 3073, 79, 385, "Input"],
+Cell[212885, 4141, 4679, 69, 2233, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[143244, 3164, 129, 2, 55, "Input"],
-Cell[143376, 3168, 217, 4, 32, "Output"]
+Cell[217601, 4215, 138, 2, 32, "Input"],
+Cell[217742, 4219, 402, 6, 32, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[143630, 3177, 171, 4, 32, "Input"],
-Cell[143804, 3183, 39201, 1079, 1069, "Output"]
+Cell[218181, 4230, 118, 2, 32, "Input"],
+Cell[218302, 4234, 71, 1, 32, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[218410, 4240, 157, 3, 32, "Input"],
+Cell[218570, 4245, 535, 7, 220, "Output"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]

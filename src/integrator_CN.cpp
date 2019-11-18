@@ -13,7 +13,7 @@
 #include <petscsnes.h>
 #include "geometry_bulk.h"
 
-#define NUMBEROFCLOSEPOINTS 27*5
+#define NUMBEROFCLOSEPOINTS 75
 
 
 static char help[] ="Nothing for Now";
