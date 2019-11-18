@@ -241,7 +241,7 @@ more information.
           \hline 
           \hyperref[boundary.params]{anchoring\_type} & int + string & & See \ref{boundary.params}\\ 
           \hline 
-          \hyperref[boundary.params]{W01}& int + real & &  See \ref{boundary.params}  \\ 
+          \hyperref[boundary.params]{Wo1}& int + real & &  See \ref{boundary.params}  \\ 
           \hline 
           \hyperref[boundary.params]{theta\_0} &  int + real  & & See \ref{boundary.params} \\ 
           \hline 
@@ -507,7 +507,7 @@ outer layer of the sphere, which is refereed by the number 0.
 \textbf{bulk}: this geometry has no boundaries.
 
 Actually there is 3 kinds of boundaries conditions implemented in
-marlics: Rapini-Papoular(Nobili-Durant), Fournier-Galatola and strong
+marlics: Rapini-Papoular(also called Nobili-Durant), Fournier-Galatola and strong
 boundary conditions. Each boundary conditions requires some parameters
 to be defined.
 
@@ -522,7 +522,7 @@ If you want to define a boundary condition, for example, of
 Rapini-Papoular at the 0 wall of an sphere, you need to include:
 \begin{lstlisting}
    anchoring_type 0  Rapini-Papoular.
-   W01            0  1000.0
+   Wo1            0  1000.0
    theta_0        0  45.0
    phi_0          0  45.0	
 \end{lstlisting}
@@ -531,12 +531,80 @@ surface you must include:
 
 \begin{lstlisting}
    anchoring_type 1  Fournier-Galatola
-   W01            1  1000.0
+   Wo1            1  1000.0
 \end{lstlisting}
 
 
 \subsection{Complete input file:}
 
 Here you can find the complete input file:
+
+\begin{lstlisting}	
+
+   #Geometry Parameters:
+   geometry  slab
+   Nx  200                /*      grid size      */
+   Ny  200                /*      grid size      */
+   Nz  100                /*      grid size      */
+   dx  10.0               /*      10^-9 m         */
+   dy  10.0               /*      10^-9 m         */
+   dz  10.0               /*      10^-9 m         */
+
+
+  #Integrator parameters:
+  integrator  DP5
+  atol 0.005
+  rtol 0.005
+  facmax 3.0
+  facmin 0.4
+  prefac 0.8
+
+
+  #Liquid crystal parameters:
+  a   0.182
+  b  -2.12
+  c  1.73
+  T -1            Kelvin
+  k11  16.7        /*   pN   */
+  k22  7.8         /*   pN   */
+  k33  18.1        /*   pN   */
+  k24  0           /*   pN   */ 
+  p0  500
+  mu_1     0.3          %/*     Pa s            */
+  mu_1_s   30.0          %/*     10 ^-9 Pa s     */
+
+
+  #Time parameters:
+  dt  0.001            %/*     10^-6 s         */	
+  ti  0.0              %/*     10^-6 s         */	
+  tf  5000.0           %/*     10^-6 s         */
+
+  #Output Parameters:
+   time_print_type             logarithmic
+   timeprint                   50.        % /*  10^-6 s   */
+   timeprint_increase_factor   1.16            
+   output_folder               csv
+   output_fname                output_$$.csv
+   initial_output_file_number  0	
+
+   #Initial conditions:
+   initial_conditions  homogeneous
+   theta_i             45.0
+   phi_i               0.0	
+
+   #Boundaries conditions
+
+   #Bottom boundaries:
+   anchoring_type 0  Rapini-Papoular
+   Wo1            0  1000.0
+   theta_0        0  45.0
+   phi_0          0  45.0	
+
+   #Top boundaries:
+   anchoring_type 1  Fournier-Galatola
+   Wo1            1  1000.0
+
+\end{lstlisting}
+
 
 \end{document}
