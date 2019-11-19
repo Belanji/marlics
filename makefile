@@ -1,21 +1,20 @@
 
-ifeq (${CC},cc) 
+ifeq (${CC},cc)
  ifeq (, $(shell which icpc))
-  $(warning "No icpc in $$PATH, using g++ instead)
   CC=g++
+  ifeq (, $(shell which g++))
+   $(error "No g++ or icpc in $$PATH.)
+  endif
  else
- CC=icpc
+  CC=icpc
  endif
 endif
 
-ifeq (${CC},g++)  
- ifeq (, $(shell which g++))
-  $(error "No g++ in $$PATH.)
- endif
+ifeq (${CC},g++)
 ########### Gnu:
- COMPILER = g++
- FLAGS= -static -Ofast -fipa-pta -fopenmp -Wno-unused-result -Wno-format
- LIB = -lm -lgsl -lgslcblas -lgomp -pthread
+ COMPILER := g++
+ FLAGS    :=  -Ofast -fipa-pta -fopenmp -Wno-unused-result -Wno-format
+ LIB := -lm -lgsl -lgslcblas -lgomp -pthread
 endif
 
 ifeq ($(CC),icpc)  
@@ -23,10 +22,14 @@ ifeq ($(CC),icpc)
   $(error "No icpc in $$PATH.)
  endif
 ############ Intel:
- COMPILER = icpc
- FLAGS=     -ipo -O3  -no-prec-div -xHost -simd -qopenmp -fp-model fast=2  -g
- LIB = -mkl -lgsl 
+ COMPILER := icpc
+ FLAGS    := -ipo -fast -no-prec-div -xHost -simd -qopenmp -fp-model fast=2
+ LIB := -mkl -lgsl 
 endif
+ifdef static
+FLAGS:=${FLAGS} -static
+endif
+
 ############ Intel 2 :
 #COMPILER = icpc
 #FLAGS= -ipo -O3  -no-prec-div -xAVX -simd -qopenmp -fp-model fast=2 -static
@@ -51,9 +54,15 @@ ${OBJS}: build/%.o: src/%.cpp | build
 ${OBJS}: ${HEADER}
 build:
 	@mkdir build
+debug:	$(patsubst %.o,%dbg.o,${OBJS})
+	@${COMPILER}  -O0 -g $(filter-out -O% -fast -static, ${FLAGS})  $(patsubst %.o,%dbg.o,${OBJS}) ${LIB} -o marlics_debug
+	@rm build/*dbg.o
+$(patsubst %.o,%dbg.o,${OBJS}): build/%dbg.o: src/%.cpp | build
+	@${COMPILER}  -O0 -g $(filter-out -O% -fast, ${FLAGS}) -c $< -o $@
+$(patsubst %.o,%dbg.o,${OBJS}): ${HEADER}
 
 clean:
-	@rm -f marlics
+	@rm -f marlics marlics_debug
 	@rm -fr build
 	@rm -f *.csv
-	@rm -f *.oo
+	@rm -f *.o
