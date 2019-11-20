@@ -59,9 +59,8 @@ table with all variables for reference in section
 
 The marlics source code can be downloaded in Renato Ferreira de
 Souza(Belanji) git-hub page
-(\textbf{https://github.com/Belanji/marlics}). If you use an Unix
-system, the source code provides a makefile \footnote{thanks to Eric
-  Koudhi Omori} to easy up the process of compilation.  Marlics needs
+\footnote{https://github.com/Belanji/marlics}. If you use an Unix
+system, the source code provides a makefile  to easy up the process of compilation.  Marlics needs
 the following libraries installed on your system and reachable by the
 compiler: gsl (Gnu scientific library) and BLAS. We provide two
 examples in the make file, one we use the GSL BLAS, and other we use
@@ -74,6 +73,7 @@ Now, Marlics is already functional. If you prefer you can add an
 shortcut (or a copy of the program) in a folder where your system can
 reach automatically. In Unix system the folder searched by the system
 when can be found in the variable \$PATH.
+
 
 \section{Execution}
 
@@ -239,6 +239,8 @@ more information.
           \hline 
           \hyperref[ic.param]{phi\_i} &	real & degrees  & See \ref{ic.params}\\ 
           \hline 
+          \hyperref[ic.param]{rng_seed} &	int &  & time(NULL)\\ 
+          \hline 
           \hyperref[boundary.params]{anchoring\_type} & int + string & & See \ref{boundary.params}\\ 
           \hline 
           \hyperref[boundary.params]{Wo1}& int + real & &  See \ref{boundary.params}  \\ 
@@ -247,6 +249,14 @@ more information.
           \hline 
           \hyperref[boundary.params]{phi\_0} &	 int + real  & & See \ref{boundary.params} \\ 
           \hline 
+          \hyperref[field.params]{electric\_field\_x} &	 real  & V/$\mu$m & See \ref{field.params} \\ 
+          \hline 
+          \hyperref[field.params]{electric\_field\_y} &	 real  & V/$\mu$m & See \ref{field.params} \\ 
+          \hline 
+          \hyperref[field.params]{electric\_field\_z} &	 real  & V/$\mu$m & See \ref{field.params} \\ 
+          \hline 
+          \hyperref[field.params]{delta\_epslon} &	 real  & & See \ref{field.params} \\ 
+          \hline 	
 	\end{longtable} 
 \end{center}
 
@@ -465,7 +475,7 @@ Marlics provides 4 types of initial conditions: Random, homogeneous, random_bulk
 The \textit{Random} initial conditions gets random directors, however,
 the nematic order parameter is set to $S=0.15 S_{eq}$ (there would be
 no meaning leaving the order parameter fluctuating with high
-variance).
+variance).\added[id=e]{ You can define the random number generator seed with the parameter rng_seed, otherwise, Marlics will get from the function time(null).}
 
 The \textit{homogeneous} initial conditions set the liquid crystal
 order parameter at $S=S_{eq}$ and $P=0$ while all the directors are
@@ -534,6 +544,20 @@ surface you must include:
    Wo1            1  1000.0
 \end{lstlisting}
 
+\subsection{Electric Field}\label{field.params}
+
+In Marlics, the electric field is homogeneous in the entire cell. In order to simulate it's effects 4 parameters are needed, the x, y and z components of the field (in volts by micrometers) and the dielectric anisotropy of the material. For example:
+
+\begin{lstlisting}
+
+electric_field_x 0.0                      /*     10^9 V/m        */
+electric_field_y 0.0                      /*     10^9 V/m        */
+electric_field_z 1.0                      /*     10^9 V/m        */
+delta_epslon     5	
+\end{lstlisting}
+
+Will define a electric field for a positive dielectric anisotropy material.\\
+\textbf{NOTE:} You need to define all the four parameters, or none of them, or Marlics will terminate with an error.
 
 \subsection{Complete input file:}
 
