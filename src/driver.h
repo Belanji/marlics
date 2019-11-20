@@ -21,15 +21,15 @@ struct Simulation_Parameters
   int Ny;              /* grid size*/
   int Nz;              /* grid size*/
   parameter_status grid_flag[3]={parameter_status::unset,
-				    parameter_status::unset,
-				    parameter_status::unset};
+                    parameter_status::unset,
+                    parameter_status::unset};
     
   double dx;           /* 10^-9 m */
   double dy;           /* 10^-9 m */
   double dz;           /* 10^-9 m */
   parameter_status grid_spacing_flag[3]={parameter_status::unset,
-				    parameter_status::unset,
-				    parameter_status::unset};
+                    parameter_status::unset,
+                    parameter_status::unset};
 
   
   char geometry[200];
@@ -58,9 +58,9 @@ struct Simulation_Parameters
   elastic_const_status elastic_flag=elastic_const_status::unset;
   chirality_status chirality_flag=chirality_status::unset;
   parameter_status thermal_flag[4]={parameter_status::unset,
-				    parameter_status::unset,
-				    parameter_status::unset,
-				    parameter_status::unset};
+                    parameter_status::unset,
+                    parameter_status::unset,
+                    parameter_status::unset};
   
   double mu_1=0;         /* Pa s    */
   double mu_1_s=0;       /* Pa s    */
@@ -68,7 +68,7 @@ struct Simulation_Parameters
   double gamma_1=0;
   double gamma_1_s=0;
   viscosity_status viscosity_flag[2]={viscosity_status::unset,
-				      viscosity_status::unset};
+                      viscosity_status::unset};
 
   
   //Anchoring parameters:
@@ -90,21 +90,19 @@ struct Simulation_Parameters
   double elecfieldz=0;
   double deltaepslon=0;
   
-
   //Initial Conditions:
 
-  
   char initial_conditions[200];
   char ic_file_name[200];
+  int    rng_seed;
   double theta_i;       /* degrees */
   double phi_i;         /* degrees */ 
-  parameter_status ic_flag[4]={parameter_status::unset,
-			       parameter_status::unset,
-			       parameter_status::unset,
-			       parameter_status::unset};
+  parameter_status ic_flag[5]={parameter_status::unset,
+                               parameter_status::unset,
+                               parameter_status::unset,
+                               parameter_status::unset,
+                               parameter_status::unset};
   
-
-
   //Integrator Paramters:
 
   char integrator_type[200];  
@@ -128,17 +126,17 @@ struct Simulation_Parameters
   char print_time_type[200];
   int first_output_file_number;  
   parameter_status timeprint_status[4]={parameter_status::unset,
-					parameter_status::unset,
-					parameter_status::unset,
-					parameter_status::unset};
+                    parameter_status::unset,
+                    parameter_status::unset,
+                    parameter_status::unset};
 
   
   double ti;           /*10^-6 s */
   double tf;           /*10^-6 s */
   double dt;           /*10^-6 s */
   parameter_status time_status[3]={parameter_status::unset,
-				   parameter_status::unset,
-				   parameter_status::unset};
+                   parameter_status::unset,
+                   parameter_status::unset};
   
   double S_eq;
   double * Q_00;

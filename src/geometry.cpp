@@ -166,8 +166,9 @@ void GEOMETRY::random_ic( struct Simulation_Parameters * sim_param,double * Qij 
   int i,j,k;
   double n[3];  
   
-  
-  gsl_rng_default_seed=time(NULL);
+  if (sim_param->ic_flag[4]==parameter_status::unset) 
+    gsl_rng_default_seed=time(NULL);
+  else gsl_rng_default_seed= sim_param->rng_seed;
 //  gsl_rng_default_seed=1570800053;
   
   gsl_rng *w= gsl_rng_alloc(gsl_rng_taus);
@@ -326,7 +327,7 @@ void GEOMETRY::homogeneous_boundary( struct Simulation_Parameters * sim_param,do
 
           std::cout << "\n Easy axis angle (theta_0 or phi_0) number " << ii <<
           " not defined.\n This initial condition needs both of them defined for use.\n" <<
-	  "Please define them in your in your input file.\n \n Aborting the program.\n";
+      "Please define them in your in your input file.\n \n Aborting the program.\n";
       
         }
     }

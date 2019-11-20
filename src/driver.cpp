@@ -515,7 +515,6 @@ int driver::parse_input_file(char input_name[])
           error_check(error_handler,parser);
           fgets(garbage,400,input_file);
           
-
         }
     else if ( strcasecmp(parser,"ic_file") == 0 || strcasecmp(parser,"initial_conditions_file") == 0 || strcasecmp(parser,"input_initial_conditions") == 0 || strcasecmp(parser,"input_initial_conditions_file") == 0)
         {
@@ -541,8 +540,15 @@ int driver::parse_input_file(char input_name[])
           error_handler=fscanf(input_file,"%lf",&sim_param.phi_i);
           error_check(error_handler,parser);
           fgets(garbage,400,input_file);
-
-
+          
+        }
+    else if ( strcasecmp(parser,"seed") == 0 |strcasecmp(parser,"rng_seed") == 0  )
+        {
+          sim_param.ic_flag[4]=parameter_status::set;
+          error_handler=fscanf(input_file,"%d",&sim_param.rng_seed);
+          error_check(error_handler,parser);
+          fgets(garbage,400,input_file);
+          
         }
     else if ( strcasecmp(parser,"integrator") == 0 || strcasecmp(parser,"integrator_type") == 0 )
         {

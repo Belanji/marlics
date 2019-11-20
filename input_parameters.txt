@@ -51,8 +51,8 @@ timeprint_increase_factor 1.16        /*  10^-6 s   */
 #Initial Conditions
 
 #Random ic:
-#initial_conditions          random
-initial_conditions homogeneous  _easy_axis
+initial_conditions          random
+#initial_conditions homogeneous  _easy_axis
 
 theta_i 90.0
 phi_i    3.0
@@ -62,7 +62,7 @@ phi_i    3.0
 #ic_file                      director_field_5.csv
 
 initial_output_file_number   0
-output_folder   csv
+output_folder   csv2
 #output_fname   n_$$.csv
 
 #Top boundary conditions:
@@ -80,5 +80,7 @@ electric_field_x 0.0                       /*     10^6 V/m        */
 electric_field_y 2.0                       /*     10^6 V/m        */
 electric_field_z 0                        /*     10^6 V/m        */
 delta_epslon     5	                   
+
+seed 1
 
 run
