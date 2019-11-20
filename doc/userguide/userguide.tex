@@ -467,7 +467,6 @@ value is ``director\_field\_\$\$.csv'').  The given name must have a
 \end{lstlisting}
 will produce the sequence ``output\_0.csv, output\_1.csv, output\_2.csv,...'' and so on, inside the folder ``csv''.  
 
-
 \subsection{Initial Condtions}\label{ic.params}
 
 Marlics provides 4 types of initial conditions: Random, homogeneous, random_bulk_homogeneous_easy_axis and read_from_file.
@@ -629,6 +628,17 @@ Here you can find the complete input file:
    Wo1            1  1000.0
 
 \end{lstlisting}
+\section{Output files}
+
+The output file produced by Marlics will use a csv(Coma Separated Values) format and each row from the exported file will correspond with a lattice of the simulated cell. In this file, you can see the following values:\\
+\textbf{x, y, z:} corresponding with the x, y and z coordinates index of the lattice, you can obtain the ``real'' value multiplying with dx, dy and dz;\\
+\textbf{nx, ny, nz:} gives the principal director .\\
+\textbf{lx, ly, lz:} gives the secondary director.\\
+\textbf{s, p:} gives the first and the second major eigenvalue of the tensorial order parameter.\\ 
+\textbf{pt:} inform the point type of the lattice (0=outside point, 1=bulk point and 2=surface point).
+
+The values used in the output file are also the values needed to use the ``read from file'' option to create the initial conditions. In case you are going to create your own initial condition file you need to pay attention in 2 things. The ic file need to use the following order of the values: ``x,y,z,nx,ny,nz,lx,ly,lz,S,P,pt''. All lattices should be defined, with any desired order, but in case of some lattice is missing Marlics will proceed with an warning. For ensure the consistence with the geometry defined the input file, the point types are redefined.
+
 
 
 \end{document}
