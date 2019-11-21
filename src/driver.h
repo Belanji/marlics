@@ -81,10 +81,10 @@ struct Simulation_Parameters
   std::map<int,std::string> anchoring_type;
   
   //electric field parameters:
-  parameter_status field_flag[4]={parameter_status::unset,
-                                  parameter_status::unset,
-                                  parameter_status::unset,
-                                  parameter_status::unset};
+  parameter_status field_flag[4]={parameter_status::unset,    // [0] elecfieldx flag
+                                  parameter_status::unset,    // [1] elecfieldy flag
+                                  parameter_status::unset,    // [2] elecfieldz flag
+                                  parameter_status::unset};   // [3] deltaepslon flag
   double elecfieldx=0;
   double elecfieldy=0;
   double elecfieldz=0;
@@ -97,11 +97,13 @@ struct Simulation_Parameters
   int    rng_seed;
   double theta_i;       /* degrees */
   double phi_i;         /* degrees */ 
-  parameter_status ic_flag[5]={parameter_status::unset,
-                               parameter_status::unset,
-                               parameter_status::unset,
-                               parameter_status::unset,
-                               parameter_status::unset};
+  double p0_i;         /* nm */ 
+  parameter_status ic_flag[6]={parameter_status::unset,     // [0] initinal conditions flag
+                               parameter_status::unset,     // [1] ic file name  flag
+                               parameter_status::unset,     // [2] theta_i flag
+                               parameter_status::unset,     // [3] phi_i flag
+                               parameter_status::unset,     // [4] rng_seed flag
+                               parameter_status::unset};    // [5] p0_i flag
   
   //Integrator Paramters:
 
