@@ -295,6 +295,103 @@ void GEOMETRY::homogeneous_ic( struct Simulation_Parameters * sim_param,double *
         }
     }
 }
+//build a homogeneous director field
+void GEOMETRY::cholesteric_ic( struct Simulation_Parameters * sim_param,double * Qij )
+{
+  int i,j,k;
+  double n[3], p0_i;  
+
+  std::cout<<"Initiating cholesteric initial conditions:\n\n";
+  switch(sim_param->ic_flag[2])
+    {
+    case parameter_status::set:
+      
+      theta_i=sim_param->theta_i;
+      std::cout << "theta_i=" << theta_i << "\n";
+      break;
+
+    case parameter_status::unset:
+    
+      std::cout<<"Parameter \"theta_i\" not set.\nThe initial condition named \"cholesteric\" needs the paramters \"theta_i\", \"phi_i\" and \"p0_i\" set for use.\n"<<
+      "Please set them in your in your input file.\n \nAborting the program.\n";
+      exit(1);
+      break;
+    }
+
+  
+  switch(sim_param->ic_flag[3])
+    {
+    case parameter_status::set:
+      
+      phi_i=sim_param->phi_i;
+      std::cout << "phi_i=" << phi_i << "\n";
+      break;
+
+    case parameter_status::unset:
+
+      std::cout<<"Parameter \"phi_i\" not set.\nThe initial condition named \"cholesteric\" needs the paramters \"theta_i\", \"phi_i\" and \"p0_i\" set for use.\n"<<
+      "Please set them in your in your input file.\n \nAborting the program.\n";
+      exit(1);
+      break;
+    }
+    
+  switch(sim_param->ic_flag[5])
+    {
+    case parameter_status::set:
+      
+      p0_i=sim_param->p0_i;
+      std::cout << "p0_i=" << p0_i << "\n";
+      break;
+
+    case parameter_status::unset:
+
+      std::cout<<"Parameter \"p0_i\" not set.\nThe initial condition named \"cholesteric\" needs the paramters \"theta_i\", \"phi_i\" and \"p0_i\" set for use.\n"<<
+      "Please set them in your in your input file.\n \nAborting the program.\n";
+      exit(1);
+      break;
+    }
+
+      
+  theta_i=theta_i*Pi/180;
+  phi_i=phi_i*Pi/180;
+  p0_i=p0_i/(Pi*sim_param->dz);
+  for(i= 0; i< Nx; i++)
+    {
+      for(j= 0; j< Ny; j++)
+        {      
+          for(k= 0; k< Nz; k++)
+            {
+             
+              if(point_type[(k*Ny+j)*Nx+i] !=0 )
+                {
+                  n[0]=sin(theta_i)*cos(phi_i+k/p0_i);
+                  n[1]=sin(theta_i)*sin(phi_i+k/p0_i);
+                  n[2]=cos(theta_i);
+        
+                  Qij[5*(Nx*(Ny*k+j)+i)+0]=(0.5*S_eq*(3.0*n[0]*n[0]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+1]=(0.5*S_eq*(3.0*n[0]*n[1]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+2]=(0.5*S_eq*(3.0*n[0]*n[2]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+3]=(0.5*S_eq*(3.0*n[1]*n[1]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+4]=(0.5*S_eq*(3.0*n[1]*n[2]));                
+                      
+                }           
+              else
+                {
+    
+                  n[0]=0.0;
+                  n[1]=0.0;
+                  n[2]=1.0;
+                                  
+                  Qij[5*(Nx*(Ny*k+j)+i)+0]=(0.5*(3.0*n[0]*n[0]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+1]=(0.5*(3.0*n[0]*n[1]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+2]=(0.5*(3.0*n[0]*n[2]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+3]=(0.5*(3.0*n[1]*n[1]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+4]=(0.5*(3.0*n[1]*n[2]));                     
+                }     
+            }                      
+        }
+    }
+}
 void GEOMETRY::homogeneous_easy_axis_ic( struct Simulation_Parameters * sim_param,double * Qij )
 {
   homogeneous_ic(sim_param,Qij);
@@ -408,7 +505,16 @@ void GEOMETRY::read_from_file_ic( struct Simulation_Parameters * sim_param, doub
               fgets(string_placeholder,400,ic_file);
               read_status=sscanf(string_placeholder,"%d,%d,%d,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf\n",&ii,&jj,&kk,&n[0],&n[1],&n[2],&l[0],&l[1],&l[2],&S,&P);
               read_check(read_status,reading_line);
-
+ 
+              if(ii>=Nx|jj>=Ny|kk>=Nz)
+                {
+                  printf("ERROR: in line %d of %s.\n",reading_line+1,sim_param->ic_file_name);
+                  printf("You are trying to assing the lattice (%d,%d,%d) in a cell of dimensions (%d,%d,%d).\n",ii,jj,kk,Nx,Ny,Nz);
+                  printf("Note that the cell count starts at lattice (0,0,0)\n");
+                  printf("Please, check your input file and your ic file.\n");
+                  exit(4);
+                }
+          
 
               m[0]=n[1]*l[2]-n[2]*l[1];
               m[1]=n[2]*l[0]-n[0]*l[2];
@@ -546,10 +652,16 @@ void GEOMETRY::ic(struct Simulation_Parameters * sim_param,double * Qij)
             random_bulk_homogeneous_easy_axis_ic( sim_param, Qij );
             
           }
-        else if(strcasecmp(sim_param->initial_conditions,"random") == 0 || strcmp(sim_param->initial_conditions,"Random") == 0 )
+        else if(strcasecmp(sim_param->initial_conditions,"random") == 0 )
           {
       
             random_ic( sim_param, Qij );
+            
+          }
+        else if(strcasecmp(sim_param->initial_conditions,"cholesteric") == 0 )
+          {
+      
+            cholesteric_ic( sim_param, Qij );
             
           }
         else

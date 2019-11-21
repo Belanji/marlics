@@ -20,7 +20,7 @@ class GEOMETRY
   void homogeneous_boundary( struct Simulation_Parameters * sim_param,double * Qij );
   void homogeneous_easy_axis_ic( struct Simulation_Parameters * sim_param,double * Qij );
   void random_bulk_homogeneous_easy_axis_ic( struct Simulation_Parameters * sim_param,double * Qij );
-
+  void cholesteric_ic( struct Simulation_Parameters * sim_param,double * Qij );
 
   void read_check(int , int );
   
