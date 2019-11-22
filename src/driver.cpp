@@ -7,6 +7,7 @@
 #include "boundary.h"
 #include "integrator.h"
 #include "integrator_dp5.h" 
+#include "integrator_noise_dp5.h" 
 #include "integrator_rk2.h" 
 #include "integrator_euler.h" 
 #include <cstdlib>          
@@ -413,18 +414,29 @@ void driver::setup_Simulation(void)
         {
   
           LcS_Integrator= new DP5(LcS_Geometry, & sim_param );
+          std::cout<<"Integrator Used:\tDorman-Prince 5(4)!!"<<std::endl;
+  
+        }
+      else if ( strcasecmp(sim_param.integrator_type,"Noise_DP5") == 0 || strcasecmp(sim_param.integrator_type,"Noise-Dormand-Prince") == 0)
+        {
+  
+          LcS_Integrator= new NoiseDP5(LcS_Geometry, & sim_param );
+          std::cout<<"Integrator Used:\tDorman-Prince 5(4) with noise!!"<<std::endl;
+          std::cout<<"Noise factor = "<<sim_param.noise_factor<<std::endl;
   
         }
       else if ( strcasecmp(sim_param.integrator_type,"RK2") == 0 || strcasecmp(sim_param.integrator_type,"Runge-Kutta2") == 0)
         {
   
           LcS_Integrator= new RK2(LcS_Geometry, & sim_param );
+          std::cout<<"Integrator Used:\tRunge-Kutta 2!!"<<std::endl;
   
         }
       else if ( strcasecmp(sim_param.integrator_type,"RK1") == 0 || strcasecmp(sim_param.integrator_type,"Euler") == 0)
         {
   
           LcS_Integrator= new Euler(LcS_Geometry, & sim_param );
+          std::cout<<"Integrator Used:\tRunge-Kutta 1 (Euler)!!"<<std::endl;
   
         }
   
@@ -576,6 +588,17 @@ int driver::parse_input_file(char input_name[])
         {
           sim_param.integrator_flag=parameter_status::set;
           error_handler=fscanf(input_file,"%200s",&sim_param.integrator_type);
+          
+          error_check(error_handler,parser);
+                
+          fgets(garbage,400,input_file);
+
+          
+        }
+    else if ( strcasecmp(parser,"noise_factor") == 0 || strcasecmp(parser,"noise_level") == 0 )
+        {
+          sim_param.integrator_flag=parameter_status::set;
+          error_handler=fscanf(input_file,"%d",&sim_param.noise_factor);
           
           error_check(error_handler,parser);
                 

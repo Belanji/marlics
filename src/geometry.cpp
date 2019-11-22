@@ -172,7 +172,7 @@ void GEOMETRY::random_ic( struct Simulation_Parameters * sim_param,double * Qij 
 //  gsl_rng_default_seed=1570800053;
   
   gsl_rng *w= gsl_rng_alloc(gsl_rng_taus);
-  std::cout << "seed = " <<gsl_rng_default_seed;
+  std::cout << "seed = " <<gsl_rng_default_seed<< std::endl;
 
 
   for(i= 0; i< Nx; i++)

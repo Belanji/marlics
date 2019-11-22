@@ -113,6 +113,7 @@ struct Simulation_Parameters
   double prefac=0.8;
   double facmin=0.4;
   double facmax=3.0;
+  double noise_factor=0.005;
   parameter_status integrator_flag=parameter_status::unset;
   int integrator_parameters_flag=0;
   
