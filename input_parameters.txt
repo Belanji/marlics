@@ -2,9 +2,9 @@ geometry slab
 integrator Euler 
 
 
-Nx 30                /*      grid size      */
-Ny 30                /*      grid size      */
-Nz 30                /*      grid size      */
+Nx 60                /*      grid size      */
+Ny 60                /*      grid size      */
+Nz 60                /*      grid size      */
 
 
 a  0.086             /*     10^6 J/K.m^3     */
@@ -39,7 +39,7 @@ mu_1_s    3.0          /*     10 ^-9 Pa s     */
 
 
 dt        0.001     /*     10^-6  s        */	
-#ti        0.0
+#ti       0.0
 tf        10.0     /*    10^-6 s          */
 
 
@@ -51,36 +51,36 @@ timeprint_increase_factor 1.16        /*  10^-6 s   */
 #Initial Conditions
 
 #Random ic:
-initial_conditions          random
-#initial_conditions homogeneous  _easy_axis
+#initial_conditions          random
+initial_conditions homogeneous_easy_axis
 
-theta_i 90.0
-phi_i    3.0
+theta_i 45.0
+phi_i   45.0
 
 #Use other simulation output as initial condition:
 #initial_conditions           read_from_file 
 #ic_file                      director_field_5.csv
 
 initial_output_file_number   0
-output_folder   csv
+output_folder   .
 #output_fname   n_$$.csv
 
 #Top boundary conditions:
 anchoring_type  0   rp
 Wo1       0    10.0                         /*     10^-3 J/m^2     */
-phi_0     0    3.
-theta_0   0    90.
+phi_0     0    89.
+theta_0   0    0.
 
 anchoring_type  1   rp
 Wo1       1    10.0                         /*     10^-3 J/m^2     */
-phi_0     1    3
-theta_0   1    90
+phi_0     1    0.
+theta_0   1    90.
 
 electric_field_x 0.0                       /*     10^6 V/m        */
-electric_field_y 2.0                       /*     10^6 V/m        */
-electric_field_z 0                        /*     10^6 V/m        */
+electric_field_y 0.0                       /*     10^6 V/m        */
+electric_field_z 0                         /*     10^6 V/m        */
 delta_epslon     5	                   
 
-seed 1
+seed 565434534
 
 run

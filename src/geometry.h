@@ -2,6 +2,8 @@
 #define geometry_
 #include <vector>
 #include <string>
+#include <cstring>
+
 
 class GEOMETRY
 {
@@ -12,22 +14,14 @@ class GEOMETRY
   const int Ny;
   const int Nz;
 
-  //Initial conditions routines:
-  virtual void ic(struct Simulation_Parameters *, double *);
-  void read_from_file_ic(  struct Simulation_Parameters * lc_droplet,double * Qij );
-  void random_ic( struct Simulation_Parameters * lc_droplet,double * Qij);
-  void homogeneous_ic( struct Simulation_Parameters * lc_droplet,double * Qij);
-  void homogeneous_boundary( struct Simulation_Parameters * sim_param,double * Qij );
-  void homogeneous_easy_axis_ic( struct Simulation_Parameters * sim_param,double * Qij );
-  void random_bulk_homogeneous_easy_axis_ic( struct Simulation_Parameters * sim_param,double * Qij );
-  void cholesteric_ic( struct Simulation_Parameters * sim_param,double * Qij );
 
   void read_check(int , int );
   
   virtual void fill_ki(double * k_i, const  double * Qij, const int i,const int j,const int k) const = 0;
 
   const int *point_type;
-
+   int number_of_boundaries;  
+  
   virtual void boundary_init( struct Simulation_Parameters * );
   virtual ~GEOMETRY() {};
 
@@ -69,7 +63,7 @@ class GEOMETRY
   
   double dt;
 
-  int number_of_boundaries;  
+
   GEOMETRY * geometry_pointer;
   GEOMETRY(const struct Simulation_Parameters * );
 

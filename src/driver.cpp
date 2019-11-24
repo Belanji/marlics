@@ -9,6 +9,7 @@
 #include "integrator_dp5.h" 
 #include "integrator_rk2.h" 
 #include "integrator_euler.h" 
+#include "initial_conditions.h"
 #include <cstdlib>          
 #include <cstring>
 #include <cmath>            
@@ -400,7 +401,7 @@ void driver::setup_Simulation(void)
     }
 
       
-  LcS_Geometry->ic( & sim_param, Qij );
+  apply_initial_conditions( & sim_param, Qij, LcS_Geometry);
   LcS_Geometry->boundary_init( & sim_param );  
 
 
