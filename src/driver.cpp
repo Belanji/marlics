@@ -597,8 +597,7 @@ int driver::parse_input_file(char input_name[])
         }
     else if ( strcasecmp(parser,"noise_factor") == 0 || strcasecmp(parser,"noise_level") == 0 )
         {
-          sim_param.integrator_flag=parameter_status::set;
-          error_handler=fscanf(input_file,"%d",&sim_param.noise_factor);
+          error_handler=fscanf(input_file,"%lf",&sim_param.noise_factor);
           
           error_check(error_handler,parser);
                 
