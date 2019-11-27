@@ -58,7 +58,7 @@ DP5::DP5( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_param 
 void DP5::evolve( double * Qij, double *time, double tf )
 {
 
-  int i,j,k,ll,information_step=1;
+  int ll,information_step=1;
   double local_error;
   double global_error; //, global_error_1=1.;
   double sc_i;
@@ -67,7 +67,7 @@ void DP5::evolve( double * Qij, double *time, double tf )
   //const int chunk_size=0.06*(4*Ny*Nz)/omp_get_num_threads();
   //const int chunk_size=1;
   
-  #pragma omp parallel default(shared) private(i,j,k,ll,local_error,sc_i)
+  #pragma omp parallel default(shared) private(ll,local_error,sc_i)
     {
     
       #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
@@ -133,7 +133,7 @@ void DP5::evolve( double * Qij, double *time, double tf )
           global_error=0.;
         #pragma omp barrier
           //Calculating error:
-          //#pragma omp for simd schedule(simd:dynamic,new_chunk_size) reduction(max:global_error)
+          #pragma omp for simd schedule(simd:dynamic,new_chunk_size) reduction(max:global_error)
           for( ll=0; ll<5*Ny*Ny*Nz;ll++)
             {
           

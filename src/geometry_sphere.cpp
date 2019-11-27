@@ -44,22 +44,24 @@ void  Geometry_Sphere::fill_ki(double * k_i,
 {
 
     
-  int i,j,k;
-  int ip1,jp1,kp1, im1, jm1, km1, ll;
-  double dQ[15];
-  double ddQ[30];
-  double QN[5];
-  double v[3];
+
 
   
-#pragma omp for schedule(dynamic,fixed_chunk_size) collapse(cl)  
-  for( k= 0; k< Nz; k++)
+#pragma omp for schedule(dynamic,1) collapse(2)  
+  for( int k= 0; k< Nz; k++)
     {
-      for( j= 0; j< Ny; j++)
+      for( int j= 0; j< Ny; j++)
 	{
-	  for( i= 0; i< Nx; i++)
+	  for( int i= 0; i< Nx; i++)
 	    {	
 
+              int ip1,jp1,kp1, im1, jm1, km1, ll;
+              double dQ[15];
+              double ddQ[30];
+              double QN[5];
+              double v[3];
+
+              
 	      if(point_type[(k*Ny+j)*Nx+i] == 1)
 		{
 

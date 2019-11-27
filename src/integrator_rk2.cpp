@@ -8,9 +8,6 @@
 #include "integrator.h"
 #include "integrator_rk2.h"
 #define cl 2
-#define cll 2
-#define fixed_chunk_size 1
-#define chunk_size 1
 #define new_chunk_size 4*Nx*Ny
 
 #define MAX(a,b) ((a) > (b) ? a : b)
@@ -37,17 +34,14 @@ RK2::RK2( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_param 
 void RK2::evolve( double * Qij, double *time, double tf )
 {
 
-  int i,j,k,ll,information_step=1;
+  int ll,information_step=1;
   double dt=this->dt;
   //const int chunk_size=0.06*(4*Ny*Nz)/omp_get_num_threads();
   //const int chunk_size=1;
   
-  #pragma omp parallel default(shared) private(i,j,k,ll)
+  #pragma omp parallel default(shared) private(ll)
     {
     
-      
-    
-
       
       while(*time<tf)
         {
@@ -71,7 +65,7 @@ void RK2::evolve( double * Qij, double *time, double tf )
 	  {
               *time+=dt;
              
-              if( information_step%10==0 )
+              if( information_step%25==0 )
                 {
                   std::cout << "time=" << *time << ", dt=" << dt << std::endl;
                   information_step=0;
@@ -80,9 +74,6 @@ void RK2::evolve( double * Qij, double *time, double tf )
           
               
             }
-        
-              
-          
                             
         } 
     }    

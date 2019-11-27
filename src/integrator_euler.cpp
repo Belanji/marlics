@@ -36,12 +36,12 @@ Euler::Euler( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_pa
 void Euler::evolve( double * Qij, double *time, double tf )
 {
 
-  int i,j,k,ll,information_step=1;
+  int ll,information_step=1;
   double dt=this->dt;
   //const int chunk_size=0.06*(4*Ny*Nz)/omp_get_num_threads();
   //const int chunk_size=1;
   
-  #pragma omp parallel default(shared) private(i,j,k,ll)
+  #pragma omp parallel default(shared) private(ll)
     { 
       while(*time<tf)
         {
