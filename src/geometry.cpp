@@ -1,5 +1,7 @@
 #include "geometry.h"
 #include "driver.h"
+#include "energy.h"
+#include "energy_ldg.h"
 #include "boundary.h"
 #include "boundary_strong.h"
 #include "boundary_rp.h"
@@ -7,15 +9,17 @@
 #include <stdio.h> 
 #include <vector>
 
+
 double Pi=3.14159265359;
 //Base class to latter geometry definition
 GEOMETRY::GEOMETRY(const struct Simulation_Parameters * lc) :
-    Nx(lc->Nx),
-    Ny(lc->Ny),
-    Nz(lc->Nz),
-    dx_1(1/lc->dx),
-    dy_1(1/lc->dy),
-    dz_1(1/lc->dz)
+  bulk_energy(lc),
+  Nx(lc->Nx),
+  Ny(lc->Ny),
+  Nz(lc->Nz),
+  dx_1(1/lc->dx),
+  dy_1(1/lc->dy),
+  dz_1(1/lc->dz)
 {
 
   std::cout << "Nx=" << Nx << " \n";
