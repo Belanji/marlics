@@ -21,7 +21,7 @@ class Geometry_Sphere : public GEOMETRY
  public:
 
   
-  virtual void fill_ki(double * k_i, const double * Qij,const int i,const int j,const int k) const ;
+  virtual void fill_ki(double * k_i, const double * Qij) const ;
     
 
   Geometry_Sphere(const struct Simulation_Parameters * );

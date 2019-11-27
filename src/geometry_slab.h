@@ -9,7 +9,7 @@ class slab : public GEOMETRY
  public:
 
 
-  virtual void fill_ki(double *, const double * ,const int ,const int ,const int) const ;
+  virtual void fill_ki(double *, const double * ) const ;
     
   slab(const struct Simulation_Parameters *);
   ~slab(void) {};

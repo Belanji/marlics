@@ -9,7 +9,7 @@ class Geometry_Bulk : public GEOMETRY
  public:
 
 
-  virtual void fill_ki(double *, const double * ,const int ,const int ,const int) const ;
+  virtual void fill_ki(double *, const double * ) const ;
     
   Geometry_Bulk(const struct Simulation_Parameters *);
   ~Geometry_Bulk(void) {};
