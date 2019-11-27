@@ -1,6 +1,7 @@
 #ifndef BOUNDARY_STRONG_
 #define BOUNDARY_STRONG_
 
+#include "energy.h"
 #include "boundary.h"
 #include "geometry.h"
 

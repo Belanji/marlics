@@ -133,7 +133,7 @@ void DP5::evolve( double * Qij, double *time, double tf )
           global_error=0.;
         #pragma omp barrier
           //Calculating error:
-          #pragma omp for simd schedule(simd:dynamic,new_chunk_size) reduction(max:global_error)
+          //#pragma omp for simd schedule(simd:dynamic,new_chunk_size) reduction(max:global_error)
           for( ll=0; ll<5*Ny*Ny*Nz;ll++)
             {
           

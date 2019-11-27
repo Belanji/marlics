@@ -61,7 +61,7 @@ void RK2::evolve( double * Qij, double *time, double tf )
           for(ll=0;ll<5*Nx*Ny*Nz; ll++) Qtij[ll]=Qij[ll]+0.5*dt*k_1[ll]; 
         
             
-	  sample_geometry->fill_ki(k_2,Qtij,i,j,k);             
+	  sample_geometry->fill_ki(k_2,Qtij);             
 
 	  
         #pragma omp for simd schedule(simd:dynamic,new_chunk_size)  nowait        

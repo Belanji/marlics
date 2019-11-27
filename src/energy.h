@@ -7,6 +7,8 @@ class ENERGY
 
 
   ENERGY(const struct Simulation_Parameters * lc);
+         
+
   
   virtual  double functional_derivative_00(const double  QN[5],const double  dQ[15],const double  ddQ[30], const double v[3]) const =0;
   virtual  double functional_derivative_01(const double  QN[5],const double  dQ[15],const double  ddQ[30], const double v[3]) const =0;
