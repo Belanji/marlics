@@ -46,23 +46,9 @@ void Euler::evolve( double * Qij, double *time, double tf )
       while(*time<tf)
         {
         
-          #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
-          for(ll=0;ll<5*Nx*Ny*Nz; ll++)   Qtij[ll]=Qij[ll];
+
+	  sample_geometry->fill_ki(k_1,Qij);    
           
-          #pragma omp for schedule(dynamic,fixed_chunk_size) collapse(cl)
-          for( k= 0; k< Nz; k++)
-            {
-              for( j= 0; j< Ny; j++)
-                {
-                  for( i= 0; i< Nx; i++)
-                    {         
-                      sample_geometry->fill_ki(k_1,Qtij,i,j,k);           
-                      
-                    }       
-                }
-            }
-    
-          #pragma omp barrier
           
           #pragma omp for simd schedule(simd:dynamic,new_chunk_size)  nowait        
             for( ll=0; ll<5*Nx*Ny*Nz;ll++) Qij[ll]+=dt*k_1[ll];
@@ -77,7 +63,7 @@ void Euler::evolve( double * Qij, double *time, double tf )
                   information_step=0;
                 }
               information_step++;
-              if( (tf-*time) < dt) dt=tf-*time;
+          
             }
         } 
     }    

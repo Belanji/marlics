@@ -73,20 +73,8 @@ void DP5::evolve( double * Qij, double *time, double tf )
       #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
         for(ll=0;ll<5*Nx*Ny*Nz; ll++) 	Qtij[ll]=Qij[ll];
     
-    
-      #pragma omp for schedule(dynamic,fixed_chunk_size) collapse(cl)
-      for( k= 0; k< Nz; k++)
-        {
-          for( j= 0; j< Ny; j++)
-            {
-              for( i= 0; i< Nx; i++)
-                {	      
-                  sample_geometry->fill_ki(k_1,Qtij,i,j,k);		      
-                  
-                }		
-            }
-        }
-    
+	
+	sample_geometry->fill_ki(k_1,Qtij);		      
       
       while(*time<tf)
         {
@@ -96,117 +84,51 @@ void DP5::evolve( double * Qij, double *time, double tf )
         //######### 2nd Stage:
           #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
           for(ll=0;ll<5*Nx*Ny*Nz; ll++) Qtij[ll]=Qij[ll]+0.2*dt*k_1[ll]; 
-        
-            
-          #pragma omp for schedule(dynamic,fixed_chunk_size) collapse(cl)
-          for( k= 0; k< Nz; k++)
-            {
-              for( j= 0; j< Ny; j++)
-                {
-                  for( i= 0; i< Nx; i++)
-                    {	    
-            
-                        sample_geometry->fill_ki(k_2,Qtij,i,j,k);		      
                     
-                    }
-                }
-            }
-        //######### 3rd Stage:
-          #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
+	  sample_geometry->fill_ki(k_2,Qtij);
+
+	  //######### 3rd Stage:
+
+#pragma omp for simd schedule(simd:dynamic,new_chunk_size)
           for(ll=0;ll<5*Nx*Ny*Nz; ll++)   Qtij[ll]=Qij[ll]+dt*(0.075*k_1[ll]+0.225*k_2[ll]); 
                   
         
         
-          #pragma omp for schedule(dynamic,fixed_chunk_size) collapse(cl)
-          for( k= 0; k< Nz; k++)
-            {
-              for( j= 0; j< Ny; j++)
-                {
-                  for( i= 0; i< Nx; i++)
-                    {	    
                     
-                      sample_geometry->fill_ki(k_3,Qtij,i,j,k);		      
-                    
-                    }		
-                }
-            }
-        
-        //######### 4th Stage:
+	  sample_geometry->fill_ki(k_3,Qtij);		      
+          
+	  //######### 4th Stage:
+
           #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
           for( ll=0; ll< 5*Nx*Ny*Nz; ll++)  Qtij[ll]=Qij[ll]+dt*(0.9777777777777779*k_1[ll]-3.7333333333333334*k_2[ll]+3.5555555555555554*k_3[ll]); 
         
-          #pragma omp for schedule(dynamic,fixed_chunk_size) collapse(cl)
-          for( k= 0; k< Nz; k++)
-            {
-              for( j= 0; j< Ny; j++)
-                {
-                  for( i= 0; i< Nx; i++)
-                    {	    
             
-                        sample_geometry->fill_ki(k_4,Qtij,i,j,k);		      
-                    
-                    }		
-                }
-            }
-        
+	  sample_geometry->fill_ki(k_4,Qtij);		      
+
+	  
           //######### 5th Stage:
           #pragma omp for simd schedule(simd:dynamic,new_chunk_size)        			    
           for( ll=0; ll< 5*Nx*Ny*Nz; ll++) Qtij[ll]=Qij[ll]+dt*(2.9525986892242035*k_1[ll]-11.595793324188385*k_2[ll]+9.822892851699436*k_3[ll]-0.2908093278463649*k_4[ll]); 
             
               
-          #pragma omp for schedule(dynamic,fixed_chunk_size) collapse(cl)
-          for( k= 0; k< Nz; k++)
-            {
-              for( j= 0; j< Ny; j++)
-                {
-                  for( i= 0; i< Nx; i++)
-                    {	    
-              
-                      sample_geometry->fill_ki(k_5,Qtij,i,j,k);		      
+	  sample_geometry->fill_ki(k_5,Qtij);		      
                       
-                  
-                    }		
-                }
-            }
         
           //6th stage:
           #pragma omp for simd schedule(simd:dynamic,new_chunk_size) 
           for( ll=0; ll< 5*Nx*Ny*Nz; ll++)  Qtij[ll]=Qij[ll]+dt*(2.8462752525252526*k_1[ll]-10.757575757575758*k_2[ll]+8.906422717743473*k_3[ll]+0.27840909090909094*k_4[ll]-0.2735313036020583*k_5[ll]); 
                     
         
-          #pragma omp for schedule(dynamic,fixed_chunk_size) collapse(cl)
-          for( k= 0; k< Nz; k++)
-            {
-              for( j= 0; j< Ny; j++)
-                {
-                  for( i= 0; i< Nx; i++)
-                    {	    
-              
-                        sample_geometry->fill_ki(k_6,Qtij,i,j,k);
-                  
-                    }		
-                }
-            }
+	  sample_geometry->fill_ki(k_6,Qtij);
         
         //7th stage:
-          #pragma omp for simd schedule(simd:dynamic,new_chunk_size)	
+          #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
           for( ll=0; ll< 5*Nx*Ny*Nz; ll++) Qtij[ll]=Qij[ll]+dt*(0.09114583333333333*k_1[ll]+0.44923629829290207*k_3[ll]+0.6510416666666666*k_4[ll] -0.322376179245283*k_5[ll]+ 0.13095238095238093*k_6[ll]); 
           
               
-          #pragma omp for schedule(dynamic,fixed_chunk_size) collapse(cl)
-          for( k= 0; k< Nz; k++)
-            {
-              for( j= 0; j< Ny; j++)
-                {
-                  for( i= 0; i< Nx; i++)
-                    {	    
-              
-                      sample_geometry->fill_ki(k_7,Qtij,i,j,k);		      
+	  sample_geometry->fill_ki(k_7,Qtij);		      
                     
-                    }		
-                }
-            }
-          
+
           //Restarting global error:
           global_error=0.;
         #pragma omp barrier

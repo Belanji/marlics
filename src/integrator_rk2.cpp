@@ -53,47 +53,22 @@ void RK2::evolve( double * Qij, double *time, double tf )
         {
         
         //1st Stage:
-          #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
-          for(ll=0;ll<5*Nx*Ny*Nz; ll++)   Qtij[ll]=Qij[ll];
-          
-          
-          #pragma omp for schedule(dynamic,fixed_chunk_size) collapse(cl)
-          for( k= 0; k< Nz; k++)
-            {
-              for( j= 0; j< Ny; j++)
-                {
-                  for( i= 0; i< Nx; i++)
-                    {         
-                      sample_geometry->fill_ki(k_1,Qtij,i,j,k);           
+	  sample_geometry->fill_ki(k_1,Qij);      
                       
-                    }       
-                }
-            }
     
         //2nd Stage:
           #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
           for(ll=0;ll<5*Nx*Ny*Nz; ll++) Qtij[ll]=Qij[ll]+0.5*dt*k_1[ll]; 
         
             
-          #pragma omp for schedule(dynamic,fixed_chunk_size) collapse(cl)
-          for( k= 0; k< Nz; k++)
-            {
-              for( j= 0; j< Ny; j++)
-                {
-                  for( i= 0; i< Nx; i++)
-                    {       
-            
-                        sample_geometry->fill_ki(k_2,Qtij,i,j,k);             
-                    
-                    }
-                }
-            }    
-        
-        #pragma omp barrier
+	  sample_geometry->fill_ki(k_2,Qtij,i,j,k);             
+
+	  
         #pragma omp for simd schedule(simd:dynamic,new_chunk_size)  nowait        
           for( ll=0; ll<5*Nx*Ny*Nz;ll++) Qij[ll]+=dt*k_2[ll]; 
-          #pragma omp single nowait
-            {
+
+        #pragma omp single nowait
+	  {
               *time+=dt;
              
               if( information_step%10==0 )
@@ -102,7 +77,7 @@ void RK2::evolve( double * Qij, double *time, double tf )
                   information_step=0;
                 }
               information_step++;
-              if( (tf-*time) < dt) dt=tf-*time;
+          
               
             }
         
