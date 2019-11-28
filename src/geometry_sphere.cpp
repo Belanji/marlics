@@ -47,7 +47,7 @@ void  Geometry_Sphere::fill_ki(double * k_i,
 
 
   
-#pragma omp for schedule(dynamic,1) collapse(2)  
+#pragma omp for simd schedule(dynamic,1) collapse(2)  
   for( int k= 0; k< Nz; k++)
     {
       for( int j= 0; j< Ny; j++)
