@@ -53,7 +53,7 @@ void Euler::evolve( double * Qij, double *time, double tf )
           #pragma omp for simd schedule(simd:dynamic,new_chunk_size)  nowait        
             for( ll=0; ll<5*Nx*Ny*Nz;ll++) Qij[ll]+=dt*k_1[ll];
             
-          #pragma omp single nowait
+          #pragma omp single
             {
               *time+=dt;
              
