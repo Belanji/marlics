@@ -113,11 +113,11 @@ void random_ic( struct Simulation_Parameters * sim_param,double * Qij, const GEO
 
     
                   gsl_ran_dir_3d(w, &n[0], &n[1], &n[2]);
-                  Qij[5*(Nx*(Ny*k+j)+i)+0]=(0.5*S_eq*(3.0*n[0]*n[0]-1.0));
-                  Qij[5*(Nx*(Ny*k+j)+i)+1]=(0.5*S_eq*(3.0*n[0]*n[1]));
-                  Qij[5*(Nx*(Ny*k+j)+i)+2]=(0.5*S_eq*(3.0*n[0]*n[2]));
-                  Qij[5*(Nx*(Ny*k+j)+i)+3]=(0.5*S_eq*(3.0*n[1]*n[1]-1.0));
-                  Qij[5*(Nx*(Ny*k+j)+i)+4]=(0.5*S_eq*(3.0*n[1]*n[2]));                
+                  Qij[5*(Nx*(Ny*k+j)+i)+0]=0.1*(0.5*S_eq*(3.0*n[0]*n[0]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+1]=0.1*(0.5*S_eq*(3.0*n[0]*n[1]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+2]=0.1*(0.5*S_eq*(3.0*n[0]*n[2]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+3]=0.1*(0.5*S_eq*(3.0*n[1]*n[1]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+4]=0.1*(0.5*S_eq*(3.0*n[1]*n[2]));                
 
 
                       
