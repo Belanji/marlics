@@ -8,7 +8,7 @@
 #include <cmath>            
 
 #include <unistd.h>
-#define MarLiCS_Version 1.0
+#define MarLiCS_Version 1.1
 
 int main(int argc, char **argv)
 {
