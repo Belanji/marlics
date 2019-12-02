@@ -6,6 +6,7 @@
 #include "boundary_strong.h"
 #include "boundary_rp.h"
 #include "boundary_fournier_galatola.h"
+#include "boundary_homeotropic.h"
 #include <stdio.h> 
 #include <vector>
 
@@ -78,6 +79,14 @@ void GEOMETRY::boundary_init( struct Simulation_Parameters * sim_param)
     
     
           bc_conditions[ii]=new Boundary_Fg(sim_param, ii);
+
+
+        }
+      else if( strcasecmp(anc_type.c_str(),"homeotropic") == 0 )
+        {
+    
+    
+          bc_conditions[ii]=new Boundary_Homeotropic(sim_param, ii);
 
 
         }
