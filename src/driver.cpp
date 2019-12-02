@@ -329,6 +329,17 @@ void driver::setup_Simulation(void)
     }
 
 
+  if( sim_param.timeprint > sim_param.tf)
+    {
+
+      std::cout << "The timeprint parameter is bigger than tf.\n"
+	        << "Please review your input script and set your timeprint smaller than tf, or your tf bigger than timeprint.\n"
+	        <<  "Aborting the program.\n";
+
+      exit(0);
+
+    }
+  
 
   switch (sim_param.timeprint_status[2])
     {
