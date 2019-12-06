@@ -1,5 +1,5 @@
-#ifndef HOMOGENEOUS_SPHERE_
-#define HOMOGENEOUS_SPHERE_
+#ifndef SPHERE_
+#define SPHERE_
 
 #include "driver.h"
 #include "geometry.h"
@@ -10,12 +10,17 @@ class Geometry_Sphere : public GEOMETRY
 
  protected:
 
-  const int R_out;
-  const int R_in;
+  const double R_ex;
+  const double R_in;
 
   const double HNx;
   const double HNy;
   const double HNz;
+
+
+  const double dx;
+  const double dy;
+  const double dz;
 
   
  public:

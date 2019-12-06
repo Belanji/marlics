@@ -36,9 +36,10 @@ struct Simulation_Parameters
   parameter_status geometry_flag=parameter_status::unset;
   
   /*Just for use in Sphere geometry */
-  int R_in;            /* 10^-9 m */
-  int R_out;           /* 10^-9 m */
-
+  double R_in;           /* 10^-9 m */
+  double R_ex;           /* 10^-9 m */
+  parameter_status radius_flag[2]={parameter_status::unset,
+                                   parameter_status::unset};
   
   //Lc Parameters:
 

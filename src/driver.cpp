@@ -1167,6 +1167,24 @@ int driver::parse_input_file(char input_name[])
           
           fgets(garbage,400,input_file);
         }
+    else if ( strcasecmp(parser,"R_in") == 0  )
+        {
+          sim_param.radius_flag[0]=parameter_status::set;
+          error_handler=fscanf(input_file,"%lf",&sim_param.R_in);
+
+          error_check(error_handler,parser);
+          
+          fgets(garbage,400,input_file);
+        }
+        else if ( strcasecmp(parser,"R_ex") == 0  )
+        {
+          sim_param.radius_flag[1]=parameter_status::set;
+          error_handler=fscanf(input_file,"%lf",&sim_param.R_ex);
+
+          error_check(error_handler,parser);
+          
+          fgets(garbage,400,input_file);
+        }
       else if (strcasecmp(parser,"run") == 0)
         {
         std::cout << "\"run\" command found in the input file.\n Proceding to parameters setup.\n";
@@ -1191,8 +1209,4 @@ int driver::parse_input_file(char input_name[])
     }
   return 0;
 }
-
-
-//sim_param.R_out=(sim_param.Nx-sim_param.Nx/2)+1.0;
-  //sim_param.R_in=(sim_param.Nx-sim_param.Nx/2)-0.1;
   

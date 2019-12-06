@@ -8,17 +8,19 @@
 #include <stdio.h> 
 #include <ctime>
 #include <cstring>
-#include <gsl/gsl_randist.h>
+
 #define MAX(a,b) ((a) > (b) ? a : b)
 #define min(a,b) ((a) < (b) ? a : b)
 
 
-Geometry_Sphere::Geometry_Sphere(const struct Simulation_Parameters * sim_param) : GEOMETRY (sim_param),
-                                                                          R_out ((Nx-Nx/2)+1.0),
-                                                                          R_in ((Nx-Nx/2)-0.1),
-                                                                          HNx ((Nx-1)/2),
-                                                                          HNy ((Ny-1)/2),
-                                                                          HNz ((Nz-1)/2)
+Geometry_Sphere::Geometry_Sphere(const struct Simulation_Parameters * sim_param) : GEOMETRY (sim_param),                                                                                                                HNx ((Nx-1.)/2),
+                                                                                   HNy ((Ny-1.)/2.),
+                                                                                   HNz ((Nz-1.)/2.),
+                                                                                   dx(sim_param->dx),
+                                                                                   dy(sim_param->dy),
+                                                                                   dz(sim_param->dz),
+                                                                                   R_in(( (Nx-1.)/2. - 0.2)*sim_param->dx),
+                                                                                   R_ex(( (Nx-1)/2.+0.8)*sim_param->dx)
 {
   point_type=fill_point_type( );
   geometry_pointer=&(*this);
@@ -26,6 +28,43 @@ Geometry_Sphere::Geometry_Sphere(const struct Simulation_Parameters * sim_param)
   number_of_boundaries=1;
   bc_conditions=std::vector<class BOUNDARY *>(number_of_boundaries);
   boundary_needed_to_be_defined="0";
+
+  
+//  switch( sim_param->radius_flag[0] )
+//    {
+//     case parameter_status::unset:
+//         
+//       std::cout <<"Sphere internal radius not seted.\n"
+//                 <<"Using standard value.\n\n";
+//       R_in=( (Nx-1.)/2. - 0.2)*dx;
+//     break;
+//
+//     case parameter_status::set:
+//
+//       R_in=sim_param->R_in;
+//       break;
+//    }
+//
+//  
+//    switch (sim_param->radius_flag[1])
+//     {
+//       case parameter_status::unset:
+//   
+//         std::cout <<"Sphere external radius not seted.\n"
+//                   <<"Using standard value.\n\n ";
+//         R_ex=( (Nx-1)/2.+0.8)*dx;
+//         break;
+//   
+//       case parameter_status::set:
+//   
+//         R_ex=sim_param->R_ex;
+//         break;
+//     }
+
+
+   std::cout <<"R_in=" << R_in <<std::endl
+             <<"R_ex=" << R_ex <<std::endl;
+  
 };
 
 
@@ -120,9 +159,9 @@ void  Geometry_Sphere::fill_ki(double * k_i,
 		  double v[3];
 
       
-		  delta_x=i-HNx;
-		  delta_y=j-HNy;
-		  delta_z=k-HNz;
+		  delta_x=(i-HNx)*dx;
+		  delta_y=(j-HNy)*dy;
+		  delta_z=(k-HNz)*dz;
 		  rr=sqrt( delta_x*delta_x+delta_y*delta_y+delta_z*delta_z);
                         
 		  v[0]=delta_x/rr;
@@ -193,9 +232,9 @@ int * Geometry_Sphere::fill_point_type( void )  const
         {
           for( k= 0; k< Nz; k++)
             {       
-              delta_x=i-HNx;
-              delta_y=j-HNy;
-              delta_z=k-HNz;
+              delta_x=(i-HNx)*dx;
+              delta_y=(j-HNy)*dy;
+              delta_z=(k-HNz)*dz;
               rr=sqrt( delta_x*delta_x+delta_y*delta_y+delta_z*delta_z);
               
 
@@ -205,7 +244,7 @@ int * Geometry_Sphere::fill_point_type( void )  const
                   point_kind[(k*Ny+j)*Nx+i]=1;//Setting bulk points
                           
                 }
-              else if(rr >=R_in && rr <=R_out)    
+              else if(rr >=R_in && rr <=R_ex)    
                 {
 
                   point_kind[(k*Ny+j)*Nx+i]=2;//Setting surface points
