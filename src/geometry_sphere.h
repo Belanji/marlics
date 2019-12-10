@@ -8,10 +8,10 @@ class Geometry_Sphere : public GEOMETRY
 {
   
 
- protected:
+ private:
 
-  const double R_ex;
-  const double R_in;
+   double R_ex;
+   double R_in;
 
   const double HNx;
   const double HNy;

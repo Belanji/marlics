@@ -18,11 +18,9 @@ Geometry_Sphere::Geometry_Sphere(const struct Simulation_Parameters * sim_param)
                                                                                    HNz ((Nz-1.)/2.),
                                                                                    dx(sim_param->dx),
                                                                                    dy(sim_param->dy),
-                                                                                   dz(sim_param->dz),
-                                                                                   R_in(( (Nx-1.)/2. - 0.2)*sim_param->dx),
-                                                                                   R_ex(( (Nx-1)/2.+0.8)*sim_param->dx)
+                                                                                   dz(sim_param->dz)
 {
-  point_type=fill_point_type( );
+
   geometry_pointer=&(*this);
   geometry_name="Sphere";
   number_of_boundaries=1;
@@ -30,41 +28,47 @@ Geometry_Sphere::Geometry_Sphere(const struct Simulation_Parameters * sim_param)
   boundary_needed_to_be_defined="0";
 
   
-//  switch( sim_param->radius_flag[0] )
-//    {
-//     case parameter_status::unset:
-//         
-//       std::cout <<"Sphere internal radius not seted.\n"
-//                 <<"Using standard value.\n\n";
-//       R_in=( (Nx-1.)/2. - 0.2)*dx;
-//     break;
-//
-//     case parameter_status::set:
-//
-//       R_in=sim_param->R_in;
-//       break;
-//    }
-//
-//  
-//    switch (sim_param->radius_flag[1])
-//     {
-//       case parameter_status::unset:
-//   
-//         std::cout <<"Sphere external radius not seted.\n"
-//                   <<"Using standard value.\n\n ";
-//         R_ex=( (Nx-1)/2.+0.8)*dx;
-//         break;
-//   
-//       case parameter_status::set:
-//   
-//         R_ex=sim_param->R_ex;
-//         break;
-//     }
+  switch( sim_param->radius_flag[0] )
+    {
+     case parameter_status::unset:
+         
+       std::cout <<"Sphere internal radius not seted.\n"
+                 <<"Using standard value.\n\n";
+
+
+
+       R_in=( (Nx-1.)/2. - 0.2)*dx;
+     break;
+
+     case parameter_status::set:
+
+       R_in=sim_param->R_in;
+       break;
+    }
+
+  
+    switch (sim_param->radius_flag[1])
+     {
+       case parameter_status::unset:
+   
+         std::cout <<"Sphere external radius not seted.\n"
+                   <<"Using standard value.\n\n";
+         R_ex=( (Nx-1)/2.+1.0)*dx;
+
+         break;
+   
+       case parameter_status::set:
+   
+         R_ex=sim_param->R_ex;
+         break;
+     }
 
 
    std::cout <<"R_in=" << R_in <<std::endl
              <<"R_ex=" << R_ex <<std::endl;
-  
+
+
+   point_type=fill_point_type( );
 };
 
 
@@ -82,11 +86,7 @@ void  Geometry_Sphere::fill_ki(double * k_i,
 			       const double * Qij)  const 
 {
 
-    
-
-
-  
-#pragma omp for simd schedule(dynamic,1) collapse(2)  
+  #pragma omp for simd schedule(dynamic,1) collapse(2)  
   for( int k= 0; k< Nz; k++)
     {
       for( int j= 0; j< Ny; j++)
