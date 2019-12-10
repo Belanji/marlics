@@ -37,7 +37,7 @@ Geometry_Sphere::Geometry_Sphere(const struct Simulation_Parameters * sim_param)
 
 
 
-       R_in=( (Nx-1.)/2. - 0.2)*dx;
+       R_in=( (Nx-1.)/2. - 0.4)*dx;
      break;
 
      case parameter_status::set:
@@ -53,7 +53,7 @@ Geometry_Sphere::Geometry_Sphere(const struct Simulation_Parameters * sim_param)
    
          std::cout <<"Sphere external radius not seted.\n"
                    <<"Using standard value.\n\n";
-         R_ex=( (Nx-1)/2.+1.0)*dx;
+         R_ex=( (Nx-1)/2.+0.95)*dx;
 
          break;
    
