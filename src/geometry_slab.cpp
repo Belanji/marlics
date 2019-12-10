@@ -33,8 +33,10 @@ void  slab::fill_ki(double * k_i,
                     const double * Qij)  const 
 {
 
+   
+
   int k=0;
-#pragma omp for schedule(dynamic,1) collapse(2)
+  #pragma omp for schedule(dynamic,1) collapse(2)
   for( int j= 0; j< Ny; j++)
     {
       for( int i= 0; i< Nx; i++)
@@ -66,7 +68,7 @@ void  slab::fill_ki(double * k_i,
 	  for(int ll=0; ll<=4;ll++) dQ[5+ll]=0.5*(Qij[5*((k*Ny+jp1)*Nx+i)+ll]-Qij[5*((k*Ny+jm1)*Nx+i)+ll])*dy_1;
 
       
-	  for(int ll=0; ll<=4;ll++) dQ[10+ll]=(Qij[5*((k*Ny+j)*Nx+i)+ll]-Qij[5*((km1*Ny+j)*Nx+i)+ll])*dz_1;
+	  for(int ll=0; ll<=4;ll++) dQ[10+ll]=(Qij[5*((kp1*Ny+j)*Nx+i)+ll]-Qij[5*((km1*Ny+j)*Nx+i)+ll])*dz_1;
       
 	  k_i[5*(Nx*(Ny*k+j)+i)+0]= bc_conditions[0]->functional_derivative_00(QN,dQ,ddQ,v);
 	  k_i[5*(Nx*(Ny*k+j)+i)+1]= bc_conditions[0]->functional_derivative_01(QN,dQ,ddQ,v);
@@ -135,6 +137,7 @@ void  slab::fill_ki(double * k_i,
 	      k_i[5*(Nx*(Ny*k+j)+i)+2]=bulk_energy.functional_derivative_02(QN,dQ,ddQ,v); 
 	      k_i[5*(Nx*(Ny*k+j)+i)+3]=bulk_energy.functional_derivative_11(QN,dQ,ddQ,v); 
 	      k_i[5*(Nx*(Ny*k+j)+i)+4]=bulk_energy.functional_derivative_12(QN,dQ,ddQ,v);
+              
 	    }
 	}
     }
