@@ -4,6 +4,7 @@
 #include "geometry_slab.h"
 #include "geometry_bulk.h"
 #include "geometry_sphere.h"
+#include "geometry_hemisphere.h"
 #include "boundary.h"
 #include "integrator.h"
 #include "integrator_dp5.h" 
@@ -372,31 +373,24 @@ void driver::setup_Simulation(void)
       
       if ( strcasecmp(sim_param.geometry,"slab") == 0 )
         {
-
-          
           LcS_Geometry= new slab( & sim_param);
-  
         }
       else if ( strcasecmp(sim_param.geometry,"bulk") == 0 )
         {
-
-          
           LcS_Geometry= new Geometry_Bulk( & sim_param);
-  
+        }
+      else if ( strcasecmp(sim_param.geometry,"hemisphere") == 0 )
+        {
+          LcS_Geometry= new Geometry_Hemisphere( & sim_param);
         }
       else if ( strcasecmp(sim_param.geometry,"sphere") == 0 )
         {
-
-          
           LcS_Geometry= new Geometry_Sphere( & sim_param);
-  
         }
       else 
         {
-        
           std::cout << "No geometry named " << sim_param.geometry << " is defined.\nAborting the program.\n\n";
           exit(2);
-  
         };
 
       break;

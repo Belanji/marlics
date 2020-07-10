@@ -503,6 +503,7 @@ void read_from_file_ic( struct Simulation_Parameters * sim_param, double * Qij, 
       std::cout <<"Warning: The initial condition reader read "<< reading_line<< " lines, while the it was expected to read "<<
       expected_lines<<" lines.\n This could imply inconsistence in the size of your actyual system and size of the initial condition system.\n\n";
     }
+    fclose(ic_file);
   
 }
 

@@ -13,7 +13,7 @@ endif
 ifeq (${CC},g++)
 ########### Gnu:
  COMPILER := g++
- FLAGS    :=  -Ofast -fipa-pta -fopenmp -Wno-unused-result -Wno-format
+ FLAGS    :=  -Ofast -fipa-pta -fopenmp -Wno-unused-result -Wno-format -static
  LIB := -lm -lgsl -lgslcblas -lgomp -pthread
 endif
 
