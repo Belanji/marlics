@@ -48,6 +48,12 @@ void apply_initial_conditions(struct Simulation_Parameters * sim_param,double * 
             random_bulk_homogeneous_easy_axis_ic( sim_param, Qij, geometry );
             
           }
+        else if(strcasecmp(sim_param->initial_conditions,"random_hemis") == 0 )
+          {
+      
+            random_hemis_ic( sim_param, Qij, geometry );
+            
+          }
         else if(strcasecmp(sim_param->initial_conditions,"random") == 0 )
           {
       
@@ -122,6 +128,96 @@ void random_ic( struct Simulation_Parameters * sim_param,double * Qij, const GEO
 
                       
                 }           
+              else
+                {
+
+                  n[0]=0.0;
+                  n[1]=0.0;
+                  n[2]=1.0;
+                                  
+                  Qij[5*(Nx*(Ny*k+j)+i)+0]=(0.5*(3.0*n[0]*n[0]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+1]=(0.5*(3.0*n[0]*n[1]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+2]=(0.5*(3.0*n[0]*n[2]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+3]=(0.5*(3.0*n[1]*n[1]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+4]=(0.5*(3.0*n[1]*n[2]));                     
+                }     
+            }                      
+        }
+    }
+  gsl_rng_free(w);
+}
+void random_hemis_ic( struct Simulation_Parameters * sim_param,double * Qij, const GEOMETRY * geometry )
+{
+  int i,j,k;
+  double n[3];  
+
+  const double S_eq=sim_param->S_eq;
+  const int Nx=geometry->Nx;
+  const int Ny=geometry->Ny;
+  const int Nz=geometry->Nz;
+  const int * point_type=geometry->point_type;
+  
+  
+  if (sim_param->ic_flag[4]==parameter_status::unset) 
+    gsl_rng_default_seed=time(NULL);
+  else gsl_rng_default_seed= sim_param->rng_seed;
+//  gsl_rng_default_seed=1570800053;
+  
+  gsl_rng *w= gsl_rng_alloc(gsl_rng_taus);
+  std::cout << "seed = " <<gsl_rng_default_seed;
+
+
+  for(i= 0; i< Nx; i++)
+    {
+      for(j= 0; j< Ny; j++)
+        {
+          for(k= 0; k< Nz; k++)
+            {
+              if(point_type[(k*Ny+j)*Nx+i] ==1 )
+                {
+
+    
+                  gsl_ran_dir_3d(w, &n[0], &n[1], &n[2]);
+                  Qij[5*(Nx*(Ny*k+j)+i)+0]=0.1*(0.5*S_eq*(3.0*n[0]*n[0]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+1]=0.1*(0.5*S_eq*(3.0*n[0]*n[1]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+2]=0.1*(0.5*S_eq*(3.0*n[0]*n[2]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+3]=0.1*(0.5*S_eq*(3.0*n[1]*n[1]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+4]=0.1*(0.5*S_eq*(3.0*n[1]*n[2]));                
+
+
+                      
+                }
+              else if(point_type[(k*Ny+j)*Nx+i] ==2 )
+                {
+
+    
+                  gsl_ran_dir_2d(w, &n[0], &n[1]); n[2]=0;
+                  Qij[5*(Nx*(Ny*k+j)+i)+0]=0.1*(0.5*S_eq*(3.0*n[0]*n[0]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+1]=0.1*(0.5*S_eq*(3.0*n[0]*n[1]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+2]=0.1*(0.5*S_eq*(3.0*n[0]*n[2]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+3]=0.1*(0.5*S_eq*(3.0*n[1]*n[1]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+4]=0.1*(0.5*S_eq*(3.0*n[1]*n[2]));                
+                      
+                }
+              else if(point_type[(k*Ny+j)*Nx+i] ==3 )
+                {
+                  
+                  double delta_x=(i-(Nx-1)/2);
+                  double delta_y=(j-(Ny-1)/2);
+                  double delta_z=(k);
+                  double rr=sqrt( delta_x*delta_x+delta_y*delta_y+delta_z*delta_z);
+                  
+                  n[0]=delta_x/rr;
+                  n[1]=delta_y/rr;
+                  n[2]=delta_z/rr;
+                  
+                  Qij[5*(Nx*(Ny*k+j)+i)+0]=0.1*(0.5*S_eq*(3.0*n[0]*n[0]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+1]=0.1*(0.5*S_eq*(3.0*n[0]*n[1]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+2]=0.1*(0.5*S_eq*(3.0*n[0]*n[2]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+3]=0.1*(0.5*S_eq*(3.0*n[1]*n[1]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+4]=0.1*(0.5*S_eq*(3.0*n[1]*n[2]));                
+                      
+                }
               else
                 {
 

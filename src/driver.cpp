@@ -4,6 +4,7 @@
 #include "geometry_slab.h"
 #include "geometry_bulk.h"
 #include "geometry_sphere.h"
+#include "geometry_hybrid_sphere.h"
 #include "geometry_hemisphere.h"
 #include "boundary.h"
 #include "integrator.h"
@@ -386,6 +387,10 @@ void driver::setup_Simulation(void)
       else if ( strcasecmp(sim_param.geometry,"sphere") == 0 )
         {
           LcS_Geometry= new Geometry_Sphere( & sim_param);
+        }
+      else if ( strcasecmp(sim_param.geometry,"hybrid_sphere") == 0 )
+        {
+          LcS_Geometry= new Geometry_Hybrid_Sphere( & sim_param);
         }
       else 
         {
