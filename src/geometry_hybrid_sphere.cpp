@@ -296,7 +296,7 @@ int * Geometry_Hybrid_Sphere::fill_point_type( void )  const
                 }
               else if(rr >=R_in && rr <=R_ex)    
                 {
-                  if (k>=HNz) point_kind[(k*Ny+j)*Nx+i]=2;//Setting top surface points
+                  if (k>HNz) point_kind[(k*Ny+j)*Nx+i]=2;//Setting top surface points
                   else point_kind[(k*Ny+j)*Nx+i]=3;       //Setting bottom surface points
 
                           
