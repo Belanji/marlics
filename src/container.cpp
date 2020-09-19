@@ -62,9 +62,7 @@ container::container(struct Simulation_Parameters * sim_param)
           break;
         }
       case parameter_status::unset:
-      
-        std::cout << "First snapshot file number not set.";
-        std::cout << "Using standard value 0.\n";
+        fprintf(stderr,"The parameter first_output_file_number was not found in your input file/n Please, review your input file/n");
         file_number=0;
         break;
     }
