@@ -44,10 +44,19 @@ container::container(struct Simulation_Parameters * sim_param)
     {
       case parameter_status::set:
         {
+          file_number=sim_param->first_output_file_number;
+          
+          break;
+        }
+      case parameter_status::unset:
+        fprintf(stderr,"The parameter first_output_file_number was not found in your input file\n Please, review your input file\n");
+        file_number=0;
+        break;
+    }
+    
           char first_name[100];
           char fn[3];
-          sprintf(fn,"%d",sim_param->first_output_file_number);
-          file_number=sim_param->first_output_file_number;
+          sprintf(fn,"%d",file_number);
           std::string output_name=output_fname;
           std::size_t found = output_name.rfind("$$");
           if (found!=std::string::npos)
@@ -59,13 +68,6 @@ container::container(struct Simulation_Parameters * sim_param)
           Nx=sim_param->Nx;
           Ny=sim_param->Ny;
           Nz=sim_param->Nz;
-          break;
-        }
-      case parameter_status::unset:
-        fprintf(stderr,"The parameter first_output_file_number was not found in your input file/n Please, review your input file/n");
-        file_number=0;
-        break;
-    }
 }
 
 // Evaluate the n vector, along with the S and P parameters, and print in a ".csv" file

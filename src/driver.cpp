@@ -10,6 +10,7 @@
 #include "integrator.h"
 #include "integrator_dp5.h" 
 #include "integrator_dp5_v2.h" 
+#include "integrator_dp5_noise.h" 
 #include "integrator_rk2.h" 
 #include "integrator_euler.h" 
 #include "initial_conditions.h"
@@ -439,6 +440,12 @@ void driver::setup_Simulation(void)
           LcS_Integrator= new DP5_2(LcS_Geometry, & sim_param );
   
         }
+      else if ( strcasecmp(sim_param.integrator_type,"noise_DP5") == 0 || strcasecmp(sim_param.integrator_type,"DP5_noise") == 0)
+        {
+  
+          LcS_Integrator= new NOISE_DP5(LcS_Geometry, & sim_param );
+  
+        }
       else if ( strcasecmp(sim_param.integrator_type,"RK1") == 0 || strcasecmp(sim_param.integrator_type,"Euler") == 0)
         {
   
@@ -586,6 +593,14 @@ int driver::parse_input_file(char input_name[])
         {
           sim_param.ic_flag[5]=parameter_status::set;
           error_handler=fscanf(input_file,"%lf",&sim_param.p0_i);
+         error_check(error_handler,parser);
+          fgets(garbage,400,input_file);
+          
+        }
+    else if ( strcasecmp(parser,"m_i") == 0 )
+        {
+          sim_param.ic_flag[6]=parameter_status::set;
+          error_handler=fscanf(input_file,"%d",&sim_param.m_i);
           error_check(error_handler,parser);
           fgets(garbage,400,input_file);
           
@@ -594,6 +609,17 @@ int driver::parse_input_file(char input_name[])
         {
           sim_param.integrator_flag=parameter_status::set;
           error_handler=fscanf(input_file,"%200s",&sim_param.integrator_type);
+          
+          error_check(error_handler,parser);
+                
+          fgets(garbage,400,input_file);
+
+          
+        }
+    else if ( strcasecmp(parser,"noise_factor") == 0)
+        {
+          sim_param.integrator_flag=parameter_status::set;
+          error_handler=fscanf(input_file,"%lf",&sim_param.noise_factor);
           
           error_check(error_handler,parser);
                 

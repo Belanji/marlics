@@ -12,6 +12,9 @@ void homogeneous_easy_axis_ic( struct Simulation_Parameters * sim_param,double *
 void random_bulk_homogeneous_easy_axis_ic( struct Simulation_Parameters * sim_param,double * Qij, const class GEOMETRY * );
 void random_hemis_ic( struct Simulation_Parameters * sim_param,double * Qij, const GEOMETRY * geometry );
 void cholesteric_ic( struct Simulation_Parameters * sim_param,double * Qij, const class GEOMETRY * );
+void zummer_asatz1( struct Simulation_Parameters * sim_param,double * Qij, const class GEOMETRY * );
+void zummer_asatz2( struct Simulation_Parameters * sim_param,double * Qij, const class GEOMETRY * );
+void homeotropic_asatz( struct Simulation_Parameters * sim_param,double * Qij, const GEOMETRY * geometry );
 void read_check(int read_status, int line);
 
 #endif 

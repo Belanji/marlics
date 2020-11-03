@@ -93,18 +93,20 @@ struct Simulation_Parameters
   
   //Initial Conditions:
 
-  char initial_conditions[200];
-  char ic_file_name[200];
+  char   initial_conditions[200];
+  char   ic_file_name[200];
   int    rng_seed;
   double theta_i;       /* degrees */
   double phi_i;         /* degrees */ 
   double p0_i;         /* nm */ 
-  parameter_status ic_flag[6]={parameter_status::unset,     // [0] initinal conditions flag
+  int    m_i;         /* nm */ 
+  parameter_status ic_flag[7]={parameter_status::unset,     // [0] initinal conditions flag
                                parameter_status::unset,     // [1] ic file name  flag
                                parameter_status::unset,     // [2] theta_i flag
                                parameter_status::unset,     // [3] phi_i flag
                                parameter_status::unset,     // [4] rng_seed flag
-                               parameter_status::unset};    // [5] p0_i flag
+                               parameter_status::unset,     // [5] p0_i flag
+                               parameter_status::unset};    // [6] m_i flag
   
   //Integrator Paramters:
 
@@ -114,6 +116,7 @@ struct Simulation_Parameters
   double prefac=0.8;
   double facmin=0.4;
   double facmax=3.0;
+  double noise_factor=0.01;
   parameter_status integrator_flag=parameter_status::unset;
   int integrator_parameters_flag=0;
   

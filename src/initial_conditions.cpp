@@ -66,6 +66,17 @@ void apply_initial_conditions(struct Simulation_Parameters * sim_param,double * 
             cholesteric_ic( sim_param, Qij, geometry );
             
           }
+        else if(strcasecmp(sim_param->initial_conditions,"zummer1")*strcasecmp(sim_param->initial_conditions,"zummer_ansatz1") == 0 )
+          {
+      
+            zummer_asatz1( sim_param, Qij, geometry );
+            
+          }
+        else if(strcasecmp(sim_param->initial_conditions,"homeo_ansatz")*strcasecmp(sim_param->initial_conditions,"homeotropic_ansatz") == 0 )
+          {
+            homeotropic_asatz( sim_param, Qij, geometry );
+            
+          }
         else
           {
         
@@ -432,6 +443,196 @@ void cholesteric_ic( struct Simulation_Parameters * sim_param,double * Qij, cons
     }
 }
 
+void zummer_asatz1( struct Simulation_Parameters * sim_param,double * Qij, const GEOMETRY * geometry )
+{
+  //Initiatiate a homogeneously twisted cholesteric along the z sxis
+  int i,j,k;
+  double n[3];  
+
+  const double S_eq=sim_param->S_eq;
+  const int Nx=geometry->Nx;
+  const int Ny=geometry->Ny;
+  const int Nz=geometry->Nz;
+  const int * point_type=geometry->point_type;
+
+  const int m_i=sim_param->m_i;
+  const double p0_i=sim_param->p0_i/sim_param->dz;
+  
+  std::cout<<"Initiating Zummer Ansatz(r,t,f):\n\n";
+    
+  switch(sim_param->ic_flag[6])
+    {
+    case parameter_status::set:
+      
+  
+      if(m_i==1)std::cout << "m_i=" << m_i << "(DSS structure)\n";
+      if(m_i==2)std::cout << "m_i=" << m_i << "(RSS structure)\n";
+      break;
+
+    case parameter_status::unset:
+
+      std::cerr<<"Parameter \"m_i\" not set.\nThe initial condition named \"zummer1\" needs the paramters m_i and \"p0_i\" set for use.\n"<<
+      "Please set them in your in your input file.\n \nAborting the program.\n";
+      exit(1);
+      break;
+    }
+      switch(sim_param->ic_flag[5])
+    {
+    case parameter_status::set:
+      
+  
+      std::cout << "p0_i=" << p0_i << "\n";
+      break;
+
+    case parameter_status::unset:
+
+      std::cerr<<"Parameter \"m_i\" not set.\nThe initial condition named \"zummer1\" needs the paramters m_i and \"p0_i\" set for use.\n"<<
+      "Please set them in your in your input file.\n \nAborting the program.\n";
+      exit(1);
+      break;
+    }
+    double q0i=2*M_PI/(p0_i);
+  double Omega,Rr,Theta, Phi, Ar, Af, At;
+      
+
+  
+  for(i= 0; i< Nx; i++)
+    {
+      for(j= 0; j< Ny; j++)
+        {      
+          for(k= 0; k< Nz; k++)
+            {
+             
+              if(point_type[(k*Ny+j)*Nx+i] !=0 )
+                {
+                  
+                  Rr=sqrt((i-Nx/2)*(i-Nx/2)+(j-Ny/2)*(j-Ny/2)+(k-Nz/2)*(k-Nz/2));
+                  Phi=atan2((j-Ny/2),(i-Nx/2));
+                  Theta=acos(((k-Nz/2)/Rr));
+                  Omega=(m_i-1)*Phi+q0i*(Rr);
+                  At=cos(Omega);
+                  Ar=0;
+                  Af=sin(Omega);
+                  n[0]=Ar*sin(Theta)*cos(Phi)+At*cos(Theta)*cos(Phi)-Af*sin(Phi);
+                  n[1]=Ar*sin(Theta)*sin(Phi)+At*cos(Theta)*sin(Phi)+Af*cos(Phi);
+                  n[2]=Ar*cos(Theta)         -At*sin(Theta);
+                  if(!isnormal(Theta)&&Theta!=0){n[0]=1.0/sqrt(3);n[1]=1.0/sqrt(3);n[2]=1.0/sqrt(3);}
+                  if(!isnormal(Phi)  &&Phi  !=0){n[0]=1.0/sqrt(3);n[1]=1.0/sqrt(3);n[2]=1.0/sqrt(3);}
+                  Qij[5*(Nx*(Ny*k+j)+i)+0]=(0.5*S_eq*(3.0*n[0]*n[0]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+1]=(0.5*S_eq*(3.0*n[0]*n[1]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+2]=(0.5*S_eq*(3.0*n[0]*n[2]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+3]=(0.5*S_eq*(3.0*n[1]*n[1]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+4]=(0.5*S_eq*(3.0*n[1]*n[2]));                
+                }           
+              else
+                {
+    
+                  n[0]=0.0;
+                  n[1]=0.0;
+                  n[2]=1.0;
+                                  
+                  Qij[5*(Nx*(Ny*k+j)+i)+0]=(0.5*(3.0*n[0]*n[0]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+1]=(0.5*(3.0*n[0]*n[1]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+2]=(0.5*(3.0*n[0]*n[2]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+3]=(0.5*(3.0*n[1]*n[1]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+4]=(0.5*(3.0*n[1]*n[2]));                     
+                }     
+            }                      
+        }
+    }
+}
+
+void homeotropic_asatz( struct Simulation_Parameters * sim_param,double * Qij, const GEOMETRY * geometry )
+{
+  //Initiatiate a homogeneously twisted cholesteric along the z sxis
+  int i,j,k;
+  double n[3];  
+
+  const double S_eq=sim_param->S_eq;
+  const int Nx=geometry->Nx;
+  const int Ny=geometry->Ny;
+  const int Nz=geometry->Nz;
+  const int * point_type=geometry->point_type;
+
+  const int m_i=sim_param->m_i;
+  const double p0_i=sim_param->p0_i/sim_param->dz;
+  
+  std::cout<<"Initiating Zummer Ansatz(r,t,f):\n\n";
+    
+  switch(sim_param->ic_flag[6])
+    {
+    case parameter_status::set:
+    
+      break;
+
+    case parameter_status::unset:
+
+      std::cerr<<"Parameter \"m_i\" not set.\nThe initial condition named \"zummer1\" needs the paramters m_i and \"p0_i\" set for use.\n"<<
+      "Please set them in your in your input file.\n \nAborting the program.\n";
+      exit(1);
+      break;
+    }
+      switch(sim_param->ic_flag[5])
+    {
+    case parameter_status::set:
+      
+  
+      std::cout << "p0_i=" << p0_i << "\n";
+      break;
+
+    case parameter_status::unset:
+
+      std::cerr<<"Parameter \"m_i\" not set.\nThe initial condition named \"zummer1\" needs the paramters m_i and \"p0_i\" set for use.\n"<<
+      "Please set them in your in your input file.\n \nAborting the program.\n";
+      exit(1);
+      break;
+    }
+  double Nc=2*Nz/(p0_i);
+      std::cout << "p0_i=" << Nc << "\n";
+  double Omega,Rr,Theta, Phi;
+      
+  for(i= 0; i< Nx; i++)
+    {
+      for(j= 0; j< Ny; j++)
+        {      
+          for(k= 0; k< Nz; k++)
+            {
+             
+              if(point_type[(k*Ny+j)*Nx+i] !=0 )
+                {
+                  
+                  Rr=sqrt((i-Nx/2)*(i-Nx/2)+(j-Ny/2)*(j-Ny/2)+(k-Nz/2)*(k-Nz/2));
+                  Phi=atan2((j-Ny/2),(i-Nx/2));
+                  Theta=acos(((k-Nz/2)/Rr));
+                  n[0]=((m_i-1)?-1: 1)*sin(Phi)*sin(Nc*Phi);
+                  n[1]=((m_i-1)? 1:-1)*sin(Phi)*cos(Nc*Phi);
+                  n[2]=cos(Phi);
+                  if(!isnormal(n[0])&&n[0]!=0){n[0]=0.1;}
+                  if(!isnormal(n[1])&&n[1]!=0){n[1]=0.1;}
+                  if(!isnormal(n[2])&&n[2]!=0){n[2]=0.1;}
+                  Qij[5*(Nx*(Ny*k+j)+i)+0]=(0.5*S_eq*(3.0*n[0]*n[0]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+1]=(0.5*S_eq*(3.0*n[0]*n[1]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+2]=(0.5*S_eq*(3.0*n[0]*n[2]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+3]=(0.5*S_eq*(3.0*n[1]*n[1]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+4]=(0.5*S_eq*(3.0*n[1]*n[2]));                
+                }           
+              else
+                {
+    
+                  n[0]=0.0;
+                  n[1]=0.0;
+                  n[2]=1.0;
+                                  
+                  Qij[5*(Nx*(Ny*k+j)+i)+0]=(0.5*(3.0*n[0]*n[0]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+1]=(0.5*(3.0*n[0]*n[1]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+2]=(0.5*(3.0*n[0]*n[2]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+3]=(0.5*(3.0*n[1]*n[1]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+4]=(0.5*(3.0*n[1]*n[2]));                     
+                }     
+            }                      
+        }
+    }
+}
 void homogeneous_easy_axis_ic( struct Simulation_Parameters * sim_param,double * Qij, const GEOMETRY * geometry )
 {
   homogeneous_ic(sim_param,Qij, geometry);
