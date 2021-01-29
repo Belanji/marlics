@@ -99,14 +99,13 @@ struct Simulation_Parameters
   double theta_i;       /* degrees */
   double phi_i;         /* degrees */ 
   double p0_i;         /* nm */ 
-  int    m_i;         /* nm */ 
-  parameter_status ic_flag[7]={parameter_status::unset,     // [0] initinal conditions flag
+  parameter_status ic_flag[6]={parameter_status::unset,     // [0] initinal conditions flag
                                parameter_status::unset,     // [1] ic file name  flag
                                parameter_status::unset,     // [2] theta_i flag
                                parameter_status::unset,     // [3] phi_i flag
                                parameter_status::unset,     // [4] rng_seed flag
                                parameter_status::unset,     // [5] p0_i flag
-                               parameter_status::unset};    // [6] m_i flag
+                             };
   
   //Integrator Paramters:
 

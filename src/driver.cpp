@@ -597,14 +597,6 @@ int driver::parse_input_file(char input_name[])
           fgets(garbage,400,input_file);
           
         }
-    else if ( strcasecmp(parser,"m_i") == 0 )
-        {
-          sim_param.ic_flag[6]=parameter_status::set;
-          error_handler=fscanf(input_file,"%d",&sim_param.m_i);
-          error_check(error_handler,parser);
-          fgets(garbage,400,input_file);
-          
-        }
     else if ( strcasecmp(parser,"integrator") == 0 || strcasecmp(parser,"integrator_type") == 0 )
         {
           sim_param.integrator_flag=parameter_status::set;

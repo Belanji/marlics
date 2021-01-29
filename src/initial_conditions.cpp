@@ -66,10 +66,16 @@ void apply_initial_conditions(struct Simulation_Parameters * sim_param,double * 
             cholesteric_ic( sim_param, Qij, geometry );
             
           }
-        else if(strcasecmp(sim_param->initial_conditions,"zummer1")*strcasecmp(sim_param->initial_conditions,"zummer_ansatz1") == 0 )
+        else if(strcasecmp(sim_param->initial_conditions,"DSS")*strcasecmp(sim_param->initial_conditions,"DSS_ansatz") == 0 )
           {
       
-            zummer_asatz1( sim_param, Qij, geometry );
+            DSS_asatz( sim_param, Qij, geometry );
+            
+          }
+        else if(strcasecmp(sim_param->initial_conditions,"RSS")*strcasecmp(sim_param->initial_conditions,"DSS_ansatz") == 0 )
+          {
+      
+            RSS_asatz( sim_param, Qij, geometry );
             
           }
         else if(strcasecmp(sim_param->initial_conditions,"homeo_ansatz")*strcasecmp(sim_param->initial_conditions,"homeotropic_ansatz") == 0 )
@@ -350,7 +356,7 @@ void cholesteric_ic( struct Simulation_Parameters * sim_param,double * Qij, cons
 
   const double theta_i=sim_param->theta_i*M_PI/180;
   const double phi_i=sim_param->phi_i*M_PI/180;
-  const double p0_i=sim_param->p0_i=p0_i/(M_PI*sim_param->dz);;
+  const double p0_i=sim_param->p0_i;
   
   std::cout<<"Initiating cholesteric initial conditions:\n\n";
   switch(sim_param->ic_flag[2])
@@ -414,8 +420,8 @@ void cholesteric_ic( struct Simulation_Parameters * sim_param,double * Qij, cons
              
               if(point_type[(k*Ny+j)*Nx+i] !=0 )
                 {
-                  n[0]=sin(theta_i)*cos(phi_i+k/p0_i);
-                  n[1]=sin(theta_i)*sin(phi_i+k/p0_i);
+                  n[0]=sin(theta_i)*cos(phi_i+(2*M_PI*sim_param->dz)*k/p0_i);
+                  n[1]=sin(theta_i)*sin(phi_i+(2*M_PI*sim_param->dz)*k/p0_i);
                   n[2]=cos(theta_i);
         
                   Qij[5*(Nx*(Ny*k+j)+i)+0]=(0.5*S_eq*(3.0*n[0]*n[0]-1.0));
@@ -443,7 +449,7 @@ void cholesteric_ic( struct Simulation_Parameters * sim_param,double * Qij, cons
     }
 }
 
-void zummer_asatz1( struct Simulation_Parameters * sim_param,double * Qij, const GEOMETRY * geometry )
+void DSS_asatz( struct Simulation_Parameters * sim_param,double * Qij, const GEOMETRY * geometry )
 {
   //Initiatiate a homogeneously twisted cholesteric along the z sxis
   int i,j,k;
@@ -455,28 +461,12 @@ void zummer_asatz1( struct Simulation_Parameters * sim_param,double * Qij, const
   const int Nz=geometry->Nz;
   const int * point_type=geometry->point_type;
 
-  const int m_i=sim_param->m_i;
+  const int m_i=1;
   const double p0_i=sim_param->p0_i/sim_param->dz;
   
   std::cout<<"Initiating Zummer Ansatz(r,t,f):\n\n";
     
-  switch(sim_param->ic_flag[6])
-    {
-    case parameter_status::set:
-      
-  
-      if(m_i==1)std::cout << "m_i=" << m_i << "(DSS structure)\n";
-      if(m_i==2)std::cout << "m_i=" << m_i << "(RSS structure)\n";
-      break;
-
-    case parameter_status::unset:
-
-      std::cerr<<"Parameter \"m_i\" not set.\nThe initial condition named \"zummer1\" needs the paramters m_i and \"p0_i\" set for use.\n"<<
-      "Please set them in your in your input file.\n \nAborting the program.\n";
-      exit(1);
-      break;
-    }
-      switch(sim_param->ic_flag[5])
+    switch(sim_param->ic_flag[5])
     {
     case parameter_status::set:
       
@@ -510,6 +500,93 @@ void zummer_asatz1( struct Simulation_Parameters * sim_param,double * Qij, const
                   Phi=atan2((j-Ny/2),(i-Nx/2));
                   Theta=acos(((k-Nz/2)/Rr));
                   Omega=(m_i-1)*Phi+q0i*(Rr);
+                  if (!isnormal(Theta)) Theta = 0;
+                  if (!isnormal(Phi))   Phi = 0;
+                  At=cos(Omega);
+                  Ar=0;
+                  Af=sin(Omega);
+                  n[0]=Ar*sin(Theta)*cos(Phi)+At*cos(Theta)*cos(Phi)-Af*sin(Phi);
+                  n[1]=Ar*sin(Theta)*sin(Phi)+At*cos(Theta)*sin(Phi)+Af*cos(Phi);
+                  n[2]=Ar*cos(Theta)         -At*sin(Theta);
+                  if(!isnormal(Theta)&&Theta!=0){n[0]=1.0/sqrt(3);n[1]=1.0/sqrt(3);n[2]=1.0/sqrt(3);}
+                  if(!isnormal(Phi)  &&Phi  !=0){n[0]=1.0/sqrt(3);n[1]=1.0/sqrt(3);n[2]=1.0/sqrt(3);}
+                  Qij[5*(Nx*(Ny*k+j)+i)+0]=(0.5*S_eq*(3.0*n[0]*n[0]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+1]=(0.5*S_eq*(3.0*n[0]*n[1]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+2]=(0.5*S_eq*(3.0*n[0]*n[2]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+3]=(0.5*S_eq*(3.0*n[1]*n[1]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+4]=(0.5*S_eq*(3.0*n[1]*n[2]));                
+                }           
+              else
+                {
+    
+                  n[0]=0.0;
+                  n[1]=0.0;
+                  n[2]=1.0;
+                                  
+                  Qij[5*(Nx*(Ny*k+j)+i)+0]=(0.5*(3.0*n[0]*n[0]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+1]=(0.5*(3.0*n[0]*n[1]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+2]=(0.5*(3.0*n[0]*n[2]));
+                  Qij[5*(Nx*(Ny*k+j)+i)+3]=(0.5*(3.0*n[1]*n[1]-1.0));
+                  Qij[5*(Nx*(Ny*k+j)+i)+4]=(0.5*(3.0*n[1]*n[2]));                     
+                }     
+            }                      
+        }
+    }
+}
+
+void RSS_asatz( struct Simulation_Parameters * sim_param,double * Qij, const GEOMETRY * geometry )
+{
+  //Initiatiate a homogeneously twisted cholesteric along the z sxis
+  int i,j,k;
+  double n[3];  
+
+  const double S_eq=sim_param->S_eq;
+  const int Nx=geometry->Nx;
+  const int Ny=geometry->Ny;
+  const int Nz=geometry->Nz;
+  const int * point_type=geometry->point_type;
+
+  const int m_i=2;
+  const double p0_i=sim_param->p0_i/sim_param->dz;
+  
+  std::cout<<"Initiating Zummer Ansatz(r,t,f):\n\n";
+
+    switch(sim_param->ic_flag[5])
+    {
+    case parameter_status::set:
+      
+  
+      std::cout << "p0_i=" << p0_i << "\n";
+      break;
+
+    case parameter_status::unset:
+
+      std::cerr<<"Parameter \"m_i\" not set.\nThe initial condition named \"zummer1\" needs the paramters m_i and \"p0_i\" set for use.\n"<<
+      "Please set them in your in your input file.\n \nAborting the program.\n";
+      exit(1);
+      break;
+    }
+    double q0i=2*M_PI/(p0_i);
+  double Omega,Rr,Theta, Phi, Ar, Af, At;
+      
+
+  
+  for(i= 0; i< Nx; i++)
+    {
+      for(j= 0; j< Ny; j++)
+        {      
+          for(k= 0; k< Nz; k++)
+            {
+             
+              if(point_type[(k*Ny+j)*Nx+i] !=0 )
+                {
+                  
+                  Rr=sqrt((i-Nx/2)*(i-Nx/2)+(j-Ny/2)*(j-Ny/2)+(k-Nz/2)*(k-Nz/2));
+                  Phi=atan2((j-Ny/2),(i-Nx/2));
+                  Theta=acos(((k-Nz/2)/Rr));
+                  Omega=(m_i-1)*Phi+q0i*(Rr);
+                  if (!isnormal(Theta)) Theta = 0;
+                  if (!isnormal(Phi))   Phi = 0;
                   At=cos(Omega);
                   Ar=0;
                   Af=sin(Omega);
@@ -554,25 +631,12 @@ void homeotropic_asatz( struct Simulation_Parameters * sim_param,double * Qij, c
   const int Nz=geometry->Nz;
   const int * point_type=geometry->point_type;
 
-  const int m_i=sim_param->m_i;
+  const int m_i=1;
   const double p0_i=sim_param->p0_i/sim_param->dz;
   
   std::cout<<"Initiating Zummer Ansatz(r,t,f):\n\n";
     
-  switch(sim_param->ic_flag[6])
-    {
-    case parameter_status::set:
-    
-      break;
-
-    case parameter_status::unset:
-
-      std::cerr<<"Parameter \"m_i\" not set.\nThe initial condition named \"zummer1\" needs the paramters m_i and \"p0_i\" set for use.\n"<<
-      "Please set them in your in your input file.\n \nAborting the program.\n";
-      exit(1);
-      break;
-    }
-      switch(sim_param->ic_flag[5])
+    switch(sim_param->ic_flag[5])
     {
     case parameter_status::set:
       
