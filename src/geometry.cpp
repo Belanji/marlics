@@ -15,6 +15,7 @@ double Pi=3.14159265359;
 //Base class to latter geometry definition
 GEOMETRY::GEOMETRY(const struct Simulation_Parameters * lc) :
   bulk_energy(lc),
+  bulk_force(lc),
   Nx(lc->Nx),
   Ny(lc->Ny),
   Nz(lc->Nz),

@@ -5,18 +5,14 @@ class ENERGY
 {
   public:
 
-
   ENERGY(const struct Simulation_Parameters * lc);
-         
-
   
   virtual  double functional_derivative_00(const double  QN[5],const double  dQ[15],const double  ddQ[30], const double v[3]) const =0;
   virtual  double functional_derivative_01(const double  QN[5],const double  dQ[15],const double  ddQ[30], const double v[3]) const =0;
   virtual  double functional_derivative_02(const double  QN[5],const double  dQ[15],const double  ddQ[30], const double v[3]) const =0;
   virtual  double functional_derivative_11(const double  QN[5],const double  dQ[15],const double  ddQ[30], const double v[3]) const =0;
   virtual  double functional_derivative_12(const double  QN[5],const double  dQ[15],const double  ddQ[30], const double v[3]) const =0;
-
- 
+  virtual  double energy_calculation      (const double  QN[5],const double  dQ[15], const double v[3]) const =0;
 
  protected:
   

@@ -13,6 +13,8 @@ class slab : public GEOMETRY
     
   slab(const struct Simulation_Parameters *);
   ~slab(void) {};
+  virtual void Energy_calc(double * k_i, const double * Qij) const ;
+  virtual void compute_forces(double *, const double * ) const ;
 
 
   

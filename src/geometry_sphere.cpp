@@ -214,8 +214,253 @@ void  Geometry_Sphere::fill_ki(double * k_i,
     }
   
 }
+
+
+void  Geometry_Sphere::compute_forces(double * k_i, const double * Qij)  const 
+{
+  #pragma omp for simd schedule(dynamic,1) collapse(2)  
+  for( int k= 0; k< Nz; k++)
+  {
+    for( int j= 0; j< Ny; j++)
+    {
+      for( int i= 0; i< Nx; i++)
+	    {	
+        int ip1,jp1,kp1, im1, jm1, km1, ll;
+        double dQ[15];
+        double ddQ[30];
+        double QN[27*5];
+        double v[3];
+              
+	      if(point_type[(k*Ny+j)*Nx+i] == 1)
+        {
+          //check_bulk_limits( i,  j,  k);                    
+          ip1= (i+1);
+          jp1= (j+1);
+          kp1= (k+1);
+          im1= (i-1);
+          jm1= (j-1);
+          km1= (k-1);
+          if(i*j*k==0||i==Nx-1 ||j==Ny-1 ||k==Nz-1) printf("Point type violation at (%d,%d,%d)\n",i,j,k);
+  
+          double dQ[105];
+          double QN[35];
+          double v[3];
+  
+          v[0]=0;
+          v[1]=0;
+          v[2]=0;
+        
+          for(int ll=0; ll<=4;ll++) QN[ll+5*(0)]=Qij[5*(Nx*(Ny*km1+j  )+i  )+ll];
+          for(int ll=0; ll<=4;ll++) QN[ll+5*(1)]=Qij[5*(Nx*(Ny*k  +jm1)+i  )+ll];
+          for(int ll=0; ll<=4;ll++) QN[ll+5*(2)]=Qij[5*(Nx*(Ny*k  +j  )+im1)+ll];
+          for(int ll=0; ll<=4;ll++) QN[ll+5*(3)]=Qij[5*(Nx*(Ny*k  +j  )+i  )+ll];
+          for(int ll=0; ll<=4;ll++) QN[ll+5*(4)]=Qij[5*(Nx*(Ny*k  +j  )+ip1)+ll];
+          for(int ll=0; ll<=4;ll++) QN[ll+5*(5)]=Qij[5*(Nx*(Ny*k  +jp1)+i  )+ll];
+          for(int ll=0; ll<=4;ll++) QN[ll+5*(6)]=Qij[5*(Nx*(Ny*kp1+j  )+i  )+ll];
+        
+          for(int ll=0; ll<=4;ll++) dQ[0+3*(ll+5*(0))]=dx_1*(Qij[5*(Nx*(Ny*km1+j  )+ip1)+ll]-Qij[5*(Nx*(Ny*km1+j  )+im1)+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[0+3*(ll+5*(1))]=dx_1*(Qij[5*(Nx*(Ny*k  +jm1)+ip1)+ll]-Qij[5*(Nx*(Ny*k  +jm1)+im1)+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[0+3*(ll+5*(2))]=dx_1*(Qij[5*(Nx*(Ny*k  +j  )+i  )+ll]-Qij[5*(Nx*(Ny*k  +j  )+im1)+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[0+3*(ll+5*(3))]=dx_1*(Qij[5*(Nx*(Ny*k  +j  )+ip1)+ll]-Qij[5*(Nx*(Ny*k  +j  )+im1)+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[0+3*(ll+5*(4))]=dx_1*(Qij[5*(Nx*(Ny*k  +j  )+ip1)+ll]-Qij[5*(Nx*(Ny*k  +j  )+i  )+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[0+3*(ll+5*(5))]=dx_1*(Qij[5*(Nx*(Ny*k  +jp1)+ip1)+ll]-Qij[5*(Nx*(Ny*k  +jp1)+im1)+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[0+3*(ll+5*(6))]=dx_1*(Qij[5*(Nx*(Ny*kp1+j  )+ip1)+ll]-Qij[5*(Nx*(Ny*kp1+j  )+im1)+ll]);
+                                                                                            
+          for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(0))]=dy_1*(Qij[5*(Nx*(Ny*km1+jp1)+i  )+ll]-Qij[5*(Nx*(Ny*km1+jm1)+i  )+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(1))]=dy_1*(Qij[5*(Nx*(Ny*k  +j  )+i  )+ll]-Qij[5*(Nx*(Ny*k  +jm1)+i  )+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(2))]=dy_1*(Qij[5*(Nx*(Ny*k  +jp1)+im1)+ll]-Qij[5*(Nx*(Ny*k  +jm1)+im1)+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(3))]=dy_1*(Qij[5*(Nx*(Ny*k  +jp1)+i  )+ll]-Qij[5*(Nx*(Ny*k  +jm1)+i  )+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(4))]=dy_1*(Qij[5*(Nx*(Ny*k  +jp1)+ip1)+ll]-Qij[5*(Nx*(Ny*k  +jm1)+ip1)+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(5))]=dy_1*(Qij[5*(Nx*(Ny*k  +jp1)+i  )+ll]-Qij[5*(Nx*(Ny*k  +j  )+i  )+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(6))]=dy_1*(Qij[5*(Nx*(Ny*kp1+jp1)+i  )+ll]-Qij[5*(Nx*(Ny*kp1+jm1)+i  )+ll]);
+                                                                                            
+          for(int ll=0; ll<=4;ll++) dQ[2+3*(ll+5*(0))]=dz_1*(Qij[5*(Nx*(Ny*k  +j  )+i  )+ll]-Qij[5*(Nx*(Ny*km1+j  )+i  )+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[2+3*(ll+5*(1))]=dz_1*(Qij[5*(Nx*(Ny*kp1+jm1)+i  )+ll]-Qij[5*(Nx*(Ny*km1+jm1)+i  )+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[2+3*(ll+5*(2))]=dz_1*(Qij[5*(Nx*(Ny*kp1+j  )+im1)+ll]-Qij[5*(Nx*(Ny*km1+j  )+im1)+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[2+3*(ll+5*(3))]=dz_1*(Qij[5*(Nx*(Ny*kp1+j  )+i  )+ll]-Qij[5*(Nx*(Ny*km1+j  )+i  )+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[2+3*(ll+5*(4))]=dz_1*(Qij[5*(Nx*(Ny*kp1+j  )+ip1)+ll]-Qij[5*(Nx*(Ny*km1+j  )+ip1)+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[2+3*(ll+5*(5))]=dz_1*(Qij[5*(Nx*(Ny*kp1+jp1)+i  )+ll]-Qij[5*(Nx*(Ny*km1+jp1)+i  )+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[2+3*(ll+5*(6))]=dz_1*(Qij[5*(Nx*(Ny*kp1+j  )+i  )+ll]-Qij[5*(Nx*(Ny*k  +j  )+i  )+ll]);
+          
+          k_i[5*(Nx*(Ny*k+j)+i)+0]=-bulk_force.force_00(QN,dQ); 
+          k_i[5*(Nx*(Ny*k+j)+i)+1]=-bulk_force.force_01(QN,dQ); 
+          k_i[5*(Nx*(Ny*k+j)+i)+2]=-bulk_force.force_02(QN,dQ); 
+          k_i[5*(Nx*(Ny*k+j)+i)+3]=-bulk_force.force_11(QN,dQ); 
+          k_i[5*(Nx*(Ny*k+j)+i)+4]=-bulk_force.force_12(QN,dQ);
+          if(!isnormal(k_i[5*(Nx*(Ny*k+j)+i)+0]+1)){printf("%d %d %d %g bulk\n",i,j,k,k_i[5*(Nx*(Ny*k+j)+i)+0]);}
+          if(!isnormal(k_i[5*(Nx*(Ny*k+j)+i)+1]+1)){printf("%d %d %d %g bulk\n",i,j,k,k_i[5*(Nx*(Ny*k+j)+i)+1]);}
+          if(!isnormal(k_i[5*(Nx*(Ny*k+j)+i)+2]+1)){printf("%d %d %d %g bulk\n",i,j,k,k_i[5*(Nx*(Ny*k+j)+i)+2]);}
+          if(!isnormal(k_i[5*(Nx*(Ny*k+j)+i)+3]+1)){printf("%d %d %d %g bulk\n",i,j,k,k_i[5*(Nx*(Ny*k+j)+i)+3]);}
+          if(!isnormal(k_i[5*(Nx*(Ny*k+j)+i)+4]+1)){printf("%d %d %d %g bulk\n",i,j,k,k_i[5*(Nx*(Ny*k+j)+i)+4]);}
+        }  
+        else if( point_type[(k*Ny+j)*Nx+i] == 2 )
+        {
+          //check_surface_limits( i,  j,  k);
+          double delta_x,delta_y,delta_z;
+          double rr;
+          
+          delta_x=(i-HNx)*dx;
+          delta_y=(j-HNy)*dy;
+          delta_z=(k-HNz)*dz;
+          rr=sqrt( delta_x*delta_x+delta_y*delta_y+delta_z*delta_z);
+          
+          v[0]=delta_x/rr;
+          v[1]=delta_y/rr;
+          v[2]=delta_z/rr;
+          //Boundary condtions:
+          
+          ip1= i>=Nx/2 ? i   : i+1 ;
+          jp1= j>=Ny/2 ? j   : j+1 ;
+          kp1= k>=Nz/2 ? k   : k+1 ;
+          
+          im1= i>=Nx/2 ? i-1 : i ;
+          jm1= j>=Ny/2 ? j-1 : j ;
+          km1= k>=Nz/2 ? k-1 : k ;
+          
+          for(int ll=0; ll<=4;ll++) QN[ll+5*(0)]=Qij[5*(Nx*(Ny*km1+j  )+i  )+ll];
+          for(int ll=0; ll<=4;ll++) QN[ll+5*(1)]=Qij[5*(Nx*(Ny*k  +jm1)+i  )+ll];
+          for(int ll=0; ll<=4;ll++) QN[ll+5*(2)]=Qij[5*(Nx*(Ny*k  +j  )+im1)+ll];
+          for(int ll=0; ll<=4;ll++) QN[ll+5*(3)]=Qij[5*(Nx*(Ny*k  +j  )+i  )+ll];
+          for(int ll=0; ll<=4;ll++) QN[ll+5*(4)]=Qij[5*(Nx*(Ny*k  +j  )+ip1)+ll];
+          for(int ll=0; ll<=4;ll++) QN[ll+5*(5)]=Qij[5*(Nx*(Ny*k  +jp1)+i  )+ll];
+          for(int ll=0; ll<=4;ll++) QN[ll+5*(6)]=Qij[5*(Nx*(Ny*kp1+j  )+i  )+ll];
+          
+          for(int ll=0; ll<=4;ll++) dQ[0+3*(ll+5*(0))]=dx_1*(Qij[5*(Nx*(Ny*km1+j  )+ip1)+ll]-Qij[5*(Nx*(Ny*km1+j  )+im1)+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[0+3*(ll+5*(1))]=dx_1*(Qij[5*(Nx*(Ny*k  +jm1)+ip1)+ll]-Qij[5*(Nx*(Ny*k  +jm1)+im1)+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[0+3*(ll+5*(2))]=dx_1*(Qij[5*(Nx*(Ny*k  +j  )+i  )+ll]-Qij[5*(Nx*(Ny*k  +j  )+im1)+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[0+3*(ll+5*(3))]=dx_1*(Qij[5*(Nx*(Ny*k  +j  )+ip1)+ll]-Qij[5*(Nx*(Ny*k  +j  )+im1)+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[0+3*(ll+5*(4))]=dx_1*(Qij[5*(Nx*(Ny*k  +j  )+ip1)+ll]-Qij[5*(Nx*(Ny*k  +j  )+i  )+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[0+3*(ll+5*(5))]=dx_1*(Qij[5*(Nx*(Ny*k  +jp1)+ip1)+ll]-Qij[5*(Nx*(Ny*k  +jp1)+im1)+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[0+3*(ll+5*(6))]=dx_1*(Qij[5*(Nx*(Ny*kp1+j  )+ip1)+ll]-Qij[5*(Nx*(Ny*kp1+j  )+im1)+ll]);
+                                                                                            
+          for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(0))]=dy_1*(Qij[5*(Nx*(Ny*km1+jp1)+i  )+ll]-Qij[5*(Nx*(Ny*km1+jm1)+i  )+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(1))]=dy_1*(Qij[5*(Nx*(Ny*k  +j  )+i  )+ll]-Qij[5*(Nx*(Ny*k  +jm1)+i  )+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(2))]=dy_1*(Qij[5*(Nx*(Ny*k  +jp1)+im1)+ll]-Qij[5*(Nx*(Ny*k  +jm1)+im1)+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(3))]=dy_1*(Qij[5*(Nx*(Ny*k  +jp1)+i  )+ll]-Qij[5*(Nx*(Ny*k  +jm1)+i  )+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(4))]=dy_1*(Qij[5*(Nx*(Ny*k  +jp1)+ip1)+ll]-Qij[5*(Nx*(Ny*k  +jm1)+ip1)+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(5))]=dy_1*(Qij[5*(Nx*(Ny*k  +jp1)+i  )+ll]-Qij[5*(Nx*(Ny*k  +j  )+i  )+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(6))]=dy_1*(Qij[5*(Nx*(Ny*kp1+jp1)+i  )+ll]-Qij[5*(Nx*(Ny*kp1+jm1)+i  )+ll]);
+                                                                                            
+          for(int ll=0; ll<=4;ll++) dQ[2+3*(ll+5*(0))]=dz_1*(Qij[5*(Nx*(Ny*k  +j  )+i  )+ll]-Qij[5*(Nx*(Ny*km1+j  )+i  )+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[2+3*(ll+5*(1))]=dz_1*(Qij[5*(Nx*(Ny*kp1+jm1)+i  )+ll]-Qij[5*(Nx*(Ny*km1+jm1)+i  )+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[2+3*(ll+5*(2))]=dz_1*(Qij[5*(Nx*(Ny*kp1+j  )+im1)+ll]-Qij[5*(Nx*(Ny*km1+j  )+im1)+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[2+3*(ll+5*(3))]=dz_1*(Qij[5*(Nx*(Ny*kp1+j  )+i  )+ll]-Qij[5*(Nx*(Ny*km1+j  )+i  )+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[2+3*(ll+5*(4))]=dz_1*(Qij[5*(Nx*(Ny*kp1+j  )+ip1)+ll]-Qij[5*(Nx*(Ny*km1+j  )+ip1)+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[2+3*(ll+5*(5))]=dz_1*(Qij[5*(Nx*(Ny*kp1+jp1)+i  )+ll]-Qij[5*(Nx*(Ny*km1+jp1)+i  )+ll]);
+          for(int ll=0; ll<=4;ll++) dQ[2+3*(ll+5*(6))]=dz_1*(Qij[5*(Nx*(Ny*kp1+j  )+i  )+ll]-Qij[5*(Nx*(Ny*k  +j  )+i  )+ll]);
+	    
+          k_i[5*(Nx*(Ny*k+j)+i)+0]= -bc_conditions[0]->force_00(QN,dQ,v);
+          k_i[5*(Nx*(Ny*k+j)+i)+1]= -bc_conditions[0]->force_01(QN,dQ,v);
+          k_i[5*(Nx*(Ny*k+j)+i)+2]= -bc_conditions[0]->force_02(QN,dQ,v);
+          k_i[5*(Nx*(Ny*k+j)+i)+3]= -bc_conditions[0]->force_11(QN,dQ,v);
+          k_i[5*(Nx*(Ny*k+j)+i)+4]= -bc_conditions[0]->force_12(QN,dQ,v);
+          if(!isnormal(k_i[5*(Nx*(Ny*k+j)+i)+0]+1)){printf("%d %d %d %g bound\n",i,j,k,k_i[5*(Nx*(Ny*k+j)+i)+0]);}
+          if(!isnormal(k_i[5*(Nx*(Ny*k+j)+i)+1]+1)){printf("%d %d %d %g bound\n",i,j,k,k_i[5*(Nx*(Ny*k+j)+i)+1]);}
+          if(!isnormal(k_i[5*(Nx*(Ny*k+j)+i)+2]+1)){printf("%d %d %d %g bound\n",i,j,k,k_i[5*(Nx*(Ny*k+j)+i)+2]);}
+          if(!isnormal(k_i[5*(Nx*(Ny*k+j)+i)+3]+1)){printf("%d %d %d %g bound\n",i,j,k,k_i[5*(Nx*(Ny*k+j)+i)+3]);}
+          if(!isnormal(k_i[5*(Nx*(Ny*k+j)+i)+4]+1)){printf("%d %d %d %g bound\n",i,j,k,k_i[5*(Nx*(Ny*k+j)+i)+4]);}
+        
+        
+          //check_surface_limits(i,j,k);
+        }
+	      else
+        {
+          k_i[5*(Nx*(Ny*k+j)+i)+0]=0.; 
+          k_i[5*(Nx*(Ny*k+j)+i)+1]=0.; 
+          k_i[5*(Nx*(Ny*k+j)+i)+2]=0.; 
+          k_i[5*(Nx*(Ny*k+j)+i)+3]=0.; 
+          k_i[5*(Nx*(Ny*k+j)+i)+4]=0.;
+        }
+	    }
+    }
+  }
+}
+
+void  Geometry_Sphere::Energy_calc(double * k_i, const double * Qij)  const 
+{
+  #pragma omp for simd schedule(dynamic,1) collapse(2)  
+  for( int k= 0; k< Nz; k++)
+  {
+    for( int j= 0; j< Ny; j++)
+    {
+      for( int i= 0; i< Nx; i++)
+	    {
+        int ip1,jp1,kp1, im1, jm1, km1, ll;
+        double dQ[15];
+        double ddQ[30];
+        double QN[5];
+        double v[3];
+        
+	      if(point_type[(k*Ny+j)*Nx+i] == 1)
+        {
+          //check_bulk_limits( i,  j,  k);                    
+          ip1= (i+1);
+          jp1= (j+1);
+          kp1= (k+1);
+          im1= (i-1);
+          jm1= (j-1);
+          km1= (k-1);
+          
+          for(ll=0; ll<=4;ll++) QN[ll]=Qij[5*(Nx*(Ny*k+j)+i)+ll];
+          
+          //Calcule first derivatives of Qij:
+          for(ll=0; ll<=4;ll++) dQ[ll]= 0.5*(Qij[5*((k*Ny+j)*Nx+ip1)+ll]-Qij[5*((k*Ny+j)*Nx+im1)+ll])*dx_1;
+          for(ll=0; ll<=4;ll++) dQ[5+ll]= 0.5*(Qij[5*((k*Ny+jp1)*Nx+i)+ll]-Qij[5*((k*Ny+jm1)*Nx+i)+ll])*dy_1;
+          for(ll=0; ll<=4;ll++) dQ[10+ll]= 0.5*(Qij[5*((kp1*Ny+j)*Nx+i)+ll]-Qij[5*((km1*Ny+j)*Nx+i)+ll])*dz_1;
+    
+          k_i[2*(Nx*(Ny*k+j)+i)]=bulk_energy.energy_calculation(QN,dQ,v); 
+        }  
+	      else if( point_type[(k*Ny+j)*Nx+i] == 2 )
+        {
+          //check_surface_limits( i,  j,  k);
+          double delta_x,delta_y,delta_z;
+          double rr;
+          double v[3];
+          
+          delta_x=(i-HNx)*dx;
+          delta_y=(j-HNy)*dy;
+          delta_z=(k-HNz)*dz;
+          rr=sqrt( delta_x*delta_x+delta_y*delta_y+delta_z*delta_z);
+                            
+          v[0]=delta_x/rr;
+          v[1]=delta_y/rr;
+          v[2]=delta_z/rr;
+          //Boundary condtions:
+    
+          ip1= i>=Nx/2 ? i   : i+1 ;
+          jp1= j>=Ny/2 ? j   : j+1 ;
+          kp1= k>=Nz/2 ? k   : k+1 ;
       
-      
+          im1= i>=Nx/2 ? i-1 : i ;
+          jm1= j>=Ny/2 ? j-1 : j ;
+          km1= k>=Nz/2 ? k-1 : k ;
+    
+          for(ll=0; ll<=4;ll++) QN[ll]=Qij[5*(Nx*(Ny*k+j)+i)+ll];
+    
+          //Calcule first derivatives of Qij:
+          for(ll=0; ll<=4;ll++) dQ[ll]=   (Qij[5*((k*Ny+j)*Nx+ip1)+ll]-Qij[5*((k*Ny+j)*Nx+im1)+ll])*dx_1;
+          for(ll=0; ll<=4;ll++) dQ[5+ll]= (Qij[5*((k*Ny+jp1)*Nx+i)+ll]-Qij[5*((k*Ny+jm1)*Nx+i)+ll])*dy_1;
+          for(ll=0; ll<=4;ll++) dQ[10+ll]=(Qij[5*((kp1*Ny+j)*Nx+i)+ll]-Qij[5*((km1*Ny+j)*Nx+i)+ll])*dz_1;
+    
+          k_i[2*(Nx*(Ny*k+j)+i)+0]=bulk_energy.energy_calculation(QN,dQ,v); 
+          k_i[2*(Nx*(Ny*k+j)+i)+1]=bc_conditions[0]->energy_calculation(QN,dQ,v);
+//~           printf("%g %g %d %d %d\n",k_i[2*(Nx*(Ny*k+j)+i)+1],k_i[2*(Nx*(Ny*k+j)+i)],i,j,k);
+          //check_surface_limits(i,j,k);
+        }
+	      else
+        {
+    
+          k_i[5*(Nx*(Ny*k+j)+i)+0]=0.; 
+          k_i[5*(Nx*(Ny*k+j)+i)+1]=0.; 
+          k_i[5*(Nx*(Ny*k+j)+i)+2]=0.; 
+          k_i[5*(Nx*(Ny*k+j)+i)+3]=0.; 
+          k_i[5*(Nx*(Ny*k+j)+i)+4]=0.;
+        }
+	    }
+    }
+  }
+}
+       
 int * Geometry_Sphere::fill_point_type( void )  const 
 {
   int i,j,k;
@@ -262,9 +507,3 @@ int * Geometry_Sphere::fill_point_type( void )  const
 
   return point_kind;
 }
-
-
-
-
-  
-

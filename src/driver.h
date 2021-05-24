@@ -99,6 +99,7 @@ struct Simulation_Parameters
   double theta_i;       /* degrees */
   double phi_i;         /* degrees */ 
   double p0_i;         /* nm */ 
+  int    m_i;         /* nm */ 
   parameter_status ic_flag[6]={parameter_status::unset,     // [0] initinal conditions flag
                                parameter_status::unset,     // [1] ic file name  flag
                                parameter_status::unset,     // [2] theta_i flag

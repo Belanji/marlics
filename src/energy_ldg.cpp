@@ -2,12 +2,10 @@
 #include "energy.h"
 #include "energy_ldg.h"
 #include <stdio.h>
+#include <math.h>
 
 landau_de_gennes::landau_de_gennes(const struct Simulation_Parameters * lc) : ENERGY(lc)
 {
-
-        
-        
   std::cout << "L1=" << L1 << " \n";
   std::cout << "L2=" << L2 << " \n";
   std::cout << "L3=" << L3 << " \n";
@@ -19,8 +17,6 @@ landau_de_gennes::landau_de_gennes(const struct Simulation_Parameters * lc) : EN
   std::cout << "dz=" << lc->dz << " \n";
   std::cout << "S_eq=" << S_eq << " \n\n";
         
-
-        
   std::cout << "a=" << a << " \n";
   std::cout << "b=" << bb << " \n";
   std::cout << "c=" << cc << " \n";
@@ -28,7 +24,6 @@ landau_de_gennes::landau_de_gennes(const struct Simulation_Parameters * lc) : EN
 
   std::cout << "Lambda=" << 1/Lambda << " \n";
   std::cout << "Lambda_s=" << 1/Lambda_s << " \n\n";
-  
 
 };
 
@@ -116,4 +111,9 @@ double inline landau_de_gennes::functional_derivative_11(const double  QN[5],con
 double inline landau_de_gennes::functional_derivative_12(const double  QN[5],const double  dQ[15],const double  ddQ[30], const double v[3]) const
   { 
     return Lambda*((2*Lq_tilde*(Q_01_1 - Q_02_2 - 2*Q_11_0) - 2*Q_00_0*(Lq_tilde - L3*Q_12_0) - (L2 + Ls)*Q_00_12 + (L2 + Ls)*(Q_01_02 + Q_02_01 + Q_12_11 + Q_12_22) - 2*(-deltaepslon*elecfieldy*elecfieldz + bb*QN01*QN02 + (sigma - bb*QN00 + 2*cc*((QN00*QN00) + (QN01*QN01) + (QN02*QN02) + QN00*QN11 + (QN11*QN11)))*QN12 + 2*cc*(QN12*QN12*QN12) - L1*(Q_12_00 + Q_12_11 + Q_12_22)) + L3*(-(Q_00_1*(2*Q_00_2 + Q_11_2)) + 2*Q_02_0*Q_12_2 - 2*(Q_11_2 - Q_12_1)*(Q_11_1 + Q_12_2) - Q_00_2*(Q_11_1 + 2*Q_12_2) + 2*(Q_01_1*(-Q_01_2 + Q_12_0) + Q_02_2*(-Q_02_1 + Q_12_0) + Q_01_0*Q_12_1 + QN00*Q_12_00 + 2*QN01*Q_12_01 + 2*QN02*Q_12_02 + QN11*Q_12_11 + 2*QN12*Q_12_12 - (QN00 + QN11)*Q_12_22)))/2.);
+  }
+  
+double inline landau_de_gennes::energy_calculation     (const double  QN[5],const double  dQ[15], const double v[3]) const
+  { 
+    return ((2*deltaepslon*((elecfieldx*elecfieldx)*QN00 + 2*elecfieldx*(elecfieldy*QN01 + elecfieldz*QN02) + (elecfieldy*elecfieldy)*QN11 - (elecfieldz*elecfieldz)*(QN00 + QN11) + 2*elecfieldy*elecfieldz*QN12) + 2*sigma*((QN00*QN00) + (QN01*QN01) + (QN02*QN02) + QN00*QN11 + (QN11*QN11) + (QN12*QN12)) + 2*cc*pow((QN00*QN00) + (QN01*QN01) + (QN02*QN02) + QN00*QN11 + (QN11*QN11) + (QN12*QN12),2) - 2*bb*((QN00*QN00)*QN11 - (QN01*QN01)*QN11 + (QN02*QN02)*QN11 - 2*QN01*QN02*QN12 + QN00*(-(QN01*QN01) + (QN11*QN11) + (QN12*QN12))) + Ls*((Q_00_2*Q_00_2) + (Q_01_0*Q_01_0) + (Q_02_0*Q_02_0) + 2*Q_01_2*Q_02_1 + pow(Q_00_0 - Q_02_2,2) - 2*Q_02_2*Q_11_0 + Q_01_1*(Q_01_1 + 2*Q_11_0) + 2*Q_00_2*(Q_02_0 + Q_11_2) + 2*(Q_01_2 + Q_02_1)*Q_12_0 + pow(Q_11_2 + Q_12_1,2) + 2*Q_00_1*(Q_01_0 - Q_12_2) + pow(Q_11_1 - Q_12_2,2)) + 2*L1*((Q_00_0*Q_00_0) + (Q_00_1*Q_00_1) + (Q_00_2*Q_00_2) + (Q_01_0*Q_01_0) + (Q_01_1*Q_01_1) + (Q_01_2*Q_01_2) + (Q_02_0*Q_02_0) + (Q_02_1*Q_02_1) + (Q_02_2*Q_02_2) + Q_00_0*Q_11_0 + (Q_11_0*Q_11_0) + Q_00_1*Q_11_1 + (Q_11_1*Q_11_1) + Q_00_2*Q_11_2 + (Q_11_2*Q_11_2) + (Q_12_0*Q_12_0) + (Q_12_1*Q_12_1) + (Q_12_2*Q_12_2)) + 2*L3*(QN00*(Q_00_0*Q_00_0) + QN11*(Q_00_1*Q_00_1) - QN00*(Q_00_2*Q_00_2) - QN11*(Q_00_2*Q_00_2) + QN00*(Q_01_0*Q_01_0) + 2*QN01*Q_01_0*Q_01_1 + QN11*(Q_01_1*Q_01_1) + 2*QN02*Q_01_0*Q_01_2 + 2*QN12*Q_01_1*Q_01_2 - QN00*(Q_01_2*Q_01_2) - QN11*(Q_01_2*Q_01_2) + QN00*(Q_02_0*Q_02_0) + 2*QN01*Q_02_0*Q_02_1 + QN11*(Q_02_1*Q_02_1) + 2*QN02*Q_02_0*Q_02_2 + 2*QN12*Q_02_1*Q_02_2 - QN00*(Q_02_2*Q_02_2) - QN11*(Q_02_2*Q_02_2) + QN02*Q_00_2*Q_11_0 + QN00*(Q_11_0*Q_11_0) + QN12*Q_00_2*Q_11_1 + 2*QN01*Q_11_0*Q_11_1 + QN11*(Q_11_1*Q_11_1) - QN00*Q_00_2*Q_11_2 - QN11*Q_00_2*Q_11_2 + 2*QN02*Q_11_0*Q_11_2 + 2*QN12*Q_11_1*Q_11_2 - QN00*(Q_11_2*Q_11_2) - QN11*(Q_11_2*Q_11_2) + Q_00_0*(QN00*Q_11_0 + QN01*(2*Q_00_1 + Q_11_1) + QN02*(2*Q_00_2 + Q_11_2)) + Q_00_1*(QN01*Q_11_0 + QN11*Q_11_1 + QN12*(2*Q_00_2 + Q_11_2)) + QN00*(Q_12_0*Q_12_0) + 2*QN01*Q_12_0*Q_12_1 + QN11*(Q_12_1*Q_12_1) + 2*(QN02*Q_12_0 + QN12*Q_12_1)*Q_12_2 - (QN00 + QN11)*(Q_12_2*Q_12_2)) + 2*Lq_tilde*((-QN00 + QN11)*Q_01_2 + (2*QN00 + QN11)*Q_02_1 + QN12*(Q_00_0 - Q_01_1 + Q_02_2 + 2*Q_11_0) - (QN00 + 2*QN11)*Q_12_0 + QN01*(Q_00_2 - Q_02_0 - Q_11_2 + Q_12_1) - QN02*(2*Q_00_1 - Q_01_0 + Q_11_1 + Q_12_2)) + L2*(pow(Q_00_0 + Q_01_1 + Q_02_2,2) + pow(Q_00_2 - Q_02_0 + Q_11_2 - Q_12_1,2) + pow(Q_01_0 + Q_11_1 + Q_12_2,2)))/2.);
   }

@@ -73,6 +73,10 @@ Boundary_Rp::Boundary_Rp(const Simulation_Parameters * sim_param, int boundary_n
   Q0_02= (0.5*S_eq*(3.0*n[0]*n[2]));
   Q0_11= (0.5*S_eq*(3.0*n[1]*n[1]-1.0));
   Q0_12= (0.5*S_eq*(3.0*n[1]*n[2]));
+
+  dx=sim_param->dx;
+  dy=sim_param->dy;
+  dz=sim_param->dz;
   
 };
 
@@ -163,5 +167,82 @@ double Boundary_Rp::functional_derivative_11(const double  QN[5],const double  d
 double Boundary_Rp::functional_derivative_12(const double  QN[5],const double  dQ[15],const double  ddQ[30], const double  v[3]) const
 {
  return Lambda_s*((2*Wo1*(-QN12 + Q0_12) + Lq_tilde*(QN00 + 2*QN11)*v[0] - Ls*Q_01_2*v[0] - Ls*Q_02_1*v[0] - 2*L1*Q_12_0*v[0] - 2*L3*QN00*Q_12_0*v[0] - 2*L3*QN01*Q_12_1*v[0] - 2*L3*QN02*Q_12_2*v[0] - Lq_tilde*QN01*v[1] + L2*Q_00_2*v[1] - L2*Q_02_0*v[1] + L2*Q_11_2*v[1] - Ls*Q_11_2*v[1] - 2*L3*QN01*Q_12_0*v[1] - 2*L1*Q_12_1*v[1] - L2*Q_12_1*v[1] - Ls*Q_12_1*v[1] - 2*L3*QN11*Q_12_1*v[1] - 2*L3*QN12*Q_12_2*v[1] - (-(Lq_tilde*QN02) - Ls*Q_00_1 + L2*Q_01_0 + L2*Q_11_1 - Ls*Q_11_1 + 2*L3*QN02*Q_12_0 + 2*L3*QN12*Q_12_1 + (2*L1 + L2 + Ls - 2*L3*(QN00 + QN11))*Q_12_2)*v[2])/2.);
+}
+
+double Boundary_Rp::energy_calculation(const double  QN[5],const double  dQ[15],const double  v[3]) const
+{ 
+ return 0;
+}
+
+#undef QN00
+#undef QN01
+#undef QN02
+#undef QN11
+#undef QN12
+
+
+#define QN00(i,j,k) QN[0+5*(-3+i+2*j+3*k)] 
+#define QN01(i,j,k) QN[1+5*(-3+i+2*j+3*k)]
+#define QN02(i,j,k) QN[2+5*(-3+i+2*j+3*k)]
+#define QN11(i,j,k) QN[3+5*(-3+i+2*j+3*k)]
+#define QN12(i,j,k) QN[4+5*(-3+i+2*j+3*k)]
+
+
+#define dQ00_0(i,j,k) dQ[0+3*(0+5*(-3+i+2*j+3*k))] 
+#define dQ01_0(i,j,k) dQ[0+3*(1+5*(-3+i+2*j+3*k))]
+#define dQ02_0(i,j,k) dQ[0+3*(2+5*(-3+i+2*j+3*k))]
+#define dQ11_0(i,j,k) dQ[0+3*(3+5*(-3+i+2*j+3*k))]
+#define dQ12_0(i,j,k) dQ[0+3*(4+5*(-3+i+2*j+3*k))]
+
+#define dQ00_1(i,j,k) dQ[1+3*(0+5*(-3+i+2*j+3*k))] 
+#define dQ01_1(i,j,k) dQ[1+3*(1+5*(-3+i+2*j+3*k))]
+#define dQ02_1(i,j,k) dQ[1+3*(2+5*(-3+i+2*j+3*k))]
+#define dQ11_1(i,j,k) dQ[1+3*(3+5*(-3+i+2*j+3*k))]
+#define dQ12_1(i,j,k) dQ[1+3*(4+5*(-3+i+2*j+3*k))]
+
+#define dQ00_2(i,j,k) dQ[2+3*(0+5*(-3+i+2*j+3*k))] 
+#define dQ01_2(i,j,k) dQ[2+3*(1+5*(-3+i+2*j+3*k))]
+#define dQ02_2(i,j,k) dQ[2+3*(2+5*(-3+i+2*j+3*k))]
+#define dQ11_2(i,j,k) dQ[2+3*(3+5*(-3+i+2*j+3*k))]
+#define dQ12_2(i,j,k) dQ[2+3*(4+5*(-3+i+2*j+3*k))]
+
+#define dx1 (1.0/dx)
+#define dy1 (1.0/dy)
+#define dz1 (1.0/dz)
+
+double inline Boundary_Rp::force_00(const double  QN[27*5], const double dQ[], const double  v[3]) const 
+{ 
+ return Lambda*(Wo1*(2*QN00(1,1,1) + QN11(1,1,1) - 2*Q0_00 - Q0_11)\
++(3*sigma*QN00(1,1,1) + 6*cc*QN00(1,1,1)*(pow(QN00(1,1,1),2) + pow(QN01(1,1,1),2) + pow(QN02(1,1,1),2) + QN00(1,1,1)*QN11(1,1,1) + pow(QN11(1,1,1),2) + pow(QN12(1,1,1),2)) + bb*(pow(QN00(1,1,1),2) + pow(QN01(1,1,1),2) + pow(QN02(1,1,1),2) - 2*QN00(1,1,1)*QN11(1,1,1) - 2*(pow(QN11(1,1,1),2) + pow(QN12(1,1,1),2))))/3.
++L1*(v[0]*dx1*dQ00_0(0,1,1) + v[0]*dx1*dQ00_0(2,1,1) + v[1]*dy1*dQ00_1(1,0,1) + v[1]*dy1*dQ00_1(1,2,1) + v[2]*dz1*dQ00_2(1,1,0) + v[2]*dz1*dQ00_2(1,1,2))
++0.5*Lq_tilde*(v[2]*dz1*QN01(1,1,0) + v[2]*dz1*QN01(1,1,2) - v[1]*dy1*QN02(1,0,1) - v[1]*dy1*QN02(1,2,1) - dQ01_2(1,1,1) + dQ02_1(1,1,1)));
+}
+double inline Boundary_Rp::force_01(const double  QN[27*5], const double dQ[], const double  v[3]) const 
+{ 
+ return Lambda*(2*Wo1*(QN01(1,1,1) - Q0_01)\
++QN01(1,1,1)*(sigma + bb*(QN00(1,1,1) + QN11(1,1,1)) + 2*cc*(pow(QN00(1,1,1),2) + pow(QN01(1,1,1),2) + pow(QN02(1,1,1),2) + QN00(1,1,1)*QN11(1,1,1) + pow(QN11(1,1,1),2))) + bb*QN02(1,1,1)*QN12(1,1,1) + 2*cc*QN01(1,1,1)*pow(QN12(1,1,1),2)
++L1*(v[0]*dx1*dQ01_0(0,1,1) + v[0]*dx1*dQ01_0(2,1,1) + v[1]*dy1*dQ01_1(1,0,1) + v[1]*dy1*dQ01_1(1,2,1) + v[2]*dz1*dQ01_2(1,1,0) + v[2]*dz1*dQ01_2(1,1,2))
++(0.5*Lq_tilde*(v[0]*dx1*QN02(0,1,1) + v[0]*dx1*QN02(2,1,1) + v[2]*dz1*(-QN00(1,1,0) - QN00(1,1,2) + QN11(1,1,0) + QN11(1,1,2)) - v[1]*dy1*QN12(1,0,1) - v[1]*dy1*QN12(1,2,1) + dQ00_2(1,1,1) - dQ02_0(1,1,1) - dQ11_2(1,1,1) + dQ12_1(1,1,1)))/2.);
+}
+double inline Boundary_Rp::force_02(const double  QN[27*5], const double dQ[], const double  v[3]) const 
+{ 
+ return Lambda*(2*Wo1*(QN02(1,1,1) - Q0_02)\
++QN02(1,1,1)*(sigma - bb*QN11(1,1,1) + 2*cc*(pow(QN00(1,1,1),2) + pow(QN01(1,1,1),2) + pow(QN02(1,1,1),2) + QN00(1,1,1)*QN11(1,1,1) + pow(QN11(1,1,1),2))) + bb*QN01(1,1,1)*QN12(1,1,1) + 2*cc*QN02(1,1,1)*pow(QN12(1,1,1),2)
++L1*(v[0]*dx1*dQ02_0(0,1,1) + v[0]*dx1*dQ02_0(2,1,1) + v[1]*dy1*dQ02_1(1,0,1) + v[1]*dy1*dQ02_1(1,2,1) + v[2]*dz1*dQ02_2(1,1,0) + v[2]*dz1*dQ02_2(1,1,2))
++-(0.5*Lq_tilde*(v[0]*dx1*QN01(0,1,1) + v[0]*dx1*QN01(2,1,1) + v[1]*dy1*(-2*QN00(1,0,1) - 2*QN00(1,2,1) - QN11(1,0,1) - QN11(1,2,1)) - v[2]*dz1*QN12(1,1,0) - v[2]*dz1*QN12(1,1,2) + 2*dQ00_1(1,1,1) - dQ01_0(1,1,1) + dQ11_1(1,1,1) + dQ12_2(1,1,1)))/2.);
+}
+double inline Boundary_Rp::force_11(const double  QN[27*5], const double dQ[], const double  v[3]) const 
+{ 
+ return Lambda*(Wo1*(QN00(1,1,1) + 2*QN11(1,1,1) - Q0_00 - 2*Q0_11)\
++(bb*(-2*pow(QN00(1,1,1),2) + pow(QN01(1,1,1),2) - 2*pow(QN02(1,1,1),2) - 2*QN00(1,1,1)*QN11(1,1,1) + pow(QN11(1,1,1),2) + pow(QN12(1,1,1),2)) + 3*QN11(1,1,1)*(sigma + 2*cc*(pow(QN00(1,1,1),2) + pow(QN01(1,1,1),2) + pow(QN02(1,1,1),2) + QN00(1,1,1)*QN11(1,1,1) + pow(QN11(1,1,1),2) + pow(QN12(1,1,1),2))))/3.
++L1*(v[0]*dx1*dQ11_0(0,1,1) + v[0]*dx1*dQ11_0(2,1,1) + v[1]*dy1*dQ11_1(1,0,1) + v[1]*dy1*dQ11_1(1,2,1) + v[2]*dz1*dQ11_2(1,1,0) + v[2]*dz1*dQ11_2(1,1,2))
++0.5*Lq_tilde*(-(v[2]*dz1*QN01(1,1,0)) - v[2]*dz1*QN01(1,1,2) + v[0]*dx1*QN12(0,1,1) + v[0]*dx1*QN12(2,1,1) + dQ01_2(1,1,1) - dQ12_0(1,1,1)));
+}
+double inline Boundary_Rp::force_12(const double  QN[27*5], const double dQ[], const double  v[3]) const 
+{ 
+ return Lambda*(2*Wo1*(QN12(1,1,1) - Q0_12)\
++bb*(QN01(1,1,1)*QN02(1,1,1) - QN00(1,1,1)*QN12(1,1,1)) + QN12(1,1,1)*(sigma + 2*cc*(pow(QN00(1,1,1),2) + pow(QN01(1,1,1),2) + pow(QN02(1,1,1),2) + QN00(1,1,1)*QN11(1,1,1) + pow(QN11(1,1,1),2) + pow(QN12(1,1,1),2)))
++L1*(v[0]*dx1*dQ12_0(0,1,1) + v[0]*dx1*dQ12_0(2,1,1) + v[1]*dy1*dQ12_1(1,0,1) + v[1]*dy1*dQ12_1(1,2,1) + v[2]*dz1*dQ12_2(1,1,0) + v[2]*dz1*dQ12_2(1,1,2))
++(0.5*Lq_tilde*(v[1]*dy1*QN01(1,0,1) + v[1]*dy1*QN01(1,2,1) - v[2]*dz1*QN02(1,1,0) - v[2]*dz1*QN02(1,1,2) + v[0]*dx1*(-QN00(0,1,1) - QN00(2,1,1) - 2*QN11(0,1,1) - 2*QN11(2,1,1)) + dQ00_0(1,1,1) - dQ01_1(1,1,1) + dQ02_2(1,1,1) + 2*dQ11_0(1,1,1)))/2.);
 }
 

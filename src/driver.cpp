@@ -8,6 +8,7 @@
 #include "geometry_hemisphere.h"
 #include "boundary.h"
 #include "integrator.h"
+#include "fire_integrator.h" 
 #include "integrator_dp5.h" 
 #include "integrator_dp5_v2.h" 
 #include "integrator_dp5_noise.h" 
@@ -452,6 +453,12 @@ void driver::setup_Simulation(void)
           LcS_Integrator= new Euler(LcS_Geometry, & sim_param );
   
         }
+      else if ( strcasecmp(sim_param.integrator_type,"FIRE") == 0 )
+        {
+  
+          LcS_Integrator= new FIRE(LcS_Geometry, & sim_param );
+  
+        }
   
       else
         {
@@ -585,6 +592,14 @@ int driver::parse_input_file(char input_name[])
         {
           sim_param.ic_flag[4]=parameter_status::set;
           error_handler=fscanf(input_file,"%d",&sim_param.rng_seed);
+          error_check(error_handler,parser);
+          fgets(garbage,400,input_file);
+          
+        }
+    else if ( strcasecmp(parser,"m_i") == 0 )
+        {
+          sim_param.ic_flag[6]=parameter_status::set;
+          error_handler=fscanf(input_file,"%d",&sim_param.m_i);
           error_check(error_handler,parser);
           fgets(garbage,400,input_file);
           
