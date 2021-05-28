@@ -15,13 +15,10 @@ class Integrator
   
   GEOMETRY * sample_geometry;
   virtual ~Integrator() {};
- 
   
-
  public:
-
   
-  virtual void evolve(double *,  double *, double) = 0;
+  virtual bool evolve(double *,  double *, double) = 0;
   
   double *Qtij;
   
@@ -35,8 +32,7 @@ class Integrator
       if((Qtij= (double *)calloc(5*sample_geometry->Nx*sample_geometry->Ny*sample_geometry->Nz, sizeof(double)))==NULL){ERROr};
 
     };
-      
-
+    
 };
  
 #endif

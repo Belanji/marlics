@@ -10,7 +10,6 @@ class DP5 : public Integrator
 
  private:
 
-
   const double Atol;
   const double Rtol;
   const double prefac;
@@ -19,17 +18,12 @@ class DP5 : public Integrator
 
  public:
 
-  
-
   double *k_1, *k_2, *k_3, *k_4, *k_5, *k_6, *k_7;
   
-  
-  virtual void evolve( double *, double *, double);    
+  virtual bool evolve( double *, double *, double);    
   virtual ~DP5(void) {};
   DP5( GEOMETRY  * , const struct Simulation_Parameters * );
 
-
 };
-
 
 #endif

@@ -25,9 +25,6 @@ DP5_2::DP5_2( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_pa
                                                                    facmax(sim_param->facmax)
 {
 
-
-  
-  
   dt=sim_param->dt;
   //allocate the ith-stage array:
   if((k_1= (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
@@ -37,8 +34,7 @@ DP5_2::DP5_2( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_pa
   if((k_5= (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
   if((k_6= (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
   if((k_7= (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
-  
-  
+
   std::cout << "dt=" << dt << " \n";
 
   if(sim_param->integrator_parameters_flag<5)
@@ -55,7 +51,7 @@ DP5_2::DP5_2( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_pa
 };
 
 
-void DP5_2::evolve( double * Qij, double *time, double tf )
+bool DP5_2::evolve( double * Qij, double *time, double tf )
 {
 
   int ll,information_step=1;
@@ -72,9 +68,8 @@ void DP5_2::evolve( double * Qij, double *time, double tf )
     
       #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
         for(ll=0;ll<5*Nx*Ny*Nz; ll++) 	Qtij[ll]=Qij[ll];
-    
-	
-	sample_geometry->fill_ki(k_1,Qtij);		      
+        
+      sample_geometry->fill_ki(k_1,Qtij);		      
       
       while(*time<tf)
         {
@@ -85,101 +80,86 @@ void DP5_2::evolve( double * Qij, double *time, double tf )
           #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
           for(ll=0;ll<5*Nx*Ny*Nz; ll++) Qtij[ll]=Qij[ll]+0.222222222*dt*k_1[ll]; 
                     
-	  sample_geometry->fill_ki(k_2,Qtij);
+        sample_geometry->fill_ki(k_2,Qtij);
 
-	  //######### 3rd Stage:
-
-#pragma omp for simd schedule(simd:dynamic,new_chunk_size)
+        //######### 3rd Stage:
+        #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
           for(ll=0;ll<5*Nx*Ny*Nz; ll++)   Qtij[ll]=Qij[ll]+dt*(0.083333333*k_1[ll]+0.25*k_2[ll]); 
-                  
-        
-        
                     
-	  sample_geometry->fill_ki(k_3,Qtij);		      
+        sample_geometry->fill_ki(k_3,Qtij);		      
           
-	  //######### 4th Stage:
-
-          #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
+        //######### 4th Stage:
+        #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
           for( ll=0; ll< 5*Nx*Ny*Nz; ll++)  Qtij[ll]=Qij[ll]+dt*(0.169753086*k_1[ll]-0.231481481*k_2[ll]+0.617283951*k_3[ll]); 
-        
             
-	  sample_geometry->fill_ki(k_4,Qtij);		      
+        sample_geometry->fill_ki(k_4,Qtij);		      
 
-	  
-          //######### 5th Stage:
-          #pragma omp for simd schedule(simd:dynamic,new_chunk_size)        			    
+        //######### 5th Stage:
+        #pragma omp for simd schedule(simd:dynamic,new_chunk_size)        			    
           for( ll=0; ll< 5*Nx*Ny*Nz; ll++) Qtij[ll]=Qij[ll]+dt*(0.251515152*k_1[ll]-0.590909091*k_2[ll]+0.924242424*k_3[ll]+0.081818182*k_4[ll]); 
-            
-              
-	  sample_geometry->fill_ki(k_5,Qtij);		      
-                      
         
-          //6th stage:
-          #pragma omp for simd schedule(simd:dynamic,new_chunk_size) 
+        sample_geometry->fill_ki(k_5,Qtij);		      
+        
+        //6th stage:
+        #pragma omp for simd schedule(simd:dynamic,new_chunk_size) 
           for( ll=0; ll< 5*Nx*Ny*Nz; ll++)  Qtij[ll]=Qij[ll]+dt*(-0.678571429*k_1[ll]+2.25*k_2[ll]+0.142857143*k_3[ll]-3.857142857*k_4[ll]+3.142857143*k_5[ll]); 
-                    
         
-	  sample_geometry->fill_ki(k_6,Qtij);
+        sample_geometry->fill_ki(k_6,Qtij);
         
         //7th stage:
-          #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
+        #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
           for( ll=0; ll< 5*Nx*Ny*Nz; ll++) Qtij[ll]=Qij[ll]+dt*(0.095*k_1[ll]+0.6*k_3[ll]-0.6075*k_4[ll] +0.825*k_5[ll]+ 0.0875*k_6[ll]); 
           
-              
-	  sample_geometry->fill_ki(k_7,Qtij);		      
-                    
-
-          //Restarting global error:
-          global_error=0.;
+        sample_geometry->fill_ki(k_7,Qtij);		      
+        
+        //Restarting global error:
+        global_error=0.;
         #pragma omp barrier
-          //Calculating error:
-          #pragma omp for simd schedule(simd:dynamic,new_chunk_size) reduction(max:global_error)
-          for( ll=0; ll<5*Ny*Ny*Nz;ll++)
-            {
+        
+        //Calculating error:
+        #pragma omp for simd schedule(simd:dynamic,new_chunk_size) reduction(max:global_error)
+        for( ll=0; ll<5*Ny*Ny*Nz;ll++)
+          {
+        
+            sc_i=Atol+fabs(Qtij[ll])*Rtol;			
+            local_error=-0.0088*k_1[ll]
+                        +0.066*k_3[ll]
+                        -0.1782*k_4[ll]
+                        +0.132*k_5[ll]
+                        +0.009*k_6[ll]
+                        -0.02*k_7[ll];						
+            global_error=MAX( fabs(local_error)/sc_i,global_error );
+                    
+          }
           
-              sc_i=Atol+fabs(Qtij[ll])*Rtol;			
-              local_error=-0.0088*k_1[ll]
-                          +0.066*k_3[ll]
-                          -0.1782*k_4[ll]
-                          +0.132*k_5[ll]
-                          +0.009*k_6[ll]
-                          -0.02*k_7[ll];						
-              global_error=MAX( fabs(local_error)/sc_i,global_error );
-                      
-            }
-        
-        
-          #pragma omp single nowait
-            {
-            
-              if(global_error<1.0)
-                {
-                  *time+=dt;
-            
-                  if( information_step%10==0 )
-                    {
-                      std::cout << "time=" << *time << ", dt=" << dt << ", global_error=" << global_error <<
-                      ", hfactor=" << hfactor << std::endl;
-                      information_step=0;
-                    }
-                  information_step++;
-            
-                };
-            
-              hfactor=min(facmax,MAX(facmin,prefac*pow(global_error,-0.2000000000)));
-              dt=dt*hfactor;
-              if(dt<1e-14)
-                {
-                  printf("Convergence problem!!!\n Aborting execution!!!\n");
-                  exit(5);
-                }      
-              if( (tf-*time) < dt) dt=tf-*time;
-              
-            }
+        #pragma omp single nowait
+          {
+          
+            if(global_error<1.0)
+              {
+                *time+=dt;
+          
+                if( information_step%10==0 )
+                  {
+                    std::cout << "time=" << *time << ", dt=" << dt << ", global_error=" << global_error <<
+                    ", hfactor=" << hfactor << std::endl;
+                    information_step=0;
+                  }
+                information_step++;
+              };
+          
+            hfactor=min(facmax,MAX(facmin,prefac*pow(global_error,-0.2000000000)));
+            dt=dt*hfactor;
+            if(dt<1e-14)
+              {
+                printf("Convergence problem!!!\n Aborting execution!!!\n");
+                exit(5);
+              }      
+            if( (tf-*time) < dt) dt=tf-*time;
+          }
         
           if(global_error<1.0)
-            {
-              
+            { 
               #pragma omp for simd schedule(simd:dynamic,new_chunk_size)  nowait	    
                 for( ll=0; ll<5*Nx*Ny*Nz;ll++) Qij[ll]=Qtij[ll]; 
               
@@ -187,6 +167,7 @@ void DP5_2::evolve( double * Qij, double *time, double tf )
                 for( ll=0; ll<5*Nx*Ny*Nz;ll++) k_1[ll]=k_7[ll]; 
                                 
             }
-        } 
-    }    
+        }
+    }
+  return true; 
 };

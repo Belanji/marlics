@@ -17,7 +17,7 @@ class Euler : public Integrator
   double *k_1;
   
   
-  virtual void evolve( double *, double *, double);    
+  virtual bool evolve( double *, double *, double);    
   virtual ~Euler(void) {};
   Euler( GEOMETRY  * , const struct Simulation_Parameters * );
 

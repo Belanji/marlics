@@ -17,7 +17,7 @@ class RK2 : public Integrator
   double *k_1, *k_2;
   
   
-  virtual void evolve( double *, double *, double);    
+  virtual bool evolve( double *, double *, double);    
   virtual ~RK2(void) {};
   RK2( GEOMETRY  * , const struct Simulation_Parameters * );
 

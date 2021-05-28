@@ -19,7 +19,7 @@ class FIRE : public Integrator
   double scaleAlpha, scaleP, dtMax, scaleM, alpha;
   int Np, Nmin, proceed;
   
-  virtual void evolve( double *, double *, double);    
+  virtual bool evolve( double *, double *, double);    
   virtual ~FIRE(void) {};
   FIRE( GEOMETRY  * , const struct Simulation_Parameters * );
 

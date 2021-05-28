@@ -16,22 +16,17 @@
 //Dormand-Prince integrator
 RK2::RK2( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_param ) : Integrator( lc_pointer)
 {
-
-
-  
-  
   dt=sim_param->dt;
   //allocate the ith-stage array:
   if((k_1= (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
   if((k_2= (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
-  
   
   std::cout << "dt=" << dt << " \n";
 
 };
 
 
-void RK2::evolve( double * Qij, double *time, double tf )
+bool RK2::evolve( double * Qij, double *time, double tf )
 {
 
   int ll,information_step=1;
@@ -41,40 +36,33 @@ void RK2::evolve( double * Qij, double *time, double tf )
   
   #pragma omp parallel default(shared) private(ll)
     {
-    
       
       while(*time<tf)
         {
         
         //1st Stage:
-	  sample_geometry->fill_ki(k_1,Qij);      
-                      
-    
-        //2nd Stage:
-          #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
-          for(ll=0;ll<5*Nx*Ny*Nz; ll++) Qtij[ll]=Qij[ll]+0.5*dt*k_1[ll]; 
+        sample_geometry->fill_ki(k_1,Qij);     
         
-            
-	  sample_geometry->fill_ki(k_2,Qtij);             
+        //2nd Stage:
+        #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
+        for(ll=0;ll<5*Nx*Ny*Nz; ll++) Qtij[ll]=Qij[ll]+0.5*dt*k_1[ll]; 
+        sample_geometry->fill_ki(k_2,Qtij);             
 
-	  
         #pragma omp for simd schedule(simd:dynamic,new_chunk_size)  nowait        
           for( ll=0; ll<5*Nx*Ny*Nz;ll++) Qij[ll]+=dt*k_2[ll]; 
 
         #pragma omp single 
-	  {
+            {
               *time+=dt;
-             
               if( information_step%25==0 )
                 {
                   std::cout << "time=" << *time << ", dt=" << dt << std::endl;
                   information_step=0;
                 }
               information_step++;
-          
               
             }
-                            
-        } 
-    }    
+        }
+    }
+  return true;    
 };

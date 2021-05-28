@@ -1,16 +1,16 @@
-#ifndef SPHERE_
-#define SPHERE_
+#ifndef GEOMETRY_CUSTOM_
+#define GEOMETRY_CUSTOM_
 
 #include "driver.h"
 #include "geometry.h"
 
-class Geometry_Sphere : public GEOMETRY
+class Geometry_Custom : public GEOMETRY
 {
   
  private:
 
-   double R_ex;
-   double R_in;
+  double R_ex;
+  double R_in;
 
   const double HNx;
   const double HNy;
@@ -19,6 +19,7 @@ class Geometry_Sphere : public GEOMETRY
   const double dx;
   const double dy;
   const double dz;
+  double **v;
     
  public:
  
@@ -26,13 +27,13 @@ class Geometry_Sphere : public GEOMETRY
   virtual void Energy_calc(double * k_i, const double * Qij) const ;
   virtual void compute_forces(double *, const double * ) const ;
   
-  Geometry_Sphere(const struct Simulation_Parameters * );
-  ~Geometry_Sphere(void);
+  Geometry_Custom(const struct Simulation_Parameters * );
+  ~Geometry_Custom(void);
 
    private:
 
   virtual int * fill_point_type( void ) const ;  
-  
+  virtual int * fill_pt_and_normals(double **v, const char bound_file_name[], int &num_of_boundaries) const;
 };
 
 #endif

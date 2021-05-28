@@ -25,9 +25,6 @@ DP5::DP5( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_param 
                                                                    facmax(sim_param->facmax)
 {
 
-
-  
-  
   dt=sim_param->dt;
   //allocate the ith-stage array:
   if((k_1= (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
@@ -37,7 +34,6 @@ DP5::DP5( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_param 
   if((k_5= (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
   if((k_6= (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
   if((k_7= (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
-  
   
   std::cout << "dt=" << dt << " \n";
 
@@ -54,8 +50,7 @@ DP5::DP5( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_param 
 
 };
 
-
-void DP5::evolve( double * Qij, double *time, double tf )
+bool DP5::evolve( double * Qij, double *time, double tf )
 {
 
   int ll,information_step=1;
@@ -70,68 +65,54 @@ void DP5::evolve( double * Qij, double *time, double tf )
   #pragma omp parallel default(shared) private(ll,local_error,sc_i)
     {
     
+      //1st-Stage:
       #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
         for(ll=0;ll<5*Nx*Ny*Nz; ll++) 	Qtij[ll]=Qij[ll];
-    
-	
-	sample_geometry->fill_ki(k_1,Qtij);		      
+      
+      sample_geometry->fill_ki(k_1,Qtij);		      
       
       while(*time<tf)
         {
-        
-        //1st-Stage:
-        
-        //######### 2nd Stage:
+          //######### 2nd Stage:
           #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
-          for(ll=0;ll<5*Nx*Ny*Nz; ll++) Qtij[ll]=Qij[ll]+0.2*dt*k_1[ll]; 
+            for(ll=0;ll<5*Nx*Ny*Nz; ll++) Qtij[ll]=Qij[ll]+0.2*dt*k_1[ll]; 
                     
-	  sample_geometry->fill_ki(k_2,Qtij);
+          sample_geometry->fill_ki(k_2,Qtij);
 
-	  //######### 3rd Stage:
-
-#pragma omp for simd schedule(simd:dynamic,new_chunk_size)
-          for(ll=0;ll<5*Nx*Ny*Nz; ll++)   Qtij[ll]=Qij[ll]+dt*(0.075*k_1[ll]+0.225*k_2[ll]); 
-                  
-        
-        
-                    
-	  sample_geometry->fill_ki(k_3,Qtij);		      
-          
-	  //######### 4th Stage:
-
+          //######### 3rd Stage:
           #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
-          for( ll=0; ll< 5*Nx*Ny*Nz; ll++)  Qtij[ll]=Qij[ll]+dt*(0.9777777777777779*k_1[ll]-3.7333333333333334*k_2[ll]+3.5555555555555554*k_3[ll]); 
-        
+            for(ll=0;ll<5*Nx*Ny*Nz; ll++)   Qtij[ll]=Qij[ll]+dt*(0.075*k_1[ll]+0.225*k_2[ll]); 
             
-	  sample_geometry->fill_ki(k_4,Qtij);		      
+          sample_geometry->fill_ki(k_3,Qtij);		      
+          
+          //######### 4th Stage:
+          #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
+            for( ll=0; ll< 5*Nx*Ny*Nz; ll++)  Qtij[ll]=Qij[ll]+dt*(0.9777777777777779*k_1[ll]-3.7333333333333334*k_2[ll]+3.5555555555555554*k_3[ll]); 
+        
+          sample_geometry->fill_ki(k_4,Qtij);		      
 
-	  
           //######### 5th Stage:
           #pragma omp for simd schedule(simd:dynamic,new_chunk_size)        			    
-          for( ll=0; ll< 5*Nx*Ny*Nz; ll++) Qtij[ll]=Qij[ll]+dt*(2.9525986892242035*k_1[ll]-11.595793324188385*k_2[ll]+9.822892851699436*k_3[ll]-0.2908093278463649*k_4[ll]); 
-            
-              
-	  sample_geometry->fill_ki(k_5,Qtij);		      
-                      
-        
+            for( ll=0; ll< 5*Nx*Ny*Nz; ll++) Qtij[ll]=Qij[ll]+dt*(2.9525986892242035*k_1[ll]-11.595793324188385*k_2[ll]+9.822892851699436*k_3[ll]-0.2908093278463649*k_4[ll]); 
+          
+          sample_geometry->fill_ki(k_5,Qtij);		      
+          
           //6th stage:
           #pragma omp for simd schedule(simd:dynamic,new_chunk_size) 
-          for( ll=0; ll< 5*Nx*Ny*Nz; ll++)  Qtij[ll]=Qij[ll]+dt*(2.8462752525252526*k_1[ll]-10.757575757575758*k_2[ll]+8.906422717743473*k_3[ll]+0.27840909090909094*k_4[ll]-0.2735313036020583*k_5[ll]); 
-                    
+            for( ll=0; ll< 5*Nx*Ny*Nz; ll++)  Qtij[ll]=Qij[ll]+dt*(2.8462752525252526*k_1[ll]-10.757575757575758*k_2[ll]+8.906422717743473*k_3[ll]+0.27840909090909094*k_4[ll]-0.2735313036020583*k_5[ll]); 
+            
+          sample_geometry->fill_ki(k_6,Qtij);
         
-	  sample_geometry->fill_ki(k_6,Qtij);
-        
-        //7th stage:
+          //7th stage:
           #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
-          for( ll=0; ll< 5*Nx*Ny*Nz; ll++) Qtij[ll]=Qij[ll]+dt*(0.09114583333333333*k_1[ll]+0.44923629829290207*k_3[ll]+0.6510416666666666*k_4[ll] -0.322376179245283*k_5[ll]+ 0.13095238095238093*k_6[ll]); 
+            for( ll=0; ll< 5*Nx*Ny*Nz; ll++) Qtij[ll]=Qij[ll]+dt*(0.09114583333333333*k_1[ll]+0.44923629829290207*k_3[ll]+0.6510416666666666*k_4[ll] -0.322376179245283*k_5[ll]+ 0.13095238095238093*k_6[ll]); 
+            
+          sample_geometry->fill_ki(k_7,Qtij);		      
           
-              
-	  sample_geometry->fill_ki(k_7,Qtij);		      
-                    
-
           //Restarting global error:
           global_error=0.;
-        #pragma omp barrier
+          #pragma omp barrier
+          
           //Calculating error:
           #pragma omp for simd schedule(simd:dynamic,new_chunk_size) reduction(max:global_error)
           for( ll=0; ll<5*Ny*Ny*Nz;ll++)
@@ -147,11 +128,9 @@ void DP5::evolve( double * Qij, double *time, double tf )
               global_error=MAX( fabs(local_error)/sc_i,global_error );
                       
             }
-        
-        
+            
           #pragma omp single nowait
             {
-            
               if(global_error<1.0)
                 {
                   *time+=dt;
@@ -174,7 +153,6 @@ void DP5::evolve( double * Qij, double *time, double tf )
                   exit(5);
                 }      
               if( (tf-*time) < dt) dt=tf-*time;
-              
             }
         
           if(global_error<1.0)
@@ -187,6 +165,7 @@ void DP5::evolve( double * Qij, double *time, double tf )
                 for( ll=0; ll<5*Nx*Ny*Nz;ll++) k_1[ll]=k_7[ll]; 
                                 
             }
-        } 
-    }    
+        }
+    }
+  return true;  
 };

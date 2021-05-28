@@ -40,11 +40,12 @@ FIRE::FIRE( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_para
   std::cout << "dt=" << dt << " \n";
 };
 
-void FIRE::evolve( double * Qij, double *time, double tf )
+bool FIRE::evolve( double * Qij, double *time, double tf )
 {
   int ll,information_step=1, count=0, ccta=0, cc=0;
-  double Total_Energy0, Total_Energy1, Qijtest;
+  double Total_Energy0, Total_Energy1, Qijtest, f2max;
   double dt=dt_init>dtmin?dt_init:dtmin;
+  bool continue_condition=true;
   Np=0;
   std::cout << "dt=" << dt <<  ", dtmin=" << dtmin <<  ", dtmax=" << dtMax << " \n";
   #pragma omp parallel default(shared) private(ll)
@@ -52,9 +53,9 @@ void FIRE::evolve( double * Qij, double *time, double tf )
     #pragma omp barrier
     sample_geometry->compute_forces(force,Qij);
     #pragma omp barrier
-    while(*time<tf)
+    while(*time<tf && continue_condition)
     {
-      potence=0; v2=0; f2=0;proceed=1;Qijtest=0;
+      potence=0; v2=0; f2=0;proceed=1;Qijtest=0;f2max=0;
         
       #pragma omp for simd schedule(simd:dynamic,new_chunk_size)          
         for( ll=0; ll<5*Nx*Ny*Nz;ll++) Qijt[ll]=Qij[ll]+dt*vQij[ll]+0.5*dt*dt*force[ll];
@@ -80,6 +81,9 @@ void FIRE::evolve( double * Qij, double *time, double tf )
         #pragma omp for simd schedule(simd:dynamic,new_chunk_size) reduction(+: Qijtest)
           for( ll=0; ll<5*Nx*Ny*Nz;ll++) Qijtest+=Qij[ll]*Qij[ll];
           
+        #pragma omp for simd schedule(simd:dynamic,new_chunk_size) reduction(max: f2max)
+          for( ll=0; ll<5*Nx*Ny*Nz;ll++) f2max=MAX(f2max,force[ll]*force[ll]);
+          
         if((1+v2+f2)==0||v2/(Nx*Ny*Nz)>0.5){//fprintf(stderr,"NaN found in the system.\nAborting Operation at t=%g %g!\n",*time, dt);
              proceed=0;}
         if (proceed==1)
@@ -93,6 +97,7 @@ void FIRE::evolve( double * Qij, double *time, double tf )
         #pragma omp for simd schedule(simd:dynamic,new_chunk_size)    nowait      
           for( ll=0; ll<5*Nx*Ny*Nz;ll++) vQij[ll]=(1-alpha)*vQij[ll]+alpha*force[ll]*scale;
           
+        if(sqrt(f2max)<1e-8) continue_condition=false;
         #pragma omp single
           {
         *time+=dt;
@@ -108,6 +113,7 @@ void FIRE::evolve( double * Qij, double *time, double tf )
               information_step=0;
             }
             information_step++;
+            if(!continue_condition)  printf("Stable condition achivied at time %g\n",*time);
           }
         
       }else{
@@ -144,16 +150,12 @@ void FIRE::evolve( double * Qij, double *time, double tf )
     Total_Energy0=0;  Total_Energy1=0;
     sample_geometry->Energy_calc(energy,Qij);
     #pragma omp for simd schedule(simd:dynamic,new_chunk_size) reduction(+: Total_Energy0)
-        for( ll=0; ll<5*Nx*Ny*Nz;ll++) Total_Energy0+=energy[ll*2];
-        
-    //#pragma omp for simd schedule(simd:dynamic,new_chunk_size) reduction(+: Total_Energy1)
-    //    for( ll=0; ll<5*Nx*Ny*Nz;ll++) Total_Energy1+=energy[ll*2+1];
+        for( ll=0; ll<2*5*Nx*Ny*Nz;ll++) Total_Energy0+=energy[ll];
         
     #pragma omp barrier
     #pragma omp single 
       std::cout << "time=" << *time << ", Energy=" << Total_Energy0 << std::endl;
-      //std::cout << "time=" << *time << ", Energy=" << Total_Energy0 << ", Energy_s=" << Total_Energy1 << std::endl;
             
   }
-  dt_init=dtMax;
+  return continue_condition;
 };

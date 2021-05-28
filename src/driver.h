@@ -74,6 +74,7 @@ struct Simulation_Parameters
   
   //Anchoring parameters:
   
+  char bound_fname[200];
   std::map<int,double> theta_0;      /* degrees */
   std::map<int,double> phi_0;        /* degrees */  
   std::map<int,double> Wo1;         /* 10^-3 m */
@@ -150,10 +151,7 @@ struct Simulation_Parameters
   
 } ;
 
-
-
-
-  class driver
+class driver
   {
 
   public:

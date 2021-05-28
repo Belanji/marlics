@@ -2,6 +2,7 @@
 #include "container.h"
 #include "geometry.h"
 #include "geometry_slab.h"
+#include "geometry_custom.h"
 #include "geometry_bulk.h"
 #include "geometry_sphere.h"
 #include "geometry_hybrid_sphere.h"
@@ -394,6 +395,10 @@ void driver::setup_Simulation(void)
       else if ( strcasecmp(sim_param.geometry,"hybrid_sphere") == 0 )
         {
           LcS_Geometry= new Geometry_Hybrid_Sphere( & sim_param);
+        }
+      else if ( strcasecmp(sim_param.geometry,"custom") == 0 )
+        {
+          LcS_Geometry= new Geometry_Custom( & sim_param);
         }
       else 
         {
@@ -1018,6 +1023,15 @@ int driver::parse_input_file(char input_name[])
         {
           sim_param.grid_flag[2]=parameter_status::set;
           error_handler=fscanf(input_file,"%i",&sim_param.Nz);
+          error_check(error_handler,parser);
+          
+          fgets(garbage,400,input_file);
+
+
+        }
+      else if ( strcasecmp(parser,"bound_fname") == 0 )
+        {
+          error_handler=fscanf(input_file,"%s",&sim_param.bound_fname);
           error_check(error_handler,parser);
           
           fgets(garbage,400,input_file);

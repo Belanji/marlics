@@ -12,8 +12,7 @@ const double Pi=M_PI;
 
 void apply_initial_conditions(struct Simulation_Parameters * sim_param,double * Qij, const GEOMETRY * geometry)
 {
-
-
+  
   switch(sim_param->ic_flag[0])
     {
       case parameter_status::set:
@@ -100,9 +99,6 @@ void apply_initial_conditions(struct Simulation_Parameters * sim_param,double * 
     }
 
 }
-
-
-
 
 void random_ic( struct Simulation_Parameters * sim_param,double * Qij, const GEOMETRY * geometry )
 {
@@ -341,7 +337,6 @@ void homogeneous_ic( struct Simulation_Parameters * sim_param,double * Qij, cons
     }
 }
 
-
 void cholesteric_ic( struct Simulation_Parameters * sim_param,double * Qij, const GEOMETRY * geometry )
 {
   //Initiatiate a homogeneously twisted cholesteric along the z sxis
@@ -407,10 +402,7 @@ void cholesteric_ic( struct Simulation_Parameters * sim_param,double * Qij, cons
       exit(1);
       break;
     }
-
-      
-
-  
+    
   for(i= 0; i< Nx; i++)
     {
       for(j= 0; j< Ny; j++)
@@ -483,8 +475,6 @@ void DSS_asatz( struct Simulation_Parameters * sim_param,double * Qij, const GEO
     }
     double q0i=2*M_PI/(p0_i);
   double Omega,Rr,Theta, Phi, Ar, Af, At;
-      
-
   
   for(i= 0; i< Nx; i++)
     {
@@ -554,8 +544,7 @@ void RSS_asatz( struct Simulation_Parameters * sim_param,double * Qij, const GEO
     switch(sim_param->ic_flag[5])
     {
     case parameter_status::set:
-      
-  
+    
       std::cout << "p0_i=" << p0_i << "\n";
       break;
 
@@ -568,8 +557,6 @@ void RSS_asatz( struct Simulation_Parameters * sim_param,double * Qij, const GEO
     }
     double q0i=2*M_PI/(p0_i);
   double Omega,Rr,Theta, Phi, Ar, Af, At;
-      
-
   
   for(i= 0; i< Nx; i++)
     {
@@ -639,8 +626,7 @@ void homeotropic_asatz( struct Simulation_Parameters * sim_param,double * Qij, c
     switch(sim_param->ic_flag[5])
     {
     case parameter_status::set:
-      
-  
+    
       std::cout << "p0_i=" << p0_i << "\n";
       break;
 
@@ -722,7 +708,6 @@ void homogeneous_boundary( struct Simulation_Parameters * sim_param, double * Qi
   const int Ny=geometry->Ny;
   const int Nz=geometry->Nz;
   const int * point_type=geometry->point_type;
-
   
   for(int ii=0; ii<number_of_boundaries; ii++)
     {
@@ -743,9 +728,7 @@ void homogeneous_boundary( struct Simulation_Parameters * sim_param, double * Qi
       
         }
     }
-
-  
-
+    
   for(i= 0; i< Nx; i++)
     {
       for(j= 0; j< Ny; j++)
@@ -796,9 +779,6 @@ void read_from_file_ic( struct Simulation_Parameters * sim_param, double * Qij, 
   const int Ny=geometry->Ny;
   const int Nz=geometry->Nz;
   const int * point_type=geometry->point_type;
-
-
-
   
   ic_file=fopen(sim_param->ic_file_name,"r");
   if (ic_file== NULL)
@@ -811,11 +791,9 @@ void read_from_file_ic( struct Simulation_Parameters * sim_param, double * Qij, 
   
   std::cout << "\nReading initial conditions from \"" << sim_param->ic_file_name << "\".\n";
   
-  
   fgets(string_placeholder,400,ic_file);
   reading_line++;
-
-
+  
   //Let's work:
   
   for(k= 0; k< Nz; k++)
@@ -824,8 +802,7 @@ void read_from_file_ic( struct Simulation_Parameters * sim_param, double * Qij, 
         {
           for(i= 0; i< Nx; i++)
             {
-
-          
+              
               fgets(string_placeholder,400,ic_file);
               read_status=sscanf(string_placeholder,"%d,%d,%d,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf\n",&ii,&jj,&kk,&n[0],&n[1],&n[2],&l[0],&l[1],&l[2],&S,&P);
               read_check(read_status,reading_line);
@@ -838,8 +815,7 @@ void read_from_file_ic( struct Simulation_Parameters * sim_param, double * Qij, 
                   printf("Please, check your input file and your ic file.\n");
                   exit(4);
                 }
-          
-
+                
               m[0]=n[1]*l[2]-n[2]*l[1];
               m[1]=n[2]*l[0]-n[0]*l[2];
               m[2]=n[0]*l[1]-n[1]*l[0];
@@ -849,7 +825,6 @@ void read_from_file_ic( struct Simulation_Parameters * sim_param, double * Qij, 
               Qij[5*(Nx*(Ny*kk+jj)+ii)+2]=(0.5*S*(3.0*n[0]*n[2]))+(0.5*P*(l[0]*l[2]-m[0]*m[2]));
               Qij[5*(Nx*(Ny*kk+jj)+ii)+3]=(0.5*S*(3.0*n[1]*n[1]-1.0))+(0.5*P*(l[1]*l[1]-m[1]*m[1]));
               Qij[5*(Nx*(Ny*kk+jj)+ii)+4]=(0.5*S*(3.0*n[1]*n[2]))+(0.5*P*(l[1]*l[2]-m[1]*m[2]));
-
               
               reading_line++;
             }
@@ -868,7 +843,6 @@ void read_from_file_ic( struct Simulation_Parameters * sim_param, double * Qij, 
   
 }
 
-
 //Auxiliary routines:
 void read_check(int read_status, int line)
 {
@@ -881,6 +855,3 @@ void read_check(int read_status, int line)
     }
 
 }
-
-
-

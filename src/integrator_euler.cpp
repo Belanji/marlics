@@ -19,23 +19,17 @@
 //Dormand-Prince integrator
 Euler::Euler( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_param ) : Integrator( lc_pointer)
 {
-
-
-  
   
   dt=sim_param->dt;
   //allocate the ith-stage array:
   if((k_1= (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
   
-  
   std::cout << "dt=" << dt << " \n";
-
 };
 
 
-void Euler::evolve( double * Qij, double *time, double tf )
+bool Euler::evolve( double * Qij, double *time, double tf )
 {
-
   int ll,information_step=1;
   double dt=this->dt;
   //const int chunk_size=0.06*(4*Ny*Nz)/omp_get_num_threads();
@@ -45,10 +39,7 @@ void Euler::evolve( double * Qij, double *time, double tf )
     { 
       while(*time<tf)
         {
-        
-
-	  sample_geometry->fill_ki(k_1,Qij);    
-          
+          sample_geometry->fill_ki(k_1,Qij); 
           
           #pragma omp for simd schedule(simd:dynamic,new_chunk_size)  nowait        
             for( ll=0; ll<5*Nx*Ny*Nz;ll++) Qij[ll]+=dt*k_1[ll];
@@ -65,6 +56,7 @@ void Euler::evolve( double * Qij, double *time, double tf )
               information_step++;
           
             }
-        } 
-    }    
+        }
+    }
+  return true;
 };

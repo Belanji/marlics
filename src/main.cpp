@@ -20,6 +20,7 @@ int main(int argc, char **argv)
   //             FE_UNDERFLOW);
 
   double t,tf;
+  bool   continue_condition=true;
   
   driver Lc_driver=driver();
   FILE *input_file;
@@ -47,12 +48,12 @@ int main(int argc, char **argv)
    }
   
 
-  while(t<tf)
+  while(t<tf && continue_condition)
     {
 
-      Lc_driver.LcS_Integrator->evolve(Lc_driver.Qij, & t , Lc_driver.sim_param.timeprint );//! timestep evolution
+      continue_condition=Lc_driver.LcS_Integrator->evolve(Lc_driver.Qij, & t , Lc_driver.sim_param.timeprint );//! timestep evolution
       Lc_driver.Data_Container->write_state(t, Lc_driver.Qij, Lc_driver.LcS_Geometry->point_type);
-  
+      
       Lc_driver.update_timeprint( ) ;
       
     }
