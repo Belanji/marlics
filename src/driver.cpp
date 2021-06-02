@@ -1180,7 +1180,7 @@ int driver::parse_input_file(char input_name[])
           
           fgets(garbage,400,input_file);
         }
-       else if ( strcasecmp(parser,"deltaepslon") == 0 || strcasecmp(parser,"delta_epslon") == 0  )
+       else if ( strcasecmp(parser,"deltaepsilon") == 0 || strcasecmp(parser,"delta_epsilon") == 0  )
         {
           sim_param.field_flag[3]=parameter_status::set;
           error_handler=fscanf(input_file,"%lf",&sim_param.deltaepslon);
