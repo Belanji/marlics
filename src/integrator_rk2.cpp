@@ -20,6 +20,7 @@ RK2::RK2( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_param 
   //allocate the ith-stage array:
   if((k_1= (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
   if((k_2= (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
+  if((energy = (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
   
   std::cout << "dt=" << dt << " \n";
 
@@ -30,6 +31,7 @@ bool RK2::evolve( double * Qij, double *time, double tf )
 {
 
   int ll,information_step=1;
+  double Total_Energy;
   double dt=this->dt;
   //const int chunk_size=0.06*(4*Ny*Nz)/omp_get_num_threads();
   //const int chunk_size=1;
@@ -62,7 +64,15 @@ bool RK2::evolve( double * Qij, double *time, double tf )
               information_step++;
               
             }
-        }
+        }        
+        Total_Energy=0;
+        sample_geometry->Energy_calc(energy,Qij);
+        #pragma omp for simd schedule(simd:dynamic,new_chunk_size) reduction(+: Total_Energy)
+            for( ll=0; ll<2*5*Nx*Ny*Nz;ll++) Total_Energy+=energy[ll];
+            
+        #pragma omp barrier
+        #pragma omp single 
+          std::cout << "time=" << *time << ", Energy=" << Total_Energy << std::endl;
     }
   return true;    
 };

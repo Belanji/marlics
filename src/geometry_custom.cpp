@@ -27,7 +27,8 @@ Geometry_Custom::Geometry_Custom(const struct Simulation_Parameters * sim_param)
   v=(double**)calloc(sim_param->Nx*sim_param->Ny*sim_param->Nz,sizeof(double*));
   for (int i=0;i< (Nx*Ny*Nz); i++)v[i]=(double*)calloc(3,sizeof(double));
   point_type=fill_pt_and_normals(v, sim_param->bound_fname,number_of_boundaries);
-  std::cout<<number_of_boundaries<<std::endl;
+  test_derivatives(sim_param->integrator_type);
+  
   boundary_needed_to_be_defined=std::to_string(number_of_boundaries);
   bc_conditions=std::vector<class BOUNDARY *>(number_of_boundaries);
 };
@@ -193,11 +194,6 @@ void  Geometry_Custom::compute_forces(double * k_i, const double * Qij)  const
           k_i[5*(Nx*(Ny*k+j)+i)+2]=-bulk_force.force_02(QN,dQ); 
           k_i[5*(Nx*(Ny*k+j)+i)+3]=-bulk_force.force_11(QN,dQ); 
           k_i[5*(Nx*(Ny*k+j)+i)+4]=-bulk_force.force_12(QN,dQ);
-          if(!isnormal(k_i[5*(Nx*(Ny*k+j)+i)+0]+1)){printf("%d %d %d %g bulk\n",i,j,k,k_i[5*(Nx*(Ny*k+j)+i)+0]);}
-          if(!isnormal(k_i[5*(Nx*(Ny*k+j)+i)+1]+1)){printf("%d %d %d %g bulk\n",i,j,k,k_i[5*(Nx*(Ny*k+j)+i)+1]);}
-          if(!isnormal(k_i[5*(Nx*(Ny*k+j)+i)+2]+1)){printf("%d %d %d %g bulk\n",i,j,k,k_i[5*(Nx*(Ny*k+j)+i)+2]);}
-          if(!isnormal(k_i[5*(Nx*(Ny*k+j)+i)+3]+1)){printf("%d %d %d %g bulk\n",i,j,k,k_i[5*(Nx*(Ny*k+j)+i)+3]);}
-          if(!isnormal(k_i[5*(Nx*(Ny*k+j)+i)+4]+1)){printf("%d %d %d %g bulk\n",i,j,k,k_i[5*(Nx*(Ny*k+j)+i)+4]);}
         }
 	      else if( point_type[(k*Ny+j)*Nx+i] == 0 )
         {
@@ -209,9 +205,7 @@ void  Geometry_Custom::compute_forces(double * k_i, const double * Qij)  const
         }
         else 
         {
-          //check_surface_limits( i,  j,  k);
-          double delta_x,delta_y,delta_z;
-          double rr;
+          
           int bound=point_type[(k*Ny+j)*Nx+i]-2;
           
           //Boundary condtions:
@@ -223,6 +217,11 @@ void  Geometry_Custom::compute_forces(double * k_i, const double * Qij)  const
           im1= (v[(k*Ny+j)*Nx+i][0] >=0) ? (i-1+Nx)%Nx : i ;
           jm1= (v[(k*Ny+j)*Nx+i][1] >=0) ? (j-1+Ny)%Ny : j ;
           km1= (v[(k*Ny+j)*Nx+i][2] >=0) ? (k-1+Nz)%Nz : k ;
+	    
+          ip1= (i+1)%Nx;
+          im1= (i+Nx-1)%Nx;
+          jp1= (j+1)%Ny;
+          jm1= (j+Ny-1)%Ny;
           
           for(int ll=0; ll<=4;ll++) QN[ll+5*(0)]=Qij[5*(Nx*(Ny*km1+j  )+i  )+ll];
           for(int ll=0; ll<=4;ll++) QN[ll+5*(1)]=Qij[5*(Nx*(Ny*k  +jm1)+i  )+ll];
@@ -264,6 +263,107 @@ void  Geometry_Custom::compute_forces(double * k_i, const double * Qij)  const
        
         }
 	    }
+    }
+  }
+}
+
+void  Geometry_Custom::test_derivatives( const char integrator_type[])  const 
+{
+  int counter=0;
+
+//  #pragma omp master
+  for( int k= 0; k< Nz; k++)
+  {
+    for( int j= 0; j< Ny; j++)
+    {
+      for( int i= 0; i< Nx; i++)
+      {
+        
+        int ip,jp,kp, im, jm, km, ll;
+        double dQ[15];
+        double ddQ[30];
+        double QN[5];
+        
+        if(point_type[(k*Ny+j)*Nx+i] == 1)
+        {
+
+          //check_bulk_limits( i,  j,  k);  
+          ip= (i+1)%Nx;
+          jp= (j+1)%Ny;
+          kp= (k+1)%Nz;
+          im= (i-1+Nx)%Nx;
+          jm= (j-1+Ny)%Ny;
+          km= (k-1+Nz)%Nz;
+          
+          if(point_type[(k*Ny+j)*Nx+ip]*point_type[(k*Ny+j)*Nx+im]*
+             point_type[(k*Ny+jp)*Nx+i]*point_type[(k*Ny+jm)*Nx+i]*
+             point_type[(kp*Ny+j)*Nx+i]*point_type[(km*Ny+j)*Nx+i]*
+             point_type[(k*Ny+jp)*Nx+ip]*point_type[(k*Ny+jp)*Nx+im]*
+             point_type[(k*Ny+jm)*Nx+ip]*point_type[(k*Ny+jm)*Nx+im]*
+             point_type[(kp*Ny+j)*Nx+ip]*point_type[(kp*Ny+j)*Nx+im]*
+             point_type[(km*Ny+j)*Nx+ip]*point_type[(km*Ny+j)*Nx+im]*
+             point_type[(kp*Ny+jp)*Nx+i]*point_type[(kp*Ny+jm)*Nx+i]*
+             point_type[(km*Ny+jp)*Nx+i]*point_type[(km*Ny+jm)*Nx+i]==0)
+             {
+               printf("Warning!!! The bulk cell (%d,%d,%d) is trying to interact with a empty cell (type 0)!\n",i,j,k);
+               counter++;
+             }
+             
+        }          
+        else if (point_type[(k*Ny+j)*Nx+i] == 0)
+        {
+          
+        }
+        else 
+        {
+          //check_surface_limits( i,  j,  k);
+          double delta_x,delta_y,delta_z;
+          double rr;
+          int bound=point_type[(k*Ny+j)*Nx+i]-2;
+          
+          //Boundary condtions:
+          
+          ip= (v[(k*Ny+j)*Nx+i][0] >=0) ? i : (i+1)%Nx ;
+          jp= (v[(k*Ny+j)*Nx+i][1] >=0) ? j : (j+1)%Ny ;
+          kp= (v[(k*Ny+j)*Nx+i][2] >=0) ? k : (k+1)%Nz ;
+          
+          im= (v[(k*Ny+j)*Nx+i][0] >=0) ? (i-1+Nx)%Nx : i ;
+          jm= (v[(k*Ny+j)*Nx+i][1] >=0) ? (j-1+Ny)%Ny : j ;
+          km= (v[(k*Ny+j)*Nx+i][2] >=0) ? (k-1+Nz)%Nz : k ;
+          if(strcasecmp(integrator_type,"fire"))
+          {
+            if(point_type[(k*Ny+j)*Nx+ip]*point_type[(k*Ny+j)*Nx+im]*
+               point_type[(k*Ny+jp)*Nx+i]*point_type[(k*Ny+jm)*Nx+i]*
+               point_type[(kp*Ny+j)*Nx+i]*point_type[(km*Ny+j)*Nx+i]*
+               point_type[(k*Ny+jp)*Nx+ip]*point_type[(k*Ny+jp)*Nx+im]*
+               point_type[(k*Ny+jm)*Nx+ip]*point_type[(k*Ny+jm)*Nx+im]*
+               point_type[(kp*Ny+j)*Nx+ip]*point_type[(kp*Ny+j)*Nx+im]*
+               point_type[(km*Ny+j)*Nx+ip]*point_type[(km*Ny+j)*Nx+im]*
+               point_type[(kp*Ny+jp)*Nx+i]*point_type[(kp*Ny+jm)*Nx+i]*
+               point_type[(km*Ny+jp)*Nx+i]*point_type[(km*Ny+jm)*Nx+i]==0)
+              {
+                printf("Warning!!! The surface cell (%d,%d,%d) is trying to interact with a empty cell (type 0)!\n",i,j,k);
+                counter++;
+              }
+          }else{
+            if(point_type[(k*Ny+j)*Nx+ip]*point_type[(k*Ny+j)*Nx+im]*
+               point_type[(k*Ny+jp)*Nx+i]*point_type[(k*Ny+jm)*Nx+i]*
+               point_type[(kp*Ny+j)*Nx+i]*point_type[(km*Ny+j)*Nx+i]==0)
+              {
+                printf("Warning!!! The surface cell (%d,%d,%d) is trying to interact with a empty cell (type 0)!\n",i,j,k);
+                counter++;
+              }
+          }
+        }
+	    }
+    }
+  }
+  #pragma omp master
+  {
+    if(counter!=0)
+    {
+    printf("%d cells are trying to interact with an empty cell!!\n Please, check your boundary file.\n",counter);
+    exit(10);
     }
   }
 }
@@ -351,7 +451,7 @@ int * Geometry_Custom::fill_pt_and_normals( double **v , const char bound_file_n
   int NoV,pos_nx, pos_ny, pos_nz, pos_pt;
   FILE *bound_input = fopen(bound_file_name,"r");
   if(bound_input==0){perror(bound_file_name);exit(2);}
-  printf("Reading input boundaries: %s\n",bound_file_name);
+  printf("Reading boundaries from %s\n",bound_file_name);
   char line[500];
   std::string testline;
   fgets(line,500,bound_input);
@@ -369,7 +469,7 @@ int * Geometry_Custom::fill_pt_and_normals( double **v , const char bound_file_n
     if(strcasecmp(names,"nz")==0)pos_nz=i;
     if(strcasecmp(names,"pt")==0)pos_pt=i;
   }
-  printf("Using the positions of nx %d ny %d nz %d and pt %d, ",pos_nx,pos_ny,pos_nz,pos_pt);
+  printf("Using the positions of nx %d ny %d nz %d and pt %d.\n ",pos_nx,pos_ny,pos_nz,pos_pt);
   if((point_kind= (int *)calloc(Nx*Ny*Nz, sizeof(int)))==NULL){ERROr}
   line_number=0;
   fgets(line,500,bound_input);
@@ -377,13 +477,20 @@ int * Geometry_Custom::fill_pt_and_normals( double **v , const char bound_file_n
     point_kind[i]=1;
   }  
   while (read_tester!=EOF){
-    for (nn=0;nn<NoV;nn++) {read_tester=fscanf(bound_input,"%[^,\n ],",strvar);var[nn]=atof(strvar);}
+    for (nn=0;nn<NoV;nn++) 
+    {
+      read_tester=fscanf(bound_input,"%[^,\n ],",strvar);
+      if(read_tester==1)var[nn]=atof(strvar);
+      else continue;
+    }
     int ii=(int)var[0];
     int jj=(int)var[1];
     int kk=(int)var[2];
     ijk=(Ny*kk+jj)*Nx+ii;
     line_number++;
-    if (ijk>=Nx*Ny*Nz){fprintf(stderr,"Point out of the simulation box at line %d\n",line_number);exit(10);}
+    if (ii>=Nx|| jj>=Ny||kk>=Nz){fprintf(stderr,"Point out of the simulation box at line %d\n",line_number);exit(10);}
+    if ((int)var[pos_pt]<0){fprintf(stderr,"Negative Point Type founde at line %d\n\
+Please, use 0 as empty space, 1 as bulk and 2+ as surface point type.\n",line_number);exit(10);}
     fgets(line,500,bound_input);
              v[(Ny*kk+jj)*Nx+ii][0]=var[pos_nx];
              v[(Ny*kk+jj)*Nx+ii][1]=var[pos_ny];
@@ -392,7 +499,7 @@ int * Geometry_Custom::fill_pt_and_normals( double **v , const char bound_file_n
     max_point_kind=MAX(max_point_kind,point_kind[(Ny*kk+jj)*Nx+ii]);
   }
   number_of_boundaries=max_point_kind-1;
-  printf("%d boundaries found in %s!!\n",number_of_boundaries, bound_file_name);
+  printf("%d boundary(boundaries) found in %s!!\n\n",number_of_boundaries, bound_file_name);
   fflush(stdout);
   return point_kind;
 }

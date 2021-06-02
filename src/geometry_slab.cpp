@@ -231,7 +231,7 @@ void  slab::compute_forces(double * k_i,const double * Qij) const
     }
   }
 	  
-#pragma omp for schedule(dynamic,1) collapse(2) private(k)
+  #pragma omp for schedule(dynamic,1) collapse(2) private(k)
   for( k= 1; k< Nz-1; k++)
   {
     for( int j= 0; j< Ny; j++)
@@ -294,11 +294,9 @@ void  slab::compute_forces(double * k_i,const double * Qij) const
       }
     } 
   }
-      
-
-
+  
   k=Nz-1;
-#pragma omp for schedule(dynamic,1) collapse(2)  
+  #pragma omp for schedule(dynamic,1) collapse(2)  
   for( int j= 0; j< Ny; j++)
   {
     for( int i= 0; i< Nx; i++)
@@ -318,7 +316,6 @@ void  slab::compute_forces(double * k_i,const double * Qij) const
         v[0]=0;
         v[1]=0;
         v[2]=1;
-
       
 	      for(int ll=0; ll<=4;ll++) QN[ll+5*(0)]=Qij[5*(Nx*(Ny*km1+j  )+i  )+ll];
 	      for(int ll=0; ll<=4;ll++) QN[ll+5*(1)]=Qij[5*(Nx*(Ny*k  +jm1)+i  )+ll];

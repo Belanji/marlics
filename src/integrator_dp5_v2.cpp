@@ -34,6 +34,7 @@ DP5_2::DP5_2( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_pa
   if((k_5= (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
   if((k_6= (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
   if((k_7= (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
+  if((energy = (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
 
   std::cout << "dt=" << dt << " \n";
 
@@ -55,6 +56,7 @@ bool DP5_2::evolve( double * Qij, double *time, double tf )
 {
 
   int ll,information_step=1;
+  double Total_Energy;
   double local_error;
   double global_error; //, global_error_1=1.;
   double sc_i;
@@ -167,7 +169,15 @@ bool DP5_2::evolve( double * Qij, double *time, double tf )
                 for( ll=0; ll<5*Nx*Ny*Nz;ll++) k_1[ll]=k_7[ll]; 
                                 
             }
-        }
+        }        
+        Total_Energy=0;
+        sample_geometry->Energy_calc(energy,Qij);
+        #pragma omp for simd schedule(simd:dynamic,new_chunk_size) reduction(+: Total_Energy)
+            for( ll=0; ll<2*5*Nx*Ny*Nz;ll++) Total_Energy+=energy[ll];
+            
+        #pragma omp barrier
+        #pragma omp single 
+          std::cout << "time=" << *time << ", Energy=" << Total_Energy << std::endl;
     }
   return true; 
 };

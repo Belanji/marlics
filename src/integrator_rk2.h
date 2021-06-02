@@ -11,11 +11,8 @@ class RK2 : public Integrator
  private:
 
  public:
-
-  
-
-  double *k_1, *k_2;
-  
+ 
+  double *k_1, *k_2, *energy;
   
   virtual bool evolve( double *, double *, double);    
   virtual ~RK2(void) {};

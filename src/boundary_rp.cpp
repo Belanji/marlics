@@ -171,7 +171,7 @@ double Boundary_Rp::functional_derivative_12(const double  QN[5],const double  d
 
 double Boundary_Rp::energy_calculation(const double  QN[5],const double  dQ[15],const double  v[3]) const
 { 
- return 0;
+ return 0.5*Wo1*(pow(QN00 - Q0_00,2) + 2*pow(QN01 - Q0_01,2) + 2*pow(QN02 - Q0_02,2) + pow(QN11 - Q0_11,2) + pow(QN00 + QN11 - Q0_00 - Q0_11,2) + 2*pow(QN12 - Q0_12,2));
 }
 
 #undef QN00

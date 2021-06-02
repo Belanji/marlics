@@ -11,11 +11,8 @@ class Euler : public Integrator
  private:
 
  public:
-
-  
-
-  double *k_1;
-  
+ 
+  double *k_1, *energy;
   
   virtual bool evolve( double *, double *, double);    
   virtual ~Euler(void) {};

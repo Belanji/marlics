@@ -19,7 +19,7 @@ class NOISE_DP5 : public Integrator
   double noise_factor;
 
  public:
-  double *k_1, *k_2, *k_3, *k_4, *k_5, *k_6, *k_7, *noise;
+  double *k_1, *k_2, *k_3, *k_4, *k_5, *k_6, *k_7, *noise, *energy;
   
   virtual bool evolve( double *, double *, double);    
   virtual ~NOISE_DP5(void) {};

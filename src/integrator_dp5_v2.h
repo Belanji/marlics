@@ -16,7 +16,7 @@ class DP5_2 : public Integrator
 
  public:
  
-  double *k_1, *k_2, *k_3, *k_4, *k_5, *k_6, *k_7;
+  double *k_1, *k_2, *k_3, *k_4, *k_5, *k_6, *k_7, *energy;
   
   virtual bool evolve( double *, double *, double);    
   virtual ~DP5_2(void) {};

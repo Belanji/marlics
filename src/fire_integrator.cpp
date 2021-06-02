@@ -34,6 +34,7 @@ FIRE::FIRE( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_para
   scaleP =  1.1 ;
   scaleM =  0.9 ;
   Nmin = 10;
+  min_force=sim_param->min_force;
   dt_init = dt;
   alpha = alphainit;
   printf("Initializing simulation with FIRE(Fast Inertial Relaxation Engine) method.\n");
@@ -97,7 +98,7 @@ bool FIRE::evolve( double * Qij, double *time, double tf )
         #pragma omp for simd schedule(simd:dynamic,new_chunk_size)    nowait      
           for( ll=0; ll<5*Nx*Ny*Nz;ll++) vQij[ll]=(1-alpha)*vQij[ll]+alpha*force[ll]*scale;
           
-        if(sqrt(f2max)<1e-8) continue_condition=false;
+        if(sqrt(f2max)<min_force) continue_condition=false;
         #pragma omp single
           {
         *time+=dt;
@@ -147,7 +148,7 @@ bool FIRE::evolve( double * Qij, double *time, double tf )
         }
       }
     }
-    Total_Energy0=0;  Total_Energy1=0;
+    Total_Energy0=0;
     sample_geometry->Energy_calc(energy,Qij);
     #pragma omp for simd schedule(simd:dynamic,new_chunk_size) reduction(+: Total_Energy0)
         for( ll=0; ll<2*5*Nx*Ny*Nz;ll++) Total_Energy0+=energy[ll];
