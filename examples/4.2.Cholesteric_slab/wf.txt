@@ -1,0 +1,65 @@
+geometry slab
+integrator DP5 
+	
+Nx 300                /*      grid size      */
+Ny 300                /*      grid size      */
+Nz 151                /*      grid size      */
+
+a  0.172             /*     10^6 J/K.m^3     */
+B -2.12              /*     10^6 J/m^3      */
+C  1.74              /*     10^6 J/m^3      */
+T   -1.0
+
+L1 39.21
+Lq 39.21
+L2 78.42
+p0 750.       /*     10^-9 m         */
+
+atol 0.0005
+rtol 0.0005
+facmax 3.0
+facmin 0.4
+prefac 0.8
+
+dx        10          /*     10^-9 m         */
+dy        10          /*     10^-9 m         */
+dz        10          /*     10^-9 m         */
+mu_1      0.3          /*     Pa s            */
+mu_1_s    3.0          /*     10 ^-9 Pa s     */
+
+dt        0.01     /*     10^-6  s        */   
+ti        0.00
+tf        50.0     /*    10^-6 s          */
+
+time_print_type           linear
+timeprint                 1.0           /*  10^-6 s   */
+timeprint_increase_factor 1.0        /*  10^-6 s   */     
+
+#Initial Conditions
+
+initial_conditions          random
+seed 34578347
+
+initial_output_file_number  	 0
+output_folder   .
+
+output_fname			ic_$$.csv
+
+#Top boundary conditions:
+anchoring_type  0   rp
+Wo1       0    10.0                         /*     10^-3 J/m^2     */
+phi_0     0    90.
+theta_0   0    87.
+
+#Bottom boundary conditions:
+anchoring_type  1   rp
+Wo1       1    10.0                         /*     10^-3 J/m^2     */
+phi_0     1    90.
+theta_0   1    87.
+
+elecfieldx	0.0
+elecfieldy	0.0
+elecfieldz	1.0
+deltaepslon	3.4
+
+run

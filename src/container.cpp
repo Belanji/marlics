@@ -25,19 +25,13 @@ container::container(struct Simulation_Parameters * sim_param)
       perror(output_folder);
       exit(4);
   }  
-    switch(sim_param->output_name_status[0])
+    if(sim_param->output_name_status[0]==parameter_status::unset)
       {
-      case   parameter_status::unset:
-        
         std::cout << "You didn't define the \"output_folder\". Using the default output folder -> \".\" (here)."<< std::endl;
-        break;  
       }
-    switch(sim_param->output_name_status[1])
+    if(sim_param->output_name_status[1]==parameter_status::unset)
       {
-      case   parameter_status::unset:
-        
         std::cout << "You didn't define the \"output_name\". Using the standart output name -> director_field."<< std::endl;
-        break; 
       }
   std::cout << "Using \""<< output_folder<<"\\"<<output_fname<<" as output file pattern.\n";
   switch(sim_param->timeprint_status[3])

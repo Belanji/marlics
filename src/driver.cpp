@@ -425,13 +425,15 @@ void driver::setup_Simulation(void)
 
   switch(sim_param.integrator_flag)
     {
+      
     case parameter_status::set:
 
-      if ( strcasecmp(sim_param.integrator_type,"DP5m") == 0 || strcasecmp(sim_param.integrator_type,"Dormand-Prince_m") == 0
+      if ( strcasecmp(sim_param.integrator_type,"DP5m") == 0 ||strcasecmp(sim_param.integrator_type,"DP5") == 0 || strcasecmp(sim_param.integrator_type,"Dormand-Prince_m") == 0
            || strcasecmp(sim_param.integrator_type,"Rk54m") == 0 || strcasecmp(sim_param.integrator_type,"Rk5m") == 0 )
         {
   
           LcS_Integrator= new DP5(LcS_Geometry, & sim_param );
+          std::cout << "Loading the Dormand-Prince5(4)m integrator.\n\n";
   
         }
       else if ( strcasecmp(sim_param.integrator_type,"DP5s") == 0 || strcasecmp(sim_param.integrator_type,"Dormand-Prince_s") == 0
@@ -439,30 +441,35 @@ void driver::setup_Simulation(void)
         {
   
           LcS_Integrator= new DP5_2(LcS_Geometry, & sim_param );
+          std::cout << "Loading the Dormand-Prince5(4)s integrator.\n\n";
   
         }
       else if ( strcasecmp(sim_param.integrator_type,"RK2") == 0 || strcasecmp(sim_param.integrator_type,"Runge-Kutta2") == 0)
         {
   
           LcS_Integrator= new RK2(LcS_Geometry, & sim_param );
+          std::cout << "Loading the Runge-Kutta2 integrator.\n\n";
   
         }
       else if ( strcasecmp(sim_param.integrator_type,"noise_DP5") == 0 || strcasecmp(sim_param.integrator_type,"DP5_noise") == 0)
         {
   
           LcS_Integrator= new NOISE_DP5(LcS_Geometry, & sim_param );
+          std::cout << "Loading the Dormand-Prince5(4) integrator with noise.\n\n";
   
         }
       else if ( strcasecmp(sim_param.integrator_type,"RK1") == 0 || strcasecmp(sim_param.integrator_type,"Euler") == 0)
         {
   
           LcS_Integrator= new Euler(LcS_Geometry, & sim_param );
+          std::cout << "Loading the Euler integrator.\n\n";
   
         }
       else if ( strcasecmp(sim_param.integrator_type,"FIRE") == 0 )
         {
   
           LcS_Integrator= new FIRE(LcS_Geometry, & sim_param );
+          std::cout << "Loading the FIRE integrator.\n\n";
   
         }
   
@@ -608,7 +615,6 @@ int driver::parse_input_file(char input_name[])
           error_handler=fscanf(input_file,"%d",&sim_param.m_i);
           error_check(error_handler,parser);
           fgets(garbage,400,input_file);
-          
         }
     else if ( strcasecmp(parser,"p0_i") == 0 )
         {
@@ -622,7 +628,6 @@ int driver::parse_input_file(char input_name[])
         {
           sim_param.integrator_flag=parameter_status::set;
           error_handler=fscanf(input_file,"%200s",&sim_param.integrator_type);
-          
           error_check(error_handler,parser);
                 
           fgets(garbage,400,input_file);
@@ -904,6 +909,8 @@ int driver::parse_input_file(char input_name[])
           error_handler=fscanf(input_file,"%200s",&sim_param.output_folder);
           error_check(error_handler,parser);
           fgets(garbage,400,input_file);
+          printf("lala %s\n",sim_param.integrator_type);
+          exit(1);
 
 
         }
@@ -1209,7 +1216,7 @@ int driver::parse_input_file(char input_name[])
         }
       else if (strcasecmp(parser,"run") == 0)
         {
-        std::cout << "\"run\" command found in the input file.\n Proceding to parameters setup.\n";
+        std::cout << "\"run\" command found in the input file.\n Proceding to parameters setup.\n\n";
 
           return 1;
 

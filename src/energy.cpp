@@ -18,7 +18,7 @@ ENERGY::ENERGY(const struct Simulation_Parameters * lc) :
     S_eq(lc->S_eq),
     p0(lc->p0),
     q0(lc->q0),
-    deltaepslon(8.8541878176e-3*lc->deltaepslon),
+    deltaepslon((1/3.0)*8.8541878176e-3*lc->deltaepslon),
     elecfieldx(lc->elecfieldx),
     elecfieldy(lc->elecfieldy),
     elecfieldz(lc->elecfieldz)

@@ -269,7 +269,7 @@ void  slab::compute_forces(double * k_i,const double * Qij) const
 	      for(int ll=0; ll<=4;ll++) dQ[0+3*(ll+5*(4))]=dx_1*(Qij[5*(Nx*(Ny*k  +j  )+ip1)+ll]-Qij[5*(Nx*(Ny*k  +j  )+i  )+ll]);
 	      for(int ll=0; ll<=4;ll++) dQ[0+3*(ll+5*(5))]=dx_1*(Qij[5*(Nx*(Ny*k  +jp1)+ip1)+ll]-Qij[5*(Nx*(Ny*k  +jp1)+im1)+ll]);
 	      for(int ll=0; ll<=4;ll++) dQ[0+3*(ll+5*(6))]=dx_1*(Qij[5*(Nx*(Ny*kp1+j  )+ip1)+ll]-Qij[5*(Nx*(Ny*kp1+j  )+im1)+ll]);
-                                                                                          
+        
         for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(0))]=dy_1*(Qij[5*(Nx*(Ny*km1+jp1)+i  )+ll]-Qij[5*(Nx*(Ny*km1+jm1)+i  )+ll]);
 	      for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(1))]=dy_1*(Qij[5*(Nx*(Ny*k  +j  )+i  )+ll]-Qij[5*(Nx*(Ny*k  +jm1)+i  )+ll]);
 	      for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(2))]=dy_1*(Qij[5*(Nx*(Ny*k  +jp1)+im1)+ll]-Qij[5*(Nx*(Ny*k  +jm1)+im1)+ll]);
@@ -277,7 +277,7 @@ void  slab::compute_forces(double * k_i,const double * Qij) const
 	      for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(4))]=dy_1*(Qij[5*(Nx*(Ny*k  +jp1)+ip1)+ll]-Qij[5*(Nx*(Ny*k  +jm1)+ip1)+ll]);
 	      for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(5))]=dy_1*(Qij[5*(Nx*(Ny*k  +jp1)+i  )+ll]-Qij[5*(Nx*(Ny*k  +j  )+i  )+ll]);
 	      for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(6))]=dy_1*(Qij[5*(Nx*(Ny*kp1+jp1)+i  )+ll]-Qij[5*(Nx*(Ny*kp1+jm1)+i  )+ll]);
-                                                                                          
+        
         for(int ll=0; ll<=4;ll++) dQ[2+3*(ll+5*(0))]=dz_1*(Qij[5*(Nx*(Ny*k  +j  )+i  )+ll]-Qij[5*(Nx*(Ny*km1+j  )+i  )+ll]);
 	      for(int ll=0; ll<=4;ll++) dQ[2+3*(ll+5*(1))]=dz_1*(Qij[5*(Nx*(Ny*kp1+jm1)+i  )+ll]-Qij[5*(Nx*(Ny*km1+jm1)+i  )+ll]);
 	      for(int ll=0; ll<=4;ll++) dQ[2+3*(ll+5*(2))]=dz_1*(Qij[5*(Nx*(Ny*kp1+j  )+im1)+ll]-Qij[5*(Nx*(Ny*km1+j  )+im1)+ll]);

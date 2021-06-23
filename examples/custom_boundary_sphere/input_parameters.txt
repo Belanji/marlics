@@ -1,0 +1,51 @@
+geometry custom
+boundary_file sphere.csv
+integrator FIRE 
+
+Nx 101                /*      grid size      */
+Ny 101                /*      grid size      */
+Nz 101                /*      grid size      */
+
+a  0.086             /*     10^6 J/K.m^3     */
+B -2.12              /*     10^6 J/m^3      */
+C  1.74              /*     10^6 J/m^3      */
+T   -1.0
+
+L1 40.0
+Lq 40
+p0        1000.0        /*     10^-9 m         */
+
+dx        10.0          /*     10^-9 m         */
+dy        10.0          /*     10^-9 m         */
+dz        10.0          /*     10^-9 m         */
+mu_1      0.3          /*     Pa s            */
+mu_1_s    3.0          /*     10 ^-9 Pa s     */
+
+atol 0.005
+rtol 0.005
+facmax 3.0
+facmin 0.4
+prefac 0.8
+
+dt        0.001     /*     10^-6  s        */	
+ti       0.0
+tf        10000     /*    10^-6 s          */
+
+time_print_type	          linear
+timeprint                 2000       /*  10^-6 s   */
+timeprint_increase_factor 2000        /*  10^-6 s   */     
+
+#Initial Conditions
+initial_conditions          random
+seed 565434534
+
+initial_output_file_number   0
+#output_folder   .
+
+#Boundary conditions:
+anchoring_type  0   homeotropic
+Wo1       0    1.0                         /*     10^-3 J/m^2     */
+theta_0   0     90
+phi_0     0      0 
+
+run

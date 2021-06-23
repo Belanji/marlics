@@ -1,5 +1,5 @@
 #ifndef  LC_CONTAINER_
-#define  LC_CONTAINER__
+#define  LC_CONTAINER_
 #include <string>
 
 class container
