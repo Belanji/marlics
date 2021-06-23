@@ -1,1 +1,7 @@
 Welcome to MarLicS
+
+ Marlics is a software written in C++ to to solve either the Beris-Edwards equation of nematodynamics without flow, or to find minimum energy states of the Landau-de Gennes free energy with the (FIRE) engine. Marlics comes with the most common seups where these simulations are performed, such as confined slab cells and spherical liquid crystal droplets. Different simulations can be performed passing a file describing the system geometry. FInally, we provide the most common anchoring energies as boundary conditions, such as Rapini-Papoular and Founier-Galatola.
+
+The program takes as input a descriptive file giving the simulations parameters and initial conditions generating a series of different snapshots. Some examples of these input files can be found in the examples folder.
+
+In the aux folder you can find some useful scripts with help visualize and start liquid crystal simulations. In renderize scripts you will find some scripts that renderives a view of the director in a given plane. There is also another script which generates iso surfaces of the thermodynamic order parameter in the same folder. In the boundaries folder the user can find some simple program, also written in C++, which can generate geometry files for the sphere and cylinder geometry. Both folders have a readme file explaining how the scripts/program are used.
