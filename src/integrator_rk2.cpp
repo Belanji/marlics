@@ -20,7 +20,7 @@ RK2::RK2( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_param 
   //allocate the ith-stage array:
   if((k_1= (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
   if((k_2= (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
-  if((energy = (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
+  if((energy = (double *)calloc(2*5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
   
   std::cout << "dt=" << dt << " \n";
 

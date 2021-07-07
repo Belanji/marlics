@@ -1,0 +1,40 @@
+Here we explain some details about the creation of a new boundary file.
+
+The boundary file need to be a .csv file with the following collunms:
+
+	x, y, z -> representing the position, given by integer values;
+	nx, ny, nz -> representing the surface normals, being ignored in cases of pt <=1, given by float values;
+	pt -> an integer representing the point type.
+
+Note that, marlics can identify the position of the nx, ny, nz and pt collunm, but the x, y and z collunm has to be the first 3.
+
+%% The Point Types - pt %%
+
+Currently MarLiCs has 3 kind of pt defined by:
+
+	0  -> the empty points, ignored through the simulation;
+	1  -> the bulk points;
+    2+ -> the surface points;
+
+Note that MarLiCs won't run if the boundary file contains a negative pt.
+In the surface points, the boundary condition of a given lattice correspond to pt-2, i.e. the anchoring type of a lattice with pt=2 will be defined by the boundary 0.
+As side note, MarLiCs uses the maximum value of pt in the boundary file to determine the number of boundaries to be defined, i.e. if the highest pt in the boundary file is 4, the input file need contain 3 boundaries types, 0, 1 and 2 corresponding to pt 2, 3 and 4 respectively.
+
+
+%% The Normals - nx, ny and nz %%
+
+The surface normal is used to evaluate a homeotropic, or founier galatola, anchoring.
+
+Besides that, the surface normal is reponsible for indicate the neighbors used in the spatial derivative of the surface lattice.
+For example, considering only the x direction, the neighbors with lower x coordnate are ignorated if nx is negative and the neighbors with higher x coordnate are ignorated in case of a positive nx.
+In other words, the surface normal need to be pointed in the direction of another surface or of the empty space, taking the periodic boundary condition into account. 
+
+
+To exemplify, this folder contain 3 files, sphere.cpp, slab.cpp and shell.cpp, that can be used to generate the boundary file. For informations of use, please read the readme file. 
+
+
+
+
+
+
+

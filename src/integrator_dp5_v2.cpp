@@ -18,10 +18,10 @@
 
 //Dormand-Prince integrator
 DP5_2::DP5_2( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_param ) : Integrator( lc_pointer),
-							 	   Atol(sim_param->Atol),
-								   Rtol(sim_param->Rtol),
-								   prefac(sim_param->prefac),
-								   facmin(sim_param->facmin),
+                                   Atol(sim_param->Atol),
+                                   Rtol(sim_param->Rtol),
+                                   prefac(sim_param->prefac),
+                                   facmin(sim_param->facmin),
                                                                    facmax(sim_param->facmax)
 {
 
@@ -34,7 +34,7 @@ DP5_2::DP5_2( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_pa
   if((k_5= (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
   if((k_6= (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
   if((k_7= (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
-  if((energy = (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
+  if((energy = (double *)calloc(2*5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
 
   std::cout << "dt=" << dt << " \n";
 
@@ -69,9 +69,9 @@ bool DP5_2::evolve( double * Qij, double *time, double tf )
     {
     
       #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
-        for(ll=0;ll<5*Nx*Ny*Nz; ll++) 	Qtij[ll]=Qij[ll];
+        for(ll=0;ll<5*Nx*Ny*Nz; ll++)   Qtij[ll]=Qij[ll];
         
-      sample_geometry->fill_ki(k_1,Qtij);		      
+      sample_geometry->fill_ki(k_1,Qtij);             
       
       while(*time<tf)
         {
@@ -88,19 +88,19 @@ bool DP5_2::evolve( double * Qij, double *time, double tf )
         #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
           for(ll=0;ll<5*Nx*Ny*Nz; ll++)   Qtij[ll]=Qij[ll]+dt*(0.083333333*k_1[ll]+0.25*k_2[ll]); 
                     
-        sample_geometry->fill_ki(k_3,Qtij);		      
+        sample_geometry->fill_ki(k_3,Qtij);           
           
         //######### 4th Stage:
         #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
           for( ll=0; ll< 5*Nx*Ny*Nz; ll++)  Qtij[ll]=Qij[ll]+dt*(0.169753086*k_1[ll]-0.231481481*k_2[ll]+0.617283951*k_3[ll]); 
             
-        sample_geometry->fill_ki(k_4,Qtij);		      
+        sample_geometry->fill_ki(k_4,Qtij);           
 
         //######### 5th Stage:
-        #pragma omp for simd schedule(simd:dynamic,new_chunk_size)        			    
+        #pragma omp for simd schedule(simd:dynamic,new_chunk_size)                      
           for( ll=0; ll< 5*Nx*Ny*Nz; ll++) Qtij[ll]=Qij[ll]+dt*(0.251515152*k_1[ll]-0.590909091*k_2[ll]+0.924242424*k_3[ll]+0.081818182*k_4[ll]); 
         
-        sample_geometry->fill_ki(k_5,Qtij);		      
+        sample_geometry->fill_ki(k_5,Qtij);           
         
         //6th stage:
         #pragma omp for simd schedule(simd:dynamic,new_chunk_size) 
@@ -112,7 +112,7 @@ bool DP5_2::evolve( double * Qij, double *time, double tf )
         #pragma omp for simd schedule(simd:dynamic,new_chunk_size)
           for( ll=0; ll< 5*Nx*Ny*Nz; ll++) Qtij[ll]=Qij[ll]+dt*(0.095*k_1[ll]+0.6*k_3[ll]-0.6075*k_4[ll] +0.825*k_5[ll]+ 0.0875*k_6[ll]); 
           
-        sample_geometry->fill_ki(k_7,Qtij);		      
+        sample_geometry->fill_ki(k_7,Qtij);           
         
         //Restarting global error:
         global_error=0.;
@@ -123,13 +123,13 @@ bool DP5_2::evolve( double * Qij, double *time, double tf )
         for( ll=0; ll<5*Ny*Ny*Nz;ll++)
           {
         
-            sc_i=Atol+fabs(Qtij[ll])*Rtol;			
+            sc_i=Atol+fabs(Qtij[ll])*Rtol;          
             local_error=-0.0088*k_1[ll]
                         +0.066*k_3[ll]
                         -0.1782*k_4[ll]
                         +0.132*k_5[ll]
                         +0.009*k_6[ll]
-                        -0.02*k_7[ll];						
+                        -0.02*k_7[ll];                      
             global_error=MAX( fabs(local_error)/sc_i,global_error );
                     
           }
@@ -162,7 +162,7 @@ bool DP5_2::evolve( double * Qij, double *time, double tf )
         
           if(global_error<1.0)
             { 
-              #pragma omp for simd schedule(simd:dynamic,new_chunk_size)  nowait	    
+              #pragma omp for simd schedule(simd:dynamic,new_chunk_size)  nowait        
                 for( ll=0; ll<5*Nx*Ny*Nz;ll++) Qij[ll]=Qtij[ll]; 
               
               #pragma omp for simd schedule(simd:dynamic,new_chunk_size)

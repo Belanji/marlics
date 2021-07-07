@@ -1,0 +1,57 @@
+Here we provide 2 sample code to create a custom geometry. Note that the sphere geometry works better with an odd number of points.
+
+%%%%%%%%%% slab.cpp %%%%%%%%%%
+
+The slab.cpp can be used to create a slab or an elipsoid to be used with the custom geometry.
+The user can compile this code using:
+
+	g++ slab.cpp -lm -o slab_creator
+
+and execute the command:
+
+	./slab_creator 100 > slab_100.csv
+
+to create a boundary file containing a slab geometry with 100 points in each dimension, or with
+
+	./slab_creator 100 100 200 > slab.csv
+
+to create a boundary file containing a slab geometry with in a (100 x 100 x 200) lattice.
+In order to use this boundary file in marlics the following lines need to be included in the input file:
+
+	Geometry   Custom
+	boundary_file slab.csv
+	
+	nx         100
+	ny         100
+	nz         200
+
+In order to apply this slab, two boundaries, the bottom(0) and the top(1) surface, need to be defined in the input file.
+
+%%%%%%%%%% sphere.cpp %%%%%%%%%%
+
+The sphere.cpp can be used to create a sphere or an elipsoid to be used with the custom geometry.
+The user can compile this code using:
+
+	g++ sphere.cpp -lm -o sphere_creator
+
+and execute the command:
+
+	./sphere_creator 201 > sphere_201.csv
+
+to create a boundary file containing a spherical geometry with 201 points in each dimension, or with:
+
+	./sphere_creator 101 201 151 > elipsoid.csv
+
+to create a boundary file containing an elipsoid of dimensions 101, 201 and 151 in the x, y and z direction respectvely.
+
+In order to use the sphere_201.csv boundary file in marlics the following lines need to be included in the input file:
+
+	Geometry   Custom
+	boundary_file sphere_201.csv
+	
+	nx         201
+	ny         201
+	nz         201
+
+In order to apply this sphere, a single boundary need to be defined in the input file.
+

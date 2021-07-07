@@ -108,9 +108,9 @@ void  Geometry_Custom::fill_ki(double * k_i,
           jp1= (v[(k*Ny+j)*Nx+i][1] >=0) ? j : (j+1)%Ny ;
           kp1= (v[(k*Ny+j)*Nx+i][2] >=0) ? k : (k+1)%Nz ;
           
-          im1= (v[(k*Ny+j)*Nx+i][0] >=0) ? (i-1+Nx)%Nx : i ;
-          jm1= (v[(k*Ny+j)*Nx+i][1] >=0) ? (j-1+Ny)%Ny : j ;
-          km1= (v[(k*Ny+j)*Nx+i][2] >=0) ? (k-1+Nz)%Nz : k ;
+          im1= (v[(k*Ny+j)*Nx+i][0] > 0) ? (i-1+Nx)%Nx : i ;
+          jm1= (v[(k*Ny+j)*Nx+i][1] > 0) ? (j-1+Ny)%Ny : j ;
+          km1= (v[(k*Ny+j)*Nx+i][2] > 0) ? (k-1+Nz)%Nz : k ;
       
     
           for(ll=0; ll<=4;ll++) QN[ll]=Qij[5*(Nx*(Ny*k+j)+i)+ll];
@@ -214,14 +214,9 @@ void  Geometry_Custom::compute_forces(double * k_i, const double * Qij)  const
           jp1= (v[(k*Ny+j)*Nx+i][1] >=0) ? j : (j+1)%Ny ;
           kp1= (v[(k*Ny+j)*Nx+i][2] >=0) ? k : (k+1)%Nz ;
           
-          im1= (v[(k*Ny+j)*Nx+i][0] >=0) ? (i-1+Nx)%Nx : i ;
-          jm1= (v[(k*Ny+j)*Nx+i][1] >=0) ? (j-1+Ny)%Ny : j ;
-          km1= (v[(k*Ny+j)*Nx+i][2] >=0) ? (k-1+Nz)%Nz : k ;
-	    
-          ip1= (i+1)%Nx;
-          im1= (i+Nx-1)%Nx;
-          jp1= (j+1)%Ny;
-          jm1= (j+Ny-1)%Ny;
+          im1= (v[(k*Ny+j)*Nx+i][0] >0) ? (i-1+Nx)%Nx : i ;
+          jm1= (v[(k*Ny+j)*Nx+i][1] >0) ? (j-1+Ny)%Ny : j ;
+          km1= (v[(k*Ny+j)*Nx+i][2] >0) ? (k-1+Nz)%Nz : k ;
           
           for(int ll=0; ll<=4;ll++) QN[ll+5*(0)]=Qij[5*(Nx*(Ny*km1+j  )+i  )+ll];
           for(int ll=0; ll<=4;ll++) QN[ll+5*(1)]=Qij[5*(Nx*(Ny*k  +jm1)+i  )+ll];
@@ -238,7 +233,7 @@ void  Geometry_Custom::compute_forces(double * k_i, const double * Qij)  const
           for(int ll=0; ll<=4;ll++) dQ[0+3*(ll+5*(4))]=dx_1*(Qij[5*(Nx*(Ny*k  +j  )+ip1)+ll]-Qij[5*(Nx*(Ny*k  +j  )+i  )+ll]);
           for(int ll=0; ll<=4;ll++) dQ[0+3*(ll+5*(5))]=dx_1*(Qij[5*(Nx*(Ny*k  +jp1)+ip1)+ll]-Qij[5*(Nx*(Ny*k  +jp1)+im1)+ll]);
           for(int ll=0; ll<=4;ll++) dQ[0+3*(ll+5*(6))]=dx_1*(Qij[5*(Nx*(Ny*kp1+j  )+ip1)+ll]-Qij[5*(Nx*(Ny*kp1+j  )+im1)+ll]);
-                                                                                            
+          
           for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(0))]=dy_1*(Qij[5*(Nx*(Ny*km1+jp1)+i  )+ll]-Qij[5*(Nx*(Ny*km1+jm1)+i  )+ll]);
           for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(1))]=dy_1*(Qij[5*(Nx*(Ny*k  +j  )+i  )+ll]-Qij[5*(Nx*(Ny*k  +jm1)+i  )+ll]);
           for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(2))]=dy_1*(Qij[5*(Nx*(Ny*k  +jp1)+im1)+ll]-Qij[5*(Nx*(Ny*k  +jm1)+im1)+ll]);
@@ -246,7 +241,7 @@ void  Geometry_Custom::compute_forces(double * k_i, const double * Qij)  const
           for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(4))]=dy_1*(Qij[5*(Nx*(Ny*k  +jp1)+ip1)+ll]-Qij[5*(Nx*(Ny*k  +jm1)+ip1)+ll]);
           for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(5))]=dy_1*(Qij[5*(Nx*(Ny*k  +jp1)+i  )+ll]-Qij[5*(Nx*(Ny*k  +j  )+i  )+ll]);
           for(int ll=0; ll<=4;ll++) dQ[1+3*(ll+5*(6))]=dy_1*(Qij[5*(Nx*(Ny*kp1+jp1)+i  )+ll]-Qij[5*(Nx*(Ny*kp1+jm1)+i  )+ll]);
-                                                                                            
+          
           for(int ll=0; ll<=4;ll++) dQ[2+3*(ll+5*(0))]=dz_1*(Qij[5*(Nx*(Ny*k  +j  )+i  )+ll]-Qij[5*(Nx*(Ny*km1+j  )+i  )+ll]);
           for(int ll=0; ll<=4;ll++) dQ[2+3*(ll+5*(1))]=dz_1*(Qij[5*(Nx*(Ny*kp1+jm1)+i  )+ll]-Qij[5*(Nx*(Ny*km1+jm1)+i  )+ll]);
           for(int ll=0; ll<=4;ll++) dQ[2+3*(ll+5*(2))]=dz_1*(Qij[5*(Nx*(Ny*kp1+j  )+im1)+ll]-Qij[5*(Nx*(Ny*km1+j  )+im1)+ll]);
@@ -307,6 +302,24 @@ void  Geometry_Custom::test_derivatives( const char integrator_type[])  const
              {
                printf("Warning!!! The bulk cell (%d,%d,%d) is trying to interact with a empty cell (type 0)!\n",i,j,k);
                counter++;
+             if(!point_type[(k*Ny+j)*Nx+im] )printf("%d %d %d \n",im,j,k);
+             if(!point_type[(k*Ny+jm)*Nx+i] )printf("%d %d %d \n",i,jm,k);
+             if(!point_type[(km*Ny+j)*Nx+i] )printf("%d %d %d \n",i,j,km);
+             if(!point_type[(k*Ny+jp)*Nx+im])printf("%d %d %d \n",im,jp,k);
+             if(!point_type[(k*Ny+jm)*Nx+im])printf("%d %d %d \n",im,jm,k);
+             if(!point_type[(kp*Ny+j)*Nx+im])printf("%d %d %d \n",im,j,kp);
+             if(!point_type[(km*Ny+j)*Nx+im])printf("%d %d %d \n",im,j,km);
+             if(!point_type[(kp*Ny+jm)*Nx+i])printf("%d %d %d \n",i,jm,kp);
+             if(!point_type[(km*Ny+jm)*Nx+i])printf("%d %d %d \n",i,jm,km);
+             if(!point_type[(k*Ny+j)*Nx+ip] )printf("%d %d %d \n",ip,j,k);
+             if(!point_type[(k*Ny+jp)*Nx+i] )printf("%d %d %d \n",i,jp,k);
+             if(!point_type[(kp*Ny+j)*Nx+i] )printf("%d %d %d \n",i,j,kp);
+             if(!point_type[(k*Ny+jp)*Nx+ip])printf("%d %d %d \n",ip,jp,k);
+             if(!point_type[(k*Ny+jm)*Nx+ip])printf("%d %d %d \n",ip,jm,k);
+             if(!point_type[(kp*Ny+j)*Nx+ip])printf("%d %d %d \n",ip,j,kp);
+             if(!point_type[(km*Ny+j)*Nx+ip])printf("%d %d %d \n",ip,j,km);
+             if(!point_type[(kp*Ny+jp)*Nx+i])printf("%d %d %d \n",i,jp,kp);
+             if(!point_type[(km*Ny+jp)*Nx+i])printf("%d %d %d \n",i,jp,km);
              }
              
         }          
@@ -327,9 +340,9 @@ void  Geometry_Custom::test_derivatives( const char integrator_type[])  const
           jp= (v[(k*Ny+j)*Nx+i][1] >=0) ? j : (j+1)%Ny ;
           kp= (v[(k*Ny+j)*Nx+i][2] >=0) ? k : (k+1)%Nz ;
           
-          im= (v[(k*Ny+j)*Nx+i][0] >=0) ? (i-1+Nx)%Nx : i ;
-          jm= (v[(k*Ny+j)*Nx+i][1] >=0) ? (j-1+Ny)%Ny : j ;
-          km= (v[(k*Ny+j)*Nx+i][2] >=0) ? (k-1+Nz)%Nz : k ;
+          im= (v[(k*Ny+j)*Nx+i][0] > 0) ? (i-1+Nx)%Nx : i ;
+          jm= (v[(k*Ny+j)*Nx+i][1] > 0) ? (j-1+Ny)%Ny : j ;
+          km= (v[(k*Ny+j)*Nx+i][2] > 0) ? (k-1+Nz)%Nz : k ;
           if(strcasecmp(integrator_type,"fire"))
           {
             if(point_type[(k*Ny+j)*Nx+ip]*point_type[(k*Ny+j)*Nx+im]*

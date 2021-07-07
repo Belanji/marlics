@@ -23,7 +23,7 @@ Euler::Euler( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_pa
   dt=sim_param->dt;
   //allocate the ith-stage array:
   if((k_1= (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
-  if((energy = (double *)calloc(5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
+  if((energy = (double *)calloc(2*5*Nx*Ny*Nz, sizeof(double)))==NULL){ERROr}
   
   std::cout << "dt=" << dt << " \n";
 };
