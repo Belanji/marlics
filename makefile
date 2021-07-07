@@ -17,7 +17,7 @@ marlics: ${OBJS}
 	@${COMPILER} ${FLAGS} ${OBJS} ${LIB} -o marlics
 ######### Build all cpp's into objects
 ${OBJS}: build/%.o: src/%.cpp | build
-	${COMPILER} ${FLAGS} -c $< -o $@
+	@${COMPILER} ${FLAGS} -c $< -o $@
 ######### 	
 ${OBJS}: ${HEADER}
 build:

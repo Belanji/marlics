@@ -60,6 +60,6 @@ theta_0   1    87.
 elecfieldx	0.0
 elecfieldy	0.0
 elecfieldz	1.0
-deltaepslon	3.4
+deltaepsilon	3.4
 
 run

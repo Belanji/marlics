@@ -1,0 +1,28 @@
+
+########### Gnu:
+COMPILER := x86_64-w64-mingw32-g++
+LIB := -lm -lgsl -lgslcblas -lgomp -pthread
+FLAGS    :=  -Ofast -fipa-pta -fopenmp -Wno-unused-result -Wno-format -static
+
+CPPS := $(wildcard src/*.cpp)
+HEADER := $(wildcard src/*.h)
+OBJS  := $(patsubst src/%.cpp,buildexe/%.o,${CPPS})
+
+marlics.exe: ${OBJS}
+	@${COMPILER}  ${FLAGS}  ${OBJS} ${LIB} -o marlics.exe
+${OBJS}: buildexe/%.o: src/%.cpp | buildexe
+	@${COMPILER}  ${FLAGS} -c $< -o $@
+${OBJS}: ${HEADER}
+buildexe:
+	@mkdir buildexe
+debug:	$(patsubst %.o,%dbg.o,${OBJS})
+	@${COMPILER}  -O0 -g $(filter-out -O% -fast -static, ${FLAGS})  $(patsubst %.o,%dbg.o,${OBJS}) ${LIB} -o marlics_debug
+	@rm buildexe/*dbg.o
+$(patsubst %.o,%dbg.o,${OBJS}): buildexe/%dbg.o: src/%.cpp | buildexe
+	@${COMPILER}  -O0 -g $(filter-out -O% -fast, ${FLAGS}) -c $< -o $@
+$(patsubst %.o,%dbg.o,${OBJS}): ${HEADER}
+
+clean:
+	@rm -f marlics.exe marlics_debug
+	@rm -fr buildexe
+	@rm -f *.o
