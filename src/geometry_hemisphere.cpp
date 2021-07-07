@@ -221,7 +221,7 @@ void  Geometry_Hemisphere::compute_forces(double * k_i, const double * Qij)  con
     {
       for( int i= 0; i< Nx; i++)
 	    {	
-        int ip1,jp1,kp1, im1, jm1, km1, ll;
+        int ip1,jp1,kp1, im1, jm1, km1;
       double dQ[105];
       double QN[7*5];
       double v[3];
@@ -430,7 +430,6 @@ void  Geometry_Hemisphere::Energy_calc(double * k_i,
 
         int ip1,jp1,kp1, im1, jm1, km1, ll;
         double dQ[15];
-        double ddQ[30];
         double QN[5];
         double v[3];
       
@@ -457,7 +456,6 @@ void  Geometry_Hemisphere::Energy_calc(double * k_i,
         {
   
           double dQ[15];
-          double ddQ[30];
           double QN[5];
           double v[3];
           

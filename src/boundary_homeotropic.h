@@ -26,7 +26,7 @@ class Boundary_Homeotropic : public BOUNDARY
   virtual double force_12(const double  QN[27*5],const double dQ[], const double v[3]) const ;
   virtual ~Boundary_Homeotropic() {};
 
-  Boundary_Homeotropic(const class Simulation_Parameters *, int);
+  Boundary_Homeotropic(const Simulation_Parameters *, int);
 };
 
  

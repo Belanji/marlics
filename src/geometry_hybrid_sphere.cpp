@@ -247,7 +247,7 @@ void  Geometry_Hybrid_Sphere::compute_forces(double * k_i, const double * Qij)  
     {
       for( int i= 0; i< Nx; i++)
 	    {	
-        int ip1,jp1,kp1, im1, jm1, km1, ll;
+        int ip1,jp1,kp1, im1, jm1, km1;
         double dQ[105];
         double QN[35];
         double v[3];
@@ -465,7 +465,6 @@ void  Geometry_Hybrid_Sphere::Energy_calc(double * k_i,
         
         int ip1,jp1,kp1, im1, jm1, km1, ll;
         double dQ[15];
-        double ddQ[30];
         double QN[5];
         double v[3];
         

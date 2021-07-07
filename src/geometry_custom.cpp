@@ -9,7 +9,7 @@
 #include <ctime>
 #include <cstring>
 #include <algorithm>   
-
+#pragma warning(disable : 4996)
 #define MAX(a,b) ((a) > (b) ? a : b)
 #define min(a,b) ((a) < (b) ? a : b)
 
@@ -98,8 +98,6 @@ void  Geometry_Custom::fill_ki(double * k_i,
         else 
         {
           //check_surface_limits( i,  j,  k);
-          double delta_x,delta_y,delta_z;
-          double rr;
           int bound=point_type[(k*Ny+j)*Nx+i]-2;
           
           //Boundary condtions:
@@ -139,10 +137,9 @@ void  Geometry_Custom::compute_forces(double * k_i, const double * Qij)  const
     {
       for( int i= 0; i< Nx; i++)
 	    {	
-        int ip1,jp1,kp1, im1, jm1, km1, ll;
-        double dQ[15];
-        double ddQ[30];
-        double QN[27*5];
+        int ip1,jp1,kp1, im1, jm1, km1;
+        double dQ[105];
+        double QN[35];
               
 	      if(point_type[(k*Ny+j)*Nx+i] == 1)
         {
@@ -153,10 +150,7 @@ void  Geometry_Custom::compute_forces(double * k_i, const double * Qij)  const
           im1= (i-1+Nx)%Nx;
           jm1= (j-1+Ny)%Ny;
           km1= (k-1+Nz)%Nz;
-          
-          double dQ[105];
-          double QN[35];
-        
+                  
           for(int ll=0; ll<=4;ll++) QN[ll+5*(0)]=Qij[5*(Nx*(Ny*km1+j  )+i  )+ll];
           for(int ll=0; ll<=4;ll++) QN[ll+5*(1)]=Qij[5*(Nx*(Ny*k  +jm1)+i  )+ll];
           for(int ll=0; ll<=4;ll++) QN[ll+5*(2)]=Qij[5*(Nx*(Ny*k  +j  )+im1)+ll];
@@ -274,10 +268,7 @@ void  Geometry_Custom::test_derivatives( const char integrator_type[])  const
       for( int i= 0; i< Nx; i++)
       {
         
-        int ip,jp,kp, im, jm, km, ll;
-        double dQ[15];
-        double ddQ[30];
-        double QN[5];
+        int ip,jp,kp, im, jm, km;
         
         if(point_type[(k*Ny+j)*Nx+i] == 1)
         {
@@ -329,11 +320,6 @@ void  Geometry_Custom::test_derivatives( const char integrator_type[])  const
         }
         else 
         {
-          //check_surface_limits( i,  j,  k);
-          double delta_x,delta_y,delta_z;
-          double rr;
-          int bound=point_type[(k*Ny+j)*Nx+i]-2;
-          
           //Boundary condtions:
           
           ip= (v[(k*Ny+j)*Nx+i][0] >=0) ? i : (i+1)%Nx ;
@@ -392,7 +378,6 @@ void  Geometry_Custom::Energy_calc(double * k_i, const double * Qij)  const
 	    {
         int ip1,jp1,kp1, im1, jm1, km1, ll;
         double dQ[15];
-        double ddQ[30];
         double QN[5];
         
 	      if(point_type[(k*Ny+j)*Nx+i] == 1)
@@ -425,9 +410,7 @@ void  Geometry_Custom::Energy_calc(double * k_i, const double * Qij)  const
         else 
         {
           //check_surface_limits( i,  j,  k);
-          double delta_x,delta_y,delta_z;
-          double rr;
-          int bound=point_type[(k*Ny+j)*Nx+i]-1;
+          int bound=point_type[(k*Ny+j)*Nx+i]-2;
           
           //Boundary condtions:
           
@@ -446,8 +429,8 @@ void  Geometry_Custom::Energy_calc(double * k_i, const double * Qij)  const
           for(ll=0; ll<=4;ll++) dQ[5+ll]= (Qij[5*((k*Ny+jp1)*Nx+i)+ll]-Qij[5*((k*Ny+jm1)*Nx+i)+ll])*dy_1;
           for(ll=0; ll<=4;ll++) dQ[10+ll]=(Qij[5*((kp1*Ny+j)*Nx+i)+ll]-Qij[5*((km1*Ny+j)*Nx+i)+ll])*dz_1;
     
-          k_i[2*(Nx*(Ny*k+j)+i)+0]=bulk_energy.energy_calculation(QN,dQ,v[(k*Ny+j)*Nx+i]); 
-          k_i[2*(Nx*(Ny*k+j)+i)+1]=bc_conditions[0]->energy_calculation(QN,dQ,v[(k*Ny+j)*Nx+i]);
+          k_i[2*(Nx*(Ny*k+j)+i)+0]=bulk_energy.energy_calculation(QN,dQ,v[(k*Ny+j)*Nx+i]);
+          k_i[2*(Nx*(Ny*k+j)+i)+1]=bc_conditions[bound]->energy_calculation(QN,dQ,v[(k*Ny+j)*Nx+i]);
 //~           printf("%g %g %d %d %d\n",k_i[2*(Nx*(Ny*k+j)+i)+1],k_i[2*(Nx*(Ny*k+j)+i)],i,j,k);
           //check_surface_limits(i,j,k);
         }
@@ -458,9 +441,8 @@ void  Geometry_Custom::Energy_calc(double * k_i, const double * Qij)  const
        
 int * Geometry_Custom::fill_pt_and_normals( double **v , const char bound_file_name[], int &number_of_boundaries)  const 
 {
-  int i, j, k, ijk, nn;
-  double v_temp[3];
-  int * point_kind, max_point_kind, line_number, read_tester=1;
+  int i, nn;
+  int * point_kind, max_point_kind=0, line_number, read_tester=1;
   int NoV,pos_nx, pos_ny, pos_nz, pos_pt;
   FILE *bound_input = fopen(bound_file_name,"r");
   if(bound_input==0){perror(bound_file_name);exit(2);}
@@ -470,7 +452,7 @@ int * Geometry_Custom::fill_pt_and_normals( double **v , const char bound_file_n
   fgets(line,500,bound_input);
   testline=line;
   NoV=1+std::count(testline.begin(),testline.end(),',');
-  double var[NoV];
+  double *var= new double[NoV];
   char strvar[500];
   rewind(bound_input);
   for (i=0; i<NoV;i++) 
@@ -499,7 +481,6 @@ int * Geometry_Custom::fill_pt_and_normals( double **v , const char bound_file_n
     int ii=(int)var[0];
     int jj=(int)var[1];
     int kk=(int)var[2];
-    ijk=(Ny*kk+jj)*Nx+ii;
     line_number++;
     if (ii>=Nx|| jj>=Ny||kk>=Nz){fprintf(stderr,"Point out of the simulation box at line %d\n",line_number);exit(10);}
     if ((int)var[pos_pt]<0){fprintf(stderr,"Negative Point Type founde at line %d\n\

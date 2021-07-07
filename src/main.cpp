@@ -7,7 +7,7 @@
 #include <cstring>
 #include <cmath>            
 
-#include <unistd.h>
+//#include "unistd.h"
 #define MarLiCS_Version 1.2
 
 int main(int argc, char **argv)
@@ -23,7 +23,6 @@ int main(int argc, char **argv)
   bool   continue_condition=true;
   
   driver Lc_driver=driver();
-  FILE *input_file;
   std::cout<<"Welcome to MarLiCS software v:"<<MarLiCS_Version<<std::endl;
    
   

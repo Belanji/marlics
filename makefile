@@ -1,23 +1,23 @@
 ########### Gnu:
- COMPILER := g++
- FLAGS    :=  -Ofast -fipa-pta -fopenmp -Wno-unused-result -Wno-format -static -march=native 
- LIB := -lm -lgsl -lgslcblas -lgomp -pthread
+ COMPILER :=g++
+ FLAGS    :=-Ofast -fipa-pta -fopenmp -static -march=native
+ LIB      :=-lm -lgsl -lgslcblas -lgomp -pthread
 
 ############ Intel:
 # COMPILER := icpc
 # FLAGS    := -static -ipo -fast -no-prec-div -xHost -simd -qopenmp -fp-model fast=2
-# LIB := -mkl -lgsl 
+# LIB      := -mkl -lgsl 
 
 
-CPPS := $(wildcard src/*.cpp)
+CPPS   := $(wildcard src/*.cpp)
 HEADER := $(wildcard src/*.h)
-OBJS  := $(patsubst src/%.cpp,build/%.o,${CPPS})
+OBJS   := $(patsubst src/%.cpp,build/%.o,${CPPS})
 
 marlics: ${OBJS}
-	@${COMPILER}  ${FLAGS}  ${OBJS} ${LIB} -o marlics
+	@${COMPILER} ${FLAGS} ${OBJS} ${LIB} -o marlics
 ######### Build all cpp's into objects
 ${OBJS}: build/%.o: src/%.cpp | build
-	@${COMPILER}  ${FLAGS} -c $< -o $@
+	${COMPILER} ${FLAGS} -c $< -o $@
 ######### 	
 ${OBJS}: ${HEADER}
 build:

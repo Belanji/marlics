@@ -1,3 +1,5 @@
+#define _USE_MATH_DEFINES
+#pragma warning(disable : 4996)
 #include "driver.h"
 #include "container.h"
 #include "geometry.h"
@@ -22,7 +24,6 @@
 #include <vector>
 #include <string>
 #include <iostream>
-
 #define MIN(a,b) ((a) < (b) ? a : b)
 
 
@@ -601,7 +602,7 @@ int driver::parse_input_file(char input_name[])
           fgets(garbage,400,input_file);
           
         }
-    else if ( strcasecmp(parser,"seed") == 0 |strcasecmp(parser,"rng_seed") == 0  )
+    else if ( (strcasecmp(parser,"seed") == 0) | (strcasecmp(parser,"rng_seed") == 0))
         {
           sim_param.ic_flag[4]=parameter_status::set;
           error_handler=fscanf(input_file,"%d",&sim_param.rng_seed);

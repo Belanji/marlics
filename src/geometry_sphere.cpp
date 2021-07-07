@@ -225,12 +225,11 @@ void  Geometry_Sphere::compute_forces(double * k_i, const double * Qij)  const
     {
       for( int i= 0; i< Nx; i++)
 	    {	
-        int ip1,jp1,kp1, im1, jm1, km1, ll;
-        double dQ[15];
-        double ddQ[30];
-        double QN[27*5];
+        int ip1, jp1, kp1, im1, jm1, km1;
+        double dQ[105];
+        double QN[35];
         double v[3];
-              
+          
 	      if(point_type[(k*Ny+j)*Nx+i] == 1)
         {
           //check_bulk_limits( i,  j,  k);                    
@@ -241,15 +240,7 @@ void  Geometry_Sphere::compute_forces(double * k_i, const double * Qij)  const
           jm1= (j-1);
           km1= (k-1);
           if(i*j*k==0||i==Nx-1 ||j==Ny-1 ||k==Nz-1) printf("Point type violation at (%d,%d,%d)\n",i,j,k);
-  
-          double dQ[105];
-          double QN[35];
-          double v[3];
-  
-          v[0]=0;
-          v[1]=0;
-          v[2]=0;
-        
+          
           for(int ll=0; ll<=4;ll++) QN[ll+5*(0)]=Qij[5*(Nx*(Ny*km1+j  )+i  )+ll];
           for(int ll=0; ll<=4;ll++) QN[ll+5*(1)]=Qij[5*(Nx*(Ny*k  +jm1)+i  )+ll];
           for(int ll=0; ll<=4;ll++) QN[ll+5*(2)]=Qij[5*(Nx*(Ny*k  +j  )+im1)+ll];
@@ -387,7 +378,6 @@ void  Geometry_Sphere::Energy_calc(double * k_i, const double * Qij)  const
 	    {
         int ip1,jp1,kp1, im1, jm1, km1, ll;
         double dQ[15];
-        double ddQ[30];
         double QN[5];
         double v[3];
         

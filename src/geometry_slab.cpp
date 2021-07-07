@@ -138,7 +138,7 @@ void  slab::fill_ki(double * k_i,
       
           int ip1= (i+1)%Nx;
           int jp1= (j+1)%Ny;
-          int kp1= k;
+//~           int kp1= k;
           int im1= (i+Nx-1)%Nx;
           int jm1= (j+Ny-1)%Ny;
           int km1= (k-1);
@@ -247,12 +247,6 @@ void  slab::compute_forces(double * k_i,const double * Qij) const
 
         double dQ[105];
         double QN[35];
-        double v[3];
-
-        v[0]=0;
-        v[1]=0;
-        v[2]=0;
-
       
 	      for(int ll=0; ll<=4;ll++) QN[ll+5*(0)]=Qij[5*(Nx*(Ny*km1+j  )+i  )+ll];
 	      for(int ll=0; ll<=4;ll++) QN[ll+5*(1)]=Qij[5*(Nx*(Ny*k  +jm1)+i  )+ll];
@@ -369,7 +363,6 @@ void  slab::Energy_calc(double * k_i, const double * Qij)  const
     for( int i= 0; i< Nx; i++)
     {
       double dQ[15];
-      double ddQ[30];
       double QN[5];
       double v[3];
       
@@ -402,7 +395,6 @@ void  slab::Energy_calc(double * k_i, const double * Qij)  const
       for( int i= 0; i< Nx; i++)
 	    {	
         double dQ[15];
-        double ddQ[30];
         double QN[5];
         double v[3];
 
@@ -433,13 +425,12 @@ void  slab::Energy_calc(double * k_i, const double * Qij)  const
     for( int i= 0; i< Nx; i++)
     {
       double dQ[15];
-      double ddQ[30];
       double QN[5];
       double v[3];
   
       int ip1= (i+1)%Nx;
       int jp1= (j+1)%Ny;
-      int kp1= k;
+//~       int kp1= k;
       int im1= (i+Nx-1)%Nx;
       int jm1= (j+Ny-1)%Ny;
       int km1= (k-1);

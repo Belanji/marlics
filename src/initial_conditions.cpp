@@ -1,3 +1,5 @@
+#define _USE_MATH_DEFINES
+#pragma warning(disable : 4996)
 #include "driver.h"
 #include "geometry.h"
 #include "initial_conditions.h"
@@ -113,7 +115,7 @@ void random_ic( struct Simulation_Parameters * sim_param,double * Qij, const GEO
   
   
   if (sim_param->ic_flag[4]==parameter_status::unset) 
-    gsl_rng_default_seed=time(NULL);
+    gsl_rng_default_seed=(unsigned long)time(NULL);
   else gsl_rng_default_seed= sim_param->rng_seed;
 //  gsl_rng_default_seed=1570800053;
   
@@ -172,7 +174,7 @@ void random_hemis_ic( struct Simulation_Parameters * sim_param,double * Qij, con
   
   
   if (sim_param->ic_flag[4]==parameter_status::unset) 
-    gsl_rng_default_seed=time(NULL);
+    gsl_rng_default_seed=(unsigned long)time(NULL);
   else gsl_rng_default_seed= sim_param->rng_seed;
 //  gsl_rng_default_seed=1570800053;
   
@@ -639,7 +641,7 @@ void homeotropic_asatz( struct Simulation_Parameters * sim_param,double * Qij, c
     }
   double Nc=2*Nz/(p0_i);
       std::cout << "p0_i=" << Nc << "\n";
-  double Omega,Rr,Theta, Phi;
+  double Phi;
       
   for(i= 0; i< Nx; i++)
     {
@@ -651,9 +653,7 @@ void homeotropic_asatz( struct Simulation_Parameters * sim_param,double * Qij, c
               if(point_type[(k*Ny+j)*Nx+i] !=0 )
                 {
                   
-                  Rr=sqrt((i-Nx/2)*(i-Nx/2)+(j-Ny/2)*(j-Ny/2)+(k-Nz/2)*(k-Nz/2));
                   Phi=atan2((j-Ny/2),(i-Nx/2));
-                  Theta=acos(((k-Nz/2)/Rr));
                   n[0]=((m_i-1)?-1: 1)*sin(Phi)*sin(Nc*Phi);
                   n[1]=((m_i-1)? 1:-1)*sin(Phi)*cos(Nc*Phi);
                   n[2]=cos(Phi);
@@ -778,7 +778,6 @@ void read_from_file_ic( struct Simulation_Parameters * sim_param, double * Qij, 
   const int Nx=geometry->Nx;
   const int Ny=geometry->Ny;
   const int Nz=geometry->Nz;
-  const int * point_type=geometry->point_type;
   
   ic_file=fopen(sim_param->ic_file_name,"r");
   if (ic_file== NULL)
@@ -807,7 +806,7 @@ void read_from_file_ic( struct Simulation_Parameters * sim_param, double * Qij, 
               read_status=sscanf(string_placeholder,"%d,%d,%d,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf\n",&ii,&jj,&kk,&n[0],&n[1],&n[2],&l[0],&l[1],&l[2],&S,&P);
               read_check(read_status,reading_line);
  
-              if(ii>=Nx|jj>=Ny|kk>=Nz)
+              if((ii>=Nx)|(jj>=Ny)|(kk>=Nz))
                 {
                   printf("ERROR: in line %d of %s.\n",reading_line+1,sim_param->ic_file_name);
                   printf("You are trying to assing the lattice (%d,%d,%d) in a cell of dimensions (%d,%d,%d).\n",ii,jj,kk,Nx,Ny,Nz);

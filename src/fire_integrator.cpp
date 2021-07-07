@@ -7,6 +7,7 @@
 #include "geometry.h"
 #include "integrator.h"
 #include "fire_integrator.h"
+#pragma warning(disable : 3002)
 #define cl 2
 #define cll 2
 #define fixed_chunk_size 1
@@ -43,8 +44,8 @@ FIRE::FIRE( GEOMETRY  * lc_pointer, const struct Simulation_Parameters *sim_para
 
 bool FIRE::evolve( double * Qij, double *time, double tf )
 {
-  int ll,information_step=1, count=0, ccta=0, cc=0;
-  double Total_Energy0, Total_Energy1, Qijtest, f2max;
+  int ll,information_step=1;//, count=0, ccta=0, cc=0;
+  double Total_Energy, Qijtest, f2max;
   double dt=dt_init>dtmin?dt_init:dtmin;
   bool continue_condition=true;
   Np=0;
@@ -148,14 +149,15 @@ bool FIRE::evolve( double * Qij, double *time, double tf )
         }
       }
     }
-    Total_Energy0=0;
+    Total_Energy=0;
     sample_geometry->Energy_calc(energy,Qij);
-    #pragma omp for simd schedule(simd:dynamic,new_chunk_size) reduction(+: Total_Energy0)
-        for( ll=0; ll<2*5*Nx*Ny*Nz;ll++) Total_Energy0+=energy[ll];
+      std::cout << "time=" << *time << ", Energy=" << Total_Energy << std::endl;
+    #pragma omp for simd schedule(simd:dynamic,new_chunk_size) reduction(+: Total_Energy)
+        for( ll=0; ll<2*5*Nx*Ny*Nz;ll++) Total_Energy+=energy[ll];
         
     #pragma omp barrier
     #pragma omp single 
-      std::cout << "time=" << *time << ", Energy=" << Total_Energy0 << std::endl;
+      std::cout << "time=" << *time << ", Energy=" << Total_Energy << std::endl;
             
   }
   return continue_condition;

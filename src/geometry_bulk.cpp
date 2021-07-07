@@ -107,12 +107,6 @@ void  Geometry_Bulk::compute_forces(double * k_i,const double * Qij) const
 
         double dQ[105];
         double QN[35];
-        double v[3];
-
-        v[0]=0;
-        v[1]=0;
-        v[2]=0;
-
       
 	      for(int ll=0; ll<=4;ll++) QN[ll+5*(0)]=Qij[5*(Nx*(Ny*km1+j  )+i  )+ll];
 	      for(int ll=0; ll<=4;ll++) QN[ll+5*(1)]=Qij[5*(Nx*(Ny*k  +jm1)+i  )+ll];
@@ -176,7 +170,6 @@ void  Geometry_Bulk::Energy_calc(double * k_i,const double * Qij) const
         int km1= (k+Nz-1)%Nz;
 
         double dQ[15];
-        double ddQ[30];
         double QN[5];
         double v[3];
 

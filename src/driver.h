@@ -1,6 +1,8 @@
 #ifndef LC_DRIVER_
 #define LC_DRIVER_
-
+#ifdef _WIN32
+#define strcasecmp _stricmp
+#endif
 #include <iostream>
 #define ERROr std::cout<<"cannot allocate memory\n"; exit(4);
 #include <vector>

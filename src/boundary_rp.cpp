@@ -1,3 +1,4 @@
+#define _USE_MATH_DEFINES
 #include "driver.h"
 #include "geometry.h"
 #include "boundary.h"

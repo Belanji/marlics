@@ -18,7 +18,7 @@ class BOUNDARY: public ENERGY
   
  public:
     
-  BOUNDARY(const class Simulation_Parameters *, int);
+  BOUNDARY(const Simulation_Parameters *, int);
   virtual ~BOUNDARY() {};
   
   virtual double functional_derivative_00(const double  QN[5],const double  dQ[15],const double  ddQ[30], const double v[3]) const=0  ;

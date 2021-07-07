@@ -31,7 +31,7 @@ class Boundary_Rp : public BOUNDARY
   virtual double force_12(const double  QN[27*5],const double dQ[], const double v[3]) const ;
   virtual ~Boundary_Rp() {};
 
-  Boundary_Rp(const class Simulation_Parameters *, int);
+  Boundary_Rp(const Simulation_Parameters *, int);
 };
 
  
