@@ -12,29 +12,45 @@ File structure:
 
 src/ -> folder containing MarLiCs the source code;
 
-src/boundary.(cpp/h) -> a superclass used to define the anchoring energies;
-src/boundary_%%%.(cpp/h) -> the class defining the anchoring type %%%;
-src/container.(cpp/h) -> Responsible for printing the output CSV file;
-src/driver.(cpp/h) -> Responsible for reading the input_file, setuping the simulation variables. Contains the definition of struct Simulation_Parameters, which contains all the require variables.
-src/energy.(cpp/h) -> a superclass used to define the functional derivative to be used along with the integrator;
-src/energy_ldg.(cpp/h) -> a class with the Landau de Gennes functional derivative;
-src/geometry.(cpp/h) -> a superclass used to define the system geometry;
-src/geometry_%%%.(cpp/h) -> the class which define the %%% geometry;
-src/initial_conditions.(cpp/h) -> here we define all pre-programed initial conditions; 
-src/integrator.(cpp/h) -> a superclass used to define the any temporal integrator
-src/integrator_%%%.(cpp/h) -> the class which define the %%% integrator;
-src/fire_integrator.(cpp/h) -> a class containing the FIRE method;
-src/force.(cpp/h) -> a superclass used to define the force to be used along with the FIRE method;
-src/force_ldg.(cpp/h) -> the class with the force defined after the LdG energy;
+	src/boundary.(cpp/h) -> a superclass used to define the anchoring energies;
+
+	src/boundary_%%%.(cpp/h) -> the class defining the anchoring type %%%;
+
+	src/container.(cpp/h) -> Responsible for printing the output CSV file;
+
+	src/driver.(cpp/h) -> Responsible for reading the input_file, setuping the simulation variables. Contains the definition of struct Simulation_Parameters, which contains all the require variables.
+	src/energy.(cpp/h) -> a superclass used to define the functional derivative to be used along with the integrator;
+
+	src/energy_ldg.(cpp/h) -> a class with the Landau de Gennes functional derivative;
+
+	src/geometry.(cpp/h) -> a superclass used to define the system geometry;
+
+	src/geometry_%%%.(cpp/h) -> the class which define the %%% geometry;
+
+	src/initial_conditions.(cpp/h) -> here we define all pre-programed initial conditions; 
+
+	src/integrator.(cpp/h) -> a superclass used to define the any temporal integrator
+
+	src/integrator_%%%.(cpp/h) -> the class which define the %%% integrator;
+
+	src/fire_integrator.(cpp/h) -> a class containing the FIRE method;
+
+	src/force.(cpp/h) -> a superclass used to define the force to be used along with the FIRE method;
+
+	src/force_ldg.(cpp/h) -> the class with the force defined after the LdG energy;
 
 auxiliar/ -> some auxiliar files to aid the user;
 
-auxiliar/renderize/ -> contain routines to renderize the directors and the isosurface of the parameter order S;
-auxiliar/boundaries/ -> contain 2 examples off c++ files that can be used to produce boundary files;
+	auxiliar/renderize/ -> contain routines to renderize the directors and the isosurface of the parameter order S;
+
+	auxiliar/boundaries/ -> contain 2 examples off c++ files that can be used to produce boundary files;
+
 examples/ -> a series of MarLiCs usage examples;
+
 notebook/ -> Some Mathematica nb files used to evaluate symbolically the functional derivatives.
 	
 makefile -> a makefile used to compile the code
+
 Windows_makefile -> a makefile to compile a windows executable under a GNU environment
 
 MarlicsVS/ ->folder containing the files required to compile  marlics in the virtual studio environment.
