@@ -7,13 +7,18 @@ import sys
 
 
 if len(sys.argv)==1:
-	print 'Please, use this script as \''+sys.argv[0]+' csvfilename [px] [py] [pz]\''
-	print 'csvfilename -> a input csv file containing the position, direction and pt of the director field.'
-	print 'px, py and pz -> optional arguments to indicate the slice position of the 3 slices, the default value refers to the center point of the director field.'
+	print ('Please, use this script as \''+sys.argv[0]+' csvfilename [px] [py] [pz]\'')
+	print ('csvfilename -> a input csv file containing the position, direction and pt of the director field.')
+	print ('px, py and pz -> optional arguments to indicate the slice position of the 3 slices, the default value refers to the center point of the director field.')
 	exit()
 else:
 	InputFile=str(sys.argv[1])
-OutputFile= InputFile[0:-3]+'png'
+if(InputFile.rfind('/')!=-1):
+	OutputFolder=InputFile[:InputFile.rfind('/')+1]
+	OutputFile=InputFile[InputFile.rfind('/')+1:-4]+'.png'
+else:
+	OutputFolder='.'
+	OutputFile=InputFile[:-4]+'.png'
 
 paraview.simple._DisableFirstRenderCameraReset()
 # create a new 'CSV Reader'
@@ -147,7 +152,7 @@ renderView1.CameraParallelScale =  Bounds[5]/1.95
 renderView1.Background=[0.6,0.6,0.6]
 imageScale=int((200000/(Bounds[3]*Bounds[5]))+1)
 # save screenshot
-SaveScreenshot("x_"+OutputFile, renderView1, SaveAllViews=0,
+SaveScreenshot(OutputFolder+"x_"+OutputFile, renderView1, SaveAllViews=0,
     ImageResolution=[int(imageScale*Bounds[3]),int(imageScale*Bounds[5])],
     FontScaling='Scale fonts proportionally',
     SeparatorWidth=0,
@@ -174,7 +179,7 @@ renderView1.CameraParallelScale =  Bounds[5]/1.95
 renderView1.CameraParallelProjection = 1
 imageScale=int((200000/(Bounds[1]*Bounds[5]))+1)
 # save screenshot
-SaveScreenshot("y_"+OutputFile, renderView1, SaveAllViews=0,
+SaveScreenshot(OutputFolder+"y_"+OutputFile, renderView1, SaveAllViews=0,
     ImageResolution=[int(imageScale*Bounds[1]),int(imageScale*Bounds[5])],
     FontScaling='Scale fonts proportionally',
     SeparatorWidth=0,
@@ -201,7 +206,7 @@ renderView1.CameraParallelScale =  Bounds[3]/1.95
 renderView1.CameraParallelProjection = 1
 imageScale=int((200000/(Bounds[1]*Bounds[3]))+1)
 # save screenshot
-SaveScreenshot("z_"+OutputFile, renderView1, SaveAllViews=0,
+SaveScreenshot(OutputFolder+"z_"+OutputFile, renderView1, SaveAllViews=0,
     ImageResolution=[int(imageScale*Bounds[1]),int(imageScale*Bounds[3])],
     FontScaling='Scale fonts proportionally',
     SeparatorWidth=0,

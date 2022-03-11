@@ -6,25 +6,29 @@ import math
 import sys
 
 if len(sys.argv)<5:
-	print 'Please, use this script as \''+sys.argv[0]+' csvfilename [Nx] [Ny] [Nz]\''
+	print ('Please, use this script as \''+sys.argv[0]+' csvfilename [Nx] [Ny] [Nz]\'')
 	exit()
 
 else:
+
 	InputFile=str(sys.argv[1])
 	Nx = int(sys.argv[2])
 	Ny = int(sys.argv[3])
 	Nz = int(sys.argv[4])
-
 csvfile =  CSVReader(FileName=InputFile)
-
+if(InputFile.rfind('/')!=-1):
+	OutputFolder=InputFile[:InputFile.rfind('/')+1]
+	OutputFile=InputFile[InputFile.rfind('/')+1:-4]+'.png'
+else:
+	OutputFolder='.'
+	OutputFile=InputFile[:-4]+'.png'
 renderView1 = FindViewOrCreate('RenderView1', viewtype='RenderView')
-
 # set active view
 SetActiveView(renderView1)
 
 # Properties modified on tableToStructuredGrid1
 tableToStructuredGrid1 = TableToStructuredGrid(Input=csvfile)
-tableToStructuredGrid1.WholeExtent = [0, Nx, 0, Ny, 0, Nz]
+tableToStructuredGrid1.WholeExtent = [0, Nx-1, 0, Ny-1, 0, Nz-1]
 tableToStructuredGrid1.XColumn = 'x'
 tableToStructuredGrid1.YColumn = 'y'
 tableToStructuredGrid1.ZColumn = 'z'
@@ -134,24 +138,25 @@ bounds = GetActiveSource().GetDataInformation().GetBounds()
 # Properties modified on ptLUT
 renderView1.Background = [0.7,0.7,0.7]
 # current camera placement for renderView1
-renderView1.CameraPosition = [3*(bounds[1]-bounds[0]), 3*(bounds[3]-bounds[2]),3*(bounds[5]-bounds[4])]
-renderView1.CameraFocalPoint = [-1.5*(bounds[1]-bounds[0]), -1.5*(bounds[3]-bounds[2]), -1.5*(bounds[5]-bounds[4])]
+renderView1.CameraPosition = [bounds[1],bounds[3],bounds[5]]
+renderView1.CameraFocalPoint = [bounds[0],bounds[2],bounds[4]]
 renderView1.CameraViewUp = [0,0,1]
 renderView1.ResetCamera()
 renderView1.CameraParallelProjection = 1
-renderView1.CameraParallelScale = bounds[5]/1.3
-SaveScreenshot('iso_'+InputFile[:-4]+'.png', renderView1, ImageResolution=[1510, 1510])
+SaveScreenshot(OutputFolder+'iso_'+OutputFile, renderView1, ImageResolution=[10*Nz,10*Nx])
 
 
 renderView1.CameraPosition =   [0.5*bounds[1], -0.5*bounds[3],0.5*bounds[5]]
 renderView1.CameraFocalPoint = [0.5*bounds[1], 3.5*bounds[3],0.5*bounds[5]]
 renderView1.CameraViewUp = [0,0,1]
-SaveScreenshot('iso_y_'+InputFile[:-4]+'.png', renderView1, ImageResolution=[1510, 1510])
+renderView1.CameraParallelScale = 0.55*Nz
+SaveScreenshot(OutputFolder+'iso_y_'+OutputFile, renderView1, ImageResolution=[10*Nx, 10*Nz])
 
 renderView1.CameraPosition =   [0.5*bounds[1], 0.5*bounds[3],-0.5*bounds[5]]
 renderView1.CameraFocalPoint = [0.5*bounds[1], 0.5*bounds[3], 3.5*bounds[5]]
 renderView1.CameraViewUp = [1,0,0]
-SaveScreenshot('iso_z_'+InputFile[:-4]+'.png', renderView1, ImageResolution=[1510, 1510])
+renderView1.CameraParallelScale = 0.55*Nx
+SaveScreenshot(OutputFolder+'iso_z_'+OutputFile, renderView1, ImageResolution=[10*Ny, 10*Nx])
 
 
 
