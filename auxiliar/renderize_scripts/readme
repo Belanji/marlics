@@ -1,3 +1,12 @@
+###### Texture Generator ######
+The textureGenerator.cpp is a code created to renderize a texture via the Mueller matrices.
+This code uses 4 aditional arguments to run:
+
+input file - which gives the path of a .csv file formated under the Marlics standarts.
+Nx, Ny and Nz - given by the dimensions of the study system. 
+
+
+###### ParaView scripts ######
 Here we provide 2 sample scripts created to vizualize a csv input_file.
 The renderize.py can be used to represent the direct field as cilinders in 3 perpendicular planes.
 The user can define a point (px,py,pz) to generate these planes with the command:
